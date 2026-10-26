@@ -3,7 +3,7 @@
 import SiteHero from "./SiteHero";
 
 // Home page top: the shared SiteHero (title bar "Welcome !", hero box, both
-// rows of boxes, Connect with me !) plus the "Save Time !" line.
+// rows of boxes, Connect with us !) plus the "Save Time !" line.
 export default function HomeHero({ detailsHref }) {
   return (
     <div className="home-hero">

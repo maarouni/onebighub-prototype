@@ -12,7 +12,7 @@ import CollapseArrow from "./CollapseArrow";
 //   ┌ Innovative, Results-Based … ┐    white box, collapsible
 //   [5 section tiles]                   row 1
 //   [4 section action boxes]            row 2 (EDIT box turns gray on edit pages)
-//   [ ⇄ Connect with me ! ]             yellow bar
+//   [ ⇄ Connect with us ! ]             yellow bar
 //
 // Change it here once and every page follows.
 
@@ -102,9 +102,9 @@ function PageBar({ title, icon, mode, section }) {
 
 export function ConnectWithMe() {
   return (
-    <a href="/connections" className="connect-me" data-tip="Connect with me ! — Killer Feature">
+    <a href="/connections" className="connect-me" data-tip="Connect with us ! — Killer Feature">
       <Glyph name="connectMe" size={20} />
-      <b><i>Connect with me !</i></b>
+      <b><i>Connect with us !</i></b>
     </a>
   );
 }

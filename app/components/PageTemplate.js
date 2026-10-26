@@ -5,7 +5,7 @@ import SiteHero from "./SiteHero";
 // Every section page uses this template (Cesar, Oct 19: "most pages are
 // templates"). The top is the shared SiteHero — yellow title bar (gray on
 // EDIT pages), hero box, section tiles, the section's action row and
-// "Connect with me !" — then a white intro box and the page content.
+// "Connect with us !" — then a white intro box and the page content.
 // Usage: <PageTemplate section="employment" mode="edit" title="..." intro="...">
 export default function PageTemplate({
   section,

@@ -3,7 +3,7 @@
 import { ConnectWithMe } from "./SiteHero";
 
 // Oct 19 Figma: new footer on every page, aligned with the page body —
-// "Connect with me !" on the left, copyright on the right.
+// "Connect with us !" on the left, copyright on the right.
 export default function SiteFooter() {
   return (
     <footer className="site-footer-v2">
