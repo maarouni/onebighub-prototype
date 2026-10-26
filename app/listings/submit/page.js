@@ -109,7 +109,7 @@ export default function PostListingPage() {
           {errors.delivery && <span className="ed-error">{errors.delivery}</span>}
         </div>
 
-        <label className="fp-option wide">
+        <label className="fp-option wide" style={{ marginBottom: 14 }}>
           <input type="checkbox" checked={f.referrals} onChange={(e) => set("referrals", e.target.checked)} />
           <span className="fp-label">Offering $ Referrals <em>(pay a share for introductions that convert)</em></span>
         </label>
