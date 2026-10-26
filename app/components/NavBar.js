@@ -41,10 +41,9 @@ export default function NavBar() {
   }, []);
 
   function logOut() {
-    localStorage.removeItem(USER_KEY);
-    window.dispatchEvent(new Event("mc-auth-changed"));
+    // Oct 26: Cesar's Log Out page ("Sooo ... you want to leave us ?").
     setMenuOpen(false);
-    router.push("/");
+    router.push("/registration/logout");
   }
 
   // Oct 15 Figma review: no text links or "+ Create" button in the header
@@ -76,8 +75,8 @@ export default function NavBar() {
         <div className="nav-links nav-icon-groups">
           <span className="nav-icon-group">
             <IconButton name="info" href="/info" />
-            <IconButton name="dashboards" href={user ? "/dashboards" : "/login"} />
-            <IconButton name="settings" href={user ? "/profile" : "/login"} />
+            <IconButton name="dashboards" href={user ? "/dashboards" : "/registration"} />
+            <IconButton name="settings" href={user ? "/profile" : "/registration"} />
           </span>
           <span className="nav-icon-group">
             <IconButton name="pdf" onClick={() => window.print()} />
@@ -99,13 +98,13 @@ export default function NavBar() {
                     <div className="nav-user-name">{user.name}</div>
                     <div className="nav-user-id">{user.identifier}</div>
                     <a href="/dashboards" onClick={() => setMenuOpen(false)}>Dashboards</a>
-                    <a href="/profile" onClick={() => setMenuOpen(false)}>Profile</a>
+                    <a href="/profile" onClick={() => setMenuOpen(false)}>My Profile</a>
                     <button type="button" onClick={logOut}>Log out</button>
                   </div>
                 )}
               </span>
             ) : (
-              <IconButton name="login" href="/login" />
+              <IconButton name="login" href="/registration" />
             )}
           </span>
         </div>

@@ -10,6 +10,9 @@ import { RATE_PAGES, rateValue } from "../lib/adRates";
 export const AD_LINKS = [
   { href: "/advertising/calculate", icon: "calculate", label: "Calculate Advertising Cost" },
   ...RATE_PAGES.map((p) => ({ href: `/advertising/${p.slug}`, icon: p.icon, label: p.title })),
+  // Oct 26 (Cesar's Figma Rev 261025): participation and barter requests.
+  { href: "/advertising/participation", icon: "expo", label: "Event Participation" },
+  { href: "/advertising/barter", icon: "barter", label: "Barter" },
 ];
 
 export function AdNav() {

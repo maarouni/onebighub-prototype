@@ -17,42 +17,50 @@ import CollapseArrow from "./CollapseArrow";
 // Change it here once and every page follows.
 
 const EARN = { key: "earn", icon: "megaphone", label: "Earn with Advertising", href: "/advertising" };
+// Oct 26 (Cesar's Figma): every section row also offers 3-Way Introductions.
+const REFER3 = { key: "refer3", icon: "connectMe", label: "3-Way Introductions / Referrals", href: "/referrals" };
 
 export const SECTION_ACTIONS = {
   calendar: [
     { key: "details", icon: "viewMode", label: "Event Details", href: "/#results" },
     { key: "digest", icon: "calendar", label: "My Calendar Digest", href: "/my-calendar" },
     { key: "edit", icon: "editMode", label: "EDIT My Event Details", href: "/submit", dark: true },
+    REFER3,
     EARN,
   ],
   discounts: [
     { key: "details", icon: "viewMode", label: "Discount / Gift Certificate Details", href: "/discounts#results" },
     { key: "digest", icon: "discount", label: "My Disc. / Gift Certificates Digest", href: "/discounts" },
     { key: "edit", icon: "editMode", label: "EDIT My Discount / Gift Certificates", href: "/discounts/submit", dark: true },
+    REFER3,
     EARN,
   ],
   connections: [
     { key: "details", icon: "viewMode", label: "Connections Details", href: "/connections#results" },
     { key: "digest", icon: "connections", label: "My Connections Digest", href: "/connections" },
     { key: "edit", icon: "editMode", label: "EDIT My Connections Details", href: "/connections/submit", dark: true },
+    REFER3,
     EARN,
   ],
   employment: [
     { key: "details", icon: "viewMode", label: "Employment Details", href: "/employment#results" },
     { key: "digest", icon: "employment", label: "My Employment Digest", href: "/employment" },
     { key: "edit", icon: "editMode", label: "EDIT My Employment Listings", href: "/employment/submit", dark: true },
+    REFER3,
     EARN,
   ],
   products: [
     { key: "details", icon: "viewMode", label: "Listing Details", href: "/listings#results" },
     { key: "digest", icon: "products", label: "My Other Listings Digest", href: "/listings" },
     { key: "edit", icon: "editMode", label: "EDIT My Other Listings", href: "/listings/submit", dark: true },
+    REFER3,
     EARN,
   ],
   notifications: [
     { key: "details", icon: "viewMode", label: "Notification Details", href: "/notifications" },
     { key: "digest", icon: "notifications", label: "My Notifications & Subscriptions", href: "/notifications" },
     { key: "edit", icon: "editMode", label: "EDIT My Notifications", href: "/notifications", dark: true },
+    REFER3,
     EARN,
   ],
 };
