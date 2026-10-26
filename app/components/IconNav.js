@@ -2,8 +2,8 @@
 
 // Shared section icon row — Oct 26 (Cesar's Figma Rev 261026 + onebigHUB flyer):
 // One Big Calendar · Connections · Discount / Gift Certificates ·
-// Employment Listings · Notifications. Icons redrawn to match his set:
-// calendar + globe, networked globe, percent badge, toolbox, bell.
+// Employment Listings · Products, Services, Memberships · Notifications. Icons redrawn to match his set:
+// calendar + globe, networked globe, percent badge, toolbox, cube, bell.
 
 const SVG = (children) => (
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"
@@ -57,6 +57,16 @@ const ITEMS = [
       <path d="M8.5 8V5.8A1.8 1.8 0 0 1 10.3 4h3.4a1.8 1.8 0 0 1 1.8 1.8V8" />
       <path d="M2.5 13.5h7M14.5 13.5h7" />
       <rect x="9.5" y="12" width="5" height="3.5" rx=".8" />
+    </>),
+  },
+  {
+    key: "products",
+    href: "/listings",
+    label: "Products, Services, Memberships",
+    tip: "Promote and find products, services and memberships",
+    icon: SVG(<>
+      <path d="M12 2.5l8.5 4.75v9.5L12 21.5l-8.5-4.75v-9.5Z" />
+      <path d="M3.5 7.25 12 12l8.5-4.75M12 12v9.5" />
     </>),
   },
   {

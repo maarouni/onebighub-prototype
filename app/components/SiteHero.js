@@ -43,6 +43,12 @@ export const SECTION_ACTIONS = {
     { key: "edit", icon: "editMode", label: "EDIT My Employment Listings", href: "/employment/submit", dark: true },
     EARN,
   ],
+  products: [
+    { key: "details", icon: "viewMode", label: "Listing Details", href: "/listings#results" },
+    { key: "digest", icon: "products", label: "My Other Listings Digest", href: "/listings" },
+    { key: "edit", icon: "editMode", label: "EDIT My Other Listings", href: "/listings/submit", dark: true },
+    EARN,
+  ],
   notifications: [
     { key: "details", icon: "viewMode", label: "Notification Details", href: "/notifications" },
     { key: "digest", icon: "notifications", label: "My Notifications & Subscriptions", href: "/notifications" },
@@ -59,18 +65,20 @@ const HERO_LINES = {
     discounts: ["What is your Cost of Acquisition of a new client / customer ?", <>Promote your <b>Discount / Gift Certificates</b> here !</>],
     connections: ["What is your Cost of Acquisition of a new client / customer / member ?", <>Manage and promote your <b>Connections</b> here !</>],
     employment: ["What is your Cost of Acquisition of a new hire ?", <>Promote your <b>Employment Listings</b> here !</>],
+    products: ["What is your Cost of Acquisition of a new client / customer / member ?", <>Promote your <b>Products, Services, Memberships</b> here !</>],
     notifications: ["Avoid costly email blast services", <>Promote your <b>Notifications</b> here !</>],
   },
 };
 
-// (<) and (>) step through the five sections in tile order, wrapping
-// around: One Big Calendar → Discount / Gift Certificates → Connections →
-// Employment Listings → Notifications → back to One Big Calendar.
+// (<) and (>) step through the sections in tile order (Oct 26 Figma), wrapping
+// around: One Big Calendar → Connections → Discount / Gift Certificates →
+// Employment Listings → Products, Services, Memberships → Notifications.
 const SECTION_ORDER = [
   { key: "calendar", href: "/", label: "One Big Calendar" },
-  { key: "discounts", href: "/discounts", label: "Discount / Gift Certificates" },
   { key: "connections", href: "/connections", label: "Connections" },
+  { key: "discounts", href: "/discounts", label: "Discount / Gift Certificates" },
   { key: "employment", href: "/employment", label: "Employment Listings" },
+  { key: "products", href: "/listings", label: "Products, Services, Memberships" },
   { key: "notifications", href: "/notifications", label: "Notifications" },
 ];
 
