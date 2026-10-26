@@ -4,7 +4,7 @@ import { AdPage, RateCard } from "../../components/AdPages";
 
 export default function ListingRatesPage() {
   return (
-    <AdPage title="calendarGold Listings">
+    <AdPage title="onebigHUB Listings">
       <RateCard slug="listings">
         <div className="ad-detail">
           <h3>Free Listing</h3>

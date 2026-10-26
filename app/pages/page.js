@@ -27,7 +27,7 @@ const GROUPS = [
     ["Employment Listings", "/employment", "Browse, filter, post a job"],
     ["Earn with Advertising", "/advertising", "Hub for the advertising pages"],
     ["Calculate Advertising Cost", "/advertising/calculate", "Views vs. clicks, side by side"],
-    ["Rates – calendarGold Listings", "/advertising/listings", "Regular / Premier listing rates"],
+    ["Rates – onebigHUB Listings", "/advertising/listings", "Regular / Premier listing rates"],
     ["Rates – Networking Expos", "/advertising/expos", "Tickets, exhibitors, sponsors"],
     ["Rates – Dinners & Networking", "/advertising/dinners", "Tickets, restaurant hosts"],
     ["Rates – Workshops", "/advertising/workshops", "Tickets, presenters"],
@@ -38,7 +38,7 @@ const GROUPS = [
   ]],
 ];
 
-export const metadata = { title: "All Pages — calendarGold (Prototype)" };
+export const metadata = { title: "All Pages — onebigHUB (Prototype)" };
 
 export default function AllPages() {
   return (

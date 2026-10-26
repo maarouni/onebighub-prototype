@@ -1,7 +1,7 @@
 import FillInHere from "../components/FillInHere";
 import SiteHero from "../components/SiteHero";
 
-// Cesar's wireframe (Figma, Oct 9 rev): "calendarGold.com Dashboards" — the
+// Cesar's wireframe (Figma, Oct 9 rev): "onebigHUB.com Dashboards" — the
 // signed-in account hub: your referral code/QR, your digests, your listings,
 // revenue-share earnings. No real accounts/auth exist yet, so this is a
 // prototype shell with his actual copy — not wired to real data.

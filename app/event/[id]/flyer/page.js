@@ -48,7 +48,7 @@ See you there!
 ${event.hostedBy}
 
 —
-Sent via calendarGold.com. Scan the flyer QR code or click the link above to view full event details and add it to your calendar.`;
+Sent via onebigHUB.com. Scan the flyer QR code or click the link above to view full event details and add it to your calendar.`;
   }, [event, eventUrl]);
 
   function copyEmail() {

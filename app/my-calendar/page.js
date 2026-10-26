@@ -26,13 +26,13 @@ function chrono(a, b) {
 function toICS(list) {
   const esc = (s) => String(s || "").replace(/[\\,;]/g, (m) => `\\${m}`).replace(/\n/g, "\\n");
   const stamp = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d+/, "");
-  const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//calendarGold//My Calendar//EN", "CALSCALE:GREGORIAN"];
+  const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//onebigHUB//My Calendar//EN", "CALSCALE:GREGORIAN"];
   for (const e of list) {
     const d = String(e.date || "").replace(/-/g, "");
     if (!d) continue;
     const m = String(e.time || "").match(/(\d{1,2}):(\d{2})\s*-\s*(\d{1,2}):(\d{2})/);
     const pad = (x) => String(x).padStart(2, "0");
-    lines.push("BEGIN:VEVENT", `UID:${e.id}@calendargold`, `DTSTAMP:${stamp}`);
+    lines.push("BEGIN:VEVENT", `UID:${e.id}@onebighub`, `DTSTAMP:${stamp}`);
     if (m) {
       lines.push(`DTSTART;TZID=America/Los_Angeles:${d}T${pad(m[1])}${m[2]}00`, `DTEND;TZID=America/Los_Angeles:${d}T${pad(m[3])}${m[4]}00`);
     } else {

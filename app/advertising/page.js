@@ -10,7 +10,7 @@ export default function AdvertisingPage() {
     <AdPage title="Earn with Advertising">
       <section className="ad-box">
         <p>
-          calendarGold offers various <b>free and paid opportunities</b> to promote your events, businesses, and
+          onebigHUB offers various <b>free and paid opportunities</b> to promote your events, businesses, and
           organizations, online and in-person. Please <a href="/info#contact">contact us</a> to discuss win-win package deals.
         </p>
       </section>

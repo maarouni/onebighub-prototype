@@ -362,7 +362,7 @@ function newsletterText(d, b) {
     items.forEach((x) => lines.push(`- ${x.event}${x.link ? `\n  ${x.link}` : ""}`));
     lines.push("");
   }
-  lines.push("--", b.footer, "Sent via calendarGold");
+  lines.push("--", b.footer, "Sent via onebigHUB");
   return lines.join("\n");
 }
 
@@ -383,7 +383,7 @@ function newsletterHtml(d, b) {
 <table width="100%" cellpadding="0" cellspacing="0" style="background:#faf8f4;padding:24px 0"><tr><td align="center">
 <table width="600" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:12px;border:1px solid ${d.tier === "Premier" ? "#ff9500" : "#ececec"};padding:28px">
 <tr><td>
-<div style="font-size:13px;font-weight:800;color:${gold}">calendarGold</div>
+<div style="font-size:13px;font-weight:800;color:${gold}">onebigHUB</div>
 <h1 style="margin:10px 0 0;font-size:24px;color:#1a1a1a">${esc(d.business || "Your business")}${d.tier === "Premier" ? ` <span style="font-size:11px;background:#fff1de;color:${gold};padding:3px 8px;border-radius:9px;vertical-align:middle">PREMIER</span>` : ""}</h1>
 ${section(b.sectionA, d.info ? `<p style="margin:0;font-size:15px;line-height:1.5;color:#333;white-space:pre-wrap">${esc(d.info)}</p>` : "")}
 ${section(b.sectionB, list(d.B) ? `<table width="100%" cellpadding="0" cellspacing="0">${list(d.B)}</table>` : "")}
@@ -614,7 +614,7 @@ export default function Notifications() {
 
   const labelsText = useMemo(() => {
     const L = labels;
-    const lines = ["calendarGold - Notification labels", ""];
+    const lines = ["onebigHUB - Notification labels", ""];
     L.filters.forEach((g) => {
       lines.push(`${g.title}:`);
       g.options.filter((o) => o.label).forEach((o) => lines.push(`  - ${o.label}`));
@@ -632,7 +632,7 @@ export default function Notifications() {
   }, [labels]);
 
   const emailLabels = () => {
-    mailto(MASOUD_EMAIL, "calendarGold - my notification labels", labelsText);
+    mailto(MASOUD_EMAIL, "onebigHUB - my notification labels", labelsText);
     flash("Your email app should open. If it didn't, use Copy labels and paste into an email.");
   };
   const copyLabels = async () => {
@@ -640,7 +640,7 @@ export default function Notifications() {
     catch { flash("Copy failed. Use Download labels instead."); }
   };
   const downloadLabels = () => {
-    downloadFile("calendarGold-notification-labels.json", JSON.stringify(labels, null, 2), "application/json");
+    downloadFile("onebigHUB-notification-labels.json", JSON.stringify(labels, null, 2), "application/json");
     flash(`Downloaded. Attach it to an email to ${MASOUD_EMAIL}.`);
   };
   const resetLabels = () => {

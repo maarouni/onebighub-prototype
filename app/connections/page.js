@@ -85,7 +85,7 @@ function OrgsInner() {
               appear on your screen right away. When you&rsquo;re done, click <strong>Send my organizations to Masoud</strong> so I can
               make them permanent for everyone. <em>(Until we set up the database, what you post is only visible on your computer.)</em>
             </FillInHere>
-            <SendToMasoud load={localOrgs} noun="organizations" format={fmtOrg} subject="calendarGold - my organizations" />
+            <SendToMasoud load={localOrgs} noun="organizations" format={fmtOrg} subject="onebigHUB - my organizations" />
 
             {pageItems.length === 0 && (
               <div className="empty-state">

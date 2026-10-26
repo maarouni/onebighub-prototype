@@ -231,7 +231,7 @@ export function googleCalendarUrl(e) {
     text: e.title || "Event",
     dates,
     ctz: "America/Los_Angeles",
-    details: `${e.description || ""}\n\nHosted by ${e.hostedBy || ""} — via calendarGold`,
+    details: `${e.description || ""}\n\nHosted by ${e.hostedBy || ""} — via onebigHUB`,
     location: e.type === "Online" ? "Online" : e.city || "",
   });
   return `https://calendar.google.com/calendar/render?${params.toString()}`;

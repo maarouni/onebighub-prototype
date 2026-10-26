@@ -59,7 +59,7 @@ export default function ReferPage() {
         <section className="refer-card">
           <h3>How the 10% is shared</h3>
           <ol className="refer-levels">
-            <li className="refer-vendor"><b>Vendor</b><span>makes a sale on calendarGold</span></li>
+            <li className="refer-vendor"><b>Vendor</b><span>makes a sale on onebigHUB</span></li>
             {LEVELS.map(([l, pct, who]) => (
               <li key={l}><b>{pct}</b><span>{l} · {who}</span></li>
             ))}

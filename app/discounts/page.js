@@ -77,7 +77,7 @@ function DiscountsInner() {
               appear on your screen right away. When you&rsquo;re done, click <strong>Send my certificates to Masoud</strong> so I can
               make them permanent for everyone. <em>(Until we set up the database, what you post is only visible on your computer.)</em>
             </FillInHere>
-            <SendToMasoud load={localDiscounts} noun="certificates" format={fmtDiscount} subject="calendarGold - my discount / gift certificates" />
+            <SendToMasoud load={localDiscounts} noun="certificates" format={fmtDiscount} subject="onebigHUB - my discount / gift certificates" />
 
             {pageItems.length === 0 && (
               <div className="empty-state">

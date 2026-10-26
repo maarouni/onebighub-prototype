@@ -96,7 +96,7 @@ function EmploymentInner() {
               your screen right away. When you&rsquo;re done, click <strong>Send my listings to Masoud</strong> so I can make them
               permanent for everyone. <em>(Until we set up the database, listings you post are only visible on your computer.)</em>
             </FillInHere>
-            <SendToMasoud load={localJobs} noun="listings" format={fmtJob} subject="calendarGold - my employment listings" />
+            <SendToMasoud load={localJobs} noun="listings" format={fmtJob} subject="onebigHUB - my employment listings" />
 
             {pageItems.length === 0 && featured.length === 0 && (
               <div className="empty-state">

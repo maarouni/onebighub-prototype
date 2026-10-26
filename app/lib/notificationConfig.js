@@ -49,7 +49,7 @@ export const DEFAULT_LABELS = {
     sectionBHint: "Featured events with RSVP links",
     sectionC: "Other Events",
     sectionCHint: "Additional events feed",
-    footer: "You're receiving this because you subscribed on calendarGold. Unsubscribe · Manage preferences",
+    footer: "You're receiving this because you subscribed on onebigHUB. Unsubscribe · Manage preferences",
   },
 };
 

@@ -2715,7 +2715,7 @@ input.sel-radio { --sel-radius: 50%; border-radius: 50% !important; }
   .obc-row, .obc-row.premier { grid-template-columns: 104px minmax(0, 1fr) minmax(36px, auto); }
 }
 
-/* ---- Header tagline: "calendarGold & much more" (Oct 15 call) ---- */
+/* ---- Header tagline (Oct 15 call; Oct 26 rebrand: "Curate Calendar, Connections, ...") ---- */
 .brand-more { font-family: "Poppins", "Lexend", sans-serif; font-size: 14px; font-weight: 500; font-style: italic; color: var(--ink-soft); align-self: flex-end; margin: 0 0 3px -2px; white-space: nowrap; }
 @media (max-width: 480px) { .brand-more { font-size: 12px; } }
 .nt-show-filters { margin: 0 0 10px; }
@@ -2819,3 +2819,24 @@ input.sel-radio { --sel-radius: 50%; border-radius: 50% !important; }
 .event-cover-plain { position: relative; height: 160px; margin: 8px 0 16px; }
 .event-cover-plain .poster-plain { min-height: 160px; border-radius: 12px; }
 .ecp-note { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); font-size: 12px; color: var(--cg-blue); }
+
+/* ===================================================================
+   Oct 21 meeting (Cesar): Edit Mode uses a gray color scheme. Every
+   EDIT page's form body swaps the gold accents for grays; the listing
+   previews inside it keep their real colors (they show the output).
+   =================================================================== */
+.ed-page, .tpl-body-edit {
+  --gold: #8f8f8f;
+  --gold-dark: #5c5c5c;
+  --gold-light: #d9d9d9;
+  --ec-orange: #8f8f8f;
+  --ec-muted: #6b6b6b;
+  --ink-soft: #555555;
+  --ec-faint: #9a9a9a;
+}
+.ed-page .ed-tier button.on, .tpl-body-edit .ed-tier button.on { background: #f0f0f0; }
+.ed-page .site-hero { --gold: #ff9500; --gold-dark: #d97a00; --gold-light: #ffd08a; --ec-orange: #ff9500; --ec-muted: #a9662a; --ink-soft: #7a431a; --ec-faint: #c98f52; }
+.ed-page .obc-row, .tpl-body-edit .obc-row,
+.ed-page .nt-preview-box, .tpl-body-edit .nt-preview-box { --gold: #ff9500; --gold-dark: #d97a00; --gold-light: #ffd08a; --ec-orange: #ff9500; }
+/* Oct 26 rebrand: the onebigHUB wordmark is all ink (Figma) — no gold "HUB". */
+.brand-v2 .brand-word b { color: var(--ink); font-weight: 800; }

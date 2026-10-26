@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>calendarGold Skeleton</title>
+<title>onebigHUB Skeleton</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -78,7 +78,7 @@ nav.idx small{font:11px var(--mono);opacity:.7}
 
 <div class="wrap">
   <header class="top">
-    <h1>calendarGold skeleton</h1>
+    <h1>onebigHUB skeleton</h1>
     <p>Every page from the Figma walkthrough, built as empty boxes in the right order. Masoud builds the boxes; Cesar fills labels, filter lists and copy. Click any box link or the bottom bar to move between pages.</p>
   </header>
   <div class="legend">
@@ -200,8 +200,8 @@ function block(b){
 }
 function show(id){
   const p=byId[id]||PAGES[0];
-  phone.innerHTML=`<div class="url">calendargold.com${p.url}</div>
-   <div class="brand"><b>calendar<i>Gold</i>.com</b><span class="av" aria-label="Signed in as M">M</span></div>
+  phone.innerHTML=`<div class="url">onebighub.com${p.url}</div>
+   <div class="brand"><b>onebig<i>HUB</i>.com</b><span class="av" aria-label="Signed in as M">M</span></div>
    <div class="bar"><span>${esc(p.bar)}</span><span aria-hidden="true">⋯</span></div>
    <div class="body">${p.blocks.map(block).join("")}</div>
    <div class="foot">${FOOT.map(([g,l])=>`<button data-go="${g}">${l}</button>`).join("")}</div>`;

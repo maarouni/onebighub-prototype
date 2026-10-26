@@ -54,22 +54,22 @@ export default function NavBar() {
   return (
     <nav className="navbar">
       <div className="navbar-inner">
-        {/* Oct 19 Figma: new logo — calendar mark, "calendarGold.com",
-            "and much more ..." underneath; icons on the same line, the whole
-            header aligned with the page body. */}
-        <a href="/" className="brand brand-v2" aria-label="calendarGold.com and much more — Home">
-          <svg className="brand-cal" width="38" height="38" viewBox="0 0 40 40" aria-hidden="true">
-            <rect x="3" y="7" width="34" height="30" rx="5" fill="#fff" stroke="#c9922f" strokeWidth="2.4" />
-            <rect x="3" y="7" width="34" height="8" rx="4" fill="#e8a93a" />
-            <path d="M12 3.5v7M28 3.5v7" stroke="#8a5a12" strokeWidth="2.6" strokeLinecap="round" />
-            {[0, 1, 2, 3].map((c) => [0, 1, 2].map((r) => (
-              <rect key={`${c}-${r}`} x={7.5 + c * 7} y={18.5 + r * 5.6} width="4.6" height="3.6" rx="0.8"
-                fill={c === 2 && r === 1 ? "#e8a93a" : "#d8d8d8"} />
-            )))}
+        {/* Oct 26: rebrand to onebigHUB.com (Cesar's Figma Rev 261025) — hub
+            mark, "onebigHUB.com", "Curate Calendar, Connections, ..." underneath. */}
+        <a href="/" className="brand brand-v2" aria-label="onebigHUB.com — Curate Calendar, Connections, and more — Home">
+          <svg className="brand-cal brand-hub" width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"
+            fill="none" stroke="var(--ink)" strokeWidth="2" strokeLinecap="round">
+            {[[20, 4], [34, 12], [34, 28], [20, 36], [6, 28], [6, 12]].map(([x, y], i) => (
+              <g key={i}>
+                <line x1="20" y1="20" x2={20 + (x - 20) * 0.72} y2={20 + (y - 20) * 0.72} />
+                <circle cx={x} cy={y} r="3.2" fill="#fff" />
+              </g>
+            ))}
+            <circle cx="20" cy="20" r="6" fill="#fff" />
           </svg>
           <span className="brand-text">
-            <span className="brand-word">calendar<b>Gold</b><small>.com</small></span>
-            <span className="brand-more">and much more ...</span>
+            <span className="brand-word">onebig<b>HUB</b><small>.com</small></span>
+            <span className="brand-more">Curate Calendar, Connections, ...</span>
           </span>
         </a>
 

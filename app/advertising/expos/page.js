@@ -8,7 +8,7 @@ export default function ExpoRatesPage() {
       <RateCard slug="expos">
         <div className="ad-detail">
           <p>Typical attendance 200 – 800+ · 5-Star Hospitality · Upscale Ambiance · Caterers · Exhibitors · Music · Prizes</p>
-          <p>Your mini-card on the event page links to your profile on calendarGold or directly to your website. Bring your banner, giveaways and marketing collateral, and prizes for the drawing. Discounts available for participating in multiple events.</p>
+          <p>Your mini-card on the event page links to your profile on onebigHUB or directly to your website. Bring your banner, giveaways and marketing collateral, and prizes for the drawing. Discounts available for participating in multiple events.</p>
           <h3>Caterer, Beverage Provider (Spirits, Wine)</h3>
           <p>Includes a 6 ft or 8 ft table with linen.</p>
           <h3>Entertainment</h3>

@@ -1,11 +1,13 @@
-# calendarGold — Prototype
+# onebigHUB — Prototype
 
-**Live:** https://calendargold.vercel.app · **All pages:** https://calendargold.vercel.app/pages
+**Live:** https://onebighub.vercel.app · **All pages:** https://onebighub.vercel.app/pages
 
-calendarGold is a Bay Area events, discounts, connections, employment and notifications platform —
+onebigHUB is a Bay Area events, discounts, connections, employment and notifications platform —
 an innovative, results-based marketing and revenue-sharing system (*Connect • Promote • Earn*).
 This repository is the working prototype used to review page designs and flows before
 the production build.
+
+*Renamed Oct 26, 2026 from calendarGold (calendargold.vercel.app, which redirects here) to onebigHUB, matching Cesar's onebigHUB.com domain.*
 
 ## What's built
 

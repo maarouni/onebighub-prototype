@@ -15,7 +15,7 @@ const money = (n) => (n === 0 ? "Free" : `$${n < 1 ? n.toFixed(n < 0.01 ? 3 : 2)
 export const RATE_PAGES = [
   {
     slug: "listings",
-    title: "calendarGold Listings",
+    title: "onebigHUB Listings",
     icon: "calendar",
     rows: [
       ["Regular Listing", "Free"],

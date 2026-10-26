@@ -130,7 +130,7 @@ function SuperCalendarInner() {
           <div className="timeline-col" id="results">
             <ResultsHead title="One Big Calendar" q={qRaw} setQ={setQRaw}
               showFilters={showFilters} onShowFilters={() => setFiltersShown(true)} />
-            <SendToMasoud load={localEvents} noun="events" format={fmtEvent} subject="calendarGold - my events" />
+            <SendToMasoud load={localEvents} noun="events" format={fmtEvent} subject="onebigHUB - my events" />
 
             {pageItems.length === 0 && (
               <div className="empty-state">

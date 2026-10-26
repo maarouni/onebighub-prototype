@@ -40,7 +40,7 @@ export default function SendToMasoud({ load, noun = "listings", format, subject 
     const blob = new Blob([JSON.stringify(items, null, 2)], { type: "application/json" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
-    a.download = `calendargold-${noun.replace(/\s+/g, "-")}-${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `onebighub-${noun.replace(/\s+/g, "-")}-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(a.href);
   }

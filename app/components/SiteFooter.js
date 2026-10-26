@@ -9,7 +9,7 @@ export default function SiteFooter() {
     <footer className="site-footer-v2">
       <div className="sf-inner">
         <ConnectWithMe />
-        <span>© 2026 calendar<b>Gold</b>.com</span>
+        <span>© 2026 onebig<b>HUB</b>.com</span>
       </div>
     </footer>
   );

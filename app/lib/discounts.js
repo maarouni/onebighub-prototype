@@ -1,5 +1,5 @@
 // Discount / Gift Certificates — fields and filters from Cesar's Figma
-// (calendarGold.com Discount / Gift Certificates, Rev 261012):
+// (onebigHUB.com Discount / Gift Certificates, Rev 261012):
 //   list row: Offer · one-line description · Redeem In-Person / Online ·
 //             Industry • Company · City, State · Discount $ · Expires · Posted
 //   filters:  Date Posted · Redeem Certificate · Discount ($ buckets) ·
@@ -44,10 +44,10 @@ const DISCOUNTS = [
     about: "Day spa offering massage, facials and wellness packages.", phone: "(925) 555-0142", url: "", contact: "Front desk",
   },
   {
-    id: "d2", offer: "Free 30-minute business strategy session", description: "For calendarGold members starting a small business",
+    id: "d2", offer: "Free 30-minute business strategy session", description: "For onebigHUB members starting a small business",
     company: "Bay Area SBDC", industry: "Professional Services", city: "Oakland", state: "CA", region: "Alameda",
     redeem: ["Online", "In-Person"], value: 0, expires: "2026-11-30", posted: "2026-10-05", premier: false,
-    instructions: "Book through the advisor link and mention calendarGold.",
+    instructions: "Book through the advisor link and mention onebigHUB.",
     about: "Free and low-cost advising for small businesses.", phone: "", url: "", contact: "Advising team",
   },
   {
@@ -68,7 +68,7 @@ const DISCOUNTS = [
     id: "d5", offer: "Free headshot mini-session", description: "10 minutes, 2 edited photos — great for LinkedIn",
     company: "Peninsula Portraits", industry: "Professional Services", city: "San Mateo", state: "CA", region: "San Mateo",
     redeem: ["In-Person"], value: 0, expires: "2026-11-15", posted: "2026-09-25", premier: false,
-    instructions: "Available at calendarGold networking expos.",
+    instructions: "Available at onebigHUB networking expos.",
     about: "Professional portrait and event photography.", phone: "", url: "", contact: "",
   },
   {
