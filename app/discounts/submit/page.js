@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import PageTemplate from "../../components/PageTemplate";
 import PremierCalculator from "../../components/PremierCalculator";
 import StateSelect from "../../components/StateSelect";
-import { REGION_GROUPS, INDUSTRIES, REDEEM_OPTIONS, saveLocalDiscount } from "../../lib/discounts";
+import { REGION_GROUPS, INDUSTRIES, REDEEM_OPTIONS, CERT_TYPES, saveLocalDiscount } from "../../lib/discounts";
 
 // Cesar's "EDIT My Discount / Gift Certificates Details" (Figma Rev 261012).
 const ALL_REGIONS = REGION_GROUPS.flatMap((g) => g.options);
@@ -13,7 +13,7 @@ const todayIso = () => new Date().toISOString().slice(0, 10);
 
 const EMPTY = {
   offer: "", description: "", value: "", expires: "", instructions: "",
-  redeem: ["In-Person"], company: "", industry: INDUSTRIES[0], city: "", state: "CA", region: ALL_REGIONS[0],
+  type: "Product", redeem: ["In-Person"], company: "", industry: INDUSTRIES[0], city: "", state: "CA", region: ALL_REGIONS[0],
   about: "", contact: "", phone: "", email: "", url: "", premier: false,
 };
 
@@ -70,8 +70,15 @@ export default function PostCertificatePage() {
         {F({ k: "value", label: "Discount value ($) — 0 if free", type: "number", min: 0 })}
         {F({ k: "expires", label: "Expires", req: true, type: "date", min: todayIso() })}
 
+        <label className="ed-field">
+          <span className="ed-label">Certificate Type</span>
+          <select value={f.type} onChange={(e) => set("type", e.target.value)}>
+            {CERT_TYPES.map((t) => <option key={t}>{t}</option>)}
+          </select>
+        </label>
+
         <div className={`ed-field wide ${errors.redeem ? "has-error" : ""}`}>
-          <span className="ed-label">Redeem Certificate <em>Required</em></span>
+          <span className="ed-label">Format - Redeem Certificate <em>Required</em></span>
           <div className="job-type-grid">
             {REDEEM_OPTIONS.map((r) => (
               <label key={r} className="fp-option">

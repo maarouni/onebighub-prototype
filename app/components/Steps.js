@@ -24,9 +24,10 @@ export function StepHead({ n, title, hint, children }) {
 // label.
 export function NextStep({ noun = "Listing", digest = "My Listing Digest", digestHref = "/my-calendar", detailsHref }) {
   const options = [
-    { id: "details", icon: "editMode", label: `View Selection(s) - ${noun} Details`, href: detailsHref || digestHref, def: true },
-    { id: "digest", icon: "calendar", label: `View Selection(s) - EDIT ${digest}`, href: digestHref },
-    { id: "signup", icon: "login", label: `Sign Up / Log In to ADD ${noun}s & EDIT ${digest}`, href: "/login" },
+    // Wording from Cesar's Figma Rev 261028 (same on every section).
+    { id: "details", icon: "viewMode", label: "View Selection(s)", href: detailsHref || digestHref, def: true },
+    { id: "digest", icon: "calendar", label: `ADD Selection(s) to ${digest}`, href: digestHref },
+    { id: "signup", icon: "login", label: `Sign Up / Log In to ADD Listings to ${digest}`, href: "/registration" },
   ];
   return (
     <div className="next-step next-step-box">

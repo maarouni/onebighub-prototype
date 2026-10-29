@@ -2,18 +2,23 @@
 
 import { FilterShell, Box, CheckList, DateBox, DigestBox, RegionBoxes } from "./FilterKit";
 import {
-  DATE_POSTED_OPTIONS, REDEEM_OPTIONS, DISCOUNT_OPTIONS, INDUSTRIES, REGION_GROUPS,
+  DATE_POSTED_OPTIONS, REDEEM_OPTIONS, CERT_TYPES, DISCOUNT_OPTIONS, INDUSTRIES, REGION_GROUPS,
   EMPTY_DISCOUNT_FILTERS, countDiscountsFor,
 } from "../lib/discounts";
 
-// Discount / Gift Certificates filters — same shared structure as One Big Calendar.
+// Deals — Discount / Gift Certificates filters, Figma Rev 261028 order:
+// Date Posted / Revised · Certificate Type · Format - Redeem · Discount ·
+// Add Selections to My Listings Digest · Industries · Regions.
 export default function DiscountFilterPanel({ items, filters, setFilters, today, q, onHide, onDisplay }) {
   const count = (key, v) => countDiscountsFor(items, filters, { [key]: key === "posted" ? v : [v] }, today, q);
   const kit = { filters, setFilters, count };
   return (
     <FilterShell onHide={onHide} onClear={() => setFilters(EMPTY_DISCOUNT_FILTERS)} onDisplay={onDisplay}>
-      <DateBox title="Date Posted" field="posted" fromKey="postedFrom" toKey="postedTo" options={DATE_POSTED_OPTIONS} {...kit} />
-      <Box title="Redeem Certificate">
+      <DateBox title="Date Posted / Revised" field="posted" fromKey="postedFrom" toKey="postedTo" options={DATE_POSTED_OPTIONS} {...kit} />
+      <Box title="Certificate Type">
+        <CheckList field="type" options={CERT_TYPES} {...kit} />
+      </Box>
+      <Box title="Format - Redeem Certificate">
         <CheckList field="redeem" options={REDEEM_OPTIONS} {...kit} />
       </Box>
       <Box title="Discount">

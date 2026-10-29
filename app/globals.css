@@ -3013,3 +3013,4 @@ button.mini-card:hover { border-color: var(--gold); }
 }
 .connect-me b, .site-footer-v2 .connect-me b { color: var(--cg-red); }
 .sf-inner > span b { color: var(--cg-red); }
+.fp-seeking { font-weight: 800; letter-spacing: .02em; margin-left: 4px; }

@@ -10,6 +10,8 @@ import { INDUSTRIES } from "./employmentTaxonomy";
 export { REGION_GROUPS, INDUSTRIES };
 
 export const REDEEM_OPTIONS = ["In-Person", "Online"];
+// Figma Rev 261028: Certificate Type filter.
+export const CERT_TYPES = ["Product", "Service", "Membership"];
 
 export const DISCOUNT_OPTIONS = [
   { id: "free", label: "Free", min: 0, max: 0 },
@@ -31,48 +33,48 @@ export const DATE_POSTED_OPTIONS = [
 
 export const EMPTY_DISCOUNT_FILTERS = {
   posted: "all", postedFrom: "", postedTo: "",
-  redeem: [], value: [], industry: [], region: [],
+  type: [], redeem: [], value: [], industry: [], region: [],
 };
 
 // Placeholder certificates to test the layout — Cesar replaces these.
 const DISCOUNTS = [
   {
-    id: "d1", offer: "$25 off a 60-minute massage", description: "Any weekday appointment, first-time clients",
+    id: "d1", type: "Service", offer: "$25 off a 60-minute massage", description: "Any weekday appointment, first-time clients",
     company: "Tri-Valley Wellness Spa", industry: "Beauty", city: "Pleasanton", state: "CA", region: "Alameda",
     redeem: ["In-Person"], value: 25, expires: "2026-12-31", posted: "2026-10-09", premier: true,
     instructions: "Show this certificate at the front desk. One per person.",
     about: "Day spa offering massage, facials and wellness packages.", phone: "(925) 555-0142", url: "", contact: "Front desk",
   },
   {
-    id: "d2", offer: "Free 30-minute business strategy session", description: "For onebigHUB members starting a small business",
+    id: "d2", type: "Service", offer: "Free 30-minute business strategy session", description: "For onebigHUB members starting a small business",
     company: "Bay Area SBDC", industry: "Professional Services", city: "Oakland", state: "CA", region: "Alameda",
     redeem: ["Online", "In-Person"], value: 0, expires: "2026-11-30", posted: "2026-10-05", premier: false,
     instructions: "Book through the advisor link and mention onebigHUB.",
     about: "Free and low-cost advising for small businesses.", phone: "", url: "", contact: "Advising team",
   },
   {
-    id: "d3", offer: "15% off your first catering order", description: "Orders of 20+ guests, Bay Area delivery",
+    id: "d3", type: "Product", offer: "15% off your first catering order", description: "Orders of 20+ guests, Bay Area delivery",
     company: "Golden Gate Catering Co.", industry: "Food & Beverage", city: "San Francisco", state: "CA", region: "San Francisco",
     redeem: ["In-Person", "Online"], value: 60, expires: "2027-01-31", posted: "2026-10-01", premier: true,
     instructions: "Use code GOLD15 when ordering online.",
     about: "Event and corporate catering across the Bay Area.", phone: "(415) 555-0190", url: "", contact: "Events desk",
   },
   {
-    id: "d4", offer: "$10 gift certificate", description: "Coffee, pastries and lunch",
+    id: "d4", type: "Product", offer: "$10 gift certificate", description: "Coffee, pastries and lunch",
     company: "Main Street Café", industry: "Food & Beverage", city: "Walnut Creek", state: "CA", region: "Contra Costa",
     redeem: ["In-Person"], value: 10, expires: "2026-12-15", posted: "2026-09-28", premier: false,
     instructions: "Print or show on your phone at the register.",
     about: "Neighborhood café.", phone: "", url: "", contact: "",
   },
   {
-    id: "d5", offer: "Free headshot mini-session", description: "10 minutes, 2 edited photos — great for LinkedIn",
+    id: "d5", type: "Service", offer: "Free headshot mini-session", description: "10 minutes, 2 edited photos — great for LinkedIn",
     company: "Peninsula Portraits", industry: "Professional Services", city: "San Mateo", state: "CA", region: "San Mateo",
     redeem: ["In-Person"], value: 0, expires: "2026-11-15", posted: "2026-09-25", premier: false,
     instructions: "Available at onebigHUB networking expos.",
     about: "Professional portrait and event photography.", phone: "", url: "", contact: "",
   },
   {
-    id: "d6", offer: "$100 off website redesign", description: "Small-business sites, any package",
+    id: "d6", type: "Service", offer: "$100 off website redesign", description: "Small-business sites, any package",
     company: "Silicon Valley Web Studio", industry: "Technology", city: "San Jose", state: "CA", region: "Santa Clara",
     redeem: ["Online"], value: 100, expires: "2027-02-28", posted: "2026-09-20", premier: false,
     instructions: "Mention this certificate on your free consultation call.",
@@ -124,6 +126,7 @@ const TESTS = {
     if (f.posted === "30") return diff >= 0;
     return diff >= 0 && diff <= Number(f.posted);
   },
+  type: (d, f) => !f.type.length || f.type.includes(d.type || "Product"),
   redeem: (d, f) => !f.redeem.length || (d.redeem || []).some((r) => f.redeem.includes(r)),
   value: (d, f) => !f.value.length || f.value.some((id) => {
     const o = DISCOUNT_OPTIONS.find((x) => x.id === id);
