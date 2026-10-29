@@ -10,7 +10,7 @@
 
 export const HUB_TILES = [
   { key: "calendar", href: "/", img: "calendar", label: "One Big Calendar", tip: "Curate your Calendar Digest" },
-  { key: "connections", href: "/connections", img: "connections", label: "Connections", sub: "Indiv. / Biz / Org / Group", tip: "Select your criteria and geographical radius" },
+  { key: "connections", href: "/connections", img: "connections", label: "Connections", tip: "Individuals, businesses, organizations and groups — select your criteria and geographical radius" },
   { key: "introductions", href: "/referrals", img: "introductions", label: "Introductions", tip: "Get paid for introductions / referrals that convert" },
   { key: "earn", href: "/advertising", img: "earn", label: "EARN with Advertising", tip: "Rates, advertising cost, event participation, barter", earn: true },
   { key: "products", href: "/listings", img: "products", label: "Products, Services ...", tip: "Promote and find products and services" },
