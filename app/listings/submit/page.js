@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import PageTemplate from "../../components/PageTemplate";
 import PremierCalculator from "../../components/PremierCalculator";
+import StateSelect from "../../components/StateSelect";
 import {
   REGION_GROUPS, INDUSTRIES, LISTING_TYPES, DELIVERY_OPTIONS, COST_UNITS, saveLocalListing,
 } from "../../lib/listings";
@@ -122,7 +123,7 @@ export default function PostListingPage() {
           </select>
         </label>
         {F({ k: "city", label: "City", req: f.delivery.includes("In-Person") })}
-        {F({ k: "state", label: "State" })}
+        <StateSelect value={f.state} onChange={(v) => set("state", v)} />
         <label className="ed-field">
           <span className="ed-label">Region</span>
           <select value={f.region} onChange={(e) => set("region", e.target.value)}>

@@ -92,7 +92,7 @@ export default function ProfilePage() {
             {!p.linkedin && !p.links.some((l) => l.url) && <li>—</li>}
           </ul>
         </div>
-        <div className="box" style={{ textAlign: "center" }}>
+        <div className="box" id="qr" style={{ textAlign: "center" }}>
           <h2><Glyph name="qr" size={18} /> SCAN My QR Code</h2>
           {qr ? <img src={qr} alt="My QR code" style={{ width: 200, height: 200 }} /> : <p>Generating…</p>}
           <p className="nt-hint">Others scan it to connect and sign up with you as their referrer. Created automatically.</p>

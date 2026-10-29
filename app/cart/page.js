@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { RATES } from "../lib/adRates";
 import PageTemplate from "../components/PageTemplate";
 import { Glyph, IconButton } from "../components/Icons";
 import { CART_KINDS, readCart, removeFromCart, setQty, clearCart } from "../lib/cart";
@@ -8,7 +9,7 @@ import { CART_KINDS, readCart, removeFromCart, setQty, clearCart } from "../lib/
 // Cesar's "Account Shopping Cart" (Dashboards, Figma Rev 261012): one cart for
 // event tickets, discounts, employment listings and notifications.
 // Prototype: items live in this browser; checkout comes with payments.
-const TICKET_FEE = 0.8; // his spec: $0.80 per-ticket fee
+const TICKET_FEE = RATES.ticketFeePaid; // shared rate (app/lib/adRates.js)
 
 export default function CartPage() {
   const [items, setItems] = useState([]);
@@ -75,7 +76,7 @@ export default function CartPage() {
             ))}
           </tbody>
           <tfoot>
-            <tr><td colSpan={3}>Ticket fees <span className="nt-hint">($0.80 per ticket)</span></td><td>{money(fees)}</td><td /></tr>
+            <tr><td colSpan={3}>Ticket fees <span className="nt-hint">(${TICKET_FEE.toFixed(2)} per ticket)</span></td><td>{money(fees)}</td><td /></tr>
             <tr className="cart-total"><td colSpan={3}>$ Total Cost</td><td>{money(sub + fees)}</td><td /></tr>
           </tfoot>
         </table>

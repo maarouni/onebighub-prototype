@@ -32,7 +32,7 @@ export function AdNav() {
 export function AdPage({ title, children }) {
   return (
     <PageTemplate
-      section={null}
+      section="earn"
       title={title}
       icon="megaphone"
       legend={false}

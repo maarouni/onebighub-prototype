@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ReferralShell } from "../components/ReferralShell";
 import { Field, Input, MiniCard, OrLine, Radios } from "../components/Form";
-import { fetchProfiles, matchProfile, newReferralId, saveReferral } from "../lib/referrals";
+import { fetchProfiles, matchProfile, newReferralId, saveReferral, REFERRAL_CATEGORIES } from "../lib/referrals";
 import { getProfile } from "../lib/profile";
 import { getUser } from "../lib/auth";
 
@@ -21,6 +21,7 @@ export default function Identify() {
   const [c, setC] = useState(null);
   const [ext, setExt] = useState({ name: "", title: "", business: "", phone: "", email: "", city: "" });
   const [bOffer, setBOffer] = useState("offering");
+  const [cat, setCat] = useState("business");
   const [err, setErr] = useState("");
 
   useEffect(() => {
@@ -39,13 +40,14 @@ export default function Identify() {
     const r = saveReferral({
       ...meta, created: new Date().toISOString(),
       a: { name: me.name || "You (not logged in)", title: me.title, business: me.business, pitchTitle: me.pitchTitle, phone: me.phone, email: me.email, city: me.city },
-      b: { ...b, offering: bOffer }, c: client,
+      category: cat, b: { ...b, offering: bOffer }, c: client,
       log: [], transaction: [], evaluations: {}, referralB: "", referralC: "",
     });
     router.push(`/referrals/message?id=${encodeURIComponent(r.id)}`);
   }
 
-  const listB = profiles.filter((p) => matchProfile(p, qb)).slice(0, 30);
+  const inCat = profiles.filter((p) => (p.category || "business") === cat);
+  const listB = inCat.filter((p) => matchProfile(p, qb)).slice(0, 30);
   const listC = profiles.filter((p) => p.id !== b?.id && matchProfile(p, qc)).slice(0, 30);
 
   return (
@@ -62,11 +64,13 @@ export default function Identify() {
         <section className="pick-col">
           <h3>B. Vendor</h3>
           <Radios name="boffer" value={bOffer} onChange={setBOffer} options={[{ id: "offering", label: "Offering a referral" }, { id: "seeking", label: "Seeking a referral" }]} />
+          <span className="ed-label">Referral category <i>Select one at a time</i></span>
+          <Radios name="bcat" value={cat} onChange={(v) => { setCat(v); if (b && (b.category || "business") !== v) setB(null); }} options={REFERRAL_CATEGORIES} />
           <input placeholder="SEARCH — click to select profile" value={qb} onChange={(e) => setQb(e.target.value)} style={{ padding: "8px 10px" }} />
           <div className="mini-card-list">
             {listB.map((p) => <MiniCard key={p.id} p={p} selected={b?.id === p.id} onClick={() => setB(p)} />)}
           </div>
-          <p className="nt-hint">{listB.length} of {profiles.length}</p>
+          <p className="nt-hint">{listB.length} of {inCat.length} {REFERRAL_CATEGORIES.find((x) => x.id === cat)?.label.toLowerCase()} profiles{inCat.length === 0 ? " — none yet in the prototype (they come with the database)" : ""}</p>
         </section>
 
         <section className="pick-col">

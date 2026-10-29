@@ -3,7 +3,7 @@
 **Live:** https://onebighub.vercel.app · **All pages:** https://onebighub.vercel.app/pages
 
 onebigHUB is a Bay Area events, discounts, connections, employment and notifications platform —
-an innovative, results-based marketing and revenue-sharing system (*Connect • Promote • Earn*).
+an innovative, results-based marketing and revenue-sharing system (*Discover • Connect • Earn*).
 This repository is the working prototype used to review page designs and flows before
 the production build.
 
@@ -26,6 +26,8 @@ the production build.
 | **Shopping Cart** | `/cart`: tickets, certificates and listings in one cart |
 | **Account** | `/login` (sign up / log in), `/dashboards`, `/profile` |
 | **Info** | `/info`: About, Contact, Legend Icons, color code, site index |
+
+**Oct 28 update** (Figma Rev 261028 + Oct 27 meeting): colored hub logo and Tarek's colorized icons (`public/icons/`), 8 hub tiles in a 4 × 2 grid (selected tile = gold with bold burgundy text), Memberships off the main hub, State pull-down (California default), one referral category at a time, rates $0.20/click and $0.75/ticket, bright yellow *Connect with me !* button in every page footer, © 2027.
 
 **Design conventions** (from the Figma reviews): page template with the 4-section icon row;
 color code — yellow = under construction, gray = edit / input, white = output;

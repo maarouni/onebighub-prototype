@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import PageTemplate from "../../components/PageTemplate";
 import PremierCalculator from "../../components/PremierCalculator";
+import StateSelect from "../../components/StateSelect";
 import { REGION_GROUPS, INDUSTRIES, REDEEM_OPTIONS, saveLocalDiscount } from "../../lib/discounts";
 
 // Cesar's "EDIT My Discount / Gift Certificates Details" (Figma Rev 261012).
@@ -95,6 +96,7 @@ export default function PostCertificatePage() {
           </select>
         </label>
         {F({ k: "city", label: "City", req: f.redeem.includes("In-Person") })}
+        <StateSelect value={f.state} onChange={(v) => set("state", v)} />
         <label className="ed-field">
           <span className="ed-label">Region</span>
           <select value={f.region} onChange={(e) => set("region", e.target.value)}>

@@ -1,94 +1,66 @@
 "use client";
 
-import { useState } from "react";
 import IconNav from "./IconNav";
 import { Glyph } from "./Icons";
-import CollapseArrow from "./CollapseArrow";
 
 // The top of EVERY page, from Cesar's Oct 19 revisions ("most pages are
 // templates — change the library and all similar pages follow"):
 //
 //   (<) [icon] Page Title (>)          yellow bar; gray on EDIT pages
-//   ┌ Innovative, Results-Based … ┐    white box, collapsible
-//   [5 section tiles]                   row 1
-//   [4 section action boxes]            row 2 (EDIT box turns gray on edit pages)
-//   [ ⇄ Connect with us ! ]             yellow bar
+//   ( Results-Based • One-Stop … )      one-line white box
+//   [8 hub tiles, 4 × 2]                Calendar … Custom Notifications
+//   [section action boxes]              Digest / EDIT (EDIT box turns gray on edit pages)
+// "Connect with me !" sits in the footer at the bottom of every page.
 //
 // Change it here once and every page follows.
 
-const EARN = { key: "earn", icon: "megaphone", label: "Earn with Advertising", href: "/advertising" };
-// Oct 26 (Cesar's Figma): every section row also offers 3-Way Introductions.
-const REFER3 = { key: "refer3", icon: "connectMe", label: "3-Way Introductions / Referrals", href: "/referrals" };
-
+// Oct 28 (Cesar's Figma Rev 261028): Introductions and EARN with Advertising
+// are now main tiles, so each section's action row is just its own pages.
 export const SECTION_ACTIONS = {
   calendar: [
-    { key: "details", icon: "viewMode", label: "Event Details", href: "/#results" },
     { key: "digest", icon: "calendar", label: "My Calendar Digest", href: "/my-calendar" },
-    { key: "edit", icon: "editMode", label: "EDIT My Event Details", href: "/submit", dark: true },
-    REFER3,
-    EARN,
+    { key: "edit", icon: "editMode", label: "EDIT My Events", href: "/submit", dark: true },
   ],
   discounts: [
-    { key: "details", icon: "viewMode", label: "Discount / Gift Certificate Details", href: "/discounts#results" },
-    { key: "digest", icon: "discount", label: "My Disc. / Gift Certificates Digest", href: "/discounts" },
-    { key: "edit", icon: "editMode", label: "EDIT My Discount / Gift Certificates", href: "/discounts/submit", dark: true },
-    REFER3,
-    EARN,
+    { key: "digest", icon: "discount", label: "My Certificates Digest", href: "/discounts" },
+    { key: "edit", icon: "editMode", label: "EDIT My Certificates", href: "/discounts/submit", dark: true },
   ],
   connections: [
-    { key: "details", icon: "viewMode", label: "Connections Details", href: "/connections#results" },
     { key: "digest", icon: "connections", label: "My Connections Digest", href: "/connections" },
-    { key: "edit", icon: "editMode", label: "EDIT My Connections Details", href: "/connections/submit", dark: true },
-    REFER3,
-    EARN,
+    { key: "details", icon: "viewMode", label: "VIEW Profile(s)", href: "/connections#results" },
+    { key: "edit", icon: "editMode", label: "EDIT My Profile(s)", href: "/profile", dark: true },
   ],
   employment: [
-    { key: "details", icon: "viewMode", label: "Employment Details", href: "/employment#results" },
     { key: "digest", icon: "employment", label: "My Employment Digest", href: "/employment" },
     { key: "edit", icon: "editMode", label: "EDIT My Employment Listings", href: "/employment/submit", dark: true },
-    REFER3,
-    EARN,
   ],
   products: [
-    { key: "details", icon: "viewMode", label: "Listing Details", href: "/listings#results" },
     { key: "digest", icon: "products", label: "My Other Listings Digest", href: "/listings" },
     { key: "edit", icon: "editMode", label: "EDIT My Other Listings", href: "/listings/submit", dark: true },
-    REFER3,
-    EARN,
   ],
   notifications: [
-    { key: "details", icon: "viewMode", label: "Notification Details", href: "/notifications" },
-    { key: "digest", icon: "notifications", label: "My Notifications & Subscriptions", href: "/notifications" },
+    { key: "digest", icon: "notifications", label: "My Notifications Digest", href: "/notifications" },
     { key: "edit", icon: "editMode", label: "EDIT My Notifications", href: "/notifications", dark: true },
-    REFER3,
-    EARN,
   ],
 };
 
-// Second line(s) of the white hero box, per section and page mode.
-const HERO_LINES = {
-  default: [<><b>Curate</b> specific listings by selecting sets of filters</>, <>Includes several <b><i>innovative</i></b> custom features</>],
-  edit: {
-    calendar: ["What is your Cost of Acquisition of a new attendee / guest ?", <>Promote your <b>Events</b> here !</>],
-    discounts: ["What is your Cost of Acquisition of a new client / customer ?", <>Promote your <b>Discount / Gift Certificates</b> here !</>],
-    connections: ["What is your Cost of Acquisition of a new client / customer / member ?", <>Manage and promote your <b>Connections</b> here !</>],
-    employment: ["What is your Cost of Acquisition of a new hire ?", <>Promote your <b>Employment Listings</b> here !</>],
-    products: ["What is your Cost of Acquisition of a new client / customer / member ?", <>Promote your <b>Products, Services, Memberships</b> here !</>],
-    notifications: ["Avoid costly email blast services", <>Promote your <b>Notifications</b> here !</>],
-  },
-};
-
-// (<) and (>) step through the sections in tile order (Oct 26 Figma), wrapping
-// around: One Big Calendar → Connections → Discount / Gift Certificates →
-// Employment Listings → Products, Services, Memberships → Notifications.
+// (<) and (>) step through the sections in tile order (Oct 28 Figma), wrapping around.
 const SECTION_ORDER = [
   { key: "calendar", href: "/", label: "One Big Calendar" },
   { key: "connections", href: "/connections", label: "Connections" },
-  { key: "discounts", href: "/discounts", label: "Discount / Gift Certificates" },
-  { key: "employment", href: "/employment", label: "Employment Listings" },
-  { key: "products", href: "/listings", label: "Products, Services, Memberships" },
-  { key: "notifications", href: "/notifications", label: "Notifications" },
+  { key: "introductions", href: "/referrals", label: "Introductions" },
+  { key: "earn", href: "/advertising", label: "EARN with Advertising" },
+  { key: "products", href: "/listings", label: "Products, Services ..." },
+  { key: "discounts", href: "/discounts", label: "Deals" },
+  { key: "employment", href: "/employment", label: "Careers / Jobs" },
+  { key: "notifications", href: "/notifications", label: "Custom Notifications" },
 ];
+
+// Page-bar icons use Tarek's colorized set where one exists (Cesar, Oct 28).
+const PB_IMG = {
+  calendar: "calendar", connections: "connections", connectMe: "introductions", megaphone: "earn",
+  products: "products", discount: "deals", employment: "careers", notifications: "notifications",
+};
 
 function PageBar({ title, icon, mode, section }) {
   const i = Math.max(0, SECTION_ORDER.findIndex((x) => x.key === section));
@@ -99,7 +71,11 @@ function PageBar({ title, icon, mode, section }) {
       <a href={prev.href} className="pb-nav" aria-label={`Previous: ${prev.label}`} data-tip={prev.label}>
         <Glyph name="prev" size={14} strokeWidth={2.2} />
       </a>
-      <span className={`pb-icon ${mode === "edit" ? "pb-icon-dark" : ""}`}><Glyph name={icon} size={mode === "edit" ? 20 : 26} /></span>
+      <span className={`pb-icon ${mode === "edit" ? "pb-icon-dark" : ""}`}>
+        {mode !== "edit" && PB_IMG[icon]
+          ? <img src={`/icons/${PB_IMG[icon]}.png`} alt="" width="48" height="48" />
+          : <Glyph name={icon} size={mode === "edit" ? 34 : 44} />}
+      </span>
       <h1>{title}</h1>
       <a href={next.href} className="pb-nav" aria-label={`Next: ${next.label}`} data-tip={next.label}>
         <Glyph name="next" size={14} strokeWidth={2.2} />
@@ -108,11 +84,13 @@ function PageBar({ title, icon, mode, section }) {
   );
 }
 
+// Oct 27 meeting: a bright yellow "Connect with me !" button at the bottom of
+// every page (it lives in the site footer, so it's on all pages).
 export function ConnectWithMe() {
   return (
-    <a href="/connections" className="connect-me" data-tip="Connect with us ! — Killer Feature">
+    <a href="/profile#qr" className="connect-me" data-tip="Connect with me ! — mini-card, elevator pitch, QR code">
       <Glyph name="connectMe" size={20} />
-      <b><i>Connect with us !</i></b>
+      <b><i>Connect with me !</i></b>
     </a>
   );
 }
@@ -126,10 +104,8 @@ export default function SiteHero({
   detailsHref,          // overrides the Details box link (e.g. first selected listing)
   secondRow,            // replaces the action row (e.g. the advertising pages' own row)
 }) {
-  const [open, setOpen] = useState(true);
-  const key = SECTION_ACTIONS[section] ? section : "calendar";
-  const lines = mode === "edit" ? HERO_LINES.edit[key] || HERO_LINES.default : HERO_LINES.default;
-  const actions = SECTION_ACTIONS[key].map((a) => (a.key === "details" && detailsHref ? { ...a, href: detailsHref } : a));
+  const key = SECTION_ACTIONS[section] ? section : null;
+  const actions = key ? SECTION_ACTIONS[key].map((a) => (a.key === "details" && detailsHref ? { ...a, href: detailsHref } : a)) : [];
   const current = activeAction || (mode === "edit" ? "edit" : null);
   const barIcon = icon || (mode === "edit" ? "editMode" : "smiley");
 
@@ -137,36 +113,23 @@ export default function SiteHero({
     <div className="site-hero">
       <PageBar title={title} icon={barIcon} mode={mode} section={section} />
 
-      <section className="hh-box hh-intro">
-        <div className="hh-arrow">
-          <CollapseArrow open={open} onClick={() => setOpen((o) => !o)} label="introduction" />
-        </div>
-        <h2 className="hh-head">
-          <i>Innovative,</i> Results-Based Marketing <br className="hh-br" />and Revenue-Sharing System
-        </h2>
-        {open && (
-          <>
-            <p className="hh-tag">Connect • Promote • Earn</p>
-            {lines.map((l, i) => <p key={i} className="hh-line">{l}</p>)}
-          </>
-        )}
-      </section>
+      <p className="hh-box hh-intro hh-oneline">
+        <b className="hh-rb">Results-Based</b> • One-Stop Marketing &amp; Revenue-Sharing System
+      </p>
 
-      <IconNav active={section} mode="tiles" />
+      <IconNav active={section} mode={mode} />
 
-      {secondRow || (
-        <nav className="hh-actions" aria-label="Section pages">
+      {secondRow || (actions.length > 0 && (
+        <nav className={`hh-actions hh-actions-${actions.length}`} aria-label="Section pages">
           {actions.map((a) => (
             <a key={a.key} href={a.href} aria-current={current === a.key ? "page" : undefined}
               className={`hh-box hh-action ${a.dark ? "hh-action-dark" : ""} ${current === a.key ? "hh-action-on" : ""}`}>
-              <span className="hh-action-icon"><Glyph name={a.icon} size={20} /></span>
+              <span className="hh-action-icon"><Glyph name={a.icon} size={30} /></span>
               <span>{a.label}</span>
             </a>
           ))}
         </nav>
-      )}
-
-      <ConnectWithMe />
+      ))}
     </div>
   );
 }

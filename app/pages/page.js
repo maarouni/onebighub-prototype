@@ -24,7 +24,7 @@ const GROUPS = [
     ["Connections Details", "/connections/o1", "Example org: WHY, BENEFITS, QR code"],
     ["Organization Members", "/connections/o1/members", "Leadership, Staff, Members mini-cards"],
     ["EDIT My Connections Details", "/connections/submit", "Add or edit a connection"],
-    ["Products, Services, Memberships", "/listings", "Browse, filter, post a listing (Oct 26)"],
+    ["Products, Services ...", "/listings", "Browse, filter, post a listing (Oct 26)"],
     ["Listing Details", "/listings/p1", "Example membership: description, referrals, QR code"],
     ["EDIT My Other Listings", "/listings/submit", "Post a product, service or membership"],
     ["3-Way Introductions — Identify", "/referrals", "A Connector picks B Vendor and C Potential Client (Oct 26)"],

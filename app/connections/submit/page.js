@@ -4,6 +4,7 @@ import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import PageTemplate from "../../components/PageTemplate";
 import PremierCalculator from "../../components/PremierCalculator";
+import StateSelect from "../../components/StateSelect";
 import {
   REGION_GROUPS, CATEGORY_GROUPS, INDUSTRIES, ORG_FORMATS, MEMBER_LIST_VISIBILITY, ROSTER_GROUPS,
   fetchOrgs, saveLocalOrg,
@@ -111,6 +112,7 @@ function EditOrgInner() {
         </div>
 
         {F({ k: "city", label: "City", req: f.formats.includes("In-Person"), maxLength: 60 })}
+        <StateSelect value={f.state} onChange={(v) => set("state", v)} />
         <label className="ed-field">
           <span className="ed-label">Region</span>
           <select value={f.region} onChange={(e) => set("region", e.target.value)}>

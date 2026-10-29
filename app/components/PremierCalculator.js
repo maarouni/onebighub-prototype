@@ -15,10 +15,14 @@ import { RATES } from "../lib/adRates";
 // always match. Prototype: the per-location reach numbers are placeholders
 // until view/click tracking exists, and nothing is charged.
 
-const LOCATIONS = ["One Big Calendar", "My Calendars", "Notifications"];
+// Oct 28 Figma: one row per place a Premier listing can be displayed.
+const LOCATIONS = [
+  "One Big Calendar Events", "My Calendars Events", "Discount / Gift Certificates",
+  "Organizations", "Employment Careers / Jobs", "Notifications",
+];
 const REACH = {
-  views: { "One Big Calendar": 4200, "My Calendars": 1800, Notifications: 2600 },
-  clicks: { "One Big Calendar": 180, "My Calendars": 90, Notifications: 140 },
+  views: { "One Big Calendar Events": 4200, "My Calendars Events": 1800, "Discount / Gift Certificates": 1500, Organizations: 1200, "Employment Careers / Jobs": 900, Notifications: 2600 },
+  clicks: { "One Big Calendar Events": 180, "My Calendars Events": 90, "Discount / Gift Certificates": 60, Organizations: 50, "Employment Careers / Jobs": 40, Notifications: 140 },
 };
 
 function todayPlus(days) {

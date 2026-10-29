@@ -19,7 +19,7 @@ export function ReferralShell({ subtitle, children }) {
   const path = usePathname() || "";
   return (
     <PageTemplate
-      section={null}
+      section="introductions"
       title="3-Way Introductions / Referrals"
       subtitle={subtitle}
       icon="connectMe"

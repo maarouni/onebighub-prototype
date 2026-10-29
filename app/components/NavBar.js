@@ -53,22 +53,22 @@ export default function NavBar() {
   return (
     <nav className="navbar">
       <div className="navbar-inner">
-        {/* Oct 26: rebrand to onebigHUB.com (Cesar's Figma Rev 261025) — hub
-            mark, "onebigHUB.com", "Curate Calendar, Connections, ..." underneath. */}
-        <a href="/" className="brand brand-v2" aria-label="onebigHUB.com — Curate Calendar, Connections, and more — Home">
-          <svg className="brand-cal brand-hub" width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"
-            fill="none" stroke="var(--ink)" strokeWidth="2" strokeLinecap="round">
-            {[[20, 4], [34, 12], [34, 28], [20, 36], [6, 28], [6, 12]].map(([x, y], i) => (
+        {/* Oct 28 (Cesar's Figma Rev 261028): colored hub mark — burgundy core,
+            blue and light-blue nodes — at the top of the logo size hierarchy
+            (75 → 60 → 45 → 30 px), burgundy "HUB", tagline underneath. */}
+        <a href="/" className="brand brand-v2" aria-label="onebigHUB.com — Discover • Connect • Earn — Home">
+          <svg className="brand-cal brand-hub" width="75" height="75" viewBox="0 0 100 100" aria-hidden="true">
+            {[[22, 22, 9, "#bfe3f5"], [52, 13, 6.5, "#2f49c9"], [79, 28, 5.5, "#bfe3f5"], [82, 66, 9, "#2f49c9"], [52, 88, 7, "#bfe3f5"], [16, 70, 8, "#2f49c9"]].map(([x, y, r, f], i) => (
               <g key={i}>
-                <line x1="20" y1="20" x2={20 + (x - 20) * 0.72} y2={20 + (y - 20) * 0.72} />
-                <circle cx={x} cy={y} r="3.2" fill="#fff" />
+                <line x1="47" y1="47" x2={x} y2={y} stroke="#1a1a1a" strokeWidth="3.2" strokeLinecap="round" />
+                <circle cx={x} cy={y} r={r} fill={f} stroke="#1a1a1a" strokeWidth="2.4" />
               </g>
             ))}
-            <circle cx="20" cy="20" r="6" fill="#fff" />
+            <circle cx="47" cy="47" r="15" fill="#8b1414" stroke="#1a1a1a" strokeWidth="2.6" />
           </svg>
           <span className="brand-text">
             <span className="brand-word">onebig<b>HUB</b><small>.com</small></span>
-            <span className="brand-more">Curate Calendar, Connections, ...</span>
+            <span className="brand-more">Discover • Connect • Earn</span>
           </span>
         </a>
 

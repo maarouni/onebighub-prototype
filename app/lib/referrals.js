@@ -31,11 +31,20 @@ export async function fetchProfiles() {
   const out = [];
   const seen = new Set();
   const add = (p) => { const k = p.business.toLowerCase(); if (!seen.has(k)) { seen.add(k); out.push(p); } };
-  orgs.forEach((o) => add({ id: `org-${o.id}`, name: o.contactName || o.name, title: o.contactName ? "Contact" : "", business: o.name, pitchTitle: o.tagline, phone: o.phone, email: o.email, city: `${o.city}, ${o.state || "CA"}` }));
-  listings.forEach((l) => add({ id: `lst-${l.id}`, name: l.contact || l.offeredBy, title: "", business: l.offeredBy, pitchTitle: l.description, phone: l.phone, email: l.email, city: `${l.city}, ${l.state || "CA"}` }));
-  discounts.forEach((d) => add({ id: `dsc-${d.id}`, name: d.contact || d.company, title: "", business: d.company, pitchTitle: d.about, phone: d.phone, email: d.email || "", city: `${d.city}, ${d.state || "CA"}` }));
+  orgs.forEach((o) => add({ id: `org-${o.id}`, category: "organization", name: o.contactName || o.name, title: o.contactName ? "Contact" : "", business: o.name, pitchTitle: o.tagline, phone: o.phone, email: o.email, city: `${o.city}, ${o.state || "CA"}` }));
+  listings.forEach((l) => add({ id: `lst-${l.id}`, category: "business", name: l.contact || l.offeredBy, title: "", business: l.offeredBy, pitchTitle: l.description, phone: l.phone, email: l.email, city: `${l.city}, ${l.state || "CA"}` }));
+  discounts.forEach((d) => add({ id: `dsc-${d.id}`, category: "business", name: d.contact || d.company, title: "", business: d.company, pitchTitle: d.about, phone: d.phone, email: d.email || "", city: `${d.city}, ${d.state || "CA"}` }));
   return out;
 }
+
+// Oct 27 meeting: referrals are picked from ONE category at a time
+// (Individual, Business, Organization or Group) so the list never mixes them.
+export const REFERRAL_CATEGORIES = [
+  { id: "individual", label: "Individual" },
+  { id: "business", label: "Business" },
+  { id: "organization", label: "Organization" },
+  { id: "group", label: "Group" },
+];
 
 export function matchProfile(p, q) {
   if (!q) return true;

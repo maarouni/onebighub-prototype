@@ -3,7 +3,7 @@ import NavBar from "./components/NavBar";
 import SiteFooter from "./components/SiteFooter";
 
 export const metadata = {
-  title: "onebigHUB — Curate Calendar, Connections, ... (Prototype)",
+  title: "onebigHUB — Discover • Connect • Earn (Prototype)",
   description: "Bay Area event calendar — internal prototype, not the live product",
 };
 

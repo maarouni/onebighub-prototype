@@ -8,6 +8,7 @@ import { Glyph } from "../components/Icons";
 import { cityCode } from "../lib/cityCodes";
 import { RATES } from "../lib/adRates";
 import SiteHero from "../components/SiteHero";
+import StateSelect from "../components/StateSelect";
 
 // Cesar's spec "EDIT My Events" (rev 260924): preview strip on top, filter
 // attributes on the left, the event form on the right, and — for Premier
@@ -375,7 +376,7 @@ export default function SubmitEvent() {
                 <input type="text" value={f.city} onChange={(e) => set("city", e.target.value)} />
               </Field>
               <Field label="State">
-                <input type="text" value={f.state} onChange={(e) => set("state", e.target.value)} />
+                <StateSelect bare value={f.state} onChange={(v) => set("state", v)} />
               </Field>
               <Field label="ZIP code">
                 <input type="text" inputMode="numeric" maxLength={10} value={f.zip} onChange={(e) => set("zip", e.target.value)} />
