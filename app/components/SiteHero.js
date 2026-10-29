@@ -1,6 +1,7 @@
 "use client";
 
 import IconNav from "./IconNav";
+import HubLogo from "./HubLogo";
 import { Glyph } from "./Icons";
 
 // The top of EVERY page, from Cesar's Oct 19 revisions ("most pages are
@@ -72,7 +73,9 @@ function PageBar({ title, icon, mode, section }) {
         <Glyph name="prev" size={14} strokeWidth={2.2} />
       </a>
       <span className={`pb-icon ${mode === "edit" ? "pb-icon-dark" : ""}`}>
-        {mode !== "edit" && PB_IMG[icon]
+        {icon === "hub"
+          ? <HubLogo size={mode === "edit" ? 34 : 48} />
+          : mode !== "edit" && PB_IMG[icon]
           ? <img src={`/icons/${PB_IMG[icon]}.png`} alt="" width="48" height="48" />
           : <Glyph name={icon} size={mode === "edit" ? 34 : 44} />}
       </span>
@@ -107,7 +110,7 @@ export default function SiteHero({
   const key = SECTION_ACTIONS[section] ? section : null;
   const actions = key ? SECTION_ACTIONS[key].map((a) => (a.key === "details" && detailsHref ? { ...a, href: detailsHref } : a)) : [];
   const current = activeAction || (mode === "edit" ? "edit" : null);
-  const barIcon = icon || (mode === "edit" ? "editMode" : "smiley");
+  const barIcon = icon || (mode === "edit" ? "editMode" : "hub");
 
   return (
     <div className="site-hero">

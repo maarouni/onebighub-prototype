@@ -7,7 +7,7 @@ import SiteHero from "./SiteHero";
 export default function HomeHero({ detailsHref }) {
   return (
     <div className="home-hero">
-      <SiteHero section="calendar" title="Welcome !" icon="smiley" detailsHref={detailsHref} />
+      <SiteHero section="calendar" title="Welcome !" icon="hub" detailsHref={detailsHref} />
       <p className="hh-box hh-save">
         <b><i>Save Time !</i></b> Select filters to <b>curate</b> (organize, submit, view) <b>events</b>
       </p>
