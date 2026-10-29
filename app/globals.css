@@ -2719,7 +2719,7 @@ input.sel-radio { --sel-radius: 50%; border-radius: 50% !important; }
   .obc-row, .obc-row.premier { grid-template-columns: 104px minmax(0, 1fr) minmax(36px, auto); }
 }
 
-/* ---- Header tagline (Oct 15 call; Oct 26 rebrand: "Curate Calendar, Connections, ...") ---- */
+/* ---- Header tagline: "Discover • Connect • Earn" (Oct 28 Figma, confirmed by Masoud Oct 29) ---- */
 .brand-more { font-family: "Poppins", var(--font-ui); font-size: 14px; font-weight: 500; font-style: italic; color: var(--ink-soft); align-self: flex-end; margin: 0 0 3px -2px; white-space: nowrap; }
 @media (max-width: 480px) { .brand-more { font-size: 12px; } }
 .nt-show-filters { margin: 0 0 10px; }

@@ -4,7 +4,7 @@ import SiteFooter from "./components/SiteFooter";
 
 export const metadata = {
   title: "onebigHUB — Discover • Connect • Earn (Prototype)",
-  description: "Bay Area event calendar — internal prototype, not the live product",
+  description: "onebigHUB — Discover • Connect • Earn. Internal prototype, not the live product",
 };
 
 export default function RootLayout({ children }) {
