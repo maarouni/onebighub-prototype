@@ -651,7 +651,7 @@ export default function Notifications() {
 
   return (
     <div className="page nt-page">
-      <SiteHero section="notifications" title="Notifications" icon="notifications"
+      <SiteHero section="notifications" title="Custom Notifications" icon="notifications"
         mode={tab === "business" ? "edit" : "output"}
         activeAction={tab === "mine" ? "digest" : tab === "business" ? "edit" : "details"} />
 

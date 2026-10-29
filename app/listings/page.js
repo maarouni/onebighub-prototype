@@ -53,7 +53,7 @@ function ListingsInner() {
     <>
       <PageTemplate
         section="products"
-        title="Products, Services, Memberships"
+        title="Products, Services ..."
         subtitle="Public"
         legend={false}
         actions={<a href="/listings/submit" className="tpl-action" data-tip="Add New listing">+ Post a Listing</a>}

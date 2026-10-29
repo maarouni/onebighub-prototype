@@ -73,8 +73,8 @@ function EmploymentInner() {
     <>
       <PageTemplate
         section="employment"
-        title="Employment Listings"
-        subtitle="Public"
+        title="Careers / Jobs"
+        subtitle="Employment Listings"
         legend={false}
         actions={<a href="/employment/submit" className="tpl-action" data-tip="Add New listing">+ Post a Listing</a>}
         intro={<><strong>Get Hired!</strong> Select filters to curate (organize, submit, view) employment listings. Assign your Application Status for each listing.</>}

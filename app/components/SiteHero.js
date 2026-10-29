@@ -1,6 +1,6 @@
 "use client";
 
-import IconNav from "./IconNav";
+import IconNav, { HUB_TILES } from "./IconNav";
 import HubLogo from "./HubLogo";
 import { Glyph } from "./Icons";
 
@@ -63,6 +63,13 @@ const PB_IMG = {
   products: "products", discount: "deals", employment: "careers", notifications: "notifications",
 };
 
+// Oct 29 (Cesar + Masoud): the title bar follows the active tile — on every
+// page of a section it shows that tile's icon (gold tile = same icon up top),
+// so the hub logo appears only in the site header. EDIT pages keep the gray
+// pencil.
+const TILE_IMG = Object.fromEntries(HUB_TILES.map((t) => [t.key, t.img]));
+export const TILE_LABEL = Object.fromEntries(HUB_TILES.map((t) => [t.key, t.label]));
+
 function PageBar({ title, icon, mode, section }) {
   const i = Math.max(0, SECTION_ORDER.findIndex((x) => x.key === section));
   const prev = SECTION_ORDER[(i + SECTION_ORDER.length - 1) % SECTION_ORDER.length];
@@ -73,7 +80,9 @@ function PageBar({ title, icon, mode, section }) {
         <Glyph name="prev" size={14} strokeWidth={2.2} />
       </a>
       <span className={`pb-icon ${mode === "edit" ? "pb-icon-dark" : ""}`}>
-        {icon === "hub"
+        {mode !== "edit" && TILE_IMG[section]
+          ? <img src={`/icons/${TILE_IMG[section]}.png`} alt="" width="48" height="48" />
+          : icon === "hub"
           ? <HubLogo size={mode === "edit" ? 34 : 48} />
           : mode !== "edit" && PB_IMG[icon]
           ? <img src={`/icons/${PB_IMG[icon]}.png`} alt="" width="48" height="48" />

@@ -7,7 +7,7 @@ import { Glyph } from "../components/Icons";
 // the combined page is split into separate pages).
 export default function AdvertisingPage() {
   return (
-    <AdPage title="Earn with Advertising">
+    <AdPage title="EARN with Advertising">
       <section className="ad-box">
         <p>
           onebigHUB offers various <b>free and paid opportunities</b> to promote your events, businesses, and
