@@ -106,9 +106,27 @@ export const LEGEND = [
   },
 ];
 
+// Oct 30 (Cesar's Figma Rev 261030): these icons are Cesar's own artwork from the
+// Figma file, not hand-drawn. Anything listed here renders his image instead of an SVG.
+// Icon names the site already used (info, print, login, ...) now point at his versions.
+const FIG = {
+  info: "info", dashboards: "dashboards", settings: "gear", pdf: "download", print: "print", login: "login",
+  figDigest: "digest", figEdit: "edit", figConnDigest: "connections-digest", figViewProfile: "view-profile", figEditProfile: "edit-profile",
+  pagePrev: "prev", pageNext: "next", clearX: "clear-x", figConnect: "connect", figBack: "back",
+  typeIndividual: "type-individual", typeBiz: "type-biz", typeOrg: "type-org", typeGroup: "type-group",
+  organizations: "type-org", dinner: "ev-dinner", workshop: "ev-workshop", expo: "ev-expo",
+};
+const FIG_WIDE = { expo: true };   // 2:1 photo, not square
+
 export const ICON_LABEL = Object.fromEntries(LEGEND.flatMap((g) => g.items.map(([k, l]) => [k, l])));
 
 export function Glyph({ name, size = 18, strokeWidth = 1.8, className = "" }) {
+  if (FIG[name]) {
+    return (
+      <img className={`glyph glyph-fig ${className}`} src={`/icons/fig/${FIG[name]}.png`} alt=""
+        width={size} height={FIG_WIDE[name] ? undefined : size} style={FIG_WIDE[name] ? { width: size, height: "auto" } : undefined} />
+    );
+  }
   const p = P[name];
   if (!p) return null;
   return (

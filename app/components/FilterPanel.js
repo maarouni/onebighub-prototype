@@ -27,12 +27,13 @@ export default function FilterPanel({ events, filters, setFilters, today, q, onH
         <CheckList field="costs" options={COST_OPTIONS} {...kit} />
       </Box>
 
-      <DigestBox digest="My Listings Digest" />
-
       <GroupedBox title="Categories" field="categories" groups={CATEGORY_GROUPS} {...kit} />
 
       <RegionBoxes field="regions" groups={REGION_GROUPS} disabled={onlineOnly}
         note={onlineOnly ? "Online only is selected — regions don't apply." : null} {...kit} />
+
+      {/* Oct 30 (Cesar): this pull-down sits below Regions */}
+      <DigestBox digest="My Calendar Digest" />
     </FilterShell>
   );
 }

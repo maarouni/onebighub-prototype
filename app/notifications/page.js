@@ -130,7 +130,7 @@ function BrowseTab({ edit, labels, update, subs, toggleSub }) {
           <em>Select all that apply</em>
           {!edit && (
             <button type="button" className="fp-clear-x" data-tip="Clear All" aria-label="Clear all filters" onClick={() => setSel(EMPTY_SEL)}>
-              <Glyph name="xMark" size={18} strokeWidth={3} />
+              <Glyph name="clearX" size={24} />
             </button>
           )}
         </div>

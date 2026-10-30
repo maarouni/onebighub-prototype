@@ -56,7 +56,7 @@ export default function DashboardsPage() {
             <a href="/my-calendar">My Calendar Digest →</a>
             <a href="/employment">My Employment Digest →</a>
             <a href="/discounts">My Certificates Digest →</a>
-            <a href="/connections">My Connections Digest →</a>
+            <a href="/connections/digest">My Connections Digest →</a>
             <a href="/notifications">My Notifications →</a>
           </div>
         </section>

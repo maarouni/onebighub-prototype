@@ -42,7 +42,7 @@ export function ListingTable({ rows }) {
   return (
     <div className="obc-table" role="list">
       {rows.map((r) => (
-        <article key={r.id} role="listitem" className={`obc-row ${r.premier ? "premier" : "regular"} ${r.selected ? "selected" : ""}`}>
+        <article key={r.id} role="listitem" className={`obc-row ${r.premier ? "premier" : "regular"} ${r.status ? "has-status" : ""} ${r.selected ? "selected" : ""}`}>
           <a href={r.href} className="obc-cell obc-when" tabIndex={-1}>
             {r.left.filter(Boolean).map((l, i) => <span key={i}>{l}</span>)}
           </a>
@@ -53,9 +53,10 @@ export function ListingTable({ rows }) {
           </a>
           {r.premier && (
             <a href={r.href} className="obc-cell obc-img" tabIndex={-1} aria-hidden="true">
-              <Glyph name={r.image || "expo"} size={34} strokeWidth={1.4} />
+              <Glyph name={r.image || "expo"} size={r.image === "expo" || !r.image ? 52 : 46} strokeWidth={1.4} />
             </a>
           )}
+          {r.status && <div className="obc-cell obc-status">{r.status}</div>}
           <div className="obc-cell obc-sel">
             {r.extra}
             <label className="obc-sel-hit" data-tip={r.selected ? "In My Selection" : "Add listing to My Selection"}>
@@ -73,11 +74,11 @@ export function Pager({ page, totalPages, onGo }) {
   return (
     <div className="obc-pager">
       <button type="button" className="obc-pg" onClick={() => onGo(page - 1)} disabled={page <= 1} aria-label="Previous page" data-tip="Previous">
-        <Glyph name="prev" size={14} strokeWidth={2.4} />
+        <Glyph name="pagePrev" size={26} />
       </button>
       <span>Page <b>{page}</b> of <b>{totalPages}</b></span>
       <button type="button" className="obc-pg" onClick={() => onGo(page + 1)} disabled={page >= totalPages} aria-label="Next page" data-tip="Next">
-        <Glyph name="next" size={14} strokeWidth={2.4} />
+        <Glyph name="pageNext" size={26} />
       </button>
     </div>
   );

@@ -28,7 +28,7 @@ export function FilterShell({ onHide, onClear, onDisplay, children }) {
         <span className="step-badge" aria-hidden="true">1</span>
         <em>Select all that apply</em>
         <button type="button" className="fp-clear-x" data-tip="Clear All" aria-label="Clear all filters" onClick={onClear}>
-          <Glyph name="xMark" size={18} strokeWidth={3} />
+          <Glyph name="clearX" size={24} />
         </button>
       </div>
       {children}

@@ -3014,3 +3014,31 @@ button.mini-card:hover { border-color: var(--gold); }
 .connect-me b, .site-footer-v2 .connect-me b { color: var(--cg-red); }
 .sf-inner > span b { color: var(--cg-red); }
 .fp-seeking { font-weight: 800; letter-spacing: .02em; margin-left: 4px; }
+
+/* ===== Oct 30 — Cesar's Figma Rev 261030 ===== */
+/* Active action box (My Connections Digest etc.): LIGHT gray + bold burgundy, not dark gray. */
+.hh-action-on { background: #e6e6e6 !important; border-color: #cfcfcf !important; color: var(--cg-red) !important; font-weight: 700 !important; }
+/* "My Membership Status" — a thin light-gray column on the RIGHT of each digest row. */
+.obc-status { background: #e6e6e6; align-items: center; justify-content: flex-start; padding: 6px 4px; width: 104px; }
+.obc-status .org-status-compact select { width: 92px; max-width: 92px; font-size: 11px; padding: 3px 2px; }
+.obc-row.has-status { grid-template-columns: 150px minmax(0, 1fr) 104px minmax(40px, auto); }
+.obc-row.premier.has-status { grid-template-columns: 150px minmax(0, 1fr) 64px 104px minmax(40px, auto); }
+.obc-row.has-status.selected .obc-status { background: #e6e6e6; }
+@media (max-width: 640px) {
+  .obc-row.has-status, .obc-row.premier.has-status { grid-template-columns: 96px minmax(0, 1fr) 84px minmax(36px, auto); }
+  .obc-status { width: 84px; }
+  .obc-status .org-status-compact select { width: 76px; max-width: 76px; }
+}
+.fp-set-save { margin-top: 8px; padding: 4px 10px; border: 1px solid var(--cg-box-line); border-radius: 999px; background: #fff; font-size: 12px; color: var(--cg-blue); cursor: pointer; }
+.fp-set-save:disabled { opacity: .45; cursor: default; }
+
+/* Cesar's own Figma icons (images, already round / filled) */
+.glyph-fig { display: inline-block; object-fit: contain; vertical-align: middle; }
+.pb-nav, .obc-pg { border: none !important; background: transparent !important; width: auto !important; height: auto !important; border-radius: 0 !important; }
+.pb-nav:hover, .obc-pg:not(:disabled):hover { background: transparent !important; filter: drop-shadow(0 0 2px rgba(0,0,0,.35)); }
+.hh-action-icon { background: none !important; padding: 0 !important; }
+.fp-clear-x { padding: 0 !important; line-height: 0; }
+/* footer "Connect with us !" — Figma: bright yellow pill, two-arrow icon */
+.connect-me { background: #ffff00 !important; border: 2px solid #111 !important; }
+.connect-me:hover { background: #fff700 !important; }
+.obc-img .glyph-fig { margin: 0 auto; }

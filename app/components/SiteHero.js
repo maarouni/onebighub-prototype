@@ -19,29 +19,29 @@ import { Glyph } from "./Icons";
 // are now main tiles, so each section's action row is just its own pages.
 export const SECTION_ACTIONS = {
   calendar: [
-    { key: "digest", icon: "calendar", label: "My Calendar Digest", href: "/my-calendar" },
-    { key: "edit", icon: "editMode", label: "EDIT My Events", href: "/submit", dark: true },
+    { key: "digest", icon: "figDigest", label: "My Calendar Digest", href: "/my-calendar" },
+    { key: "edit", icon: "figEdit", label: "EDIT My Events", href: "/submit", dark: true },
   ],
   discounts: [
-    { key: "digest", icon: "discount", label: "My Certificates Digest", href: "/discounts" },
-    { key: "edit", icon: "editMode", label: "EDIT My Certificates", href: "/discounts/submit", dark: true },
+    { key: "digest", icon: "figDigest", label: "My Certificates Digest", href: "/discounts" },
+    { key: "edit", icon: "figEdit", label: "EDIT My Certificates", href: "/discounts/submit", dark: true },
   ],
   connections: [
-    { key: "digest", icon: "connections", label: "My Connections Digest", href: "/connections" },
-    { key: "details", icon: "viewMode", label: "VIEW Profile(s)", href: "/connections#results" },
-    { key: "edit", icon: "editMode", label: "EDIT My Profile(s)", href: "/profile", dark: true },
+    { key: "digest", icon: "figConnDigest", label: "My Connections Digest", href: "/connections/digest" },
+    { key: "details", icon: "figViewProfile", label: "VIEW Profile(s)", href: "/connections" },
+    { key: "edit", icon: "figEditProfile", label: "EDIT My Profile(s)", href: "/profile", dark: true },
   ],
   employment: [
-    { key: "digest", icon: "employment", label: "My Employment Digest", href: "/employment" },
-    { key: "edit", icon: "editMode", label: "EDIT My Employment Listings", href: "/employment/submit", dark: true },
+    { key: "digest", icon: "figDigest", label: "My Employment Digest", href: "/employment" },
+    { key: "edit", icon: "figEdit", label: "EDIT My Employment Listings", href: "/employment/submit", dark: true },
   ],
   products: [
-    { key: "digest", icon: "products", label: "My Other Listings Digest", href: "/listings" },
-    { key: "edit", icon: "editMode", label: "EDIT My Other Listings", href: "/listings/submit", dark: true },
+    { key: "digest", icon: "figDigest", label: "My Other Listings Digest", href: "/listings" },
+    { key: "edit", icon: "figEdit", label: "EDIT My Other Listings", href: "/listings/submit", dark: true },
   ],
   notifications: [
-    { key: "digest", icon: "notifications", label: "My Notifications Digest", href: "/notifications" },
-    { key: "edit", icon: "editMode", label: "EDIT My Notifications", href: "/notifications", dark: true },
+    { key: "digest", icon: "figDigest", label: "My Notifications Digest", href: "/notifications" },
+    { key: "edit", icon: "figEdit", label: "EDIT My Notifications", href: "/notifications", dark: true },
   ],
 };
 
@@ -77,7 +77,7 @@ function PageBar({ title, icon, mode, section }) {
   return (
     <div className={`page-bar page-bar-${mode}`}>
       <a href={prev.href} className="pb-nav" aria-label={`Previous: ${prev.label}`} data-tip={prev.label}>
-        <Glyph name="prev" size={14} strokeWidth={2.2} />
+        <Glyph name="pagePrev" size={30} />
       </a>
       <span className={`pb-icon ${mode === "edit" ? "pb-icon-dark" : ""}`}>
         {mode !== "edit" && TILE_IMG[section]
@@ -90,7 +90,7 @@ function PageBar({ title, icon, mode, section }) {
       </span>
       <h1>{title}</h1>
       <a href={next.href} className="pb-nav" aria-label={`Next: ${next.label}`} data-tip={next.label}>
-        <Glyph name="next" size={14} strokeWidth={2.2} />
+        <Glyph name="pageNext" size={30} />
       </a>
     </div>
   );
@@ -101,7 +101,7 @@ function PageBar({ title, icon, mode, section }) {
 export function ConnectWithMe() {
   return (
     <a href="/profile#qr" className="connect-me" data-tip="Connect with me ! — mini-card, elevator pitch, QR code">
-      <Glyph name="connectMe" size={20} />
+      <Glyph name="figConnect" size={26} />
       <b><i>Connect with me !</i></b>
     </a>
   );
@@ -135,7 +135,7 @@ export default function SiteHero({
         <nav className={`hh-actions hh-actions-${actions.length}`} aria-label="Section pages">
           {actions.map((a) => (
             <a key={a.key} href={a.href} aria-current={current === a.key ? "page" : undefined}
-              className={`hh-box hh-action ${a.dark ? "hh-action-dark" : ""} ${current === a.key ? "hh-action-on" : ""}`}>
+              className={`hh-box hh-action ${current === a.key ? "hh-action-on" : ""}`}>
               <span className="hh-action-icon"><Glyph name={a.icon} size={30} /></span>
               <span>{a.label}</span>
             </a>
