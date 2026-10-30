@@ -3042,3 +3042,12 @@ button.mini-card:hover { border-color: var(--gold); }
 .connect-me { background: #ffff00 !important; border: 2px solid #111 !important; }
 .connect-me:hover { background: #fff700 !important; }
 .obc-img .glyph-fig { margin: 0 auto; }
+
+/* Oct 30 — Figma: map counties are WHITE, a picked one turns GOLD (no blue, no light-gold hover). */
+.county-shape, .county-shape.has, .region-shape, .region-shape.has { fill: #fff; stroke: #9a9a9a; stroke-width: 1; }
+.county-shape:hover, .county-shape:focus-visible, .region-shape:hover, .region-shape:focus-visible { fill: #fff; stroke: var(--ink); stroke-width: 2; }
+.county-shape.on, .region-shape.on, .county-shape.on:hover, .region-shape.on:hover { fill: #ffd200; stroke: #9a9a9a; }
+.county-ctx { fill: #f2f2f2; }
+.map-water { fill: #fff; }
+/* Figma: collapse circle is 25 px */
+.fp-arrow { width: 25px !important; height: 25px !important; }

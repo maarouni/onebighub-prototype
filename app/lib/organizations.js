@@ -64,7 +64,33 @@ export const ROSTER_GROUPS = [
   { id: "member", label: "Organization Members" },
 ];
 
+// Oct 30 (Cesar's Figma Rev 261030): Connections filters now mirror the other
+// sections — people, businesses, orgs and groups share one filter set.
+export const REFERRAL_OPTIONS = [{ id: "no", label: "No" }, { id: "yes", label: "Yes" }];
+export const CONNECTION_TYPES = [
+  { id: "indPersonal", label: "Individuals Personal" },
+  { id: "indProfessional", label: "Individuals Professional" },
+  { id: "biz", label: "Businesses" },
+  { id: "org", label: "Organizations" },
+  { id: "group", label: "Groups" },
+];
+export const AD_TYPES = [
+  { id: "regular", label: "Regular Free" },
+  { id: "premier", label: "Premier" },
+  { id: "barter", label: "Premier Barter" },
+];
+export const SEEKING_EMPLOYMENT = [
+  "Hybrid", "In-Person", "Remote", "Contract", "Focus Study", "F/T Full-Time", "P/T Part-Time", "Affiliate",
+  "Consultant", "Contractor", "Employee", "Entrepreneur", "Freelancer", "Intern", "Volunteer",
+];
+export const CONN_LEVELS = ["Founder / Owner", "C-Level Executive", "Executive", "Management", "Staff"];
+export const CONN_COMP = [
+  { id: "volunteer", label: "Volunteer" }, { id: "hourly", label: "$ xxx per hour" },
+  { id: "monthly", label: "$ xx,xxx per month" }, { id: "yearly", label: "$ xxx,xxx per year" },
+];
+
 export const EMPTY_ORG_FILTERS = {
+  referral: [], ctype: [], seeking: [], level: [], comp: [], adtype: [],
   posted: "all", postedFrom: "", postedTo: "",
   formats: [], tiers: [], members: [], dues: [], status: [],
   categories: [], industry: [], region: [],
@@ -157,11 +183,17 @@ export function saveLocalOrg(o) {
   } catch {}
 }
 
+// Sample attributes for the placeholder orgs (real ones come from the submit form / database).
+const EXTRA = {
+  o1: { kind: "org", referral: true }, o2: { kind: "group", referral: false }, o3: { kind: "group", referral: true },
+  o4: { kind: "org", referral: false }, o5: { kind: "org", referral: true }, o6: { kind: "org", referral: false },
+};
+
 export async function fetchOrgs() {
   const local = localOrgs();
   const localIds = new Set(local.map((o) => o.id));
   // A locally edited copy of a sample org replaces the sample.
-  return [...local, ...ORGS.filter((o) => !localIds.has(o.id))];
+  return [...local, ...ORGS.filter((o) => !localIds.has(o.id)).map((o) => ({ ...o, ...(EXTRA[o.id] || {}) }))];
 }
 
 export function readMembership() {
@@ -213,6 +245,13 @@ const TESTS = {
     if (f.posted === "30") return diff >= 0;
     return diff >= 0 && diff <= Number(f.posted);
   },
+  referral: (o, f) => !f.referral.length || f.referral.includes(o.referral ? "yes" : "no"),
+  ctype: (o, f) => !f.ctype.length || f.ctype.includes(o.kind || "org"),
+  // Seeking Employment / Level / Compensation describe individuals; orgs without them drop out when picked.
+  seeking: (o, f) => !f.seeking.length || (o.seeking || []).some((x) => f.seeking.includes(x)),
+  level: (o, f) => !f.level.length || f.level.includes(o.level),
+  comp: (o, f) => !f.comp.length || f.comp.includes(o.comp),
+  adtype: (o, f) => !f.adtype.length || f.adtype.includes(o.barter ? "barter" : o.premier ? "premier" : "regular"),
   formats: (o, f) => !f.formats.length || (o.formats || []).some((x) => f.formats.includes(x)),
   tiers: (o, f) => !f.tiers.length || f.tiers.includes(o.premier ? "Premier" : "Regular"),
   members: (o, f) => !f.members.length || inBucket(MEMBER_OPTIONS, f.members, Number(o.members) || 0),

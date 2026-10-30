@@ -2,7 +2,7 @@
 
 import { FilterShell, Box, Option, CheckList, DateBox, GroupedBox, DigestBox, RegionBoxes } from "./FilterKit";
 import {
-  DATE_POSTED_OPTIONS, ORG_FORMATS, ORG_TIERS, MEMBER_OPTIONS, DUES_OPTIONS, MEMBERSHIP_STATUSES,
+  DATE_POSTED_OPTIONS, REFERRAL_OPTIONS, CONNECTION_TYPES, AD_TYPES, SEEKING_EMPLOYMENT, CONN_LEVELS, CONN_COMP, MEMBER_OPTIONS, DUES_OPTIONS, MEMBERSHIP_STATUSES,
   CATEGORY_GROUPS, INDUSTRIES, REGION_GROUPS, EMPTY_ORG_FILTERS, countOrgsFor,
 } from "../lib/organizations";
 
@@ -25,13 +25,12 @@ export default function OrgFilterPanel({ items, filters, setFilters, ctx, onHide
         </Box>
       )}
       <DateBox title="Date Posted / Revised" field="posted" fromKey="postedFrom" toKey="postedTo" options={DATE_POSTED_OPTIONS} {...kit} />
-      <Box title="Organization Types">
-        <Option type="radio" name="all-org-types" checked={!filters.formats.length && !filters.tiers.length}
-          onChange={() => setFilters((f) => ({ ...f, formats: [], tiers: [] }))} label="All" def />
-        <CheckList field="formats" options={ORG_FORMATS} all={false} {...kit} />
-        <div className="fp-gap" />
-        <CheckList field="tiers" options={ORG_TIERS} all={false} {...kit} />
-      </Box>
+      <Box title="Offering $ Referrals"><CheckList field="referral" options={REFERRAL_OPTIONS} all={false} {...kit} /></Box>
+      <Box title="Types"><CheckList field="ctype" options={CONNECTION_TYPES} {...kit} /></Box>
+      <Box title="Seeking Employment"><CheckList field="seeking" options={SEEKING_EMPLOYMENT} {...kit} /></Box>
+      <Box title="Employment Level"><CheckList field="level" options={CONN_LEVELS} {...kit} /></Box>
+      <Box title="Minimum Compensation"><CheckList field="comp" options={CONN_COMP} {...kit} allLabel="No Response" /></Box>
+      <Box title="Ad Types"><CheckList field="adtype" options={AD_TYPES} all={false} {...kit} /></Box>
       <Box title="# Members"><CheckList field="members" options={MEMBER_OPTIONS} {...kit} /></Box>
       <Box title="Annual Dues"><CheckList field="dues" options={DUES_OPTIONS} {...kit} /></Box>
       {digest && <Box title="My Membership Status"><CheckList field="status" options={MEMBERSHIP_STATUSES} {...kit} /></Box>}
