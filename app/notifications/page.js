@@ -14,6 +14,7 @@ import { fetchEvents } from "../lib/events";
 import { Box, Option } from "../components/FilterKit";
 import { Glyph } from "../components/Icons";
 import SiteHero from "../components/SiteHero";
+import { CountyMap, CaliforniaMap } from "../components/Explore";
 
 const LABELS_KEY = "cg_notification_labels_v2";
 const SUBS_KEY = "cg_subscriptions_v1";
@@ -161,6 +162,14 @@ function BrowseTab({ edit, labels, update, subs, toggleSub }) {
         ))}
 
         <Group title="Regions" defaultOpen={false}>
+          {(() => {
+            const mapFilters = { regions: sel.regions };
+            const setMapFilters = (u) => setSel((s) => ({ ...s, regions: (typeof u === "function" ? u({ regions: s.regions }) : u).regions }));
+            return (<>
+              <CountyMap compact filters={mapFilters} setFilters={setMapFilters} />
+              <CaliforniaMap compact filters={mapFilters} setFilters={setMapFilters} />
+            </>);
+          })()}
           {REGION_GROUPS.map((g) => (
             <SubGroup key={g.group} title={g.group} options={g.options} selected={sel.regions}
               onToggle={(o) => toggle("regions", o)} countOf={(o) => count("regions", o)} />

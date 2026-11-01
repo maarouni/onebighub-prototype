@@ -20,6 +20,37 @@ const SHORT = { "San Francisco": "SF", "Contra Costa": "Contra Costa", "Santa Cl
 // Nudge a few labels off busy edges so they stay readable.
 const LABEL_NUDGE = { "San Francisco": [-22, 0], "San Mateo": [-14, 4], Marin: [-6, 0], Alameda: [6, 2], "Contra Costa": [4, -2] };
 
+// Oct 30 (Cesar, "revise maps as in Facebook"): a picked county / region gets a
+// circle (radius ring + center dot) marking where it points, and the map can be
+// enlarged for a more accurate pick.
+function MapShell({ label, render }) {
+  const [big, setBig] = useState(false);
+  return (
+    <div className="map-shell">
+      {render(false)}
+      <button type="button" className="map-enlarge" onClick={() => setBig(true)}>&#x2922; Enlarge map</button>
+      {big && (
+        <div className="map-modal" role="dialog" aria-label={label} onClick={() => setBig(false)}>
+          <div className="map-modal-card" onClick={(e) => e.stopPropagation()}>
+            <button type="button" className="map-modal-x" onClick={() => setBig(false)}>Close &#x2715;</button>
+            {render(true)}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function Pin({ x, y, r }) {
+  return (
+    <g className="map-pin" transform={`translate(${x} ${y})`} pointerEvents="none">
+      <circle className="map-radius" r={r} />
+      <circle className="map-dot-ring" r="7" />
+      <circle className="map-dot" r="3.5" />
+    </g>
+  );
+}
+
 export function CountyMap({ events = [], filters, setFilters, compact = false, field = "regions" }) {
   const counts = useMemo(() => {
     const c = {};
@@ -52,8 +83,8 @@ export function CountyMap({ events = [], filters, setFilters, compact = false, f
   // Oct 15: the map lives inside the "Regions - CA Bay Area" filter panel.
   // No event counts on the counties; a picked county turns gold.
   if (compact) {
-    return (
-      <svg className="county-map county-map-compact" viewBox={`0 0 ${MAP_W} ${MAP_H}`} role="group" aria-label="Filter by county">
+    const draw = (big) => (
+      <svg className={`county-map county-map-compact ${big ? "county-map-big" : ""}`} viewBox={`0 0 ${MAP_W} ${MAP_H}`} role="group" aria-label="Filter by county">
         {NORCAL_CONTEXT.map((c) => <path key={c.name} className="county-ctx" d={c.d} />)}
         {BAY_COUNTIES.map((c) => {
           const on = picked0.includes(c.name);
@@ -65,16 +96,20 @@ export function CountyMap({ events = [], filters, setFilters, compact = false, f
             </path>
           );
         })}
+        {BAY_COUNTIES.filter((c) => picked0.includes(c.name)).map((c) => (
+          <Pin key={c.name} x={c.cx} y={c.cy} r={big ? 46 : 38} />
+        ))}
         {BAY_COUNTIES.map((c) => {
           const [dx, dy] = LABEL_NUDGE[c.name] || [0, 0];
           return (
-            <text key={c.name} className="county-name" textAnchor="middle" transform={`translate(${c.cx + dx} ${c.cy + dy + 3})`}>
+            <text key={c.name} className="county-name" textAnchor="middle" transform={`translate(${c.cx + dx} ${c.cy + dy + 22})`}>
               {SHORT[c.name] || c.name}
             </text>
           );
         })}
       </svg>
     );
+    return <MapShell label="Bay Area counties" render={draw} />;
   }
 
   return (
@@ -182,8 +217,8 @@ export function CaliforniaMap({ events = [], filters, setFilters, compact = fals
   }
 
   if (compact) {
-    return (
-      <svg className="county-map ca-region-map county-map-compact" viewBox={`0 0 ${CA_MAP_W} ${CA_MAP_H}`} role="group" aria-label="Filter by California region">
+    const draw = (big) => (
+      <svg className={`county-map ca-region-map county-map-compact ${big ? "county-map-big" : ""}`} viewBox={`0 0 ${CA_MAP_W} ${CA_MAP_H}`} role="group" aria-label="Filter by California region">
         {CALIFORNIA_REGIONS.map((r) => {
           const on = picked0.includes(r.name);
           return (
@@ -194,8 +229,15 @@ export function CaliforniaMap({ events = [], filters, setFilters, compact = fals
             </path>
           );
         })}
+        {CALIFORNIA_REGIONS.filter((r) => picked0.includes(r.name)).map((r) => (
+          <Pin key={r.name} x={r.cx} y={r.cy} r={big ? 48 : 40} />
+        ))}
+        {CALIFORNIA_REGIONS.map((r) => (
+          <text key={r.name} className="region-name-c" textAnchor="middle" transform={`translate(${r.cx} ${r.cy + 24})`}>{r.name}</text>
+        ))}
       </svg>
     );
+    return <MapShell label="California regions" render={draw} />;
   }
 
   return (

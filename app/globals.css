@@ -3051,3 +3051,20 @@ button.mini-card:hover { border-color: var(--gold); }
 .map-water { fill: #fff; }
 /* Figma: collapse circle is 25 px */
 .fp-arrow { width: 25px !important; height: 25px !important; }
+
+/* Facebook-style pick: circle where the county / region points, enlargeable map */
+.map-shell { position: relative; }
+.map-pin .map-radius { fill: rgba(255, 210, 0, .28); stroke: #d9a800; stroke-width: 2; stroke-dasharray: 5 3; }
+.map-pin .map-dot-ring { fill: #fff; stroke: #111; stroke-width: 1.5; }
+.map-pin .map-dot { fill: #8b1a1a; }
+.county-map-compact .county-name, .region-name-c { font-size: 11px; font-weight: 600; fill: #1a1a1a; pointer-events: none; paint-order: stroke; stroke: rgba(255,255,255,.9); stroke-width: 3px; }
+.region-name-c { font-size: 10px; }
+.map-enlarge { display: inline-flex; margin: 4px 0 2px; padding: 3px 10px; border: 1px solid var(--cg-box-line); border-radius: 999px; background: #fff; color: var(--cg-blue); font-size: 12px; cursor: pointer; }
+.map-enlarge:hover { background: #ffd200; }
+.map-modal { position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,.5); display: flex; align-items: center; justify-content: center; padding: 16px; }
+.map-modal-card { position: relative; background: #fff; border-radius: 10px; padding: 14px; max-width: min(92vw, 760px); max-height: 92vh; overflow: auto; }
+.map-modal-x { position: sticky; top: 0; float: right; margin: 0 0 6px 8px; padding: 4px 12px; border: 1px solid var(--ink); border-radius: 999px; background: #fff; cursor: pointer; font-size: 13px; z-index: 2; }
+.county-map-big { max-height: 80vh; width: 100%; }
+/* Oct 30 notes: tagline flush right to ".com", page-bar title left */
+.site-tagline, .hero-tagline { text-align: right; }
+.page-bar h1, .pb-title { text-align: left; }
