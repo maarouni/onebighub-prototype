@@ -1,13 +1,18 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ATTENDANCE_STATUSES, googleCalendarUrl } from "../lib/taxonomy";
+import { ATTENDANCE_STATUSES } from "../lib/taxonomy";
 import { fetchEvents } from "../lib/events";
-import { Poster, HostAvatar, Icon, fmtTime, startTime, dayLabel, isoOf } from "../components/EventVisuals";
-import SiteHero from "../components/SiteHero";
+import { fmtTime, fmtDateRange, isoOf } from "../components/EventVisuals";
+import { cityCode } from "../lib/cityCodes";
+import PageTemplate from "../components/PageTemplate";
+import { ResultsHead, ListingTable } from "../components/ListingTable";
+import { Box, Option, FilterShell } from "../components/FilterKit";
+import { Glyph } from "../components/Icons";
 
-// Cesar's spec "My Calendar Digest" (rev 260924): the events you picked from
-// One Big Calendar, each with an Attendance Status, filterable by status.
+// My Calendar Digest, as in Cesar's Figma: same table as One Big Calendar plus a
+// thin status column on the right. Attendance status is shown as a plain symbol
+// (no colors).
 
 const STORAGE_KEY = "mc_my_calendar_v1";
 const STATUS_KEY = "mc_attendance_status_v2";
@@ -22,41 +27,22 @@ function chrono(a, b) {
   return `${a.date} ${a.time || ""}`.localeCompare(`${b.date} ${b.time || ""}`);
 }
 
-// Minimal iCalendar export so the digest can go into any calendar app.
-function toICS(list) {
-  const esc = (s) => String(s || "").replace(/[\\,;]/g, (m) => `\\${m}`).replace(/\n/g, "\\n");
-  const stamp = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d+/, "");
-  const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//onebigHUB//My Calendar//EN", "CALSCALE:GREGORIAN"];
-  for (const e of list) {
-    const d = String(e.date || "").replace(/-/g, "");
-    if (!d) continue;
-    const m = String(e.time || "").match(/(\d{1,2}):(\d{2})\s*-\s*(\d{1,2}):(\d{2})/);
-    const pad = (x) => String(x).padStart(2, "0");
-    lines.push("BEGIN:VEVENT", `UID:${e.id}@onebighub`, `DTSTAMP:${stamp}`);
-    if (m) {
-      lines.push(`DTSTART;TZID=America/Los_Angeles:${d}T${pad(m[1])}${m[2]}00`, `DTEND;TZID=America/Los_Angeles:${d}T${pad(m[3])}${m[4]}00`);
-    } else {
-      lines.push(`DTSTART;VALUE=DATE:${d}`);
-    }
-    lines.push(
-      `SUMMARY:${esc(e.title)}`,
-      `LOCATION:${esc(e.type === "Online" ? "Online" : e.city)}`,
-      `DESCRIPTION:${esc(`${e.description || ""}\nHosted by ${e.hostedBy}`)}`,
-      "END:VEVENT"
-    );
-  }
-  lines.push("END:VCALENDAR");
-  return lines.join("\r\n");
+function rowImage(e) {
+  const cats = [...(e.categories || []), e.category].join(" ").toLowerCase();
+  if (cats.includes("dinner")) return "dinner";
+  if (cats.includes("workshop") || cats.includes("seminar")) return "workshop";
+  return "expo";
 }
 
+// Symbol-only status control: the select sits invisibly over the symbol.
 function StatusPicker({ value, onChange }) {
   const meta = ATTENDANCE_STATUSES.find((s) => s.id === value) || ATTENDANCE_STATUSES[0];
   return (
-    <label className={`st-picker st-${meta.id}`} title="Attendance status">
-      <span className="st-icon">{meta.icon}</span>
+    <label className="att-pick" data-tip={meta.label}>
+      <span className="att-sym">{meta.icon}</span>
       <select value={value} onChange={(e) => onChange(e.target.value)} aria-label="Attendance status">
         {ATTENDANCE_STATUSES.map((s) => (
-          <option key={s.id} value={s.id}>{s.label}</option>
+          <option key={s.id} value={s.id}>{s.icon}  {s.label}</option>
         ))}
       </select>
     </label>
@@ -70,6 +56,7 @@ export default function MyCalendar() {
   const [status, setStatus] = useState({});
   const [statusFilter, setStatusFilter] = useState("all");
   const [dateView, setDateView] = useState("upcoming");
+  const [q, setQ] = useState("");
   const today = useMemo(() => new Date(), []);
   const todayIso = isoOf(today);
 
@@ -124,146 +111,68 @@ export default function MyCalendar() {
     }
     return c;
   }, [inView, status]);
-  const shown = inView.filter((e) => statusFilter === "all" || (status[e.id] || "none") === statusFilter);
-
-  const groups = [];
-  for (const e of shown) {
-    const last = groups[groups.length - 1];
-    if (last && last.date === e.date) last.items.push(e);
-    else groups.push({ date: e.date, items: [e] });
-  }
-
-  const attendingCount = (counts.attending || 0) + (counts.high || 0);
-
-  function downloadICS() {
-    const blob = new Blob([toICS(shown)], { type: "text/calendar" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "my-calendar.ics";
-    a.click();
-    URL.revokeObjectURL(a.href);
-  }
+  const ql = q.trim().toLowerCase();
+  const shown = inView
+    .filter((e) => statusFilter === "all" || (status[e.id] || "none") === statusFilter)
+    .filter((e) => !ql || `${e.title} ${e.hostedBy} ${e.city}`.toLowerCase().includes(ql));
 
   return (
-    <div className="page mc-page">
-      <SiteHero section="calendar" title="My Calendar Digest" icon="calendar" activeAction="digest" />
-      <header className="mc-head">
-        <div>
-          <h1>My Calendar Digest</h1>
-          <p>Assign your attendance status for each event. Curate the list with filters.</p>
-        </div>
-        <div className="mc-tools">
-          <a href="/#timeline" className="mc-tool" title="Add events from One Big Calendar"><Icon name="plus" /><span>Add events</span></a>
-          <button type="button" className="mc-tool" onClick={downloadICS} disabled={!shown.length} title="Download for Apple, Google or Outlook calendar">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" /></svg>
-            <span>Download .ics</span>
-          </button>
-          <button type="button" className="mc-tool" onClick={() => window.print()} disabled={!shown.length} title="Print">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true"><path d="M7 9V3h10v6M7 17H4v-7h16v7h-3M7 14h10v7H7z" /></svg>
-            <span>Print</span>
-          </button>
-        </div>
-      </header>
+    <>
+      <PageTemplate section="calendar" title="My Calendar Digest" legend={false} activeAction="digest" />
+      <div className="page browse-page">
+        <div className="layout-with-sidebar">
+          <FilterShell onClear={() => { setStatusFilter("all"); setDateView("upcoming"); }} onDisplay={() => document.getElementById("results")?.scrollIntoView({ behavior: "smooth" })}>
+            <Box title="Dates" hint="Select one">
+              {DATE_VIEWS.map((d) => (
+                <Option key={d.id} type="radio" name="mc-date" checked={dateView === d.id} onChange={() => setDateView(d.id)} label={d.label} />
+              ))}
+            </Box>
+            <Box title="My Attendance Status" hint="Select one">
+              <button type="button" className={`att-row ${statusFilter === "all" ? "on" : ""}`} onClick={() => setStatusFilter("all")}>
+                <span className="att-sym">&#x2217;</span><span>All</span><em>{inView.length}</em>
+              </button>
+              {ATTENDANCE_STATUSES.map((s) => (
+                <button key={s.id} type="button" className={`att-row ${statusFilter === s.id ? "on" : ""}`}
+                  onClick={() => setStatusFilter(s.id)} disabled={!counts[s.id]}>
+                  <span className="att-sym">{s.icon}</span><span>{s.label}</span><em>{counts[s.id] || 0}</em>
+                </button>
+              ))}
+            </Box>
+          </FilterShell>
 
-      {mine.length > 0 && (
-        <div className="mc-stats">
-          <div className="mc-stat"><b>{inView.length}</b><span>{dateView === "past" ? "past" : dateView === "all" ? "saved" : "coming up"}</span></div>
-          <div className="mc-stat attending"><b>{attendingCount}</b><span>attending or likely</span></div>
-          <div className="mc-stat"><b>{counts.none || 0}</b><span>need a status</span></div>
-        </div>
-      )}
+          <div className="timeline-col" id="results">
+            <ResultsHead title="My Calendar Digest" q={q} setQ={setQ} showFilters onShowFilters={() => {}} />
 
-      <div className="layout-with-sidebar">
-        <aside className="sidebar mc-side">
-          <h4>Dates</h4>
-          <div className="mc-seg">
-            {DATE_VIEWS.map((d) => (
-              <button key={d.id} type="button" className={dateView === d.id ? "on" : ""} onClick={() => setDateView(d.id)}>{d.label}</button>
-            ))}
-          </div>
-          <h4>My attendance status</h4>
-          <button type="button" className={`mc-st-row ${statusFilter === "all" ? "on" : ""}`} onClick={() => setStatusFilter("all")}>
-            <span className="st-icon st-all">∗</span>All<b>{inView.length}</b>
-          </button>
-          {ATTENDANCE_STATUSES.map((s) => (
-            <button
-              key={s.id}
-              type="button"
-              className={`mc-st-row st-${s.id} ${statusFilter === s.id ? "on" : ""}`}
-              onClick={() => setStatusFilter(s.id)}
-              disabled={!counts[s.id]}
-            >
-              <span className="st-icon">{s.icon}</span>{s.label}<b>{counts[s.id] || 0}</b>
-            </button>
-          ))}
-        </aside>
-
-        <div className="timeline-col">
-          {loaded && mine.length === 0 && (
-            <div className="mc-empty">
-              <div className="empty-circles" aria-hidden="true"><i /><i /><i /></div>
-              <h2>Your calendar is empty</h2>
-              <p>Tap the <span className="mc-inline-plus"><Icon name="plus" /></span> on any event in One Big Calendar and it lands here.</p>
-              <div className="mc-empty-actions">
-                <a className="btn-primary" href="/#timeline">Browse One Big Calendar</a>
-                <button type="button" className="btn-ghost" onClick={loadSample}>Show me with sample events</button>
+            {loaded && mine.length === 0 && (
+              <div className="empty-state">
+                Nothing here yet. Tick events in <a href="/">One Big Calendar</a> and ADD them,{" "}
+                or <button type="button" className="clear-filters-link" onClick={loadSample}>show sample events</button>.
               </div>
-            </div>
-          )}
+            )}
+            {mine.length > 0 && shown.length === 0 && (
+              <div className="empty-state">
+                Nothing matches.{" "}
+                <button type="button" className="clear-filters-link" onClick={() => { setStatusFilter("all"); setDateView("all"); setQ(""); }}>Show everything</button>
+              </div>
+            )}
 
-          {mine.length > 0 && shown.length === 0 && (
-            <div className="empty-state">
-              Nothing here for this filter.{" "}
-              <button type="button" className="clear-filters-link" onClick={() => { setStatusFilter("all"); setDateView("all"); }}>Show everything</button>
-            </div>
-          )}
-
-          <div className="timeline">
-            {groups.map((g) => {
-              const l = dayLabel(g.date, today);
-              return (
-                <section key={g.date} className={`tl-day ${g.date < todayIso ? "past" : ""}`}>
-                  <header className="tl-date">
-                    <span className="tl-dot" aria-hidden="true" />
-                    <div>
-                      <div className="tl-day-main">{l.day}{l.tag && <em>{l.tag}</em>}</div>
-                      <div className="tl-weekday">{l.weekday}</div>
-                    </div>
-                  </header>
-                  <div className="tl-items">
-                    {g.items.map((e) => {
-                      const s = status[e.id] || "none";
-                      return (
-                        <article key={e.id} className={`tl-card mc-card ${e.premier ? "premier" : "regular"} st-card-${s}`}>
-                          <StatusPicker value={s} onChange={(v) => setEventStatus(e.id, v)} />
-                          {e.premier && <a href={`/event/${e.id}`} className="tl-thumb mc-thumb"><Poster event={e} label={false} /></a>}
-                          <div className="tl-main">
-                            {e.premier && <div className="tl-kicker">Premier</div>}
-                            <a href={`/event/${e.id}`} className="tl-title">{e.title}</a>
-                            {e.premier ? (
-                              <>
-                                <div className="tl-line"><Icon name="clock" />{fmtTime(e.time)}</div>
-                                <div className="tl-line"><Icon name={e.type === "Online" ? "globe" : "pin"} />{e.type === "Online" ? "Online" : e.city}</div>
-                                <div className="tl-line tl-host"><HostAvatar name={e.hostedBy} size={18} /><b>{e.hostedBy}</b><span className="tl-sep">·</span><Icon name="tag" />{e.cost}</div>
-                              </>
-                            ) : (
-                              <div className="tl-reg-2">{fmtTime(e.time)} · {e.type === "Online" ? "Online" : e.city} · {e.hostedBy} · {e.cost}</div>
-                            )}
-                          </div>
-                          <div className="mc-actions">
-                            <a className="gcal-link" href={googleCalendarUrl(e)} target="_blank" rel="noopener noreferrer">Google Cal</a>
-                            <button type="button" className="mc-remove" onClick={() => remove(e.id)} aria-label={`Remove ${e.title} from My Calendar`} title="Remove from My Calendar">✕</button>
-                          </div>
-                        </article>
-                      );
-                    })}
-                  </div>
-                </section>
-              );
-            })}
+            <ListingTable rows={shown.map((e) => ({
+              id: e.id,
+              href: `/event/${e.id}`,
+              left: [fmtDateRange(e.date, e.endDate), fmtTime(e.time)],
+              title: e.title,
+              lines: e.premier
+                ? [`${cityCode(e)}${e.type !== "Online" && e.region ? `, ${e.region}` : ""}`, <>Hosted by <b>{e.hostedBy}</b></>, e.cost]
+                : [`${cityCode(e)}, Hosted by ${e.hostedBy}`],
+              premier: e.premier,
+              image: rowImage(e),
+              selected: false,
+              onToggle: () => remove(e.id),
+              status: <StatusPicker value={status[e.id] || "none"} onChange={(v) => setEventStatus(e.id, v)} />,
+            }))} />
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -27,7 +27,6 @@ export default function IconNav({ active, mode = "output" }) {
           key={t.key}
           href={t.href}
           className={`hub-tile ${t.earn ? "hub-tile-earn" : ""} ${active === t.key ? "active" : ""}`}
-          data-tip={t.tip}
           aria-current={active === t.key ? "page" : undefined}
         >
           <img src={`/icons/${t.img}.png`} alt="" width="45" height="45" className="hub-tile-img" />
