@@ -41,12 +41,26 @@ function MapShell({ label, render }) {
   );
 }
 
-function Pin({ x, y, r }) {
+function bboxOf(d) {
+  const n = (d.match(/-?\d+\.?\d*/g) || []).map(Number);
+  let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+  for (let i = 0; i + 1 < n.length; i += 2) { x0 = Math.min(x0, n[i]); x1 = Math.max(x1, n[i]); y0 = Math.min(y0, n[i + 1]); y1 = Math.max(y1, n[i + 1]); }
+  return { w: x1 - x0, h: y1 - y0 };
+}
+
+// Radius is sized to each county / region (so it never spills outside it) and is
+// also clipped to the shape.
+function Pin({ id, d, x, y, big }) {
+  const { w, h } = bboxOf(d);
+  const r = Math.max(10, Math.min(w, h) * (big ? 0.4 : 0.36));
   return (
-    <g className="map-pin" transform={`translate(${x} ${y})`} pointerEvents="none">
-      <circle className="map-radius" r={r} />
-      <circle className="map-dot-ring" r="7" />
-      <circle className="map-dot" r="3.5" />
+    <g className="map-pin" pointerEvents="none">
+      <clipPath id={`clip-${id}`}><path d={d} /></clipPath>
+      <g clipPath={`url(#clip-${id})`}><circle className="map-radius" cx={x} cy={y} r={r} /></g>
+      <g transform={`translate(${x} ${y})`}>
+        <circle className="map-dot-ring" r="7" />
+        <circle className="map-dot" r="3.5" />
+      </g>
     </g>
   );
 }
@@ -97,7 +111,7 @@ export function CountyMap({ events = [], filters, setFilters, compact = false, f
           );
         })}
         {BAY_COUNTIES.filter((c) => picked0.includes(c.name)).map((c) => (
-          <Pin key={c.name} x={c.cx} y={c.cy} r={big ? 46 : 38} />
+          <Pin key={c.name} id={`${big ? "b" : "s"}-${c.name.replace(/\W/g, "")}`} d={c.d} x={c.cx} y={c.cy} big={big} />
         ))}
         {BAY_COUNTIES.map((c) => {
           const [dx, dy] = LABEL_NUDGE[c.name] || [0, 0];
@@ -230,7 +244,7 @@ export function CaliforniaMap({ events = [], filters, setFilters, compact = fals
           );
         })}
         {CALIFORNIA_REGIONS.filter((r) => picked0.includes(r.name)).map((r) => (
-          <Pin key={r.name} x={r.cx} y={r.cy} r={big ? 48 : 40} />
+          <Pin key={r.name} id={`${big ? "b" : "s"}-${r.name.replace(/\W/g, "")}`} d={r.d} x={r.cx} y={r.cy} big={big} />
         ))}
         {CALIFORNIA_REGIONS.map((r) => (
           <text key={r.name} className="region-name-c" textAnchor="middle" transform={`translate(${r.cx} ${r.cy + 24})`}>{r.name}</text>
