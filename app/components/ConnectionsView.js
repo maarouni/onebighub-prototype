@@ -105,15 +105,15 @@ function Inner({ digest }) {
 
   const nextOptions = digest
     ? [
-        { id: "details", icon: "viewMode", label: "View Selection(s)", href: firstSel ? `/connections/${firstSel.id}` : "/connections/digest", def: true },
+        { id: "details", icon: "eyeView", label: "View Selection(s)", href: firstSel ? `/connections/${firstSel.id}` : "/connections/digest", def: true },
         { id: "add", icon: "addNew", label: "ADD New Listing", href: "/connections/submit" },
         { id: "edit", icon: "editMode", label: "EDIT Selection(s)", href: firstSel ? `/connections/submit?id=${firstSel.id}` : "/connections/submit" },
         { id: "del", icon: "delete", label: "DELETE Selection(s) from My Connections Digest", onClick: deleteFromDigest },
       ]
     : [
-        { id: "details", icon: "viewMode", label: "View Selection(s)", href: firstSel ? `/connections/${firstSel.id}` : "/connections", def: true },
-        { id: "digest", icon: "connections", label: "ADD Selection(s) to My Connections Digest", onClick: addToDigest },
-        { id: "signup", icon: "login", label: "Sign Up / Log In to ADD Listings to My Connections Digest", href: "/registration" },
+        { id: "details", icon: "eyeView", label: "View Selection(s)", href: firstSel ? `/connections/${firstSel.id}` : "/connections", def: true },
+        { id: "digest", icon: "plusBold", label: "ADD Selection(s) to My Connections Digest", onClick: addToDigest },
+        { id: "signup", icon: "login", label: "Sign Up / Log in to ADD Listings to My Connections Digest", href: "/registration" },
       ];
 
   return (

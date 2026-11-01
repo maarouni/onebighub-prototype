@@ -3084,3 +3084,9 @@ button.mini-card:hover { border-color: var(--gold); }
 .county-map-big .county-name { font-size: 15px; }
 .county-map-big .region-name-c { font-size: 14px; }
 .map-pin .map-radius { fill: rgba(255, 210, 0, .35); stroke: #b88a00; stroke-width: 3; }
+
+/* Nov 1: no blue ribbon / arc behind the header; Search gets a circled-arrow CTA at right */
+.ec-arc, .navbar ~ .page::before { display: none !important; }
+.obc-search { position: relative; }
+.obc-search input { padding-right: 44px; }
+.obc-search-go { position: absolute; right: 4px; top: 50%; transform: translateY(-50%); display: inline-flex; background: none; border: 0; padding: 0; cursor: pointer; line-height: 0; }

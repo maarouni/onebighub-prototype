@@ -30,6 +30,9 @@ export function ResultsHead({ title, q, setQ, showFilters, onShowFilters }) {
       <label className="obc-search">
         <Glyph name="search" size={18} />
         <input type="text" placeholder="SEARCH" value={q} onChange={(e) => setQ(e.target.value)} aria-label={`Search ${title}`} />
+        <button type="button" className="obc-search-go" aria-label="Search" onClick={(e) => e.currentTarget.parentElement.querySelector("input").focus()}>
+          <Glyph name="pageNext" size={28} />
+        </button>
       </label>
     </>
   );

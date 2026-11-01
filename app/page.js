@@ -157,7 +157,7 @@ function SuperCalendarInner() {
 
             <Pager page={safePage} totalPages={totalPages} onGo={goToPage} />
 
-            <NextStep noun="Listing" digest="My Listing Digest" digestHref="/my-calendar" detailsHref={detailsHref} />
+            <NextStep noun="Listing" digest="My Calendar Digest" digestHref="/my-calendar" detailsHref={detailsHref} />
           </div>
         </div>
       </div>
