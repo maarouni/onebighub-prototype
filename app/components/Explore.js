@@ -55,8 +55,6 @@ function Pin({ id, d, x, y, big }) {
   const r = Math.max(10, Math.min(w, h) * (big ? 0.4 : 0.36));
   return (
     <g className="map-pin" pointerEvents="none">
-      <clipPath id={`clip-${id}`}><path d={d} /></clipPath>
-      <g clipPath={`url(#clip-${id})`}><circle className="map-radius" cx={x} cy={y} r={r} /></g>
       <g transform={`translate(${x} ${y})`}>
         <circle className="map-dot-ring" r="7" />
         <circle className="map-dot" r="3.5" />
