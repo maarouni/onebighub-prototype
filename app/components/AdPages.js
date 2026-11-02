@@ -36,7 +36,6 @@ export function AdPage({ title, children }) {
       title={title}
       icon="megaphone"
       legend={false}
-      actions={<a href="/info#contact" className="tpl-action">Contact us</a>}
       subnav={<AdNav />}
     >
       {children}

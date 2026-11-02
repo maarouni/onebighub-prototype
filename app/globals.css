@@ -3108,3 +3108,4 @@ button.mini-card:hover { border-color: var(--gold); }
 }
 /* No hover explanation under the 8 big hub tabs */
 .hub-tile[data-tip]:hover::after, .hub-tile[data-tip]:focus-visible::after { display: none !important; }
+.fp-arrow svg { width: 21px; height: 21px; }

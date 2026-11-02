@@ -28,7 +28,7 @@ export function FilterShell({ onHide, onClear, onDisplay, children }) {
         <span className="step-badge" aria-hidden="true">1</span>
         <em>Select all that apply</em>
         <button type="button" className="fp-clear-x" data-tip="Clear All" aria-label="Clear all filters" onClick={onClear}>
-          <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true" fill="none" stroke="#111" strokeWidth="1.6" strokeLinejoin="round">
+          <svg width="25" height="25" viewBox="0 0 30 30" aria-hidden="true" fill="none" stroke="#111" strokeWidth="1.6" strokeLinejoin="round">
             <path d="M6 9.2 9.2 6 15 11.8 20.8 6 24 9.2 18.2 15 24 20.8 20.8 24 15 18.2 9.2 24 6 20.8 11.8 15Z" />
           </svg>
         </button>

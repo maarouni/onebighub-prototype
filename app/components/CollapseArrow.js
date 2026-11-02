@@ -14,7 +14,7 @@ export default function CollapseArrow({ open, onClick, label }) {
       aria-label={`${open ? "Collapse" : "Expand"} ${label}`}
       data-tip={open ? "Collapse" : "View / Expand"}
     >
-      <Glyph name={open ? "collapse" : "expand"} size={12} strokeWidth={1.6} />
+      <Glyph name={open ? "collapse" : "expand"} size={21} strokeWidth={3} />
     </button>
   );
 }

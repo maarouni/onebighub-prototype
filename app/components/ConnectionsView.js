@@ -6,7 +6,6 @@ import OrgFilterPanel from "./OrgFilterPanel";
 import { NextStep } from "./Steps";
 import { ResultsHead, ListingTable, Pager, shortYmd } from "./ListingTable";
 import { cityCode } from "../lib/cityCodes";
-import FillInHere from "./FillInHere";
 import SendToMasoud from "./SendToMasoud";
 import OrgStatusPicker from "./OrgStatusPicker";
 import {
@@ -141,11 +140,6 @@ function Inner({ digest }) {
             <ResultsHead title={digest ? "My Connections Digest" : "Connections"} q={qRaw} setQ={setQRaw}
               showFilters={showFilters} onShowFilters={() => setShowFilters(true)} />
 
-            <FillInHere>
-              These 6 organizations are placeholders. Click <strong>+ Add a Connection</strong> to enter real ones. They&rsquo;ll
-              appear on your screen right away. When you&rsquo;re done, click <strong>Send my organizations to Masoud</strong> so I can
-              make them permanent for everyone. <em>(Until we set up the database, what you post is only visible on your computer.)</em>
-            </FillInHere>
             <SendToMasoud load={localOrgs} noun="organizations" format={fmtOrg} subject="onebigHUB - my organizations" />
 
             {pageItems.length === 0 && (
