@@ -1,15 +1,13 @@
 /** @type {import('next').NextConfig} */
-const pkg = require("./package.json");
-const buildDate = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "America/Los_Angeles" });
-const sha = (process.env.VERCEL_GIT_COMMIT_SHA || "").slice(0, 7);
+// Footer timestamp, e.g. "Mon, Nov 2 '26, 6:46pm" (Pacific time, time of the build).
+const now = new Date();
+const part = (opts) => new Intl.DateTimeFormat("en-US", { timeZone: "America/Los_Angeles", ...opts }).format(now);
+const time = part({ hour: "numeric", minute: "2-digit", hour12: true }).replace(" ", "").toLowerCase();
+const buildStamp = `${part({ weekday: "short" })}, ${part({ month: "short" })} ${part({ day: "numeric" })} '${part({ year: "2-digit" })}, ${time}`;
 
 module.exports = {
-  // Shown in the footer of every page: full date + version.
-  env: {
-    NEXT_PUBLIC_BUILD_DATE: buildDate,
-    NEXT_PUBLIC_VERSION: `v${pkg.version}${sha ? ` (${sha})` : ""}`,
-  },
-  // Oct 19: Cesar renamed Organizations to Connections. Old links keep working.
+  // Shown in the footer of every page.
+  env: { NEXT_PUBLIC_BUILD_STAMP: buildStamp },
   async redirects() {
     return [
       { source: "/organizations", destination: "/connections", permanent: true },

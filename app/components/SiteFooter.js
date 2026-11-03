@@ -11,7 +11,7 @@ export default function SiteFooter() {
         <ConnectWithMe />
         <span className="sf-copy">
           <span>© 2027 onebig<b>HUB</b>.com</span>
-          <em className="sf-ver">{process.env.NEXT_PUBLIC_BUILD_DATE} &middot; {process.env.NEXT_PUBLIC_VERSION}</em>
+          <em className="sf-ver">{process.env.NEXT_PUBLIC_BUILD_STAMP}</em>
         </span>
       </div>
     </footer>
