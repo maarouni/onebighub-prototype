@@ -143,12 +143,6 @@ export default function MyCalendar() {
           <div className="timeline-col" id="results">
             <ResultsHead title="My Calendar Digest" q={q} setQ={setQ} showFilters onShowFilters={() => {}} />
 
-            {loaded && mine.length === 0 && (
-              <div className="empty-state">
-                Nothing here yet. Tick events in <a href="/">One Big Calendar</a> and ADD them,{" "}
-                or <button type="button" className="clear-filters-link" onClick={loadSample}>show sample events</button>.
-              </div>
-            )}
             {mine.length > 0 && shown.length === 0 && (
               <div className="empty-state">
                 Nothing matches.{" "}

@@ -57,7 +57,6 @@ function DiscountsInner() {
         title="Deals"
         subtitle="Discount / Gift Certificates"
         legend={false}
-        actions={<a href="/discounts/submit" className="tpl-action" data-tip="Add New certificate">+ Post a Certificate</a>}
         intro={<><strong>Save Money !</strong> Select filters to curate (organize, submit, view) discount / gift certificates. Gift them for yourself, your clients, colleagues, family and friends!</>}
       />
 

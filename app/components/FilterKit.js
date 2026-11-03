@@ -93,19 +93,27 @@ export function CheckList({ field, options, filters, setFilters, count, all = tr
 }
 
 // Single-choice date box ("All Default", Today, … MM/DD/YY - MM/DD/YY).
+// Default end of a custom range: two weeks from today.
+function twoWeeksAhead() {
+  const d = new Date();
+  d.setDate(d.getDate() + 14);
+  const pad = (n) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+}
+
 export function DateBox({ title = "Dates", field, fromKey, toKey, options, filters, setFilters, count }) {
   return (
     <Box title={title} hint="Select one">
       {options.map((o) => (
         <Option key={o.id} type="radio" name={`date-${field}`} checked={filters[field] === o.id}
-          onChange={() => setFilters((f) => ({ ...f, [field]: o.id }))} label={o.label} def={o.id === "all"}
+          onChange={() => setFilters((f) => ({ ...f, [field]: o.id, ...(o.id === "custom" && !f[toKey] ? { [toKey]: twoWeeksAhead() } : {}) }))} label={o.label} def={o.id === "all"}
           count={o.id === "custom" || !count ? undefined : count(field, o.id)} />
       ))}
       {filters[field] === "custom" && (
         <div className="fp-range">
           <input type="date" aria-label="From date" value={filters[fromKey]} onChange={(e) => setFilters((f) => ({ ...f, [fromKey]: e.target.value }))} />
           <span>–</span>
-          <input type="date" aria-label="To date" value={filters[toKey]} min={filters[fromKey] || undefined} onChange={(e) => setFilters((f) => ({ ...f, [toKey]: e.target.value }))} />
+          <input type="date" aria-label="To date" value={filters[toKey] || twoWeeksAhead()} min={filters[fromKey] || undefined} onChange={(e) => setFilters((f) => ({ ...f, [toKey]: e.target.value }))} />
         </div>
       )}
     </Box>

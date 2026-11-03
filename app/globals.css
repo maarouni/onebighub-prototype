@@ -3109,3 +3109,11 @@ button.mini-card:hover { border-color: var(--gold); }
 /* No hover explanation under the 8 big hub tabs */
 .hub-tile[data-tip]:hover::after, .hub-tile[data-tip]:focus-visible::after { display: none !important; }
 .fp-arrow svg { width: 21px; height: 21px; }
+
+/* Nov 2: radios are a single color (no outer ring/glow), Connect with me = width of the Submit box */
+input[type="radio"]:checked, input[type="radio"]:checked:hover, input[type="radio"]:checked:focus-visible,
+.fp-v2 .fp-option input:checked, .fp-v2 .fp-option input:checked:hover, .fp-v2 .fp-option input:checked:focus-visible {
+  box-shadow: none !important; outline: none !important; border-color: var(--cg-red, #8b1a1a) !important;
+}
+.fp-v2 .fp-option input:focus-visible { outline: none; }
+.connect-me { width: 260px; max-width: 100%; justify-content: center; box-sizing: border-box; }
