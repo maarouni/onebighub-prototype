@@ -9,7 +9,10 @@ export default function SiteFooter() {
     <footer className="site-footer-v2">
       <div className="sf-inner">
         <ConnectWithMe />
-        <span>© 2027 onebig<b>HUB</b>.com</span>
+        <span className="sf-copy">
+          <span>© 2027 onebig<b>HUB</b>.com</span>
+          <em className="sf-ver">{process.env.NEXT_PUBLIC_BUILD_DATE} &middot; {process.env.NEXT_PUBLIC_VERSION}</em>
+        </span>
       </div>
     </footer>
   );

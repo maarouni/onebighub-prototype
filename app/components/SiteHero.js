@@ -76,7 +76,7 @@ function PageBar({ title, icon, mode, section }) {
   const next = SECTION_ORDER[(i + 1) % SECTION_ORDER.length];
   return (
     <div className={`page-bar page-bar-${mode}`}>
-      <a href={prev.href} className="pb-nav" aria-label={`Previous: ${prev.label}`} data-tip={prev.label}>
+      <a href={prev.href} className="pb-nav" aria-label="Previous" data-tip="Previous">
         <Glyph name="pagePrev" size={30} />
       </a>
       <span className={`pb-icon ${mode === "edit" ? "pb-icon-dark" : ""}`}>
@@ -89,7 +89,7 @@ function PageBar({ title, icon, mode, section }) {
           : <Glyph name={icon} size={mode === "edit" ? 34 : 44} />}
       </span>
       <h1>{title}</h1>
-      <a href={next.href} className="pb-nav" aria-label={`Next: ${next.label}`} data-tip={next.label}>
+      <a href={next.href} className="pb-nav" aria-label="Next" data-tip="Next">
         <Glyph name="pageNext" size={30} />
       </a>
     </div>
