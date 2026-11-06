@@ -1,13 +1,14 @@
 "use client";
 
 import SiteHero from "./SiteHero";
+import { Glyph } from "./Icons";
 
 // One legal page (Info → Terms & Conditions / Privacy Policy / Child Safety
 // Policy). Text lives in app/lib/policies.js.
 const LINKS = [
-  ["/info/terms", "Terms & Conditions"],
-  ["/info/privacy", "Privacy Policy"],
-  ["/info/child-safety", "Child Safety Policy"],
+  ["/info/terms", "Terms & Conditions", "document"],
+  ["/info/privacy", "Privacy Policy", "shield"],
+  ["/info/child-safety", "Child Safety Policy", "smiley"],
 ];
 
 function render(blocks) {
@@ -32,7 +33,7 @@ export default function PolicyPage({ title, href, blocks }) {
       <SiteHero section={null} title={title} icon="info" />
       <nav className="info-index" aria-label="Policies">
         <a href="/info"><b>← Info</b></a>
-        {LINKS.map(([h, l]) => <a key={h} href={h} aria-current={h === href ? "page" : undefined}>{l}</a>)}
+        {LINKS.map(([h, l, i]) => <a key={h} href={h} aria-current={h === href ? "page" : undefined}><Glyph name={i} size={16} /> {l}</a>)}
       </nav>
       <p className="policy-flag">
         <b>Draft for review</b> — adapted from everyCircle&apos;s policy. The operating company, contact email and mailing
@@ -40,7 +41,7 @@ export default function PolicyPage({ title, href, blocks }) {
         SMS texts, marketplace payments, a Cookie Policy) and need a legal review before launch.
       </p>
       <article className="policy-body">
-        <h1>{title}</h1>
+        <h1 className="info-h2">{(LINKS.find(([h]) => h === href) || [])[2] && <Glyph name={LINKS.find(([h]) => h === href)[2]} size={24} />} {title}</h1>
         {render(blocks)}
       </article>
     </div>

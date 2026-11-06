@@ -1,13 +1,46 @@
 "use client";
 
+import { useState } from "react";
 import FillInHere from "../components/FillInHere";
 import { Glyph, LEGEND } from "../components/Icons";
 import SiteHero from "../components/SiteHero";
 
+// Nov 6 (Masoud): Figma's Info items, each with an everyCircle-style icon, plus
+// How to Delete Your Account and Delete Account — all on Info until further notice.
 const INDEX = [
-  ["about", "About Us"], ["contact", "Contact Us"], ["legend", "Legend Icons"],
-  ["child-safety", "Child Safety Policy"], ["privacy", "Privacy Policy"], ["terms", "Terms & Conditions"],
+  ["about", "About Us", "connections"], ["contact", "Contact Us", "contactCard"], ["legend", "Legend Icons", "viewMode"],
+  ["terms", "Terms & Conditions", "document"], ["privacy", "Privacy Policy", "shield"], ["child-safety", "Child Safety Policy", "smiley"],
+  ["delete-help", "How to Delete Your Account", "info"], ["delete-account", "Delete Account", "delete"],
 ];
+const POLICY_PAGES = ["terms", "privacy", "child-safety"];
+const ICON_OF = Object.fromEntries(INDEX.map(([id, , icon]) => [id, icon]));
+
+// Section title with its icon (same icon as the index).
+const H = ({ id, children }) => <h2 className="info-h2"><Glyph name={ICON_OF[id]} size={20} /> {children}</h2>;
+
+// Delete Account: no server accounts yet, so this erases everything onebigHUB
+// saved in this browser (sign-in, My Calendar Digest, selections, settings).
+function DeleteAccount() {
+  const [step, setStep] = useState("idle");
+  function wipe() {
+    try {
+      Object.keys(localStorage).filter((k) => k.startsWith("mc_")).forEach((k) => localStorage.removeItem(k));
+    } catch {}
+    window.dispatchEvent(new Event("mc-auth-changed"));
+    setStep("done");
+  }
+  if (step === "done") return <p className="info-del-done">Done — your onebigHUB account data was deleted from this browser.</p>;
+  if (step === "confirm") {
+    return (
+      <div className="info-del-confirm">
+        <p><b>Delete your account?</b> This erases your sign-in, My Calendar Digest, selections and settings. It can&apos;t be undone.</p>
+        <button type="button" className="info-del-btn" onClick={wipe}><Glyph name="delete" size={16} /> Yes, delete my account</button>
+        <button type="button" className="info-del-cancel" onClick={() => setStep("idle")}>Cancel</button>
+      </div>
+    );
+  }
+  return <button type="button" className="info-del-btn" onClick={() => setStep("confirm")}><Glyph name="delete" size={16} /> Delete Account</button>;
+}
 
 // Site index from Cesar's Legend Icons page (Public vs Personal pages).
 const PUBLIC_PAGES = [
@@ -37,7 +70,9 @@ export default function InfoPage() {
 
       <nav className="info-index" aria-label="Info index">
         <a href="/pages"><b>All Pages →</b></a>
-        {INDEX.map(([id, label]) => <a key={id} href={["terms", "privacy", "child-safety"].includes(id) ? `/info/${id}` : `#${id}`}>{label}</a>)}
+        {INDEX.map(([id, label, icon]) => (
+          <a key={id} href={POLICY_PAGES.includes(id) ? `/info/${id}` : `#${id}`}><Glyph name={icon} size={16} /> {label}</a>
+        ))}
       </nav>
 
       <FillInHere>
@@ -91,7 +126,7 @@ export default function InfoPage() {
       </section>
 
       <section className="info-section" id="legend">
-        <h2>Legend Icons</h2>
+        <H id="legend">Legend Icons</H>
         <p className="nt-hint">Every icon on the site, with the tooltip it shows on hover. Same set Cesar defined in Figma (Info → Legend Icons).</p>
         {LEGEND.map((g) => (
           <div key={g.group} className="legend-group">
@@ -127,7 +162,7 @@ export default function InfoPage() {
       </section>
 
       <section className="info-section" id="about">
-        <h2>About Us</h2>
+        <H id="about">About Us</H>
         <p>
           One place for every Bay Area networking event, meetup and workshop &mdash; built for organizers who are
           tired of juggling five different tools. onebigHUB is a collaboration between Masoud Arouni and Cesar
@@ -136,16 +171,36 @@ export default function InfoPage() {
       </section>
 
       <section className="info-section" id="contact">
-        <h2>Contact Us</h2>
+        <H id="contact">Contact Us</H>
         <p className="nt-hint">Contact: <a href="mailto:maarouni@gmail.com">maarouni@gmail.com</a></p>
       </section>
 
-      {[["child-safety", "Child Safety Policy", "How onebigHUB protects children and handles reports."], ["privacy", "Privacy Policy", "What information onebigHUB collects, how it's used and your privacy rights."], ["terms", "Terms & Conditions", "The agreement that governs using onebigHUB."]].map(([id, t, d]) => (
+      {[["terms", "Terms & Conditions", "The agreement that governs using onebigHUB."], ["privacy", "Privacy Policy", "What information onebigHUB collects, how it's used and your privacy rights."], ["child-safety", "Child Safety Policy", "How onebigHUB protects children and handles reports."]].map(([id, t, d]) => (
         <section key={id} className="info-section" id={id}>
-          <h2>{t}</h2>
+          <H id={id}>{t}</H>
           <p>{d} <a href={`/info/${id}`}>Read the full {t} →</a></p>
         </section>
       ))}
+
+      <section className="info-section" id="delete-help">
+        <H id="delete-help">How to Delete Your Account</H>
+        <ol className="info-steps">
+          <li>Log in to onebigHUB.</li>
+          <li>Open <b>Info</b> (the <Glyph name="info" size={14} /> icon at the bottom of every page).</li>
+          <li>Go to <a href="#delete-account">Delete Account</a> and confirm.</li>
+        </ol>
+        <p>
+          You can also ask us to delete it through <a href="#contact">Contact Us</a>. Some records may be kept where the
+          law requires it (for example, transaction and tax records) — see section 20 of the{" "}
+          <a href="/info/privacy">Privacy Policy</a>.
+        </p>
+      </section>
+
+      <section className="info-section" id="delete-account">
+        <H id="delete-account">Delete Account</H>
+        <p className="nt-hint">Prototype: accounts aren&apos;t on a server yet, so this deletes what onebigHUB saved in this browser.</p>
+        <DeleteAccount />
+      </section>
     </div>
   );
 }

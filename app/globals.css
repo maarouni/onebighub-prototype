@@ -3355,3 +3355,15 @@ body:has(.site-hero-digest) .obc-row.selected { background: #e6e6e6; }
   .sf-grid .sf-icons { grid-area: icons; justify-self: end; }
   .sf-grid .sf-copy { grid-area: copy; justify-self: start; align-items: flex-start; text-align: left; }
 }
+/* Info: icons on index chips and section titles; Delete Account */
+.info-index a svg { flex-shrink: 0; }
+.info-h2 { display: flex; align-items: center; gap: 8px; }
+.info-h2 svg { color: var(--ink); flex-shrink: 0; }
+.info-steps { margin: 6px 0 8px; padding-left: 22px; }
+.info-steps svg { vertical-align: -2px; }
+.info-del-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; border: 1px solid var(--cg-red); border-radius: 999px; background: #fff; color: var(--cg-red); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+.info-del-btn:hover { background: var(--cg-red); color: #fff; }
+.info-del-confirm { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 10px 12px; border: 1px solid var(--cg-red); border-radius: 10px; background: #fff5f5; }
+.info-del-confirm p { flex-basis: 100%; margin: 0 0 4px; }
+.info-del-cancel { padding: 6px 16px; border: 1px solid var(--border); border-radius: 999px; background: #fff; font: inherit; font-size: 14px; cursor: pointer; }
+.info-del-done { color: var(--cg-red); font-weight: 700; }
