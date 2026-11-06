@@ -3315,3 +3315,14 @@ body:has(.site-hero-digest) .obc-row.selected { background: #e6e6e6; }
   .obc-row.premier { grid-template-columns: 104px minmax(0, 1fr) 48px 22px; }
 }
 @media (pointer: coarse) { .obc-sel .sel-radio { width: 12px !important; height: 12px !important; } }
+/* Nov 5 correction: listing radios slightly LARGER than before (12px -> 14px), blue */
+.obc-sel .sel-radio { width: 14px !important; height: 14px !important; min-width: 14px; border-width: 1.5px !important; }
+.obc-row { grid-template-columns: 150px minmax(0, 1fr) 26px; }
+.obc-row.premier { grid-template-columns: 150px minmax(0, 1fr) 64px 26px; }
+.obc-row.has-status .obc-sel { width: 26px; }
+.obc-row.has-status .obc-status { padding-right: 28px; }
+@media (max-width: 640px) {
+  .obc-row { grid-template-columns: 104px minmax(0, 1fr) 26px; }
+  .obc-row.premier { grid-template-columns: 104px minmax(0, 1fr) 48px 26px; }
+}
+@media (pointer: coarse) { .obc-sel .sel-radio { width: 16px !important; height: 16px !important; } }
