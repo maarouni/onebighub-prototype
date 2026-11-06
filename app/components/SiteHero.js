@@ -8,7 +8,7 @@ import { Glyph } from "./Icons";
 // templates — change the library and all similar pages follow"):
 //
 //   (<) [icon] Page Title (>)          yellow bar; gray on EDIT pages
-//   ( Results-Based • One-Stop … )      one-line white box
+//   ( One-Stop • Results-Based Marketing • Revenue-Sharing System )  one-line white box
 //   [8 hub tiles, 4 × 2]                Calendar … Custom Notifications
 //   [section action boxes]              Digest / EDIT (EDIT box turns gray on edit pages)
 // "Connect with me !" sits in the footer at the bottom of every page.
@@ -130,7 +130,8 @@ export default function SiteHero({
       <PageBar title={title} icon={barIcon} mode={mode} section={section} />
 
       <p className="hh-box hh-intro hh-oneline">
-        <b className="hh-rb">Results-Based</b> • One-Stop Marketing &amp; Revenue-Sharing System
+        {/* Nov 6 (Cesar): new tagline, used everywhere */}
+        <b className="hh-os">One-Stop</b> • <b className="hh-rb">Results-Based Marketing</b> • <b className="hh-rs">Revenue-Sharing System</b>
       </p>
 
       <IconNav active={section} mode={mode} dim={digestMode} />

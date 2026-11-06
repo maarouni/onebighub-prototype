@@ -3326,3 +3326,32 @@ body:has(.site-hero-digest) .obc-row.selected { background: #e6e6e6; }
   .obc-row.premier { grid-template-columns: 104px minmax(0, 1fr) 48px 26px; }
 }
 @media (pointer: coarse) { .obc-sel .sel-radio { width: 16px !important; height: 16px !important; } }
+
+/* =====================================================================
+   Nov 6 — Cesar: header/footer per Figma, new tagline
+   ===================================================================== */
+/* Tagline: One-Stop (black) • Results-Based Marketing (burgundy) • Revenue-Sharing System (blue) */
+.hh-oneline b { font-weight: 700; }
+.hh-os { color: #111; }
+.hh-rs { color: var(--cg-blue); }
+
+/* Header icons 24 px with even space between them, no divider */
+.nav-links .icon-btn + .icon-btn { margin-left: 0; }
+.nav-icon-groups { gap: 12px; }
+.nav-icon-group { gap: 12px; }
+.nav-icon-group + .nav-icon-group { padding-left: 0; border-left: 0; }
+.nav-icon-group .icon-btn { width: 38px; height: 38px; }
+@media (max-width: 760px) { .nav-icon-groups, .nav-icon-group { gap: 6px; } }
+
+/* Footer: button left-justified, icons centered, © + revision date right */
+.sf-grid { display: grid !important; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; text-align: left; }
+.sf-grid .sf-left { justify-self: start; display: flex; }
+.sf-grid .sf-icons { justify-self: center; gap: 12px; }
+.sf-grid .sf-copy { justify-self: end; align-items: flex-end; text-align: right; }
+.sf-grid .connect-me { width: auto !important; }
+@media (max-width: 560px) {
+  .sf-grid { grid-template-columns: 1fr auto; grid-template-areas: "btn icons" "copy copy"; row-gap: 10px; }
+  .sf-grid .sf-left { grid-area: btn; }
+  .sf-grid .sf-icons { grid-area: icons; justify-self: end; }
+  .sf-grid .sf-copy { grid-area: copy; justify-self: start; align-items: flex-start; text-align: left; }
+}
