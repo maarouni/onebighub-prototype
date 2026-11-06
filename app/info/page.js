@@ -37,7 +37,7 @@ export default function InfoPage() {
 
       <nav className="info-index" aria-label="Info index">
         <a href="/pages"><b>All Pages →</b></a>
-        {INDEX.map(([id, label]) => <a key={id} href={`#${id}`}>{label}</a>)}
+        {INDEX.map(([id, label]) => <a key={id} href={["terms", "privacy", "child-safety"].includes(id) ? `/info/${id}` : `#${id}`}>{label}</a>)}
       </nav>
 
       <FillInHere>
@@ -140,10 +140,10 @@ export default function InfoPage() {
         <p className="nt-hint">Contact: <a href="mailto:maarouni@gmail.com">maarouni@gmail.com</a></p>
       </section>
 
-      {[["child-safety", "Child Safety Policy"], ["privacy", "Privacy Policy"], ["terms", "Terms & Conditions"]].map(([id, t]) => (
-        <section key={id} className="info-section tbd-section" id={id}>
+      {[["child-safety", "Child Safety Policy", "How onebigHUB protects children and handles reports."], ["privacy", "Privacy Policy", "What information onebigHUB collects, how it's used and your privacy rights."], ["terms", "Terms & Conditions", "The agreement that governs using onebigHUB."]].map(([id, t, d]) => (
+        <section key={id} className="info-section" id={id}>
           <h2>{t}</h2>
-          <p className="nt-hint"><span className="tbd-flag tbd-flag-sm">Under construction</span> Text to come from Cesar / counsel.</p>
+          <p>{d} <a href={`/info/${id}`}>Read the full {t} →</a></p>
         </section>
       ))}
     </div>
