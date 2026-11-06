@@ -19,14 +19,14 @@ export const HUB_TILES = [
   { key: "notifications", href: "/notifications", img: "notifications", label: "Custom Notifications", tip: "Subscribe to alerts and newsletters" },
 ];
 
-export default function IconNav({ active, mode = "output" }) {
+export default function IconNav({ active, mode = "output", dim = false }) {
   return (
     <nav className={`hub-tiles hub-tiles-${mode}`} aria-label="Site sections">
       {HUB_TILES.map((t) => (
         <a
           key={t.key}
           href={t.href}
-          className={`hub-tile ${t.earn ? "hub-tile-earn" : ""} ${active === t.key ? "active" : ""}`}
+          className={`hub-tile ${t.earn ? "hub-tile-earn" : ""} ${active === t.key ? (dim ? "active active-dim" : "active") : ""}`}
           aria-current={active === t.key ? "page" : undefined}
         >
           <img src={`/icons/${t.img}.png`} alt="" width="45" height="45" className="hub-tile-img" />

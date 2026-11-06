@@ -48,10 +48,9 @@ export default function NavBar() {
     router.push("/registration/logout");
   }
 
-  // Oct 15 Figma review: no text links or "+ Create" button in the header
-  // (the section tiles and Next Step box cover them), no Log in button
-  // (redundant with the log-in icon), and the icon set is grouped 3 · 2 · 1:
-  //   Info, Dashboards, Settings | Download PDF, Print | Log in / user
+  // Nov 5 (Cesar's Figma): Info and Dashboards moved to the footer, Settings
+  // removed (it lives inside Dashboards). Header keeps Download, Print | Log in,
+  // at 24 px.
   return (
     <nav className="navbar">
       <div className="navbar-inner">
@@ -68,13 +67,8 @@ export default function NavBar() {
 
         <div className="nav-links nav-icon-groups">
           <span className="nav-icon-group">
-            <IconButton name="info" href="/info" />
-            <IconButton name="dashboards" href={user ? "/dashboards" : "/registration"} />
-            <IconButton name="settings" href={user ? "/profile" : "/registration"} />
-          </span>
-          <span className="nav-icon-group">
-            <IconButton name="pdf" onClick={() => window.print()} />
-            <IconButton name="print" onClick={() => window.print()} />
+            <IconButton name="pdf" size={24} onClick={() => window.print()} />
+            <IconButton name="print" size={24} onClick={() => window.print()} />
           </span>
           <span className="nav-icon-group">
             {user ? (
@@ -98,7 +92,7 @@ export default function NavBar() {
                 )}
               </span>
             ) : (
-              <IconButton name="login" href="/registration" />
+              <IconButton name="login" size={24} href="/registration" />
             )}
           </span>
         </div>

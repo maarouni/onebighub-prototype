@@ -14,7 +14,11 @@ import { StepBadge } from "./Steps";
 // rows are taller with an image column; a selected row turns yellow; a whole
 // row links to its details page.
 
-export function ResultsHead({ title, q, setQ, showFilters, onShowFilters }) {
+// Nov 5 (Cesar's Figma, all pages): the circled arrow beside SEARCH is a
+// Return button (goes back one page) and sits outside the search pill.
+// `addHref` / `editHref` put the (+) ADD and pencil EDIT icons on the bar
+// (digest pages).
+export function ResultsHead({ title, q, setQ, showFilters, onShowFilters, addHref, editHref }) {
   return (
     <>
       <div className="obc-bar">
@@ -26,14 +30,23 @@ export function ResultsHead({ title, q, setQ, showFilters, onShowFilters }) {
             <Glyph name="expand" size={14} /> Filters
           </button>
         )}
+        {(addHref || editHref) && (
+          <span className="obc-bar-tools">
+            {addHref && <a href={addHref} className="obc-tool" data-tip="ADD New Listing" aria-label="ADD New Listing"><Glyph name="plusBold" size={20} /></a>}
+            {editHref && <a href={editHref} className="obc-tool" data-tip="EDIT Selection(s)" aria-label="EDIT Selection(s)"><Glyph name="editMode" size={19} /></a>}
+          </span>
+        )}
       </div>
-      <label className="obc-search">
-        <Glyph name="search" size={18} />
-        <input type="text" placeholder="SEARCH" value={q} onChange={(e) => setQ(e.target.value)} aria-label={`Search ${title}`} />
-        <button type="button" className="obc-search-go" aria-label="Search" onClick={(e) => e.currentTarget.parentElement.querySelector("input").focus()}>
-          <Glyph name="pageNext" size={28} />
+      <div className="obc-search-row">
+        <label className="obc-search">
+          <Glyph name="search" size={18} />
+          <input type="text" placeholder="SEARCH" value={q} onChange={(e) => setQ(e.target.value)} aria-label={`Search ${title}`} />
+        </label>
+        <button type="button" className="obc-return" aria-label="Return to previous page" data-tip="Return"
+          onClick={() => { if (window.history.length > 1) window.history.back(); else window.location.href = "/"; }}>
+          <Glyph name="figBack" size={28} />
         </button>
-      </label>
+      </div>
     </>
   );
 }

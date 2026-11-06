@@ -121,15 +121,19 @@ export default function SiteHero({
   const current = activeAction || (mode === "edit" ? "edit" : null);
   const barIcon = icon || (mode === "edit" ? "editMode" : "hub");
 
+  // Nov 5 (Cesar): on a Digest page the section tile turns gray (not gold) and
+  // the page's yellow bars go gray too — "gray mode" (CSS keys off this class).
+  const digestMode = current === "digest";
+
   return (
-    <div className="site-hero">
+    <div className={`site-hero ${digestMode ? "site-hero-digest" : ""}`}>
       <PageBar title={title} icon={barIcon} mode={mode} section={section} />
 
       <p className="hh-box hh-intro hh-oneline">
         <b className="hh-rb">Results-Based</b> • One-Stop Marketing &amp; Revenue-Sharing System
       </p>
 
-      <IconNav active={section} mode={mode} />
+      <IconNav active={section} mode={mode} dim={digestMode} />
 
       {secondRow || (actions.length > 0 && (
         <nav className={`hh-actions hh-actions-${actions.length}`} aria-label="Section pages">

@@ -1,204 +1,226 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams } from "next/navigation";
 import QRCode from "qrcode";
 import { slugify } from "../../lib/slug";
 import { googleCalendarUrl, eventCategories } from "../../lib/taxonomy";
 import { fetchEvents } from "../../lib/events";
-import { fmtWhen, dateFormatOf } from "../../components/EventVisuals";
-import { Glyph, IconButton } from "../../components/Icons";
+import { fmtTime, fmtDateRange, isoOf } from "../../components/EventVisuals";
+import { cityCode } from "../../lib/cityCodes";
+import { Glyph } from "../../components/Icons";
 import SiteHero from "../../components/SiteHero";
 import { Poster } from "../../components/EventVisuals";
 
+// Event Details — Cesar's Figma (Nov 5 rev), top to bottom:
+//   site hero (One Big Calendar tile stays gold)
+//   listing box: the event's row as it shows in One Big Calendar, (<) (>)
+//     step through listings, "### of ###"
+//   gray "Event Details" sub-header with (+) ADD and pencil EDIT
+//   Image or Poster (height can vary)
+//   left: title, dates, time, one-line description, location, then the
+//         Hosted by / Selection / Referral / Format / Type / Cost / Region /
+//         Category(ies) / Description list
+//   right: Thumbnail icon / image / logo · QR code (created automatically) +
+//          Copy Link · Google Map · RSVPs
+
 const STORAGE_KEY = "mc_my_calendar_v1";
+
+function chrono(a, b) {
+  return `${a.date} ${a.time || ""}`.localeCompare(`${b.date} ${b.time || ""}`);
+}
+
+function rowImage(e) {
+  const cats = [...(e.categories || []), e.category].join(" ").toLowerCase();
+  if (cats.includes("dinner")) return "dinner";
+  if (cats.includes("workshop") || cats.includes("seminar")) return "workshop";
+  return "expo";
+}
+
+const firstSentence = (t) => (String(t || "").match(/^.*?[.!?](\s|$)/) || [t || ""])[0].trim();
 
 export default function EventDetail() {
   const { id } = useParams();
-  const [event, setEvent] = useState(undefined);
+  const [events, setEvents] = useState(null);
   const [saved, setSaved] = useState(false);
   const [qrDataUrl, setQrDataUrl] = useState(null);
   const [flash, setFlash] = useState("");
+  const todayIso = useMemo(() => isoOf(new Date()), []);
 
   useEffect(() => {
-    fetchEvents()
-      .then((events) => {
-        setEvent(events.find((e) => e.id === id) || null);
-      });
-    const sel = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
-    setSaved(!!sel[id]);
+    fetchEvents().then(setEvents);
+    try { setSaved(!!JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}")[id]); } catch {}
   }, [id]);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
     const url = `${window.location.origin}/event/${id}`;
-    QRCode.toDataURL(url, { width: 280, margin: 1 })
-      .then(setQrDataUrl)
-      .catch(() => setQrDataUrl(null));
+    QRCode.toDataURL(url, { width: 280, margin: 1 }).then(setQrDataUrl).catch(() => setQrDataUrl(null));
   }, [id]);
+
+  const event = events ? events.find((e) => e.id === id) || null : undefined;
+
+  // (<) (>) step through upcoming listings in One Big Calendar order (this
+  // event included even if it has passed).
+  const ring = useMemo(() => {
+    if (!events) return [];
+    return events.filter((e) => (e.endDate || e.date) >= todayIso || e.id === id).sort(chrono);
+  }, [events, todayIso, id]);
+  const pos = ring.findIndex((e) => e.id === id);
 
   function toggleSaved() {
-    const sel = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
-    sel[id] = !sel[id];
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(sel));
-    setSaved(!!sel[id]);
+    try {
+      const sel = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+      sel[id] = !sel[id];
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(sel));
+      setSaved(!!sel[id]);
+    } catch {}
   }
 
-  if (event === undefined) {
-    return <div className="page"><p>Loading…</p></div>;
+  function copyLink() {
+    const url = window.location.href;
+    (navigator.clipboard?.writeText(url) || Promise.reject())
+      .then(() => setFlash("Link copied"))
+      .catch(() => setFlash(url))
+      .finally(() => setTimeout(() => setFlash(""), 2000));
   }
 
+  if (event === undefined) return <div className="page"><p>Loading…</p></div>;
   if (event === null) {
     return (
       <div className="page">
-        <div className="empty-state">
-          Couldn't find that event. <a href="/">Back to One Big Calendar</a>
-        </div>
+        <div className="empty-state">Couldn&apos;t find that event. <a href="/">Back to One Big Calendar</a></div>
       </div>
     );
   }
 
-  const privacy = event.privacy === "Private" ? "Private" : "Public";
-  const mapQuery = [event.venue, event.address, event.city, event.state || "CA"].filter(Boolean).join(", ");
-  const paid = (event.price || 0) > 0;
+  const prev = pos > 0 ? ring[pos - 1] : null;
+  const next = pos >= 0 && pos < ring.length - 1 ? ring[pos + 1] : null;
+  const online = event.type === "Online";
+  const mapQuery = [event.venue, event.address, event.city, event.state].filter(Boolean).join(", ");
+  const typeLabel = event.barter ? "Premier Barter" : event.premier ? "Premier" : "Regular";
+  const cats = eventCategories(event);
+  const oneLine = event.oneLine || firstSentence(event.description);
+  const cityLine = [event.city, [event.state, event.zip].filter(Boolean).join(" "), event.country].filter(Boolean).join(", ");
 
-  function share() {
-    const url = window.location.href;
-    if (navigator.share) navigator.share({ title: event.title, url }).catch(() => {});
-    else navigator.clipboard?.writeText(url).then(() => { setFlash("Link copied"); setTimeout(() => setFlash(""), 1800); });
-  }
-
-  const ctaLabel = event.cost.toLowerCase().includes("free") && !event.cost.includes("$")
-    ? "RSVP"
-    : "Get Tickets";
+  const rows = [
+    ["Hosted by", <a key="h" href={`/organizer/${slugify(event.hostedBy)}`}>{event.hostedBy}</a>],
+    ["Selection", (
+      <span key="s" className="evd-sel">
+        <button type="button" className={`evd-sel-btn ${saved ? "on" : ""}`} onClick={toggleSaved}>
+          <Glyph name="select" size={14} /> {saved ? "In My Selection" : "Add to My Selection"}
+        </button>
+        <a href={googleCalendarUrl(event)} target="_blank" rel="noopener noreferrer"><Glyph name="gcal" size={14} /> Add to My Google Calendar</a>
+      </span>
+    )],
+    ["Referral", event.referral || <span key="r" className="evd-muted">None offered</span>],
+    ["Format", online ? "Online / Virtual" : "In-Person"],
+    ["Type", typeLabel],
+    ["Cost", event.cost],
+    ["Region", online ? "Online" : event.region || event.city],
+    ["Category(ies)", cats.length ? cats.map((c) => <span key={c} className="evd-line">{c}</span>) : "—"],
+    ["Description", event.description || "No description provided yet."],
+  ];
 
   return (
-    <div className="page event-detail">
+    <div className="page event-detail evd-page">
       <SiteHero section="calendar" title="Event Details" icon="viewMode" activeAction="details" />
-      {/* Oct 19: plain image box (the event's uploaded image, icon or logo
-          goes here) instead of the colored emoji banner. */}
-      <div className="event-cover-plain">
-        <Poster event={event} />
-        <span className="ecp-note">Icon, Image or Logo</span>
+
+      <section className="evd-listing" aria-label="Listing">
+        <a href={prev ? `/event/${prev.id}` : undefined} className={`obc-pg evd-step ${prev ? "" : "is-off"}`} aria-label="Previous listing" data-tip={prev ? "Previous" : undefined} aria-disabled={!prev}>
+          <Glyph name="pagePrev" size={26} />
+        </a>
+        <div className="evd-listing-row">
+          <span className="evd-kind">
+            {event.premier ? <>Premier Listing<em>(Advertisement)</em></> : <>Regular Listing<em>(Free)</em></>}
+          </span>
+          <article className={`obc-row ${event.premier ? "premier" : "regular"} evd-obc`}>
+            <span className="obc-cell obc-when">
+              <span>{fmtDateRange(event.date, event.endDate)}</span>
+              <span>{fmtTime(event.time)}</span>
+            </span>
+            <span className="obc-cell obc-main">
+              <span className="obc-title">{event.title}</span>
+              {event.premier
+                ? <>
+                    <span>{cityCode(event)}{!online && event.region ? `, ${event.region}` : ""}</span>
+                    <span>Hosted by <b>{event.hostedBy}</b></span>
+                    <span>{event.cost}</span>
+                  </>
+                : <span>{cityCode(event)}, Hosted by {event.hostedBy}</span>}
+            </span>
+            {event.premier && (
+              <span className="obc-cell obc-img" aria-hidden="true">
+                <Glyph name={rowImage(event)} size={46} strokeWidth={1.4} />
+              </span>
+            )}
+          </article>
+        </div>
+        <a href={next ? `/event/${next.id}` : undefined} className={`obc-pg evd-step ${next ? "" : "is-off"}`} aria-label="Next listing" data-tip={next ? "Next" : undefined} aria-disabled={!next}>
+          <Glyph name="pageNext" size={26} />
+        </a>
+        <p className="evd-count"><b>{pos + 1}</b> of <b>{ring.length}</b></p>
+      </section>
+
+      <div className="evd-subhead">
+        <b>Event Details</b>
+        <span className="obc-bar-tools">
+          <a href="/submit" className="obc-tool" data-tip="ADD New Listing" aria-label="ADD New Listing"><Glyph name="plusBold" size={20} /></a>
+          <a href="/submit" className="obc-tool" data-tip="EDIT Listing" aria-label="EDIT Listing"><Glyph name="editMode" size={19} /></a>
+        </span>
       </div>
 
-      <div className="event-detail-grid">
-        <div className="event-detail-main">
-          <span className="badge" style={{ marginBottom: 10, display: "inline-block" }}>
-            {event.category}
-          </span>
-          {eventCategories(event).length > 1 && (
-            <div className="sub" style={{ marginBottom: 6 }}>
-              {eventCategories(event).join(" · ")}
-            </div>
-          )}
-          <h1>{event.title}</h1>
-          <div className="event-meta-row">
-            <span data-tip={`Date format ${dateFormatOf(event)}`}><Glyph name="calendar" size={16} /> {fmtWhen(event)}</span>
-            <span><Glyph name={event.type === "Online" ? "share" : "map"} size={16} /> {event.type === "Online" ? "Online / Virtual" : `${event.city}${event.region ? ` · ${event.region}` : ""}`}</span>
-            <span className={`privacy-pill ${privacy === "Private" ? "private" : ""}`} data-tip={privacy === "Private" ? "Hide, Private — only you see this event" : "Display, Public — anyone can see this event"}>
-              <Glyph name={privacy === "Private" ? "private" : "public"} size={16} /> {privacy}
-            </span>
-            <span className="tier-pill">{event.premier ? "Premier (Ad) Listing" : "Regular (Free) Listing"}</span>
-          </div>
+      <div className="evd-poster">
+        <Poster event={event} />
+        <span className="evd-note">Image or Poster <em>height can vary</em></span>
+      </div>
 
-          <div className="event-icon-bar">
-            <IconButton name="select" tip={saved ? "In My Selection — click to remove" : "Add listing to My Selection"} onClick={toggleSaved} className={saved ? "on" : ""} />
-            <IconButton name="gcal" href={googleCalendarUrl(event)} target="_blank" rel="noopener noreferrer" />
-            <IconButton name="like" tip="Like (coming soon)" />
-            <IconButton name="share" onClick={share} />
-            <IconButton name="comments" tip="Comments (coming soon)" />
-            <IconButton name="gallery" tip="Gallery (coming soon)" />
-            <IconButton name="pdf" onClick={() => window.print()} />
-            <IconButton name="print" onClick={() => window.print()} />
-          </div>
-          {flash && <div className="fp-flash fp-flash-block">{flash}</div>}
+      <div className="evd-grid">
+        <div className="evd-main">
+          <h1 className="evd-title">{event.title}</h1>
+          <p className="evd-when">{fmtDateRange(event.date, event.endDate)}</p>
+          <p className="evd-time">{fmtTime(event.time)}</p>
+          {oneLine && <p className="evd-oneline">{oneLine}</p>}
+          <p className="evd-loc">
+            {online ? <span>Online / Virtual</span> : <>
+              {event.venue && <span>{event.venue}</span>}
+              {event.address && <span>{event.address}</span>}
+              {cityLine && <span>{cityLine}</span>}
+            </>}
+          </p>
 
-          <h4 className="section-label" style={{ marginTop: 24 }}>About this event</h4>
-          <p className="event-description">{event.description || "No description provided yet."}</p>
-
-          {event.type !== "Online" && event.city && (
-            <>
-              <h4 className="section-label" style={{ marginTop: 24 }}><Glyph name="map" size={15} /> Location</h4>
-              <div className="map-embed">
-                <iframe
-                  title={`Map of ${mapQuery}`}
-                  src={`https://maps.google.com/maps?q=${encodeURIComponent(mapQuery)}&z=12&output=embed`}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
+          <dl className="evd-list">
+            {rows.map(([k, v]) => (
+              <div key={k} className="evd-item">
+                <dt>{k}</dt>
+                <dd>{v}</dd>
               </div>
-              <a className="map-link" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`} target="_blank" rel="noopener noreferrer">
-                Open in Google Maps →
-              </a>
-            </>
-          )}
-
-          <h4 className="section-label" style={{ marginTop: 24 }}>Who's going</h4>
-          <div className="attendee-placeholder">
-            <span className="coming-soon-tag" style={{ position: "static" }}>Coming soon</span>
-            <p>Attendee lists and RSVP counts aren't wired up in this prototype yet.</p>
-          </div>
+            ))}
+          </dl>
+          {flash && <div className="fp-flash fp-flash-block">{flash}</div>}
         </div>
 
-        <aside className="event-detail-side">
-          <div className="rsvp-card" id="tickets">
-            <div className="rsvp-cost">{event.cost}</div>
-            {paid ? (
-              <>
-                <button type="button" className="btn-primary rsvp-btn" onClick={toggleSaved}>
-                  <Glyph name="ticket" size={17} /> {saved ? "RSVP'd — on My Calendar" : "RSVP / Order Tickets"}
-                </button>
-                <div className="rsvp-hint">Adds the event to My Calendar Digest. Ticket payment comes in a later build.</div>
-              </>
-            ) : (
-              <>
-                <button type="button" className="btn-primary rsvp-btn" onClick={toggleSaved}>
-                  <Glyph name="ticket" size={17} /> {saved ? "RSVP'd — on My Calendar" : "RSVP (free)"}
-                </button>
-                <div className="rsvp-hint">Free event — RSVP adds it to My Calendar Digest</div>
-              </>
-            )}
-            <button
-              type="button"
-              className={`btn secondary rsvp-save ${saved ? "saved" : ""}`}
-              onClick={toggleSaved}
-            >
-              <Glyph name="select" size={15} /> {saved ? "In My Selection" : "Add to My Selection"}
-            </button>
-            <a
-              className="btn secondary rsvp-save"
-              style={{ display: "block", textAlign: "center", textDecoration: "none", marginTop: 8 }}
-              href={googleCalendarUrl(event)}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Glyph name="gcal" size={15} /> Add to My Google Calendar
-            </a>
+        <aside className="evd-side">
+          <div className="evd-thumb">
+            <Glyph name={rowImage(event)} size={56} strokeWidth={1.3} />
+            <span>Thumbnail<br />Icon, Image or Logo</span>
           </div>
 
-          <a href={`/organizer/${slugify(event.hostedBy)}`} className="host-card">
-            <div className="nav-avatar" style={{ width: 40, height: 40, fontSize: 14 }}>
-              {event.hostedBy.slice(0, 2).toUpperCase()}
-            </div>
-            <div>
-              <div className="host-card-label">Hosted by</div>
-              <div className="host-card-name">{event.hostedBy}</div>
-            </div>
-          </a>
+          <div className="evd-qr">
+            {qrDataUrl ? <img src={qrDataUrl} alt={`QR code linking to ${event.title}`} /> : <div className="evd-qr-wait">QR Code</div>}
+            <span className="evd-qr-note">QR Code <em>Created Automatically</em></span>
+            <button type="button" className="evd-copy" onClick={copyLink}>Copy Link</button>
+            <a href={`/event/${id}/flyer`} className="evd-flyer">Flyer &amp; email template</a>
+          </div>
 
-          <div className="qr-card">
-            {qrDataUrl ? (
-              <img src={qrDataUrl} alt={`QR code linking to ${event.title}`} />
-            ) : (
-              <div style={{ padding: 40 }}>Generating QR code…</div>
-            )}
-            <div className="qr-card-label">
-              <b>Event QR Code</b> — created automatically. Scan to open this event page — print it on flyers or table signs.
-            </div>
-            <a href={`/event/${id}/flyer`} className="qr-card-link">
-              → Get flyer &amp; email template
+          {!online && mapQuery && (
+            <a className="evd-map" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`} target="_blank" rel="noopener noreferrer" aria-label={`Open ${mapQuery} in Google Maps`}>
+              <iframe title={`Map of ${mapQuery}`} src={`https://maps.google.com/maps?q=${encodeURIComponent(mapQuery)}&z=11&output=embed`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" tabIndex={-1} />
             </a>
+          )}
+
+          <div className="evd-rsvps">
+            <div className="evd-rsvps-head"><b>RSVPs</b><b>{saved ? 1 : 0}</b></div>
+            <p className="evd-muted">{saved ? "You — via My Selection." : "No RSVPs yet."} Attendee names show here once accounts are live.</p>
           </div>
         </aside>
       </div>
