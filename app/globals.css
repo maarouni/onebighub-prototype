@@ -3303,3 +3303,15 @@ body:has(.site-hero-digest) .obc-row.selected { background: #e6e6e6; }
 .info-index a[aria-current="page"] { font-weight: 700; color: var(--cg-red); }
 .info-page { max-width: 1100px; }
 .navbar ~ .page.info-page { padding-top: 22px; }
+/* Nov 5 (Figma): listing-table radios small and blue, column thinner */
+.obc-sel .sel-radio { width: 8px !important; height: 8px !important; min-width: 8px; border-width: 1.5px !important; }
+.obc-row { grid-template-columns: 150px minmax(0, 1fr) 22px; }
+.obc-row.premier { grid-template-columns: 150px minmax(0, 1fr) 64px 22px; }
+.obc-row.has-status .obc-sel { width: 22px; }
+.obc-row.has-status .obc-status { padding-right: 24px; }
+.obc-sel-hit { min-width: 22px; min-height: 24px; }
+@media (max-width: 640px) {
+  .obc-row { grid-template-columns: 104px minmax(0, 1fr) 22px; }
+  .obc-row.premier { grid-template-columns: 104px minmax(0, 1fr) 48px 22px; }
+}
+@media (pointer: coarse) { .obc-sel .sel-radio { width: 12px !important; height: 12px !important; } }
