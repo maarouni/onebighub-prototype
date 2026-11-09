@@ -27,7 +27,7 @@ const CAL_ROW = [
 ];
 
 const CONN_ROW = [
-  { key: "connect", label: "Connect with me !", href: "/profile#qr", icon: "figConnect", connect: true },
+  { key: "connect", label: "Connect with me !", href: "/connect", icon: "figConnect", connect: true },
   { key: "introductions", label: "Introductions", href: "/referrals", img: "/icons/introductions.png" },
   { key: "digest", label: "My Digest - Connections", href: "/connections/digest", icon: "figConnDigest" },
   { key: "details", label: "VIEW Profiles", href: "/connections", icon: "figViewProfile" },
@@ -144,7 +144,9 @@ function PageBar({ title, icon, mode, section, gray }) {
         <Glyph name="pagePrev" size={30} />
       </a>
       <span className={`pb-icon ${mode === "edit" ? "pb-icon-dark" : ""}`}>
-        {mode !== "edit" && SECTION_IMG[section]
+        {String(icon).startsWith("fig")
+          ? <Glyph name={icon} size={40} />
+          : mode !== "edit" && SECTION_IMG[section]
           ? <img src={`/icons/${SECTION_IMG[section]}.png`} alt="" width="48" height="48" />
           : icon === "hub"
           ? <HubLogo size={mode === "edit" ? 34 : 48} />
@@ -164,7 +166,7 @@ function PageBar({ title, icon, mode, section, gray }) {
 // box in the Connections row).
 export function ConnectWithMe() {
   return (
-    <a href="/profile#qr" className="connect-me" data-tip="Connect with me ! — mini-card, elevator pitch, QR code">
+    <a href="/connect" className="connect-me" data-tip="Connect with me ! — scan my QR code, mini-card, messages">
       <Glyph name="figConnect" size={26} />
       <b><i>Connect with me !</i></b>
     </a>
@@ -183,12 +185,14 @@ function rowsFor(section, action, path, query) {
       line = lineKey("calendar", action);
       break;
     case "connections": {
-      const on = section === "introductions" ? "introductions" : path.startsWith("/profile") && path.includes("#qr") ? "connect" : action;
+      const on = section === "introductions" ? "introductions" : action;
       rows.push(<SubRow key="conn" items={CONN_ROW} on={on} />);
       if (section === "introductions") {
         const cur = INTRO_ROW.find((r) => r.href === path)?.key;
         rows.push(<SubRow key="intro" items={INTRO_ROW} on={cur} variant="hsub-plain" />);
         line = lineKey("introductions");
+      } else if (action === "connect") {
+        // Connect with Me ! pages: row only, no intro line
       } else {
         if (action === "details" || action === "edit") rows.push(<SubRow key="prof" items={PROFILE_ROW} on={query.type} variant="hsub-gold" />);
         if (action !== "edit") line = lineKey("connections", action === "digest" ? "digest" : "");
@@ -230,6 +234,7 @@ export default function SiteHero({
   activeAction,         // which sub box is the current page ("details" | "digest" | "edit")
   intro,                // intro line for pages without one of Cesar's default lines
   noLine = false,       // hide the intro line
+  tiles = true,         // false: title bar + tagline only (Registration pages)
 }) {
   const path = usePathname() || "/";
   const [query, setQuery] = useState({});
@@ -248,15 +253,28 @@ export default function SiteHero({
         <b className="hh-os">One-Stop</b> • <b className="hh-rb">Results-Based Marketing</b> • <b className="hh-rs">Revenue-Sharing System</b>
       </p>
 
-      <IconNav active={section} mode={mode} />
+      {tiles && <IconNav active={section} mode={mode} />}
 
-      {rows}
+      {tiles && rows}
 
-      {!noLine && (intro || line) && (
+      {tiles && !noLine && (line || intro) && (
         <p className="hh-box hsub-line">
           {line ? <><b><i>{line[0]}</i></b> {line[1]}</> : intro}
         </p>
       )}
+    </div>
+  );
+}
+
+// Small copy of the tiles + rows for one section — used on "Next Steps" to
+// show where each next step lives (Cesar's Figma, Connect with Me !).
+export function HubPreview({ section, action, path = "", line: showLine = true }) {
+  const { rows, line } = rowsFor(section, action, path, {});
+  return (
+    <div className="hub-preview">
+      <IconNav active={section} />
+      {rows}
+      {showLine && line && <p className="hh-box hsub-line"><b><i>{line[0]}</i></b> {line[1]}</p>}
     </div>
   );
 }

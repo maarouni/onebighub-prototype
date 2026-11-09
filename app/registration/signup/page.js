@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import PageTemplate from "../../components/PageTemplate";
-import { Field, Input, Radios, OrLine } from "../../components/Form";
+import { Field, Input, PasswordInput, NotRobot, Radios, OrLine } from "../../components/Form";
 import { setUser } from "../../lib/auth";
 
 // Cesar's "Registration — Sign Up New User" (Figma Rev 261025).
@@ -26,6 +26,7 @@ export default function SignUp() {
   const [errors, setErrors] = useState({});
   const [sent, setSent] = useState(null);
   const [ref, setRef] = useState("");
+  const [human, setHuman] = useState(false);
   const set = (k) => (v) => setF((c) => ({ ...c, [k]: v }));
   useEffect(() => { setRef(new URLSearchParams(window.location.search).get("ref") || ""); }, []);
 
@@ -46,6 +47,7 @@ export default function SignUp() {
     if (taken) er.username = "Username is already in use — pick one below";
     if (!PW_RULE.test(f.password)) er.password = "At least 8 characters, one uppercase letter and one special character (!@#$%^&*)";
     if (f.confirm !== f.password) er.confirm = "Passwords don't match";
+    if (!human) er.robot = "Please tick the box";
     setErrors(er);
     if (Object.keys(er).length) return;
     setSent({ email: f.email.trim(), mobile: f.mobile.trim() });
@@ -62,7 +64,7 @@ export default function SignUp() {
 
   if (sent) {
     return (
-      <PageTemplate section={null} title="Registration" subtitle="Sign Up New User" icon="register" narrow>
+      <PageTemplate section={null} title="Registration" subtitle="Sign Up New User" icon="register" narrow tiles={false}>
         <div className="box auth-box">
           <h2>Please confirm your sign up with onebigHUB.com</h2>
           <p>We sent a confirmation {sent.email ? <>email to <b>{sent.email}</b></> : <>text to <b>{sent.mobile}</b></>}.
@@ -75,8 +77,7 @@ export default function SignUp() {
   }
 
   return (
-    <PageTemplate section={null} title="Registration" subtitle="Sign Up New User" icon="register" narrow
-      actions={<a href="/registration/login" className="tpl-action">Log In instead</a>}>
+    <PageTemplate section={null} title="Registration" subtitle="Sign Up New User" icon="register" narrow tiles={false}>
       <form className="job-form auth-box" onSubmit={submit} noValidate>
         <p className="big-q">Welcome !</p>
         <div className="auth-social">
@@ -98,10 +99,12 @@ export default function SignUp() {
             <Radios name="uname" value={f.username} onChange={set("username")} options={free} />
           </div>
         )}
-        <Field label="Password" req error={errors.password}><Input type="password" value={f.password} onChange={set("password")} autoComplete="new-password" /></Field>
-        <Field label="Password Confirm" req error={errors.confirm}><Input type="password" value={f.confirm} onChange={set("confirm")} autoComplete="new-password" /></Field>
+        <Field label="Password" req error={errors.password}><PasswordInput value={f.password} onChange={set("password")} autoComplete="new-password" /></Field>
+        <Field label="Password Confirm" req error={errors.confirm}><PasswordInput value={f.confirm} onChange={set("confirm")} autoComplete="new-password" /></Field>
         <p className="nt-hint">Password should be at least 8 characters long and contain at least one special character (!@#$%^&amp;*) and one uppercase letter.</p>
         {ref && <p className="nt-hint">Referred by <b>{ref}</b></p>}
+        <NotRobot checked={human} onChange={setHuman} error={errors.robot} />
+        {errors.robot && <span className="ed-error">{errors.robot}</span>}
         <button type="submit" className="btn-primary" style={{ marginTop: 10 }}>Continue</button>
       </form>
     </PageTemplate>

@@ -1,6 +1,7 @@
 "use client";
 
 import { Glyph } from "./Icons";
+import { useFiltersHidden, setFiltersHidden } from "./FilterKit";
 import { StepBadge } from "./Steps";
 
 // One results layout for every section (Oct 15 review), drawn from Cesar's
@@ -19,16 +20,18 @@ import { StepBadge } from "./Steps";
 // `addHref` / `editHref` put the (+) ADD and pencil EDIT icons on the bar
 // (digest pages).
 export function ResultsHead({ title, q, setQ, showFilters, onShowFilters, addHref, editHref }) {
+  const globalHidden = useFiltersHidden();
+  const own = typeof onShowFilters === "function" && showFilters === false;
+  const hidden = own || (globalHidden && showFilters !== false);
+  const display = own ? onShowFilters : () => setFiltersHidden(false);
   return (
     <>
       <div className="obc-bar">
         <StepBadge n={3} />
         <b>{title}</b>
         <em>Select all that apply</em>
-        {!showFilters && (
-          <button type="button" className="obc-show-filters" onClick={onShowFilters}>
-            <Glyph name="expand" size={14} /> Filters
-          </button>
+        {hidden && (
+          <button type="button" className="obc-show-filters" onClick={display}>Display Filters</button>
         )}
         {(addHref || editHref) && (
           <span className="obc-bar-tools">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { Glyph } from "./Icons";
 import CollapseArrow from "./CollapseArrow";
 import { CountyMap, CaliforniaMap } from "./Explore";
@@ -17,7 +17,24 @@ import { CountyMap, CaliforniaMap } from "./Explore";
 //   └─────────────────────────────────┘
 //   (2) Submit  Display Results          yellow pill
 
+// Hide Filters (Figma Rev 261108): any filter page can hide its filter column;
+// the results bar then shows "Display Filters". Shared by FilterShell and
+// ResultsHead through a tiny store; pages with their own state (One Big
+// Calendar) pass onHide / onShowFilters instead.
+const hideSubs = new Set();
+let filtersHidden = false;
+export function setFiltersHidden(v) {
+  filtersHidden = v;
+  if (typeof document !== "undefined") document.body.classList.toggle("filters-off", v);
+  hideSubs.forEach((f) => f());
+}
+export function useFiltersHidden() {
+  return useSyncExternalStore((cb) => { hideSubs.add(cb); return () => hideSubs.delete(cb); }, () => filtersHidden, () => false);
+}
+
 export function FilterShell({ onHide, onClear, onDisplay, children }) {
+  useEffect(() => () => setFiltersHidden(false), []);
+  onHide = onHide || (() => setFiltersHidden(true));
   return (
     <aside className="sidebar filter-panel fp-v2">
       <div className="fp-bar">

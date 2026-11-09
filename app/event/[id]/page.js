@@ -25,6 +25,10 @@ import { Poster } from "../../components/EventVisuals";
 //          Copy Link · Google Map · RSVPs
 
 const STORAGE_KEY = "mc_my_calendar_v1";
+const LIKES_KEY = "mc_event_likes_v1";
+const COMMENTS_KEY = "mc_event_comments_v1";
+const FOLLOW_KEY = "mc_event_follow_host_v1";
+const fmtStamp = (iso) => { if (!iso) return "—"; const d = new Date(iso); return isNaN(d) ? iso : d.toLocaleDateString("en-US", { month: "2-digit", day: "2-digit", year: "numeric" }); };
 
 function chrono(a, b) {
   return `${a.date} ${a.time || ""}`.localeCompare(`${b.date} ${b.time || ""}`);
@@ -45,12 +49,38 @@ export default function EventDetail() {
   const [saved, setSaved] = useState(false);
   const [qrDataUrl, setQrDataUrl] = useState(null);
   const [flash, setFlash] = useState("");
+  const [liked, setLiked] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [draft, setDraft] = useState("");
+  const [follow, setFollow] = useState("none");
+  const [gi, setGi] = useState(0);
   const todayIso = useMemo(() => isoOf(new Date()), []);
 
   useEffect(() => {
     fetchEvents().then(setEvents);
     try { setSaved(!!JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}")[id]); } catch {}
+    try { setLiked(!!JSON.parse(localStorage.getItem(LIKES_KEY) || "{}")[id]); } catch {}
+    try { setComments(JSON.parse(localStorage.getItem(COMMENTS_KEY) || "{}")[id] || []); } catch {}
+    try { setFollow(JSON.parse(localStorage.getItem(FOLLOW_KEY) || "{}")[id] || "none"); } catch {}
   }, [id]);
+
+  function store(key, val) {
+    try { const all = JSON.parse(localStorage.getItem(key) || "{}"); all[id] = val; localStorage.setItem(key, JSON.stringify(all)); } catch {}
+  }
+  function toggleLike() { setLiked((v) => { store(LIKES_KEY, !v); return !v; }); }
+  function addComment(e) {
+    e.preventDefault();
+    const t = draft.trim();
+    if (!t) return;
+    const list = [...comments, { t, at: new Date().toLocaleString("en-US", { dateStyle: "short", timeStyle: "short" }) }];
+    setComments(list); store(COMMENTS_KEY, list); setDraft("");
+  }
+  function pickFollow(v) { setFollow(v); store(FOLLOW_KEY, v); }
+  async function share() {
+    const url = window.location.href;
+    if (navigator.share) { try { await navigator.share({ title: event?.title, url }); return; } catch { return; } }
+    copyLink();
+  }
 
   useEffect(() => {
     const url = `${window.location.origin}/event/${id}`;
@@ -223,6 +253,100 @@ export default function EventDetail() {
             <p className="evd-muted">{saved ? "You — via My Selection." : "No RSVPs yet."} Attendee names show here once accounts are live.</p>
           </div>
         </aside>
+      </div>
+
+      {/* Lower half (Figma Rev 261108): Gallery · Contact · Submitted by ·
+          Revised / Created · Like / Share · RSVP Order Tickets · Comments ·
+          Select one: ADD future events from this host. */}
+      <div className="evd-grid evd-lower">
+        <div className="evd-main">
+          <section className="evd-box evd-gallery">
+            <h3><Glyph name="gallery" size={18} /> Gallery</h3>
+            <div className="evd-gal-stage">
+              <button type="button" className="evd-gal-nav" aria-label="Previous item" onClick={() => setGi((g) => (g + 2) % 3)}><Glyph name="pagePrev" size={20} /></button>
+              <div className="evd-gal-item">
+                <span className="evd-gal-ph"><Glyph name={rowImage(event)} size={64} strokeWidth={1.2} /><em>{gi === 0 ? "Image or Poster" : `Image or Video ${gi + 1}`}</em></span>
+              </div>
+              <button type="button" className="evd-gal-nav" aria-label="Next item" onClick={() => setGi((g) => (g + 1) % 3)}><Glyph name="pageNext" size={20} /></button>
+            </div>
+            <p className="evd-count"><b>{gi + 1}</b> of <b>3</b> <span className="evd-muted">· up to 10 items</span></p>
+          </section>
+
+          <section className="evd-box evd-comments">
+            <h3>Comments / Reviews <span className="evd-muted">{comments.length}</span></h3>
+            {comments.length === 0 && <p className="evd-muted">No comments yet. Be the first !</p>}
+            <ul>{comments.map((c, i) => <li key={i}><span className="evd-muted">{c.at}</span> {c.t}</li>)}</ul>
+            <form onSubmit={addComment} className="evd-comment-form">
+              <textarea rows={2} value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="Submit Here" aria-label="Write a comment" />
+              <button type="submit" className="cw-submit">Submit</button>
+            </form>
+          </section>
+        </div>
+
+        <aside className="evd-side">
+          <section className="evd-box">
+            <h3>Contact</h3>
+            <div className="cw-card evd-mini">
+              <div className="cw-card-name"><b>{event.contactName || "Name, Title"}</b><span>{event.hostedBy || "Business / Organization"}</span></div>
+              <div className="cw-card-row">
+                <span className="cw-av">{(event.hostedBy || "?").slice(0, 2).toUpperCase()}</span>
+                <span className="cw-card-meta">
+                  <span className="cw-red">{event.contactPhone || "(xxx) xxx-xxxx"}</span>
+                  {event.contactEmail ? <a className="cw-blue" href={`mailto:${event.contactEmail}`}>{event.contactEmail}</a> : <span className="cw-blue">Email</span>}
+                  <span className="cw-red">{[event.city, event.state].filter(Boolean).join(", ") || "City, State"}</span>
+                </span>
+              </div>
+            </div>
+          </section>
+
+          <section className="evd-box">
+            <h3>Submitted by</h3>
+            <div className="cw-card evd-mini">
+              <div className="cw-card-name"><b>{event.submittedBy || "Jack Frost"}</b><span className="cw-blue">{event.submittedOrg || "Jack Frost Heating & Cooling"}</span></div>
+              <div className="cw-card-row">
+                <span className="cw-av">JF</span>
+                <span className="cw-card-meta"><span>1-800-TOO-COOL</span><span className="cw-blue">jack@jackfrost.com</span><span>Xmasville, North Pole, Earth</span></span>
+              </div>
+            </div>
+          </section>
+
+          <div className="evd-pill evd-stamps">
+            <span><b>Revised</b> <i>{fmtStamp(event.posted)}</i></span>
+            <span><b>Created</b> <i>{fmtStamp(event.created || event.posted)}</i></span>
+          </div>
+          <div className="evd-likes">
+            <button type="button" className={`evd-pill ${liked ? "on" : ""}`} onClick={toggleLike} aria-pressed={liked}>
+              <Glyph name="thumbUp" size={16} /> <b>Like</b> <i>{(liked ? 1 : 0).toLocaleString()}</i>
+            </button>
+            <button type="button" className="evd-pill" onClick={share}>
+              <Glyph name="share" size={16} /> <b>Share</b> <i>0</i>
+            </button>
+          </div>
+
+          <a className="evd-box evd-rsvp-link" href={`/event/${id}/rsvp`}>
+            <Glyph name="ticket" size={40} strokeWidth={1.4} />
+            <span>
+              <b><span className="cw-red">RSVP</span> Order Tickets</b>
+              <span className="cw-blue">onebigHUB.com/event/{id}/rsvp</span>
+              {event.rsvpUrl && <span><b>OR External URL:</b> <span className="cw-blue">{event.rsvpUrl}</span></span>}
+            </span>
+          </a>
+        </aside>
+      </div>
+
+      <div className="next-step-box evd-follow">
+        <div className="step-head"><em className="next-step-title">Select one</em></div>
+        {[
+          ["none", "No thanks", true],
+          ["all", `ADD Future Events from ${event.hostedBy || "this Event Host / Organizer"} to My Calendar Digest`],
+          ["notify", "Notify me only (My Notifications)"],
+        ].map(([v, label, def]) => (
+          <label key={v} className="fp-option">
+            <input type="radio" name="follow-host" checked={follow === v} onChange={() => pickFollow(v)} />
+            <span className="fp-label">{label}{def && <em className="ns-default"> Default</em>}</span>
+          </label>
+        ))}
+        {follow !== "none" && <p className="nt-hint">Saved in this browser. <a href="/my-calendar">Open My Calendar Digest</a></p>}
       </div>
     </div>
   );

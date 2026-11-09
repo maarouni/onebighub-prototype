@@ -14,8 +14,7 @@ export default function RegistrationPage() {
   useEffect(() => { const u = getUser(); setU(u); if (u) setPick("logout"); }, []);
   const go = () => router.push(`/registration/${pick}${typeof window !== "undefined" ? window.location.search : ""}`);
   return (
-    <PageTemplate section={null} title="Registration" icon="register" narrow
-      intro={<><b>Optional</b> Sign Up / Log In to manage My Calendar Digest • My Notifications • My Dashboards</>}>
+    <PageTemplate section={null} title="Registration" icon="register" narrow tiles={false}>
       <div className="box auth-box">
         {user && <p className="nt-hint">You&rsquo;re logged in as <b>{user.name}</b>.</p>}
         <span className="ed-label">Select one</span>

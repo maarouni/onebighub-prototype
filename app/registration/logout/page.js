@@ -22,10 +22,11 @@ export default function LogOut() {
   }
 
   return (
-    <PageTemplate section={null} title="Registration" subtitle="Log Out" icon="logout" narrow>
+    <PageTemplate section={null} title="Registration" subtitle="Log Out" icon="logout" narrow tiles={false}>
       <div className="box auth-box">
         {done ? (
           <>
+            <p className="sad-face" aria-hidden="true">☹</p>
             <p className="big-q">OK ... buh-bye</p>
             <p style={{ textAlign: "center" }}>See you again soon !</p>
             <p style={{ textAlign: "center" }}><a href="/">Back to One Big Calendar</a></p>

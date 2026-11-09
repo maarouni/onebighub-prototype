@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 // Small form controls shared by the newer pages (registration, referrals,
 // barter, profile). Same classes as the existing EDIT pages, so they pick up
 // the gray Edit Mode styling automatically.
@@ -15,6 +17,33 @@ export function Field({ label, req, hint, error, wide, children }) {
 
 export function Input({ value, onChange, ...rest }) {
   return <input value={value ?? ""} onChange={(e) => onChange(e.target.value)} {...rest} />;
+}
+
+// Password with an eye show / hide toggle (Figma Registration, Rev 261108).
+export function PasswordInput({ value, onChange, ...rest }) {
+  const [show, setShow] = useState(false);
+  return (
+    <span className="pw-wrap">
+      <input type={show ? "text" : "password"} value={value ?? ""} onChange={(e) => onChange(e.target.value)} {...rest} />
+      <button type="button" className="pw-eye" onClick={() => setShow((v) => !v)} aria-label={show ? "Hide password" : "Show password"} title={show ? "Hide" : "Show"}>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+          <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" /><circle cx="12" cy="12" r="3" />
+          {!show && <line x1="3" y1="3" x2="21" y2="21" />}
+        </svg>
+      </button>
+    </span>
+  );
+}
+
+// "I'm not a robot" box. Prototype only: a real CAPTCHA needs a server key.
+export function NotRobot({ checked, onChange, error }) {
+  return (
+    <label className={`not-robot ${error ? "has-error" : ""}`}>
+      <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} />
+      <span>I&rsquo;m not a robot</span>
+      <span className="not-robot-logo" aria-hidden="true">reCAPTCHA</span>
+    </label>
+  );
 }
 
 export function Area({ value, onChange, rows = 3, ...rest }) {
