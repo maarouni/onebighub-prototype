@@ -7,6 +7,7 @@ import { Glyph } from "../components/Icons";
 import { getCart, setCart, money } from "../lib/rsvp";
 import { localEvents } from "../lib/events";
 import { getUser } from "../lib/auth";
+import { getMessages } from "../lib/connect";
 
 // "My Dashboards" (Cesar's Figma Rev 261108) — one list, My Shopping Cart open
 // by default. Prototype: the cart and orders live in this browser; payments,
@@ -22,11 +23,12 @@ export default function DashboardsPage() {
   const [orders, setOrders] = useState([]);
   const [mine, setMine] = useState([]);
   const [user, setU] = useState(null);
+  const [msgs, setMsgs] = useState([]);
   const [paid, setPaid] = useState("");
   const [open, setOpen] = useState("cart");
 
   useEffect(() => {
-    setC(getCart()); setOrders(readOrders()); setMine(localEvents()); setU(getUser());
+    setC(getCart()); setOrders(readOrders()); setMine(localEvents()); setU(getUser()); setMsgs(getMessages());
     const o = new URLSearchParams(window.location.search).get("open");
     if (o) setOpen(o);
   }, []);
@@ -127,10 +129,18 @@ export default function DashboardsPage() {
           <Empty>Your QR code, flyers and email templates. <a href="/connect">My QR Code</a>{mine[0] && <> · <a href={`/event/${mine[0].id}/flyer`}>Flyer for {mine[0].title}</a></>}</Empty>
         ) })}
 
-        {S({ id: "settings", n: 9, icon: "settings", title: "Settings", children: (
+        {S({ id: "messages", n: 9, icon: "comments", title: "My Messages", children: (
+          msgs.length === 0 ? <Empty>No messages yet. Send one from <a href="/connect/messages">Connect with Me ! → Messages</a>.</Empty> : (
+            <ul className="dash-rows">{msgs.map((m) => (
+              <li key={m.id}><span className="cw-muted">{m.sent ? String(m.sent).slice(0, 16).replace("T", " ") : ""}</span> <b>{m.to?.name || "—"}</b> {String(m.text || "").slice(0, 90)}</li>
+            ))}</ul>
+          )
+        ) })}
+
+        {S({ id: "settings", n: 10, icon: "settings", title: "Settings", children: (
           <div className="dash-rows">
             <p>{user ? <>Logged in as <b>{user.name}</b>. <a href="/registration/logout">Log Out</a></> : <><a href="/registration">Sign Up / Log In</a></>}</p>
-            <p><a href="/profile">EDIT My Profiles</a> · <a href="/info#delete-account">Delete Account</a> · <a href="/info">Terms, Privacy &amp; Child Safety</a></p>
+            <p><a href="/profile">EDIT My Profiles</a> · <a href="/info/legal#delete-account">Delete Account</a> · <a href="/info">Terms, Privacy &amp; Child Safety</a></p>
           </div>
         ) })}
       </div>

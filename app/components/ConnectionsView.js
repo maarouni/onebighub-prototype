@@ -41,6 +41,7 @@ function Inner({ digest }) {
   const [membership, setMembership] = useState({});
   const [showFilters, setShowFilters] = useState(true);
   const [page, setPage] = useState(1);
+  const [viewing, setViewing] = useState(false);
   const today = useMemo(() => new Date(), []);
   const ctx = useMemo(() => ({ today, membership, q }), [today, membership, q]);
 
@@ -48,8 +49,13 @@ function Inner({ digest }) {
     fetchOrgs().then(setItems);
     // Nov 7 Figma: Individual / Biz / Org / Group Profiles boxes link here with ?type=
     try {
-      const t = new URLSearchParams(window.location.search).get("type");
-      if (t) setFilters((f) => ({ ...f, ctype: [t] }));
+      const sp = new URLSearchParams(window.location.search);
+      const t = sp.get("type");
+      const TYPE_IDS = { individual: ["indPersonal", "indProfessional"], business: ["biz"], biz: ["biz"], org: ["org"], group: ["group"] };
+      if (t) setFilters((f) => ({ ...f, ctype: TYPE_IDS[t] || [t] }));
+      // Nov 9 Figma: the Connections tile opens the table with no sub-box picked;
+      // "VIEW Profiles" (?view=profiles) highlights itself + the 4 profile boxes.
+      setViewing(!!(t || sp.get("view")));
     } catch {}
     setMembership(readMembership());
     setSelected(readJson(SEL_KEY, {}));
@@ -88,6 +94,11 @@ function Inner({ digest }) {
     if (name === "none") setFilters(EMPTY_ORG_FILTERS);
     else if (sets[name]) setFilters({ ...EMPTY_ORG_FILTERS, ...sets[name] });
   }
+  function clearSet(name) {
+    const next = { ...sets }; delete next[name];
+    setSets(next); writeJson(SETS_KEY, next);
+    if (setName === name) { setSetName("none"); setFilters(EMPTY_ORG_FILTERS); }
+  }
   function saveSet() {
     if (setName === "none") return;
     const next = { ...sets, [setName]: filters };
@@ -124,9 +135,9 @@ function Inner({ digest }) {
     <>
       <PageTemplate
         section="connections"
-        title={digest ? "My Connections Digest" : "Connections"}
+        title={digest ? "My Connections Digest" : <>Connections <i>Profiles</i></>}
         legend={false}
-        activeAction={digest ? "digest" : "details"}
+        activeAction={digest ? "digest" : viewing ? "details" : null}
         actions={<a href="/connections/submit" className="tpl-action" data-tip="Add New organization">+ Add a Connection</a>}
         intro={digest
           ? <><strong>Get Connected!</strong> Select filters to curate listings &bull; Assign <strong>My Membership Status</strong> for each org / group</>
@@ -137,7 +148,7 @@ function Inner({ digest }) {
         <div className="layout-with-sidebar">
           {showFilters && (
             <OrgFilterPanel items={pool} filters={filters} setFilters={setFilters} ctx={ctx} digest={digest}
-              setName={setName} onPickSet={pickSet} onSaveSet={saveSet} sets={sets}
+              setName={setName} onPickSet={pickSet} onSaveSet={saveSet} onClearSet={clearSet} sets={sets}
               onHide={() => setShowFilters(false)} onDisplay={scrollToResults} />
           )}
 

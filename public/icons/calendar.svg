@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <defs>
+    <linearGradient id="red" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f26b5b"/><stop offset=".55" stop-color="#d9322a"/><stop offset="1" stop-color="#b01f1a"/></linearGradient>
+    <linearGradient id="page" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e3ebf5"/></linearGradient>
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1b3f8f"/><stop offset=".45" stop-color="#5d8fe0"/><stop offset="1" stop-color="#16357a"/></linearGradient>
+    <linearGradient id="curl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#b9c7d8"/></linearGradient>
+    <radialGradient id="globe" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="#7fb6ff"/><stop offset=".45" stop-color="#2f6fe0"/><stop offset="1" stop-color="#0b2f8a"/></radialGradient>
+    <radialGradient id="shine" cx=".35" cy=".25" r=".5"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity=".28"/></filter>
+  </defs>
+  <g filter="url(#sh)">
+    <path d="M52 40h104a12 12 0 0 1 12 12v86l-30 30H52a12 12 0 0 1-12-12V52a12 12 0 0 1 12-12z" fill="url(#page)" stroke="#9aa8ba" stroke-width="2"/>
+    <path d="M52 40h104a12 12 0 0 1 12 12v22H40V52a12 12 0 0 1 12-12z" fill="url(#red)"/>
+    <path d="M44 50a10 10 0 0 1 8-6h104a10 10 0 0 1 8 6" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="3"/>
+    <g fill="#bcd2ef">
+      <rect x="96" y="84" width="16" height="13" rx="2"/><rect x="118" y="84" width="16" height="13" rx="2"/><rect x="140" y="84" width="16" height="13" rx="2"/>
+      <rect x="96" y="104" width="16" height="13" rx="2"/><rect x="118" y="104" width="16" height="13" rx="2"/><rect x="140" y="104" width="16" height="13" rx="2"/>
+      <rect x="96" y="124" width="16" height="13" rx="2"/><rect x="118" y="124" width="16" height="13" rx="2"/>
+      <rect x="96" y="144" width="16" height="13" rx="2"/>
+    </g>
+    <path d="M138 168l30-30h-20a10 10 0 0 0-10 10z" fill="url(#curl)" stroke="#9aa8ba" stroke-width="2"/>
+    <rect x="66" y="22" width="14" height="34" rx="7" fill="url(#ring)"/>
+    <rect x="128" y="22" width="14" height="34" rx="7" fill="url(#ring)"/>
+    <rect x="69" y="25" width="4" height="22" rx="2" fill="#fff" fill-opacity=".55"/>
+    <rect x="131" y="25" width="4" height="22" rx="2" fill="#fff" fill-opacity=".55"/>
+  </g>
+  <g filter="url(#sh)">
+    <circle cx="66" cy="128" r="46" fill="url(#globe)"/>
+    <g fill="none" stroke="#fff" stroke-width="3.2" stroke-opacity=".95">
+      <circle cx="66" cy="128" r="44"/>
+      <ellipse cx="66" cy="128" rx="18" ry="44"/>
+      <path d="M66 84v88M22 128h88M28 106h76M28 150h76"/>
+    </g>
+    <circle cx="66" cy="128" r="46" fill="url(#shine)"/>
+  </g>
+</svg>

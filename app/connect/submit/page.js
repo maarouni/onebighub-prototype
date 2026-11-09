@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import QRCode from "qrcode";
-import { ConnectPage, SectionBar, CardAndPitch, PersonCard, NextLink } from "../../components/ConnectKit";
+import { ConnectPage, SectionBar, CardAndPitch, PersonCard, UpcomingSteps } from "../../components/ConnectKit";
 import { Field, Input, Area } from "../../components/Form";
 import { Glyph } from "../../components/Icons";
 import { getProfile, shrinkImage } from "../../lib/profile";
@@ -86,7 +86,7 @@ export default function ConnectSubmit() {
     <ConnectPage subtitle="Submit Info">
       <CardAndPitch p={owner} placeholder />
 
-      <SectionBar n={3} title={<>My Mini-Card <i>Individual</i></>} hint="Submit / Upload all that apply">
+      <SectionBar n={3} icon="idxMiniCard" title="New Users - Create My Mini-Card" hint="Submit / Upload all that apply">
         <div className="cw-mc">
           <div className="cw-mc-left">
             <PersonCard p={preview} picture={pic} placeholder label="Picture" />
@@ -121,7 +121,8 @@ export default function ConnectSubmit() {
         </div>
       </SectionBar>
 
-      <SectionBar n={4} icon="connectMe" title="Assign My Relationship & Notes" hint="Private">
+      <span id="relationship" />
+      <SectionBar n={4} icon="idxAssign" title="Assign My Relationship & Notes" hint="Private">
         <div className="cw-rel">
           <div className="cw-relbox"><b>Professional</b> <i>Select one</i>{radio("cw-pro", PROFESSIONAL, "professional")}</div>
           <div className="cw-relbox"><b>Personal</b> <i>Select one</i>{radio("cw-per", PERSONAL, "personal")}</div>
@@ -163,7 +164,7 @@ export default function ConnectSubmit() {
           <button type="button" className="cw-submit cw-wide" onClick={() => save("add")}>Add to Network</button>
         </div>
       </SectionBar>
-      <NextLink href="/connect/messages">Next: Messages</NextLink>
+      <UpcomingSteps from={5} />
     </ConnectPage>
   );
 }

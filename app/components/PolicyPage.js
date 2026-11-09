@@ -30,11 +30,7 @@ function render(blocks) {
 export default function PolicyPage({ title, href, blocks }) {
   return (
     <div className="page info-page policy-page">
-      <SiteHero section={null} title={title} icon="info" />
-      <nav className="info-index" aria-label="Policies">
-        <a href="/info"><b>← Info</b></a>
-        {LINKS.map(([h, l, i]) => <a key={h} href={h} aria-current={h === href ? "page" : undefined}><Glyph name={i} size={16} /> {l}</a>)}
-      </nav>
+      <SiteHero section="info" title={<>Info <i>Legal Documents</i></>} icon="idxScale" />
       <p className="policy-flag">
         <b>Draft for review</b> — adapted from everyCircle&apos;s policy. The operating company, contact email and mailing
         address are <b>[TO BE DECIDED]</b>. Some sections describe things onebigHUB doesn&apos;t have yet (mobile apps,

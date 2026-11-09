@@ -17,7 +17,7 @@ export default function ExpoRatesPage() {
           <p>Option A: 6 ft or 8 ft table with linen. Option B: round cocktail table with linen.</p>
           <h3>Sponsor</h3>
           <p>Package deal — contact us for details.</p>
-          <p><a href="/info#contact">Click here to participate</a></p>
+          <p><a href="/info/contact">Click here to participate</a></p>
         </div>
       </RateCard>
     </AdPage>

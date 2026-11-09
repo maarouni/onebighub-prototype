@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ConnectPage, SectionBar, CardAndPitch, NextLink } from "../../components/ConnectKit";
+import { ConnectPage, SectionBar, CardAndPitch, UpcomingSteps } from "../../components/ConnectKit";
 import { Field, Input, OrLine } from "../../components/Form";
 import { getProfile } from "../../lib/profile";
 import { getUser } from "../../lib/auth";
@@ -34,7 +34,7 @@ export default function ConnectSignUp() {
   return (
     <ConnectPage subtitle="Sign-Up">
       <CardAndPitch p={owner} placeholder />
-      <SectionBar n={2} title={<i>Welcome !</i>} hint="Please Sign-Up">
+      <SectionBar n={2} icon="register" title={<i>Welcome !</i>} hint="Sign Up to Create Your Profile and more ...">
         <form className="cw-signup" onSubmit={submit} noValidate>
           <button type="button" className="cw-social" disabled title="Not wired up in the prototype"><b className="cw-g">G</b> Sign in with Google</button>
           <button type="button" className="cw-social" disabled title="Not wired up in the prototype"><b></b> Sign in with Apple</button>
@@ -45,7 +45,7 @@ export default function ConnectSignUp() {
           <button type="submit" className="cw-submit">Submit</button>
         </form>
       </SectionBar>
-      <NextLink href="/connect/submit">Next: Individual Mini-Card</NextLink>
+      <UpcomingSteps from={3} />
     </ConnectPage>
   );
 }

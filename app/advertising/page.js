@@ -11,7 +11,7 @@ export default function AdvertisingPage() {
       <section className="ad-box">
         <p>
           onebigHUB offers various <b>free and paid opportunities</b> to promote your events, businesses, and
-          organizations, online and in-person. Please <a href="/info#contact">contact us</a> to discuss win-win package deals.
+          organizations, online and in-person. Please <a href="/info/contact">contact us</a> to discuss win-win package deals.
         </p>
       </section>
       <section className="ad-box">

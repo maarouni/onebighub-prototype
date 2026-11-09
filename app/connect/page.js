@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import QRCode from "qrcode";
-import { ConnectPage, SectionBar, CardAndPitch, NetworkGraph, NextLink } from "../components/ConnectKit";
+import { ConnectPage, SectionBar, CardAndPitch, NetworkGraph, UpcomingSteps } from "../components/ConnectKit";
 import { Box, Option } from "../components/FilterKit";
 import { MiniCard } from "../components/Form";
 import { getProfile } from "../lib/profile";
@@ -62,7 +62,7 @@ export default function ScanMyQr() {
 
   return (
     <ConnectPage>
-      <SectionBar n={1} title="SCAN My QR Code">
+      <SectionBar n={1} icon="qr" title="SCAN My QR Code">
         <div className="cw-qr">
           {qr ? <img src={qr} alt="My Connect with Me QR code" width="200" height="200" /> : <div className="cw-qr-wait" />}
         </div>
@@ -87,10 +87,10 @@ export default function ScanMyQr() {
                 <Option checked={display.includes("conn")} onChange={() => toggle(display, setDisplay)("conn")} label="My Connections" />
                 {["1", "2", "3"].map((l) => <Option key={l} checked={display.includes(l)} onChange={() => toggle(display, setDisplay)(l)} label={`Level ${l}`} />)}
               </Box>
-              <Box title="My Follow-Up Status" hint="Select all that apply">
-                <Option checked={!follow.length} onChange={() => setFollow([])} label="All - My Network" def />
+              <Box title="My Follow-Up Status" hint="Select one">
+                <Option type="radio" name="cw-follow" checked={!follow.length} onChange={() => setFollow([])} label="All - My Network" def />
                 {FOLLOW_UP.map((f) => (
-                  <Option key={f.id} checked={follow.includes(f.id)} onChange={() => toggle(follow, setFollow)(f.id)}
+                  <Option key={f.id} type="radio" name="cw-follow" checked={follow.includes(f.id)} onChange={() => setFollow([f.id])}
                     label={<>{f.hot ? <>05 <b className="cw-hot">HOT !</b></> : f.label} <i>{f.hint === "Default" ? "" : f.hint}</i></>} />
                 ))}
               </Box>
@@ -133,7 +133,7 @@ export default function ScanMyQr() {
         </div>
       </SectionBar>
 
-      <NextLink href="/connect/signup">Next: Sign-Up</NextLink>
+      <UpcomingSteps from={2} />
     </ConnectPage>
   );
 }

@@ -32,13 +32,13 @@ export function useFiltersHidden() {
   return useSyncExternalStore((cb) => { hideSubs.add(cb); return () => hideSubs.delete(cb); }, () => filtersHidden, () => false);
 }
 
-export function FilterShell({ onHide, onClear, onDisplay, children }) {
+export function FilterShell({ onHide, onClear, onDisplay, footer, children }) {
   useEffect(() => () => setFiltersHidden(false), []);
   onHide = onHide || (() => setFiltersHidden(true));
   return (
     <aside className="sidebar filter-panel fp-v2">
       <div className="fp-bar">
-        <b>Filters <i className="fp-seeking">SEEKING</i></b>
+        <span className="fp-title"><b>Filters</b> <i className="fp-seeking">SEEKING</i></span>
         {onHide && <button type="button" className="fp-hide" data-tip="Hide filters" onClick={onHide}>Hide</button>}
       </div>
       <div className="fp-step-pill">
@@ -51,25 +51,25 @@ export function FilterShell({ onHide, onClear, onDisplay, children }) {
         </button>
       </div>
       {children}
-      <button type="button" className="fp-submit-pill" onClick={onDisplay}>
-        <span className="step-badge" aria-hidden="true">2</span>
-        Submit <em>Display Results</em>
-      </button>
+      {/* Nov 9 (Cesar): "2 Submit Display Results" removed — results update as
+          soon as a filter is picked. Digest pages put "2 Save Filter Set" here. */}
+      {footer}
     </aside>
   );
 }
 
-export function Box({ title, hint, icon, defaultOpen = true, disabled, note, children }) {
+export function Box({ title, title2, hint, icon, defaultOpen = true, disabled, note, children }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
     <section className={`fp-box ${disabled ? "fp-disabled" : ""}`}>
       <div className="fp-box-head">
         <span className="fp-box-title">
           <b>{icon}{title}</b>
-          {hint && <em>{hint}</em>}
+          {!title2 && hint && <em>{hint}</em>}
         </span>
-        <CollapseArrow open={open} onClick={() => setOpen((o) => !o)} label={title} />
+        <CollapseArrow open={open} onClick={() => setOpen((o) => !o)} label={typeof title === "string" ? title : "section"} />
       </div>
+      {title2 && <div className="fp-box-title2"><b>{title2}</b>{hint && <em> {hint}</em>}</div>}
       {open && (
         <div className="fp-box-body">
           {note && <div className="fp-note">{note}</div>}
@@ -77,6 +77,17 @@ export function Box({ title, hint, icon, defaultOpen = true, disabled, note, chi
         </div>
       )}
     </section>
+  );
+}
+
+// Sub-heading inside a combined box (Figma Nov 9: "Seeking Employment" box
+// also holds Employment Level and Minimum Compensation).
+export function Sub({ title, hint, children }) {
+  return (
+    <div className="fp-sub">
+      <div className="fp-sub-title"><b>{title}</b>{hint && <em> {hint}</em>}</div>
+      {children}
+    </div>
   );
 }
 
@@ -158,7 +169,7 @@ export function DigestBox({ digest }) {
   const [mode, setMode] = useState("manual");
   const name = `digest-${digest}`;
   return (
-    <Box title={`Add Selections to ${digest}`} hint="Select one" icon={<Glyph name="select" size={14} />}>
+    <Box title="Add Selections to" title2={digest} hint="Select one" icon={<Glyph name="select" size={14} />}>
       <Option type="radio" name={name} checked={mode === "manual"} onChange={() => setMode("manual")} label="Manually" def />
       <Option type="radio" name={name} checked={mode === "auto"} onChange={() => setMode("auto")} label="Automatically" />
       <p className="fp-aside">Saves time and is a useful reminder to see updates (My Notification Digest)</p>

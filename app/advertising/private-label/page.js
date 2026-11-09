@@ -9,7 +9,7 @@ export default function PrivateLabel() {
     <AdPage title="Private-Label Header">
       <section className="ad-box">
         <div className="ad-box-head"><h2>Private-Label Header</h2></div>
-        <p>Your organization&apos;s own header on onebigHUB pages. Please <a href="/info#contact">contact us</a> to discuss win-win package deals.</p>
+        <p>Your organization&apos;s own header on onebigHUB pages. Please <a href="/info/contact">contact us</a> to discuss win-win package deals.</p>
         <p className="nt-hint">Page design coming from Cesar&apos;s Figma.</p>
       </section>
     </AdPage>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ConnectPage, SectionBar, CardAndPitch, PersonCard, NextLink } from "../../components/ConnectKit";
+import { ConnectPage, SectionBar, CardAndPitch, PersonCard, UpcomingSteps } from "../../components/ConnectKit";
 import { Glyph } from "../../components/Icons";
 import { getProfile } from "../../lib/profile";
 import { getNetwork, SAMPLE_NETWORK, MESSAGE_TEMPLATES, fillTemplate, getMessages, saveMessage, clearMessages } from "../../lib/connect";
@@ -74,7 +74,7 @@ export default function ConnectMessages() {
 
   return (
     <ConnectPage subtitle="Messages">
-      <SectionBar n="5a" title="Send Messages">
+      <SectionBar n={5} icon="idxMessages" title="Send Messages">
         <div className="cw-box">
           <span className="ed-label"><b>SEARCH Individuals</b> <i>Select one at a time</i></span>
           <input type="text" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Submit Here"
@@ -100,7 +100,7 @@ export default function ConnectMessages() {
         <p className="cw-center"><button type="button" className="cw-submit" onClick={submit}>Submit</button></p>
       </SectionBar>
 
-      <SectionBar n="5b" title="My Messages" hint="Archives"
+      <SectionBar icon="comments" title="My Messages" hint="Archives"
         right={<button type="button" className="cw-icon-btn" data-tip="Delete all" onClick={() => setConfirmClear(true)}><Glyph name="delete" size={16} /></button>}>
         {confirmClear && (
           <div className="cw-confirm">
@@ -121,7 +121,7 @@ export default function ConnectMessages() {
           </div>
         ))}
       </SectionBar>
-      <NextLink href="/connect/next">Next: Next Steps</NextLink>
+      <UpcomingSteps from={6} />
     </ConnectPage>
   );
 }

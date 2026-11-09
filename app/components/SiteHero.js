@@ -26,12 +26,13 @@ const CAL_ROW = [
   { key: "edit", label: "EDIT My Events", href: "/submit", icon: "figEdit" },
 ];
 
+// Nov 9 (Cesar, "Revise sub-headers again"): VIEW Profiles first.
 const CONN_ROW = [
+  { key: "details", label: "VIEW", sub: "Profiles", href: "/connections?view=profiles", icon: "figViewProfile" },
+  { key: "digest", label: "My Digest -", sub: "Connections", href: "/connections/digest", icon: "figConnDigest" },
   { key: "connect", label: "Connect with me !", href: "/connect", icon: "figConnect", connect: true },
   { key: "introductions", label: "Introductions", href: "/referrals", img: "/icons/introductions.png" },
-  { key: "digest", label: "My Digest - Connections", href: "/connections/digest", icon: "figConnDigest" },
-  { key: "details", label: "VIEW Profiles", href: "/connections", icon: "figViewProfile" },
-  { key: "edit", label: "EDIT My Profiles", href: "/profile", icon: "figEditProfile" },
+  { key: "edit", label: "EDIT", sub: "My Profiles", href: "/profile", icon: "figEditProfile" },
 ];
 
 const INTRO_ROW = [
@@ -66,13 +67,33 @@ const ADS_ROW = [
 ];
 const RATE_ROW = RATE_PAGES.map((p) => ({ key: `/advertising/${p.slug}`, label: p.title, href: `/advertising/${p.slug}`, icon: p.icon }));
 
+// Nov 9 (Cesar, "Promote & Earn"): + Classifieds and Announcements.
 const PRODUCT_TYPES = [
-  { key: "Product", label: "Products", icon: "products" },
-  { key: "Service", label: "Services", icon: "service" },
-  { key: "Membership", label: "Memberships", icon: "membership" },
-  { key: "Subscription", label: "Subscriptions", icon: "user" },
-  { key: "Survey", label: "Surveys", icon: "document" },
+  { key: "Product", label: "Products", icon: "idxProduct" },
+  { key: "Service", label: "Services", icon: "idxService" },
+  { key: "Classified", label: "Classifieds", icon: "idxClassified" },
+  { key: "Membership", label: "Memberships", icon: "idxMembership" },
+  { key: "Subscription", label: "Subscriptions", icon: "idxSubscription" },
 ].map((t) => ({ ...t, href: `/listings?type=${t.key}` }));
+const PRODUCT_ROW3 = [
+  { key: "Survey", label: "Surveys", icon: "idxSurvey", href: "/listings?type=Survey" },
+  { key: "Announcement", label: "Announcements", icon: "idxAnnounce", href: "/listings?type=Announcement" },
+  { key: "digest", label: "My Digest", icon: "idxProduct", href: "/listings", wide: true },
+  { key: "edit", label: "EDIT My Items", icon: "idxProductEdit", href: "/listings/submit", wide: true },
+];
+
+// Info (Nov 9 Figma): Index, Icons · About Us · Contact Us · Legal Docs.
+const INFO_ROW = [
+  { key: "index", label: "Index, Icons", href: "/info", icon: "idxMenu" },
+  { key: "about", label: "About Us", href: "/info/about", icon: "idxStore" },
+  { key: "contact", label: "Contact Us", href: "/info/contact", icon: "idxPhone" },
+  { key: "legal", label: "Legal Docs", href: "/info/legal", icon: "idxScale" },
+];
+const LEGAL_ROW = [
+  { key: "/info/terms", label: "Terms and Conditions", href: "/info/terms", icon: "idxTerms" },
+  { key: "/info/privacy", label: "Privacy Policy", href: "/info/privacy", icon: "idxPrivacy" },
+  { key: "/info/child-safety", label: "Child Safety Policy", href: "/info/child-safety", icon: "idxShield" },
+];
 
 const pair = (digestLabel, digestSub, digestHref, editLabel, editSub, editHref) => [
   { key: "digest", label: digestLabel, sub: digestSub, href: digestHref, icon: "figDigest", inline: true },
@@ -98,7 +119,7 @@ function SubRow({ items, on, cols, variant = "" }) {
         const active = on === it.key;
         return (
           <a key={it.key} href={it.href} aria-current={active ? "page" : undefined}
-            className={`hsub-item ${active ? "on" : ""} ${it.connect ? "hsub-connect" : ""} ${it.inline ? "hsub-inline" : ""}`}>
+            className={`hsub-item ${active ? "on" : ""} ${it.connect ? "hsub-connect" : ""} ${it.inline ? "hsub-inline" : ""} ${it.wide ? "hsub-wide" : ""}`}>
             {it.img ? <img src={it.img} alt="" width="20" height="20" />
               : it.icon ? <Glyph name={it.icon} size={18} /> : null}
             <span className="hsub-text">
@@ -179,6 +200,14 @@ function rowsFor(section, action, path, query) {
   let line = null;
   const lineKey = (s, a) => LINES[`${s}:${a || ""}`] || null;
 
+  if (section === "info") {
+    const sub = path.startsWith("/info/about") ? "about" : path.startsWith("/info/contact") ? "contact"
+      : ["/info/legal", "/info/terms", "/info/privacy", "/info/child-safety"].some((p) => path.startsWith(p)) ? "legal" : "index";
+    rows.push(<SubRow key="info" items={INFO_ROW} on={sub} />);
+    if (sub === "legal") rows.push(<SubRow key="legal" items={LEGAL_ROW} on={path === "/info/legal" ? "/info/terms" : path} cols={3} />);
+    return { rows, line };
+  }
+
   switch (MAIN_OF[section]) {
     case "calendar":
       rows.push(<SubRow key="cal" items={CAL_ROW} on={action} />);
@@ -207,7 +236,7 @@ function rowsFor(section, action, path, query) {
         if (isRate) rows.push(<SubRow key="rates" items={RATE_ROW} on={path} cols={4} variant="hsub-plain" />);
       } else if (section === "products") {
         rows.push(<SubRow key="types" items={PRODUCT_TYPES} on={query.type} />);
-        rows.push(<SubRow key="pde" items={pair("My Digest", null, "/listings", "EDIT My Items", null, "/listings/submit")} on={action} cols={2} />);
+        rows.push(<SubRow key="pde" items={PRODUCT_ROW3} on={action === "digest" || action === "edit" ? action : query.type} cols="r3" />);
         line = lineKey("products");
       } else if (section === "discounts") {
         rows.push(<SubRow key="dde" items={pair("My Digest - Deals", "Discount / Gift Certificates", "/discounts", "EDIT My Deals", "Discount / Gift Certificates", "/discounts/submit")} on={action} cols={2} />);
@@ -259,7 +288,7 @@ export default function SiteHero({
 
       {tiles && !noLine && (line || intro) && (
         <p className="hh-box hsub-line">
-          {line ? <><b><i>{line[0]}</i></b> {line[1]}</> : intro}
+          {line ? <><b className="hsub-lead"><i>{line[0]}</i></b>{" "}{line[1]}</> : intro}
         </p>
       )}
     </div>
@@ -268,13 +297,21 @@ export default function SiteHero({
 
 // Small copy of the tiles + rows for one section — used on "Next Steps" to
 // show where each next step lives (Cesar's Figma, Connect with Me !).
+// Single rows for the Connect with Me ! Next Steps page (Figma Nov 9).
+export function PreviewRow({ kind }) {
+  if (kind === "profiles") return <SubRow items={PROFILE_ROW} variant="hsub-plain" />;
+  if (kind === "connectIntro") return <div className="hsub-center"><SubRow items={CONN_ROW.filter((r) => r.key === "connect" || r.key === "introductions")} on="connect" /></div>;
+  if (kind === "promo") return <><SubRow items={PROMO_ROW} on="earn" /><SubRow items={ADS_ROW} /></>;
+  return null;
+}
+
 export function HubPreview({ section, action, path = "", line: showLine = true }) {
   const { rows, line } = rowsFor(section, action, path, {});
   return (
     <div className="hub-preview">
       <IconNav active={section} />
       {rows}
-      {showLine && line && <p className="hh-box hsub-line"><b><i>{line[0]}</i></b> {line[1]}</p>}
+      {showLine && line && <p className="hh-box hsub-line"><b className="hsub-lead"><i>{line[0]}</i></b>{" "}{line[1]}</p>}
     </div>
   );
 }

@@ -96,6 +96,30 @@ export function NextLink({ href, children }) {
   return <p className="cw-next"><a href={href}>{children} →</a></p>;
 }
 
+// Nov 9 (Cesar): instead of a "Next" link, every page lists ALL the remaining
+// steps as collapsed bars, so users see where they are and can skip ahead.
+export const CONNECT_STEPS = [
+  { n: 2, icon: "register", title: <i>Welcome !</i>, hint: "Sign Up to Create Your Profile and more ...", href: "/connect/signup" },
+  { n: 3, icon: "idxMiniCard", title: "New Users - Create My Mini-Card", hint: "Submit / Upload all that apply", href: "/connect/submit" },
+  { n: 4, icon: "idxAssign", title: "Assign My Relationship & Notes", hint: "Private", href: "/connect/submit#relationship" },
+  { n: 5, icon: "idxMessages", title: "Send Messages", href: "/connect/messages" },
+  { n: 6, icon: "idxSigns", title: "Next Steps", href: "/connect/next" },
+];
+export function UpcomingSteps({ from }) {
+  const list = CONNECT_STEPS.filter((s) => s.n >= from);
+  if (!list.length) return null;
+  return (
+    <nav className="cw-steps" aria-label="Next steps">
+      {list.map((s) => (
+        <a key={s.n} href={s.href} className="cw-bar cw-step-link">
+          <StepBadge n={s.n} /><Glyph name={s.icon} size={18} /><b>{s.title}</b>{s.hint && <em>{s.hint}</em>}
+          <span className="cw-bar-right fp-arrow" aria-hidden="true"><Glyph name="expand" size={21} strokeWidth={3} /></span>
+        </a>
+      ))}
+    </nav>
+  );
+}
+
 // Radial graph: me in the middle, Level 1 / 2 / 3 rings around (Figma "View as Graph").
 const RING = { intro: 1, 1: 1, 2: 2, 3: 3 };
 export function NetworkGraph({ me, people }) {
