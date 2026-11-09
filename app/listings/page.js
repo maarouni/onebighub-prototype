@@ -28,6 +28,11 @@ function ListingsInner() {
 
   useEffect(() => {
     fetchListings().then(setItems);
+    // Nov 7 Figma: Products / Services / Memberships … boxes link here with ?type=
+    try {
+      const t = new URLSearchParams(window.location.search).get("type");
+      if (t) setFilters((f) => ({ ...f, type: [t] }));
+    } catch {}
     try { setSelected(JSON.parse(localStorage.getItem(SEL_KEY) || "{}")); } catch {}
   }, []);
   useEffect(() => { setPage(1); }, [filters, q]);

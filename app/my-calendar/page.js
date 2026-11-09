@@ -8,7 +8,8 @@ import { cityCode } from "../lib/cityCodes";
 import { addToCart } from "../lib/cart";
 import PageTemplate from "../components/PageTemplate";
 import { ResultsHead, ListingTable, Pager } from "../components/ListingTable";
-import { Box, Option, CheckList, GroupedBox, RegionBoxes, FilterShell } from "../components/FilterKit";
+import { Box, Option, CheckList, GroupedBox, RegionBoxes, FilterShell, DateBox } from "../components/FilterKit";
+import { DATE_POSTED_OPTIONS, REFERRAL_OPTIONS, INDUSTRIES } from "../lib/organizations";
 import { NextStep } from "../components/Steps";
 import { Glyph } from "../components/Icons";
 import CollapseArrow from "../components/CollapseArrow";
@@ -298,11 +299,15 @@ export default function MyCalendar() {
               ))}
             </Box>
 
+            <DateBox title="Date Posted / Revised" field="posted" fromKey="postedFrom" toKey="postedTo" options={DATE_POSTED_OPTIONS} {...kit} />
+
+            <Box title="Offering $ Referrals"><CheckList field="referral" options={REFERRAL_OPTIONS} all={false} {...kit} /></Box>
+
             <Box title="My Attendance Status" hint="Select all that apply">
               <Option type="radio" name="dg-status-all" checked={!f.status.length} onChange={() => setF((x) => ({ ...x, status: [] }))} label="All" def />
               {ATTENDANCE_STATUSES.map((s) => (
                 <Option key={s.id} checked={f.status.includes(s.id)} onChange={() => toggleIn("status", s.id)}
-                  label={<><b className="att-sym-inline">{s.icon}</b> {s.label}</>} />
+                  label={<><b className={`att-sym-inline ${s.red ? "att-red" : ""}`}>{s.icon}</b> {s.label}</>} />
               ))}
             </Box>
 
@@ -332,6 +337,9 @@ export default function MyCalendar() {
             </Box>
 
             <GroupedBox title="Categories" field="categories" groups={CATEGORY_GROUPS} {...kit} />
+            <Box title="Industries" defaultOpen={f.industry.length > 0}>
+              <CheckList field="industry" options={INDUSTRIES} {...kit} />
+            </Box>
             <RegionBoxes field="regions" groups={REGION_GROUPS} {...kit} />
           </FilterShell>
 

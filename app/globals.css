@@ -3383,3 +3383,98 @@ body:has(.site-hero-digest) .obc-row.selected { background: #e6e6e6; }
 .hubm-how { margin: 16px 0 8px; padding: 12px 16px; border: 1px solid var(--cg-box-line); border-radius: 12px; background: #f2f2f2; font-size: 13px; }
 .hubm-how h2 { margin: 0 0 6px; font-size: 16px; }
 .hubm-how ol { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
+
+/* =====================================================================
+   Nov 7–8 — Cesar's Figma: 3 main headers + sub-header rows, EDIT mode,
+   header spacing
+   ===================================================================== */
+/* header: no thin line, tagline right-justified under ".com", no gap before the title bar */
+.navbar { border-bottom: 0 !important; padding-bottom: 4px; }
+.brand-v2 .brand-text { align-items: stretch; }
+.brand-v2 .brand-more { align-self: flex-end !important; text-align: right; margin: 2px 0 0 !important; }
+.home-hero { padding-top: 0 !important; }
+.tpl { padding-top: 0 !important; }
+.navbar ~ .page.evd-page, .navbar ~ .page.info-page, .navbar ~ .page.hubm-page, .navbar ~ .page.policy-page { padding-top: 0 !important; }
+
+/* 3 main tiles */
+.hub-tiles-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.hub-tiles-3 .hub-tile { min-height: 92px; }
+.hub-tiles-3 .hub-tile-label { font-size: 19px; }
+@media (max-width: 640px) { .hub-tiles-3 .hub-tile-label { font-size: 13px; } .hub-tiles-3 .hub-tile { min-height: 74px; } }
+
+/* sub-header rows */
+.hsub { display: grid; gap: 8px; }
+.hsub-1 { grid-template-columns: 1fr; }
+.hsub-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.hsub-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.hsub-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.hsub-item { display: flex; align-items: center; gap: 6px; min-height: 32px; padding: 3px 10px; background: #fff; border: 1px solid #a9a9a9; border-radius: 12px; color: var(--cg-blue); font-size: 12.5px; font-weight: 600; line-height: 1.15; text-decoration: none; }
+.hsub-item:hover { border-color: var(--ink); }
+.hsub-item img, .hsub-item svg { flex-shrink: 0; }
+.hsub-text { display: flex; flex-direction: column; min-width: 0; }
+.hsub-inline .hsub-text { flex-direction: row; flex-wrap: wrap; gap: 0 6px; align-items: baseline; }
+.hsub-inline .hsub-sub { font-style: italic; font-weight: 400; color: #222; }
+.hsub-sub { font-weight: 600; }
+.hsub-item.on { background: #ffd200; border-color: #e0b400; color: var(--cg-red); font-weight: 800; }
+.hsub-item.on .hsub-sub { color: var(--cg-red); }
+.hsub-connect { background: #fff36b; border-color: #c9b400; color: var(--cg-red); font-style: italic; font-weight: 800; }
+.hsub-gold .hsub-item { background: #ffd200; border-color: #e0b400; color: var(--cg-red); }
+.hsub-plain .hsub-item { min-height: 26px; font-weight: 600; }
+.hh-hub { color: var(--cg-red); }
+.hsub-line { margin: 0; padding: 4px 14px; border: 1px solid #a9a9a9; border-radius: 999px; background: #fff; font-size: 13px; font-weight: 600; color: #111; }
+.hsub-line b { color: var(--cg-red); font-weight: 800; }
+@media (max-width: 640px) {
+  .hsub { gap: 5px; }
+  .hsub-item { padding: 3px 6px; font-size: 10.5px; gap: 4px; border-radius: 9px; }
+  .hsub-item img { width: 16px; height: 16px; }
+  .hsub-item svg { width: 15px; height: 15px; }
+  .hsub-line { font-size: 11px; border-radius: 12px; }
+}
+
+/* title bar: gray on Digest and EDIT pages; EDIT = only top header + background gray */
+.page-bar-gray { background: #ececec; border-color: #c9c9c9; }
+.page-bar-gray h1 { font-style: normal; }
+body:has(.site-hero-edit) { background: #ececec; }
+body:has(.site-hero-edit) .navbar, body:has(.site-hero-edit) .site-footer-v2 { background: #ececec; }
+.site-hero-edit .hub-tile:not(.active), .site-hero-edit .hsub-item:not(.on):not(.hsub-connect), .site-hero-edit .hh-oneline { background: #fff; }
+
+/* Nov 7–8: listing rows — regular plain, premier highlighted, gold on hover / select */
+.obc-row.regular .obc-title { font-weight: 400; }
+.obc-row.premier { background: #fff5c2; }
+.obc-row.premier .obc-title, .obc-row.premier .obc-main b { font-weight: 700; }
+.obc-row:hover, .obc-row.premier:hover, .obc-row.selected { background: #ffd200; }
+.obc-price { color: var(--cg-blue); }
+.obc-ref { font-style: italic; color: #333; }
+/* Page ### of ### not bold */
+.obc-pager b { font-weight: 400; }
+/* collapse / expand circle: same size as the text */
+.fp-arrow { width: 15px !important; height: 15px !important; }
+.fp-arrow svg { width: 11px; height: 11px; }
+@media (pointer: coarse) { .fp-arrow { width: 26px !important; height: 26px !important; } }
+/* smaller gap between the hero's intro line and Filters SEEKING */
+.home-hero + .browse-page, .tpl + .browse-page, .site-hero + .browse-page, .browse-page { padding-top: 10px !important; }
+.att-red { color: var(--cg-red) !important; }
+
+/* Phones: filters and table ALWAYS side by side (Cesar, Nov 7) */
+@media (max-width: 760px) {
+  .layout-with-sidebar { flex-direction: row !important; gap: 6px !important; align-items: flex-start; }
+  .layout-with-sidebar::before { display: none !important; }
+  .layout-with-sidebar > .filter-panel, .filter-panel.fp-v2 { width: 38% !important; max-width: 160px !important; flex-shrink: 0; font-size: 11px; }
+  .layout-with-sidebar > .timeline-col { width: auto !important; flex: 1; min-width: 0; }
+  .filter-panel.fp-v2 .fp-box { padding: 6px 7px; }
+  .filter-panel.fp-v2 .fp-option { font-size: 10.5px; }
+  .obc-row { grid-template-columns: 70px minmax(0, 1fr) 22px !important; font-size: 10.5px; }
+  .obc-row.premier { grid-template-columns: 70px minmax(0, 1fr) 22px !important; }
+  .obc-row .obc-img { display: none; }
+  .obc-cell { padding: 4px 5px; }
+  .obc-search-row .obc-search input { font-size: 12px; }
+}
+@media (max-width: 760px) {
+  .obc-search-row { min-width: 0; gap: 4px; }
+  .obc-search-row .obc-search { min-width: 0; flex: 1; }
+  .obc-search-row .obc-return svg { width: 22px; height: 22px; }
+  .layout-with-sidebar > .filter-panel.fp-v2 { zoom: .8; width: 44% !important; max-width: 190px !important; }
+  .layout-with-sidebar > .timeline-col { zoom: .85; }
+}
+.dg-card-txt { min-width: 0; overflow-wrap: anywhere; }
+.dg-carousel, .dg-cards { min-width: 0; }

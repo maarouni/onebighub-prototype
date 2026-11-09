@@ -75,7 +75,7 @@ export default function ProfilePage() {
   const cardLevel1 = levels.map((n) => n.card || { name: n.label });
 
   return (
-    <PageTemplate section={null} title="My Profile" subtitle="Mini-Card · Elevator Pitch · QR Code · Connections" icon="miniCard"
+    <PageTemplate section="connections" activeAction="edit" title="My Profile" subtitle="Mini-Card · Elevator Pitch · QR Code · Connections" icon="miniCard"
       intro={user ? <>Logged in as <b>{user.name}</b>. Your mini-card shows on referrals, events you join and your connections.</> : <>You&rsquo;re not logged in — <a href="/registration/login">Log In</a> or <a href="/registration/signup">Sign Up</a> so your profile is saved under your name.</>}>
 
       <div className="eval-grid">

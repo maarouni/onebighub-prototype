@@ -46,6 +46,11 @@ function Inner({ digest }) {
 
   useEffect(() => {
     fetchOrgs().then(setItems);
+    // Nov 7 Figma: Individual / Biz / Org / Group Profiles boxes link here with ?type=
+    try {
+      const t = new URLSearchParams(window.location.search).get("type");
+      if (t) setFilters((f) => ({ ...f, ctype: [t] }));
+    } catch {}
     setMembership(readMembership());
     setSelected(readJson(SEL_KEY, {}));
     setDigestIds(readJson(DIGEST_KEY, null));

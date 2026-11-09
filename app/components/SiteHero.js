@@ -1,87 +1,151 @@
 "use client";
 
-import IconNav, { HUB_TILES } from "./IconNav";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import IconNav, { MAIN_OF } from "./IconNav";
 import HubLogo from "./HubLogo";
 import { Glyph } from "./Icons";
+import { RATE_PAGES } from "../lib/adRates";
 
-// The top of EVERY page, from Cesar's Oct 19 revisions ("most pages are
-// templates — change the library and all similar pages follow"):
+// The top of EVERY page — Nov 7–8 (Cesar's Figma, "main headers, EDIT mode"):
 //
-//   (<) [icon] Page Title (>)          yellow bar; gray on EDIT pages
-//   ( One-Stop • Results-Based Marketing • Revenue-Sharing System )  one-line white box
-//   [8 hub tiles, 4 × 2]                Calendar … Custom Notifications
-//   [section action boxes]              Digest / EDIT (EDIT box turns gray on edit pages)
-// "Connect with me !" sits in the footer at the bottom of every page.
+//   (<) [icon] Page Title (>)          yellow bar; gray on EDIT and Digest pages
+//   ( One-Stop • Results-Based Marketing • Revenue-Sharing System )
+//   [3 main tiles]                     One Big Calendar · Connections · Promote & Earn
+//   [sub-header row(s)]                that tile's pages; selected = gold + burgundy
+//   ( intro line )                     e.g. "Get Connected ! Select filters …"
+// "Connect with me !" also sits in the footer of every page.
 //
 // Change it here once and every page follows.
 
-// Oct 28 (Cesar's Figma Rev 261028): Introductions and EARN with Advertising
-// are now main tiles, so each section's action row is just its own pages.
-export const SECTION_ACTIONS = {
-  calendar: [
-    { key: "digest", icon: "figDigest", label: "My Calendar Digest", href: "/my-calendar" },
-    { key: "edit", icon: "figEdit", label: "EDIT My Events", href: "/submit", dark: true },
-  ],
-  discounts: [
-    { key: "digest", icon: "figDigest", label: "My Certificates Digest", href: "/discounts" },
-    { key: "edit", icon: "figEdit", label: "EDIT My Certificates", href: "/discounts/submit", dark: true },
-  ],
-  connections: [
-    { key: "digest", icon: "figConnDigest", label: "My Connections Digest", href: "/connections/digest" },
-    { key: "details", icon: "figViewProfile", label: "VIEW Profile(s)", href: "/connections" },
-    { key: "edit", icon: "figEditProfile", label: "EDIT My Profile(s)", href: "/profile", dark: true },
-  ],
-  employment: [
-    { key: "digest", icon: "figDigest", label: "My Employment Digest", href: "/employment" },
-    { key: "edit", icon: "figEdit", label: "EDIT My Employment Listings", href: "/employment/submit", dark: true },
-  ],
-  products: [
-    { key: "digest", icon: "figDigest", label: "My Other Listings Digest", href: "/listings" },
-    { key: "edit", icon: "figEdit", label: "EDIT My Other Listings", href: "/listings/submit", dark: true },
-  ],
-  notifications: [
-    { key: "digest", icon: "figDigest", label: "My Notifications Digest", href: "/notifications" },
-    { key: "edit", icon: "figEdit", label: "EDIT My Notifications", href: "/notifications", dark: true },
-  ],
-};
+// ---- sub-header rows -------------------------------------------------------
+// item: { key, label, sub?, href, icon? (Glyph) | img? (png in /public), connect? }
 
-// (<) and (>) step through the sections in tile order (Oct 28 Figma), wrapping around.
-const SECTION_ORDER = [
-  { key: "calendar", href: "/", label: "One Big Calendar" },
-  { key: "connections", href: "/connections", label: "Connections" },
-  { key: "introductions", href: "/referrals", label: "Introductions" },
-  { key: "earn", href: "/advertising", label: "EARN with Advertising" },
-  { key: "products", href: "/listings", label: "Products, Services ..." },
-  { key: "discounts", href: "/discounts", label: "Deals" },
-  { key: "employment", href: "/employment", label: "Careers / Jobs" },
-  { key: "notifications", href: "/notifications", label: "Custom Notifications" },
+const CAL_ROW = [
+  { key: "digest", label: "My Digest - Events", href: "/my-calendar", icon: "figDigest" },
+  { key: "edit", label: "EDIT My Events", href: "/submit", icon: "figEdit" },
 ];
 
-// Page-bar icons use Tarek's colorized set where one exists (Cesar, Oct 28).
+const CONN_ROW = [
+  { key: "connect", label: "Connect with me !", href: "/profile#qr", icon: "figConnect", connect: true },
+  { key: "introductions", label: "Introductions", href: "/referrals", img: "/icons/introductions.png" },
+  { key: "digest", label: "My Digest - Connections", href: "/connections/digest", icon: "figConnDigest" },
+  { key: "details", label: "VIEW Profiles", href: "/connections", icon: "figViewProfile" },
+  { key: "edit", label: "EDIT My Profiles", href: "/profile", icon: "figEditProfile" },
+];
+
+const INTRO_ROW = [
+  { key: "a", label: "A  ID Participants", href: "/referrals" },
+  { key: "b", label: "B  Messages", href: "/referrals/message" },
+  { key: "c", label: "C  First Evaluations", href: "/referrals/evaluations" },
+  { key: "d", label: "D  Referral Status", href: "/referrals/status" },
+  { key: "e", label: "E  Final Evaluations", href: "/referrals/evaluations#final" },
+];
+
+const PROFILE_ROW = [
+  { key: "individual", label: "Individual Profiles", href: "/connections?type=individual", img: "/icons/fig/type-individual.png" },
+  { key: "business", label: "Biz Profiles", href: "/connections?type=business", img: "/icons/fig/type-biz.png" },
+  { key: "org", label: "Org Profiles", href: "/connections?type=org", img: "/icons/fig/type-org.png" },
+  { key: "group", label: "Group Profiles", href: "/connections?type=group", img: "/icons/fig/type-group.png" },
+];
+
+const PROMO_ROW = [
+  { key: "earn", label: <>onebig<b className="hh-hub">HUB</b></>, sub: "Ads, Events", href: "/advertising", img: "/icons/earn.png" },
+  { key: "products", label: "Products,", sub: "Services ...", href: "/listings", img: "/icons/products.png" },
+  { key: "discounts", label: "Deals", href: "/discounts", img: "/icons/deals.png" },
+  { key: "employment", label: "Careers / Jobs", href: "/employment", img: "/icons/careers.png" },
+  { key: "notifications", label: "Notifications", href: "/notifications", img: "/icons/notifications.png" },
+];
+
+const ADS_ROW = [
+  { key: "/advertising/calculate", label: "Calculate", sub: "Ad Cost", href: "/advertising/calculate", icon: "calculate" },
+  { key: "rates", label: "Rates", href: "/advertising/listings", icon: "discount" },
+  { key: "/advertising/private-label", label: "Private-Label", sub: "Header", href: "/advertising/private-label", icon: "document" },
+  { key: "/advertising/participation", label: "Event", sub: "Participation", href: "/advertising/participation", icon: "expo" },
+  { key: "/advertising/barter", label: "Barter", href: "/advertising/barter", icon: "barter" },
+];
+const RATE_ROW = RATE_PAGES.map((p) => ({ key: `/advertising/${p.slug}`, label: p.title, href: `/advertising/${p.slug}`, icon: p.icon }));
+
+const PRODUCT_TYPES = [
+  { key: "Product", label: "Products", icon: "products" },
+  { key: "Service", label: "Services", icon: "service" },
+  { key: "Membership", label: "Memberships", icon: "membership" },
+  { key: "Subscription", label: "Subscriptions", icon: "user" },
+  { key: "Survey", label: "Surveys", icon: "document" },
+].map((t) => ({ ...t, href: `/listings?type=${t.key}` }));
+
+const pair = (digestLabel, digestSub, digestHref, editLabel, editSub, editHref) => [
+  { key: "digest", label: digestLabel, sub: digestSub, href: digestHref, icon: "figDigest", inline: true },
+  { key: "edit", label: editLabel, sub: editSub, href: editHref, icon: "figEdit", inline: true },
+];
+
+// Intro line under the rows: [red italic lead, rest].
+const LINES = {
+  "calendar:digest": ["Save Time !", "Select filters to curate events • Assign My Attendance Status for each event"],
+  "connections:": ["Get Connected !", "Select filters to curate listings"],
+  "connections:digest": ["Get Connected !", "Select filters to curate listings • Assign My Membership Status for each org / group"],
+  "introductions:": ["Get Paid", "for Introductions / Referrals that convert to business and/or a beneficial connection"],
+  "products:": ["Get Paid !", "Promote your items here • No-Cost and Premier Listings Available"],
+  "discounts:": ["Everyone loves a good deal !", "Distribute certificates as gifts, incentives, raffle prizes, and rewards !"],
+  "employment:": ["Get Hired !", "Select filters to curate listings • Assign My Application Status for each listing"],
+  "notifications:": ["Get Noticed !", "Promote your events, products, services • No-Cost and Premier Listings Available"],
+};
+
+function SubRow({ items, on, cols, variant = "" }) {
+  return (
+    <nav className={`hsub hsub-${cols || items.length} ${variant}`} aria-label="Section pages">
+      {items.map((it) => {
+        const active = on === it.key;
+        return (
+          <a key={it.key} href={it.href} aria-current={active ? "page" : undefined}
+            className={`hsub-item ${active ? "on" : ""} ${it.connect ? "hsub-connect" : ""} ${it.inline ? "hsub-inline" : ""}`}>
+            {it.img ? <img src={it.img} alt="" width="20" height="20" />
+              : it.icon ? <Glyph name={it.icon} size={18} /> : null}
+            <span className="hsub-text">
+              <span className="hsub-label">{it.label}</span>
+              {it.sub && <span className="hsub-sub">{it.sub}</span>}
+            </span>
+          </a>
+        );
+      })}
+    </nav>
+  );
+}
+
+// Page-bar icon per section (Tarek's colorized set).
+const SECTION_IMG = {
+  calendar: "calendar", connections: "connections", introductions: "introductions", earn: "earn",
+  products: "products", discounts: "deals", employment: "careers", notifications: "notifications",
+};
 const PB_IMG = {
   calendar: "calendar", connections: "connections", connectMe: "introductions", megaphone: "earn",
   products: "products", discount: "deals", employment: "careers", notifications: "notifications",
 };
 
-// Oct 29 (Cesar + Masoud): the title bar follows the active tile — on every
-// page of a section it shows that tile's icon (gold tile = same icon up top),
-// so the hub logo appears only in the site header. EDIT pages keep the gray
-// pencil.
-const TILE_IMG = Object.fromEntries(HUB_TILES.map((t) => [t.key, t.img]));
-export const TILE_LABEL = Object.fromEntries(HUB_TILES.map((t) => [t.key, t.label]));
+// (<) and (>) step through the sections, wrapping around.
+const SECTION_ORDER = [
+  { key: "calendar", href: "/" },
+  { key: "connections", href: "/connections" },
+  { key: "introductions", href: "/referrals" },
+  { key: "earn", href: "/advertising" },
+  { key: "products", href: "/listings" },
+  { key: "discounts", href: "/discounts" },
+  { key: "employment", href: "/employment" },
+  { key: "notifications", href: "/notifications" },
+];
 
-function PageBar({ title, icon, mode, section }) {
+function PageBar({ title, icon, mode, section, gray }) {
   const i = Math.max(0, SECTION_ORDER.findIndex((x) => x.key === section));
   const prev = SECTION_ORDER[(i + SECTION_ORDER.length - 1) % SECTION_ORDER.length];
   const next = SECTION_ORDER[(i + 1) % SECTION_ORDER.length];
   return (
-    <div className={`page-bar page-bar-${mode}`}>
+    <div className={`page-bar page-bar-${mode} ${gray ? "page-bar-gray" : ""}`}>
       <a href={prev.href} className="pb-nav" aria-label="Previous" data-tip="Previous">
         <Glyph name="pagePrev" size={30} />
       </a>
       <span className={`pb-icon ${mode === "edit" ? "pb-icon-dark" : ""}`}>
-        {mode !== "edit" && TILE_IMG[section]
-          ? <img src={`/icons/${TILE_IMG[section]}.png`} alt="" width="48" height="48" />
+        {mode !== "edit" && SECTION_IMG[section]
+          ? <img src={`/icons/${SECTION_IMG[section]}.png`} alt="" width="48" height="48" />
           : icon === "hub"
           ? <HubLogo size={mode === "edit" ? 34 : 48} />
           : mode !== "edit" && PB_IMG[icon]
@@ -96,8 +160,8 @@ function PageBar({ title, icon, mode, section }) {
   );
 }
 
-// Oct 27 meeting: a bright yellow "Connect with me !" button at the bottom of
-// every page (it lives in the site footer, so it's on all pages).
+// Bright yellow "Connect with me !" button (footer of every page, and first
+// box in the Connections row).
 export function ConnectWithMe() {
   return (
     <a href="/profile#qr" className="connect-me" data-tip="Connect with me ! — mini-card, elevator pitch, QR code">
@@ -107,46 +171,92 @@ export function ConnectWithMe() {
   );
 }
 
+// Which rows + line a page shows. Pages pass `section` and `activeAction`.
+function rowsFor(section, action, path, query) {
+  const rows = [];
+  let line = null;
+  const lineKey = (s, a) => LINES[`${s}:${a || ""}`] || null;
+
+  switch (MAIN_OF[section]) {
+    case "calendar":
+      rows.push(<SubRow key="cal" items={CAL_ROW} on={action} />);
+      line = lineKey("calendar", action);
+      break;
+    case "connections": {
+      const on = section === "introductions" ? "introductions" : path.startsWith("/profile") && path.includes("#qr") ? "connect" : action;
+      rows.push(<SubRow key="conn" items={CONN_ROW} on={on} />);
+      if (section === "introductions") {
+        const cur = INTRO_ROW.find((r) => r.href === path)?.key;
+        rows.push(<SubRow key="intro" items={INTRO_ROW} on={cur} variant="hsub-plain" />);
+        line = lineKey("introductions");
+      } else {
+        if (action === "details" || action === "edit") rows.push(<SubRow key="prof" items={PROFILE_ROW} on={query.type} variant="hsub-gold" />);
+        if (action !== "edit") line = lineKey("connections", action === "digest" ? "digest" : "");
+      }
+      break;
+    }
+    case "promote":
+      rows.push(<SubRow key="promo" items={PROMO_ROW} on={section} />);
+      if (section === "earn") {
+        const isRate = RATE_ROW.some((r) => r.key === path);
+        rows.push(<SubRow key="ads" items={ADS_ROW} on={isRate ? "rates" : path} />);
+        if (isRate) rows.push(<SubRow key="rates" items={RATE_ROW} on={path} cols={4} variant="hsub-plain" />);
+      } else if (section === "products") {
+        rows.push(<SubRow key="types" items={PRODUCT_TYPES} on={query.type} />);
+        rows.push(<SubRow key="pde" items={pair("My Digest", null, "/listings", "EDIT My Items", null, "/listings/submit")} on={action} cols={2} />);
+        line = lineKey("products");
+      } else if (section === "discounts") {
+        rows.push(<SubRow key="dde" items={pair("My Digest - Deals", "Discount / Gift Certificates", "/discounts", "EDIT My Deals", "Discount / Gift Certificates", "/discounts/submit")} on={action} cols={2} />);
+        line = lineKey("discounts");
+      } else if (section === "employment") {
+        rows.push(<SubRow key="ede" items={pair("My Digest - Careers / Jobs", null, "/employment", "EDIT My Employment Listings", null, "/employment/submit")} on={action} cols={2} />);
+        line = lineKey("employment");
+      } else if (section === "notifications") {
+        rows.push(<SubRow key="nde" items={pair("My Digest - Notifications", null, "/notifications", "EDIT My Notifications", null, "/notifications#edit")} on={action} cols={2} />);
+        line = lineKey("notifications");
+      }
+      break;
+    default:
+      break;
+  }
+  return { rows, line };
+}
+
 export default function SiteHero({
-  section,              // "calendar" | "discounts" | "connections" | "employment" | "notifications" | null
+  section,              // page section: calendar | connections | introductions | earn | products | discounts | employment | notifications | null
   mode = "output",      // "output" | "edit"
   title,
   icon,
-  activeAction,         // which action box is the current page ("details" | "digest" | "edit")
-  detailsHref,          // overrides the Details box link (e.g. first selected listing)
-  secondRow,            // replaces the action row (e.g. the advertising pages' own row)
+  activeAction,         // which sub box is the current page ("details" | "digest" | "edit")
+  intro,                // intro line for pages without one of Cesar's default lines
+  noLine = false,       // hide the intro line
 }) {
-  const key = SECTION_ACTIONS[section] ? section : null;
-  const actions = key ? SECTION_ACTIONS[key].map((a) => (a.key === "details" && detailsHref ? { ...a, href: detailsHref } : a)) : [];
+  const path = usePathname() || "/";
+  const [query, setQuery] = useState({});
+  useEffect(() => {
+    try { setQuery(Object.fromEntries(new URLSearchParams(window.location.search))); } catch {}
+  }, [path]);
   const current = activeAction || (mode === "edit" ? "edit" : null);
   const barIcon = icon || (mode === "edit" ? "editMode" : "hub");
-
-  // Nov 5 (Cesar): on a Digest page the section tile turns gray (not gold) and
-  // the page's yellow bars go gray too — "gray mode" (CSS keys off this class).
-  const digestMode = current === "digest";
+  const { rows, line } = rowsFor(section, current, path, query);
 
   return (
-    <div className={`site-hero ${digestMode ? "site-hero-digest" : ""}`}>
-      <PageBar title={title} icon={barIcon} mode={mode} section={section} />
+    <div className={`site-hero site-hero-${mode}`}>
+      <PageBar title={title} icon={barIcon} mode={mode} section={section} gray={current === "digest"} />
 
       <p className="hh-box hh-intro hh-oneline">
-        {/* Nov 6 (Cesar): new tagline, used everywhere */}
         <b className="hh-os">One-Stop</b> • <b className="hh-rb">Results-Based Marketing</b> • <b className="hh-rs">Revenue-Sharing System</b>
       </p>
 
-      <IconNav active={section} mode={mode} dim={digestMode} />
+      <IconNav active={section} mode={mode} />
 
-      {secondRow || (actions.length > 0 && (
-        <nav className={`hh-actions hh-actions-${actions.length}`} aria-label="Section pages">
-          {actions.map((a) => (
-            <a key={a.key} href={a.href} aria-current={current === a.key ? "page" : undefined}
-              className={`hh-box hh-action ${current === a.key ? "hh-action-on" : ""}`}>
-              <span className="hh-action-icon"><Glyph name={a.icon} size={30} /></span>
-              <span>{a.label}</span>
-            </a>
-          ))}
-        </nav>
-      ))}
+      {rows}
+
+      {!noLine && (intro || line) && (
+        <p className="hh-box hsub-line">
+          {line ? <><b><i>{line[0]}</i></b> {line[1]}</> : intro}
+        </p>
+      )}
     </div>
   );
 }

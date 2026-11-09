@@ -145,9 +145,10 @@ function SuperCalendarInner() {
               href: `/event/${e.id}`,
               left: [fmtDateRange(e.date, e.endDate), fmtTime(e.time)],
               title: <>{isPrivate(e) && <span className="priv-icon" data-tip="Hide, Private — only you see this"><Glyph name="private" size={13} /></span>}{e.title}</>,
+              // Nov 7 (Cesar): regular titles not bold; premier title + host bold.
               lines: e.premier
-                ? [`${cityCode(e)}${e.type !== "Online" && e.region ? `, ${e.region}` : ""}`, <>Hosted by <b>{e.hostedBy}</b></>, e.cost]
-                : [`${cityCode(e)}, Hosted by ${e.hostedBy}`],
+                ? [`${cityCode(e)}${e.type !== "Online" && e.region ? `, ${e.region}` : ""}`, <>Hosted by <b>{e.hostedBy}</b></>, <>{e.cost}{e.referral && <i className="obc-ref"> • $ Referral</i>}</>]
+                : [<>{cityCode(e)}, Hosted by {e.hostedBy}, <span className="obc-price">{e.cost}</span>{e.referral && <i className="obc-ref"> • $ Referral</i>}</>],
               premier: e.premier,
               image: rowImage(e),
               barter: e.barter,

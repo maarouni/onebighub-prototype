@@ -17,7 +17,9 @@
     "cost": "Free RSVP / $10 Door",
     "price": 0,
     "premier": true,
-    "description": "A large mixer bringing together founders, investors, and tech professionals from across the South Bay. Expect lightning intros, an exhibitor floor, and a cash bar."
+    "description": "A large mixer bringing together founders, investors, and tech professionals from across the South Bay. Expect lightning intros, an exhibitor floor, and a cash bar.",
+    "posted": "2026-11-04",
+    "industry": "Technology"
   },
   {
     "id": "2",
@@ -37,7 +39,9 @@
     "price": 10,
     "premier": false,
     "description": "A hands-on session on building a referral engine for your business — scripts, follow-up cadences, and how to ask for introductions without it feeling awkward.",
-    "barter": true
+    "barter": true,
+    "posted": "2026-10-31",
+    "industry": "Financial"
   },
   {
     "id": "3",
@@ -57,7 +61,10 @@
     "cost": "$25 RSVP / $35 Door",
     "price": 25,
     "premier": false,
-    "description": "A seated dinner capped at a small group size so every table actually gets to talk business. Vegetarian option available on request."
+    "description": "A seated dinner capped at a small group size so every table actually gets to talk business. Vegetarian option available on request.",
+    "posted": "2026-10-27",
+    "industry": "Professional Services",
+    "referral": true
   },
   {
     "id": "4",
@@ -76,7 +83,9 @@
     "cost": "Free",
     "price": 0,
     "premier": false,
-    "description": "A monthly video call for early-stage founders to trade notes on fundraising, hiring, and go-to-market — no pitching, just peer advice."
+    "description": "A monthly video call for early-stage founders to trade notes on fundraising, hiring, and go-to-market — no pitching, just peer advice.",
+    "posted": "2026-10-23",
+    "industry": "Construction"
   },
   {
     "id": "5",
@@ -95,7 +104,9 @@
     "cost": "Free",
     "price": 0,
     "premier": false,
-    "description": "Coffee, pastries and quick intros with Tri-Valley business owners before the workday starts."
+    "description": "Coffee, pastries and quick intros with Tri-Valley business owners before the workday starts.",
+    "posted": "2026-10-19",
+    "industry": "Food & Beverage"
   },
   {
     "id": "6",
@@ -115,7 +126,10 @@
     "cost": "$15",
     "price": 15,
     "premier": true,
-    "description": "Practical ways small businesses are using AI tools for marketing, bookkeeping and customer service — with live demos."
+    "description": "Practical ways small businesses are using AI tools for marketing, bookkeeping and customer service — with live demos.",
+    "posted": "2026-10-15",
+    "industry": "Hospitality",
+    "referral": true
   },
   {
     "id": "7",
@@ -135,7 +149,9 @@
     "cost": "$20 RSVP / $30 Door",
     "price": 20,
     "premier": true,
-    "description": "Six early-stage startups pitch to a panel of angels and VCs, followed by open networking."
+    "description": "Six early-stage startups pitch to a panel of angels and VCs, followed by open networking.",
+    "posted": "2026-10-11",
+    "industry": "Healthcare"
   },
   {
     "id": "8",
@@ -155,7 +171,9 @@
     "cost": "$45",
     "price": 45,
     "premier": false,
-    "description": "Brunch and a panel on building a real estate portfolio, with agents, lenders and investors."
+    "description": "Brunch and a panel on building a real estate portfolio, with agents, lenders and investors.",
+    "posted": "2026-10-07",
+    "industry": "Education"
   },
   {
     "id": "9",
@@ -175,7 +193,10 @@
     "cost": "Free",
     "price": 0,
     "premier": false,
-    "description": "Bilingual networking for Latino entrepreneurs, professionals and allies."
+    "description": "Bilingual networking for Latino entrepreneurs, professionals and allies.",
+    "posted": "2026-10-03",
+    "industry": "Non Profit",
+    "referral": true
   },
   {
     "id": "10",
@@ -195,7 +216,9 @@
     "cost": "Free",
     "price": 0,
     "premier": true,
-    "description": "Meet recruiters from 40+ Bay Area tech and biotech employers in virtual booths."
+    "description": "Meet recruiters from 40+ Bay Area tech and biotech employers in virtual booths.",
+    "posted": "2026-11-06",
+    "industry": "Business"
   },
   {
     "id": "11",
@@ -215,7 +238,9 @@
     "cost": "$35",
     "price": 35,
     "premier": false,
-    "description": "Local wineries pour while Marin professionals mingle on the terrace."
+    "description": "Local wineries pour while Marin professionals mingle on the terrace.",
+    "posted": "2026-11-02",
+    "industry": "Technology"
   },
   {
     "id": "12",
@@ -235,7 +260,10 @@
     "cost": "$10",
     "price": 10,
     "premier": false,
-    "description": "Deal reviews, lender Q&A and open networking for small multifamily and single-family investors."
+    "description": "Deal reviews, lender Q&A and open networking for small multifamily and single-family investors.",
+    "posted": "2026-10-29",
+    "industry": "Financial",
+    "referral": true
   },
   {
     "id": "13",
@@ -254,7 +282,9 @@
     "cost": "Free",
     "price": 0,
     "premier": true,
-    "description": "80+ local exhibitors, a speaker stage and B2B matchmaking tables."
+    "description": "80+ local exhibitors, a speaker stage and B2B matchmaking tables.",
+    "posted": "2026-10-25",
+    "industry": "Professional Services"
   },
   {
     "id": "14",
@@ -274,7 +304,9 @@
     "cost": "$60",
     "price": 60,
     "premier": false,
-    "description": "Harvest-season celebration with local food, wine and live music."
+    "description": "Harvest-season celebration with local food, wine and live music.",
+    "posted": "2026-10-21",
+    "industry": "Construction"
   },
   {
     "id": "15",
@@ -295,7 +327,10 @@
     "price": 149,
     "premier": true,
     "description": "Full-day summit on clean energy, building decarbonization and climate-tech investment.",
-    "endDate": "2026-10-13"
+    "endDate": "2026-10-13",
+    "posted": "2026-10-17",
+    "industry": "Food & Beverage",
+    "referral": true
   },
   {
     "id": "16",
@@ -315,7 +350,9 @@
     "cost": "$15",
     "price": 15,
     "premier": false,
-    "description": "Career-focused networking with panel Q&A from senior leaders across tech and finance."
+    "description": "Career-focused networking with panel Q&A from senior leaders across tech and finance.",
+    "posted": "2026-10-13",
+    "industry": "Hospitality"
   },
   {
     "id": "17",
@@ -335,7 +372,9 @@
     "cost": "Free",
     "price": 0,
     "premier": false,
-    "description": "Business plans, SBA loans and local grant programs explained by SBDC advisors."
+    "description": "Business plans, SBA loans and local grant programs explained by SBDC advisors.",
+    "posted": "2026-10-09",
+    "industry": "Healthcare"
   },
   {
     "id": "18",
@@ -355,7 +394,10 @@
     "cost": "Free",
     "price": 0,
     "premier": false,
-    "description": "Nonprofits, health providers and county services under one roof."
+    "description": "Nonprofits, health providers and county services under one roof.",
+    "posted": "2026-10-05",
+    "industry": "Education",
+    "referral": true
   },
   {
     "id": "19",
@@ -375,7 +417,9 @@
     "cost": "Free",
     "price": 0,
     "premier": false,
-    "description": "Lightning talks from local engineers followed by pizza and networking."
+    "description": "Lightning talks from local engineers followed by pizza and networking.",
+    "posted": "2026-11-08",
+    "industry": "Non Profit"
   },
   {
     "id": "20",
@@ -395,7 +439,9 @@
     "cost": "$25",
     "price": 25,
     "premier": false,
-    "description": "Profile, content and outreach tactics that turn LinkedIn into a steady referral source."
+    "description": "Profile, content and outreach tactics that turn LinkedIn into a steady referral source.",
+    "posted": "2026-11-04",
+    "industry": "Business"
   },
   {
     "id": "21",
@@ -415,7 +461,10 @@
     "cost": "$30",
     "price": 30,
     "premier": false,
-    "description": "Hotel, restaurant and tour operators meet local vendors and marketers."
+    "description": "Hotel, restaurant and tour operators meet local vendors and marketers.",
+    "posted": "2026-10-31",
+    "industry": "Technology",
+    "referral": true
   },
   {
     "id": "22",
@@ -436,7 +485,9 @@
     "price": 0,
     "premier": true,
     "description": "Shop, network and hear from founders at the East Bay's largest Black-owned business showcase.",
-    "endDate": "2026-10-25"
+    "endDate": "2026-10-25",
+    "posted": "2026-10-27",
+    "industry": "Financial"
   },
   {
     "id": "23",
@@ -456,7 +507,9 @@
     "cost": "$295",
     "price": 295,
     "premier": false,
-    "description": "Two tracks on real estate technology, AI underwriting and capital markets."
+    "description": "Two tracks on real estate technology, AI underwriting and capital markets.",
+    "posted": "2026-10-23",
+    "industry": "Professional Services"
   },
   {
     "id": "24",
@@ -476,7 +529,10 @@
     "cost": "Free",
     "price": 0,
     "premier": false,
-    "description": "Nationwide livestream with sessions on funding, exporting and government contracting."
+    "description": "Nationwide livestream with sessions on funding, exporting and government contracting.",
+    "posted": "2026-10-19",
+    "industry": "Construction",
+    "referral": true
   },
   {
     "id": "25",
@@ -497,7 +553,9 @@
     "price": 75,
     "premier": true,
     "description": "Year-end celebration with dinner stations, a DJ and a toy drive.",
-    "endDate": "2027-01-08"
+    "endDate": "2027-01-08",
+    "posted": "2026-10-15",
+    "industry": "Food & Beverage"
   },
   {
     "id": "26",
@@ -517,7 +575,9 @@
     "price": 450,
     "premier": false,
     "description": "International founder and investor summit with a Bay Area delegation.",
-    "endDate": "2026-11-20"
+    "endDate": "2026-11-20",
+    "posted": "2026-10-11",
+    "industry": "Hospitality"
   },
   {
     "id": "27",
@@ -538,6 +598,9 @@
     "price": 199,
     "premier": false,
     "description": "Weekend retreat on out-of-state investing, syndications and 1031 exchanges.",
-    "endDate": "2026-12-01"
+    "endDate": "2026-12-01",
+    "posted": "2026-10-07",
+    "industry": "Healthcare",
+    "referral": true
   }
 ]

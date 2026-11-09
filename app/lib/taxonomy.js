@@ -98,13 +98,22 @@ export const ATTENDANCE_STATUSES = [
   { id: "low", icon: "~", label: "Low Probability" },
   { id: "not", icon: "N", label: "Will not attend" },
   { id: "job", icon: "J", label: "Job / Work" },
-  { id: "personal", icon: "P", label: "Personal" },
+  // Nov 7 (Cesar's Figma): Personal splits into Display / Hide (visible only to me)
+  { id: "personal", icon: "P", label: "Personal — Display" },
+  { id: "personalHide", icon: "P", label: "Personal — Hide (visible only to me)", red: true },
   { id: "waitlist", icon: "W", label: "Waitlist / Pending" },
 ];
 
 export const EMPTY_FILTERS = {
   formats: [],
   tiers: [],
+  // Nov 8 (Cesar's Figma filters)
+  posted: "all",
+  postedFrom: "",
+  postedTo: "",
+  referral: [],
+  adtypes: [],
+  industry: [],
   date: "all",
   dateFrom: "",
   dateTo: "",
@@ -144,7 +153,26 @@ export function eventCategories(e) {
 }
 
 const SECTION_TESTS = {
-  formats: (e, f) => !f.formats.length || f.formats.includes(eventFormat(e)),
+  formats: (e, f) => !f.formats?.length || f.formats.includes(eventFormat(e)),
+  // Nov 8 (Cesar's Figma filters): Date Posted / Revised, Offering $ Referrals, Type, Industries
+  posted: (e, f, today) => {
+    if (!f.posted || f.posted === "all") return true;
+    const p = e.revised || e.posted;
+    if (!p) return false;
+    if (f.posted === "custom") {
+      if (f.postedFrom && p < f.postedFrom) return false;
+      if (f.postedTo && p > f.postedTo) return false;
+      return true;
+    }
+    const [y, m, d] = p.split("-").map(Number);
+    const ago = Math.round((startOfDay(today) - new Date(y, m - 1, d)) / 86400000);
+    if (f.posted === "today") return ago === 0;
+    if (f.posted === "30") return ago >= 0;
+    return ago >= 0 && ago <= Number(f.posted);
+  },
+  referral: (e, f) => !f.referral?.length || f.referral.includes(e.referral ? "yes" : "no"),
+  adtypes: (e, f) => !f.adtypes?.length || f.adtypes.includes(e.barter ? "barter" : e.premier ? "premier" : "regular"),
+  industry: (e, f) => !f.industry?.length || f.industry.includes(e.industry),
   tiers: (e, f) =>
     !f.tiers.length || f.tiers.includes(e.premier ? "Premier" : "Regular"),
   date: (e, f, today) => {

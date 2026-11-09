@@ -17,7 +17,7 @@ export default function PageTemplate({
   actions,
   children,
   narrow = false,
-  subnav = null,   // replaces the section action row (e.g. advertising pages)
+  subnav = null,   // no longer used: SiteHero builds every row (Nov 7 Figma)
   activeAction,
   icon,
   legend,          // kept for compatibility; the color legend is no longer shown
@@ -30,12 +30,12 @@ export default function PageTemplate({
         title={<>{title}{subtitle && <em className="pb-sub">{subtitle}</em>}</>}
         icon={icon}
         activeAction={activeAction}
-        secondRow={subnav}
+        intro={intro}
       />
 
-      {(intro || actions || status === "construction") && (
+      {(actions || status === "construction") && (
         <div className="tpl-intro">
-          <div>{intro}</div>
+          <div />
           {(actions || status === "construction") && (
             <div className="tpl-intro-right">
               {status === "construction" && <span className="tpl-flag">Under construction</span>}
