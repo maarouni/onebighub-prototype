@@ -121,6 +121,9 @@ const P = {
   idxAttendees: <><circle cx="8" cy="7" r="2" /><circle cx="16" cy="7" r="2" /><circle cx="12" cy="12" r="2" /><path d="M4 13a4 4 0 0 1 6 0M14 13a4 4 0 0 1 6 0M8 19a4 4 0 0 1 8 0" /></>,
   idxCollateral: <><path d="M4 18 14 6l4 4L8 20z" /><path d="M15 4l1-2M19 6l2-1M18 2l.5 2" /><path d="M4 18l2 3h2" /></>,
   idxMessages: <><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /><path d="M7 8h10M7 12h7" /></>,
+  // Nov 10: brand-colored Google "G" and Apple Calendar icons for the #4 box.
+  gColor: <g stroke="none"><path d="M21.6 12.2c0-.7-.1-1.4-.2-2H12v3.8h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.3z" fill="#4285F4" /><path d="M12 22c2.7 0 5-.9 6.6-2.4l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6A10 10 0 0 0 12 22z" fill="#34A853" /><path d="M6.4 14c-.2-.6-.3-1.3-.3-2s.1-1.4.3-2V7.4H3.1a10 10 0 0 0 0 9.2z" fill="#FBBC05" /><path d="M12 6c1.5 0 2.8.5 3.8 1.5l2.9-2.9A10 10 0 0 0 3.1 7.4L6.4 10C7.2 7.7 9.4 6 12 6z" fill="#EA4335" /></g>,
+  iCal: <g><rect x="3" y="3" width="18" height="18" rx="4" fill="#fff" stroke="#d0d0d0" strokeWidth="1" /><path d="M3 8.5V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v1.5z" fill="#f2f2f2" stroke="none" /><text x="12" y="7.4" textAnchor="middle" fontSize="4" fill="#e3342f" stroke="none" fontFamily="Arial" fontWeight="700">WED</text><text x="12" y="18.2" textAnchor="middle" fontSize="10" fill="#222" stroke="none" fontFamily="Arial">1</text></g>,
 };
 
 // Legend groups, labels exactly as Cesar's Legend Icons page names them.

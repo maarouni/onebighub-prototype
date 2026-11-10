@@ -279,7 +279,8 @@ export default function SiteHero({
       <PageBar title={title} icon={barIcon} mode={mode} section={section} gray={current === "digest"} />
 
       <p className="hh-box hh-intro hh-oneline">
-        <b className="hh-os">One-Stop</b> • <b className="hh-rb">Results-Based Marketing</b> • <b className="hh-rs">Revenue-Sharing System</b>
+        {/* Nov 9 (Cesar, flyer): new tagline. Old: One-Stop • Results-Based Marketing • Revenue-Sharing System */}
+        <b className="hh-rb">Your Performance-Based</b> <b className="hh-rs">Marketing System</b>
       </p>
 
       {tiles && <IconNav active={section} mode={mode} />}

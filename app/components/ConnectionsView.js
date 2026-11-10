@@ -153,7 +153,7 @@ function Inner({ digest }) {
           )}
 
           <div className="timeline-col" id="results">
-            <ResultsHead title={digest ? "My Connections Digest" : "Connections"} q={qRaw} setQ={setQRaw}
+            <ResultsHead step={digest ? 3 : 2} title={digest ? "My Connections Digest" : "Connections"} q={qRaw} setQ={setQRaw}
               showFilters={showFilters} onShowFilters={() => setShowFilters(true)} />
 
             <SendToMasoud load={localOrgs} noun="organizations" format={fmtOrg} subject="onebigHUB - my organizations" />
@@ -184,7 +184,7 @@ function Inner({ digest }) {
 
             <Pager page={safePage} totalPages={totalPages} onGo={(p) => setPage(Math.min(Math.max(1, p), totalPages))} />
 
-            <NextStep options={nextOptions} />
+            <NextStep step={digest ? 4 : 3} options={nextOptions} />
           </div>
         </div>
       </div>

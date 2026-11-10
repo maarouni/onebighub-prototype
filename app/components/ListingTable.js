@@ -19,7 +19,7 @@ import { StepBadge } from "./Steps";
 // Return button (goes back one page) and sits outside the search pill.
 // `addHref` / `editHref` put the (+) ADD and pencil EDIT icons on the bar
 // (digest pages).
-export function ResultsHead({ title, q, setQ, showFilters, onShowFilters, addHref, editHref }) {
+export function ResultsHead({ title, q, setQ, showFilters, onShowFilters, addHref, editHref, step = 2 }) {
   const globalHidden = useFiltersHidden();
   const own = typeof onShowFilters === "function" && showFilters === false;
   const hidden = own || (globalHidden && showFilters !== false);
@@ -27,7 +27,7 @@ export function ResultsHead({ title, q, setQ, showFilters, onShowFilters, addHre
   return (
     <>
       <div className="obc-bar">
-        <StepBadge n={3} />
+        <StepBadge n={step} />
         <b>{title}</b>
         <em>Select all that apply</em>
         {hidden && (

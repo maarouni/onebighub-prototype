@@ -3833,3 +3833,23 @@ a.legal-link:hover { background: #fff5c2; }
   .site-footer-v2 .connect-me { width: 100% !important; }
 }
 .fp-v2 .fp-option input[type="radio"], .fp-v2 .fp-option input[type="checkbox"], .obc-sel .sel-radio { box-sizing: border-box !important; width: 11px !important; height: 11px !important; min-width: 11px !important; }
+
+/* ===== Nov 10 (Cesar, Nov 9 4:33 / 4:42 PM, 1:06 AM) ===== */
+/* One gold (100%) for every header bar, the main tiles and the selected row;
+   light gold for Premier listings and hover. */
+:root { --cg-yellow: #ffd200; --cg-yellow-line: #e0b400; --cg-light-gold: #fff5c2; }
+.obc-row.premier, .obc-row:hover, .obc-row.premier:hover { background: var(--cg-light-gold); }
+.obc-row.selected, .obc-row.selected:hover { background: #ffd200; }
+.hsub-item.on, .page-bar:not(.page-bar-gray):not(.page-bar-edit), .fp-bar, .fp-step, .fp-submit-pill, .obc-bar, .next-step-box, .cw-bar, .em-bar:not(.em-bar-y) { background: #ffd200 !important; border-color: #e0b400 !important; }
+/* Filter boxes: half the space between choices (phones had 44px rows) */
+.fp-v2 .fp-option, .sidebar .fp-v2 label.fp-option, .fp-v2 label.fp-option { min-height: 20px !important; padding: 1px 0 !important; line-height: 1.25; }
+@media (pointer: coarse) { .fp-v2 .fp-option, .fp-v2 label.fp-option { min-height: 20px !important; } }
+/* Chevron sits on the box's first text line */
+.fp-box-head { align-items: flex-start !important; }
+.fp-box-head .fp-arrow { margin-top: -1px; }
+/* Same visible radio size in table and filters on phones (panel zoom .8, table .85) */
+@media (max-width: 760px) { .obc-sel .sel-radio { width: 10.4px !important; height: 10.4px !important; min-width: 10.4px !important; } }
+/* My Calendar Digest: "2 SAVE Filter Set" inside Sets; light-gray share boxes with counts */
+.fp-set-pill { margin-top: 6px; width: 100%; }
+.dg-box { background: #f2f2f2 !important; }
+.dg-count-n { color: var(--cg-red); font-weight: 700; }

@@ -124,12 +124,12 @@ function MiniCard({ p, onRemove }) {
 }
 
 // A results-column box with the same title + collapse circle as the filter boxes.
-function SideBox({ title, children, tools }) {
+function SideBox({ title, count, children, tools }) {
   const [open, setOpen] = useState(true);
   return (
     <section className="dg-box">
       <div className="dg-box-head">
-        <b>{title}</b>
+        <b>{title}{count != null && <>: <span className="dg-count-n">{count}</span></>}</b>
         <span className="dg-box-tools">
           {tools}
           <CollapseArrow open={open} onClick={() => setOpen((o) => !o)} label={title} />
@@ -151,7 +151,7 @@ export default function MyCalendar() {
   const [q, setQ] = useState("");
   const [page, setPage] = useState(1);
   const [sharedIdx, setSharedIdx] = useState(0);
-  const [share, setShare] = useState({ all: false, people: [] });
+  const [share, setShare] = useState({ hideAll: false, people: [] });
   const [shareQ, setShareQ] = useState("");
   const [flash, setFlash] = useState("");
   const today = useMemo(() => new Date(), []);
@@ -162,7 +162,7 @@ export default function MyCalendar() {
     setSelected(readJson(STORAGE_KEY, {}));
     setStatus(readJson(STATUS_KEY, {}));
     setSets(readJson(SETS_KEY, {}));
-    setShare(readJson(SHARE_KEY, { all: false, people: [] }));
+    setShare(readJson(SHARE_KEY, { hideAll: false, people: [] }));
   }, []);
 
   useEffect(() => { setPage(1); }, [f, q]);
@@ -248,8 +248,8 @@ export default function MyCalendar() {
     { id: "add", icon: "plusBold", label: "ADD New Listing", href: "/submit" },
     { id: "edit", icon: "editMode", label: "EDIT Selection(s)", href: "/submit" },
     { id: "cart", icon: "cartAdd", label: "ADD Selection(s) to My Shopping Cart", onClick: cartPicked },
-    { id: "gcal", icon: "gcal", label: "ADD Selection(s) to My Google Calendar", onClick: googlePicked },
-    { id: "ical", icon: "calendar", label: "ADD Selection(s) to My Apple iCal Calendar", onClick: applePicked },
+    { id: "gcal", icon: "gColor", label: "ADD Selection(s) to My Google Calendar", onClick: googlePicked },
+    { id: "ical", icon: "iCal", label: "ADD Selection(s) to My Apple iCal Calendar", onClick: applePicked },
     { id: "del", icon: "delete", label: "DELETE Selection(s) from My Calendar Digest", onClick: deletePicked },
   ];
 
@@ -288,8 +288,9 @@ export default function MyCalendar() {
                   )}
                 </div>
               ))}
-              <button type="button" className="fp-set-save" disabled={setName === "none"} onClick={saveSet}>
-                Save Filter Set {setName === "none" ? "…" : setName}
+              <button type="button" className="fp-submit-pill fp-set-pill" disabled={setName === "none"} onClick={saveSet}
+                data-tip={setName === "none" ? "Pick Filter Set A, B or C first" : `Save current filters as Set ${setName}`}>
+                <span className="step-badge" aria-hidden="true">2</span> SAVE Filter Set{setName !== "none" && <em> {setName}</em>}
               </button>
             </Box>
 
@@ -344,7 +345,7 @@ export default function MyCalendar() {
           </FilterShell>
 
           <div className="timeline-col" id="results">
-            <ResultsHead title="My Calendar Digest" q={q} setQ={setQ} showFilters onShowFilters={() => {}} addHref="/submit" editHref="/submit" />
+            <ResultsHead step={3} title="My Calendar Digest" q={q} setQ={setQ} showFilters onShowFilters={() => {}} addHref="/submit" editHref="/submit" />
             {flash && <div className="fp-flash fp-flash-block">{flash}</div>}
 
             {mine.length === 0 && (
@@ -376,9 +377,9 @@ export default function MyCalendar() {
 
             <Pager page={safePage} totalPages={totalPages} onGo={(p) => setPage(Math.min(Math.max(1, p), totalPages))} />
 
-            <NextStep options={nextOptions} />
+            <NextStep step={4} options={nextOptions} />
 
-            <SideBox title="I am allowed to VIEW Others' Calendar Digest">
+            <SideBox title="I am allowed to VIEW Others' Calendar Digests" count={shared.length}>
               <div className="dg-carousel">
                 <button type="button" className="obc-pg" aria-label="Previous" disabled={sharedIdx <= 0} onClick={() => setSharedIdx((i) => i - 1)}>
                   <Glyph name="pagePrev" size={24} />
@@ -395,11 +396,15 @@ export default function MyCalendar() {
               <p className="dg-count"><b>{Math.min(sharedIdx + 2, shared.length)}</b> of <b>{shared.length}</b> <em>(sample names until accounts are live)</em></p>
             </SideBox>
 
-            <SideBox title="Allow Others to VIEW My Calendar Digest">
+            <SideBox title="Allow Others to VIEW My Calendar Digest" count={share.hideAll ? 0 : share.people.length}>
+              {/* Nov 9 (Cesar): the digest is PRIVATE by default; owners pick who may
+                  see it. "Hide … to ALL" instantly hides it from everyone, including
+                  people already on the list (their access comes back when unticked). */}
               <label className="fp-option dg-opt">
-                <input type="checkbox" checked={share.all} onChange={() => saveShare({ ...share, all: !share.all })} />
-                <span className="fp-label">Make My Calendar Digest visible to ALL</span>
+                <input type="checkbox" checked={!!share.hideAll} onChange={() => saveShare({ ...share, hideAll: !share.hideAll })} />
+                <span className="fp-label">Hide My Calendar Digest to ALL</span>
               </label>
+              {share.hideAll && share.people.length > 0 && <p className="dg-count"><em>Hidden from the {share.people.length} people below until you untick this.</em></p>}
               <form className="dg-share-form" onSubmit={addPerson}>
                 <label className="dg-share-label" htmlFor="dg-share-q"><b>SEARCH</b> Individuals: Connections, Name, Email</label>
                 <div className="dg-share-row">

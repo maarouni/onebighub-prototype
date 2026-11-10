@@ -22,7 +22,7 @@ export function StepHead({ n, title, hint, children }) {
 // Step 4 (Oct 15 Figma review): a yellow "Select one" box. One click goes
 // straight there — no Submit button, no "0 selected" counter, no "Next Step"
 // label.
-export function NextStep({ noun = "Listing", digest = "My Listing Digest", digestHref = "/my-calendar", detailsHref, options: custom }) {
+export function NextStep({ noun = "Listing", digest = "My Listing Digest", digestHref = "/my-calendar", detailsHref, options: custom, step = 3 }) {
   const options = custom || [
     // Wording from Cesar's Figma Rev 261028 (same on every section).
     { id: "details", icon: "eyeView", label: "View Selection(s)", href: detailsHref || digestHref, def: true },
@@ -32,7 +32,7 @@ export function NextStep({ noun = "Listing", digest = "My Listing Digest", diges
   return (
     <div className="next-step next-step-box">
       <div className="step-head">
-        <StepBadge n={4} />
+        <StepBadge n={step} />
         <em className="next-step-title">Select one</em>
       </div>
       <ul className="next-step-list">
