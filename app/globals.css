@@ -3863,3 +3863,5 @@ a.legal-link:hover { background: #fff5c2; }
 .tpl-spacer { height: 42px; }
 /* Nov 10: with filters hidden, results sit on the left (not centered) */
 .filters-hidden .timeline-col, body.filters-off .layout-with-sidebar > .timeline-col { margin: 0 auto 0 0 !important; }
+/* Nov 10: hidden filters → results use the full page width */
+.filters-hidden .timeline-col, body.filters-off .layout-with-sidebar > .timeline-col { max-width: 100% !important; width: 100% !important; flex: 1 1 100% !important; }
