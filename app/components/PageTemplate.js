@@ -11,6 +11,7 @@ export default function PageTemplate({
   section,
   mode = "output", // "output" | "edit"
   status = "done", // "done" | "construction"
+  spacer = false,
   title,
   subtitle,
   intro,
@@ -46,6 +47,9 @@ export default function PageTemplate({
           )}
         </div>
       )}
+
+      {/* Nov 10: keep the gap where an actions box used to be */}
+      {spacer && !actions && <div className="tpl-spacer" aria-hidden="true" />}
 
       {children && <div className={`tpl-body ${mode === "edit" ? "tpl-body-edit" : ""}`}>{children}</div>}
     </div>

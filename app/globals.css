@@ -3853,3 +3853,11 @@ a.legal-link:hover { background: #fff5c2; }
 .fp-set-pill { margin-top: 6px; width: 100%; }
 .dg-box { background: #f2f2f2 !important; }
 .dg-count-n { color: var(--cg-red); font-weight: 700; }
+
+/* Nov 10 (Masoud): Hide sits in a white pill like "Display Filters" */
+.fp-bar .fp-hide { background: #fff !important; border: 1px solid var(--cg-box-line) !important; border-radius: 999px !important; padding: 1px 10px !important; font-size: 12px !important; color: var(--cg-blue) !important; text-decoration: none !important; line-height: 1.4; cursor: pointer; }
+.fp-bar .fp-hide:hover { background: #fff5c2 !important; }
+/* Home title: no italic, no bold */
+.page-bar h1 .pb-plain { font-style: normal !important; font-weight: 400 !important; }
+.page-bar h1:has(.pb-plain) { font-style: normal !important; font-weight: 400 !important; }
+.tpl-spacer { height: 42px; }

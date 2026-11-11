@@ -138,7 +138,7 @@ function Inner({ digest }) {
         title={digest ? "My Connections Digest" : <>Connections <i>Profiles</i></>}
         legend={false}
         activeAction={digest ? "digest" : viewing ? "details" : null}
-        actions={<a href="/connections/submit" className="tpl-action" data-tip="Add New organization">+ Add a Connection</a>}
+        spacer
         intro={digest
           ? <><strong>Get Connected!</strong> Select filters to curate listings &bull; Assign <strong>My Membership Status</strong> for each org / group</>
           : <><strong>Get Connected!</strong> Select filters to curate organizations, and ADD them to <strong>My Connections Digest</strong>. What is your cost of acquisition of a new member? Manage and promote your organization here!</>}

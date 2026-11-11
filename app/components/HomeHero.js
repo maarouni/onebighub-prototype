@@ -7,7 +7,7 @@ import SiteHero from "./SiteHero";
 export default function HomeHero() {
   return (
     <div className="home-hero">
-      <SiteHero section="calendar" title={<>One Big Calendar - <i>Welcome !</i></>} icon="calendar" />
+      <SiteHero section="calendar" title={<span className="pb-plain">One Big Calendar - Welcome !</span>} icon="calendar" />
     </div>
   );
 }
