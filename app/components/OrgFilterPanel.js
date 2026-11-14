@@ -12,6 +12,10 @@ import {
 // Level + Compensation; Memberships holds # Members + Annual Dues). Digest
 // adds Sets, My Follow-Up Status, My Relationships, My Membership Status and
 // "2 Save Filter Set".
+// Nov 13 (Cesar): "Profile Types" box (All · Individual · Business · Organization
+// · Group) now comes before Date Posted / Revised, on Connections and the Digest.
+const PROFILE_TYPES = [["Individual", ["indPersonal", "indProfessional"]], ["Business", ["biz"]], ["Organization", ["org"]], ["Group", ["group"]]];
+
 export default function OrgFilterPanel({ items, filters, setFilters, ctx, onHide, onDisplay, digest = false, setName = "none", onPickSet, onSaveSet, onClearSet, sets = {} }) {
   const count = (key, v) => countOrgsFor(items, filters, { [key]: key === "posted" ? v : [v] }, ctx);
   const kit = { filters, setFilters, count };
@@ -19,14 +23,14 @@ export default function OrgFilterPanel({ items, filters, setFilters, ctx, onHide
   const [rel, setRel] = useState([]);
   const tog = (list, set) => (v) => set(list.includes(v) ? list.filter((x) => x !== v) : [...list, v]);
   const savePill = digest && (
-    <button type="button" className="fp-submit-pill" onClick={onSaveSet} disabled={setName === "none"}
+    <button type="button" className="fp-submit-pill fp-set-pill" onClick={onSaveSet} disabled={setName === "none"}
       data-tip={setName === "none" ? "Pick Filter Set A, B or C first" : `Save current filters as Set ${setName}`}>
       <span className="step-badge" aria-hidden="true">2</span>
-      Save Filter Set{setName !== "none" && <em> {setName}</em>}
+      SAVE Filter Set{setName !== "none" && <em> {setName}</em>}
     </button>
   );
   return (
-    <FilterShell onHide={onHide} onClear={() => setFilters(EMPTY_ORG_FILTERS)} footer={savePill}>
+    <FilterShell onHide={onHide} onClear={() => setFilters(EMPTY_ORG_FILTERS)}>
       {digest && (
         <Box title="Sets" hint="Select one">
           <Option type="radio" name="org-filter-set" checked={setName === "none"} onChange={() => onPickSet("none")} label="No Filters" def />
@@ -41,8 +45,19 @@ export default function OrgFilterPanel({ items, filters, setFilters, ctx, onHide
               )}
             </div>
           ))}
+          {savePill}
         </Box>
       )}
+      <Box title="Profile Types">
+        <Option type="radio" name="org-ptype-all" checked={!filters.ctype.length} onChange={() => setFilters((f) => ({ ...f, ctype: [] }))} label="All" def />
+        {PROFILE_TYPES.map(([label, ids]) => (
+          <Option key={label} checked={ids.every((i) => filters.ctype.includes(i))}
+            onChange={() => setFilters((f) => {
+              const on = ids.every((i) => f.ctype.includes(i));
+              return { ...f, ctype: on ? f.ctype.filter((x) => !ids.includes(x)) : [...new Set([...f.ctype, ...ids])] };
+            })} label={label} />
+        ))}
+      </Box>
       <DateBox title="Date Posted / Revised" field="posted" fromKey="postedFrom" toKey="postedTo" options={DATE_POSTED_OPTIONS} {...kit} />
       <Box title="Offering $ Referrals"><CheckList field="referral" options={REFERRAL_OPTIONS} all={false} {...kit} /></Box>
       {digest ? (
@@ -64,9 +79,7 @@ export default function OrgFilterPanel({ items, filters, setFilters, ctx, onHide
             ))}
           </Box>
         </>
-      ) : (
-        <Box title="Types"><CheckList field="ctype" options={CONNECTION_TYPES} {...kit} /></Box>
-      )}
+      ) : null}
       <Box title="Ad Types"><CheckList field="adtype" options={AD_TYPES} all={false} {...kit} /></Box>
       <Box title="Seeking Employment">
         <CheckList field="seeking" options={SEEKING_EMPLOYMENT} {...kit} />
