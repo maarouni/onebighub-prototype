@@ -21,8 +21,7 @@ export default function FilterPanel({ events, filters, setFilters, today, q, onH
 
   return (
     <FilterShell onHide={onHide} onClear={() => setFilters(EMPTY_FILTERS)} onDisplay={onDisplay}>
-      <DateBox field="date" fromKey="dateFrom" toKey="dateTo" options={DATE_OPTIONS} {...kit} />
-
+      {/* Nov 15 (Cesar Rev 261115, confirmed by Masoud): no "Dates" box — Date Posted / Revised comes first */}
       <DateBox title="Date Posted / Revised" field="posted" fromKey="postedFrom" toKey="postedTo" options={DATE_POSTED_OPTIONS} {...kit} />
 
       <Box title="Offering $ Referrals"><CheckList field="referral" options={REFERRAL_OPTIONS} all={false} {...kit} /></Box>
