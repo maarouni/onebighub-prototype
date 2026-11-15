@@ -34,6 +34,13 @@ export default function ScanMyQr() {
   const [display, setDisplay] = useState([]);
   const [follow, setFollow] = useState([]);
   const [rel, setRel] = useState([]);
+  const [action, setAction] = useState("exchange");
+  function pickAction(id) {
+    setAction(id);
+    if (id === "copy") copy();
+    else if (id === "exchange") window.location.href = "/connect/submit";
+    else window.location.href = "/connect/signup";
+  }
 
   useEffect(() => {
     const p = getProfile();
@@ -62,15 +69,26 @@ export default function ScanMyQr() {
 
   return (
     <ConnectPage>
-      <SectionBar n={1} icon="qr" title="SCAN My QR Code">
-        <div className="cw-qr">
-          {qr ? <img src={qr} alt="My Connect with Me QR code" width="200" height="200" /> : <div className="cw-qr-wait" />}
-        </div>
-        <div className="cw-btn-row">
-          <a href="/connect/submit" className="cw-chip">Exchange Contact Info</a>
-          <a href="/connect/signup" className="cw-chip" data-tip="Opens your phone camera to scan their code">SCAN Other&apos;s QR Code</a>
-          <a href="/connect/signup" className="cw-chip">Connect and Follow</a>
-          <button type="button" className="cw-chip" onClick={copy}>Copy Link</button>
+      <SectionBar n={1} icon="qr" title="SCAN My QR Code" hint="Created Automatically">
+        {/* Nov 15 (Rev 261115): QR on the left, "Action — Select one at a time" on the right */}
+        <div className="cw-qr-row">
+          <div className="cw-qr">
+            {qr ? <img src={qr} alt="My Connect with Me QR code" width="200" height="200" /> : <div className="cw-qr-wait" />}
+          </div>
+          <div className="cw-box cw-actions">
+            <span><b>Action</b> <i>Select one at a time</i></span>
+            {[
+              ["exchange", "Exchange Contact Info", true],
+              ["scan", "SCAN Other's QR Code"],
+              ["follow", "Connect and Follow"],
+              ["copy", "Copy Link"],
+            ].map(([id, label, def]) => (
+              <label key={id} className="fp-option ct-opt">
+                <input type="radio" name="cw-action" checked={action === id} onChange={() => pickAction(id)} />
+                <span className="fp-label">{label}{def && <i> Default</i>}</span>
+              </label>
+            ))}
+          </div>
         </div>
         {flash && <div className="fp-flash fp-flash-block">{flash}</div>}
       </SectionBar>

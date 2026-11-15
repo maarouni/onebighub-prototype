@@ -12,7 +12,7 @@ import {
 
 // "RSVP Order Tickets" (Cesar's Figma Rev 261108):
 //  1 Ticket Info · 2 TICKET (one at a time) · 3 Ticket Recipient(s) ·
-//  4 Question(s) · 5 Ticket Buyer · 6 Checkout · 7 ADD to My Shopping Cart
+//  4 Question(s) · 5 Ticket Buyer · 6 Checkout (Add ticket(s) to My Shopping Cart) · Submit
 const KEYS = { "First Name": "first", "Last Name": "last", Email: "email", Mobile: "mobile", City: "city", State: "state", "ZIP Code": "zip", Country: "country" };
 const blank = () => ({ first: "", last: "", email: "", mobile: "", city: "", state: "", zip: "", country: "" });
 
@@ -205,7 +205,7 @@ export default function RsvpOrder() {
             {buyerSame && !recNA && (errors.b_first || errors.b_email) && <span className="ed-error rsvp-err">Fill in Ticket Recipient #1 above (name and email or mobile).</span>}
           </SectionBar>
 
-          <SectionBar n={6} title="Checkout">
+          <SectionBar n={6} title="Checkout" hint="Add ticket(s) to My Shopping Cart">
             <div className="rsvp-box">
               <b>NOTE:</b> <i>{setup.note || `${setup.maxPerPerson || "—"} Maximum tickets allowed per person`}</i>
             </div>
@@ -230,9 +230,8 @@ export default function RsvpOrder() {
             <div className="rsvp-total"><b>$ Total Cost</b><span className="cw-red">{money(total)}</span></div>
           </SectionBar>
 
-          <button type="button" className="cw-bar rsvp-cart" onClick={addToMyCart}>
-            <span className="step-badge">7</span><Glyph name="cartAdd" size={16} /> <b>ADD Ticket(s) to My Shopping Cart</b>
-          </button>
+          {/* Nov 15 (Rev 261115): step 7 bar replaced by a Submit under the total */}
+          <div className="em-center"><button type="button" className="cw-submit" onClick={addToMyCart}>Submit</button></div>
           <p className="proto-note">Prototype: the cart lives in this browser; paying needs a payment provider (Stripe) once the database is set up.</p>
         </div>
       )}

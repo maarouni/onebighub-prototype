@@ -180,7 +180,7 @@ export default function EventDetail() {
             </span>
             {event.premier && (
               <span className="obc-cell obc-img" aria-hidden="true">
-                <Glyph name={rowImage(event)} size={46} strokeWidth={1.4} />
+                <Glyph name={rowImage(event)} size={30} strokeWidth={1.6} />
               </span>
             )}
           </article>

@@ -8,7 +8,7 @@ import { getNetwork, SAMPLE_NETWORK, MESSAGE_TEMPLATES, fillTemplate, getMessage
 
 // Connect with Me ! — Messages (Figma /UserName/ConnectWithMe/Messages):
 // 5a Send Messages · 5b My Messages (Archives).
-const MSG_OPTIONS = [["none", "No Message", true], ["a", "Message A"], ["b", "Message B"], ["c", "Message C"]];
+const MSG_OPTIONS = [["a", "A - Blank Message", true], ["b", <>B - Short Message <i>We recently met …</i></>], ["c", <>C - Invitation to visit onebig<b className="cw-red">HUB</b></>], ["d", <>D - Welcome to onebig<b className="cw-red">HUB</b></>], ["e", "E - Custom Message"]];
 const SEND_OPTIONS = [["none", "No Message", true], ["both", "Send Both"], ["email", "Send Email"], ["text", "Send Text"]];
 const fmtDate = (iso) => {
   if (!iso) return "";
@@ -23,7 +23,7 @@ export default function ConnectMessages() {
   const [q, setQ] = useState("");
   const [applied, setApplied] = useState("");
   const [idx, setIdx] = useState(0);
-  const [tpl, setTpl] = useState("none");
+  const [tpl, setTpl] = useState("a");
   const [send, setSend] = useState("none");
   const [text, setText] = useState("");
   const [archive, setArchive] = useState([]);
@@ -53,7 +53,7 @@ export default function ConnectMessages() {
 
   function submit() {
     if (!to) return say("Search and pick someone first.");
-    if (tpl === "none" || !text.trim()) return say("Pick Message A, B or C (or write one).");
+    if (!text.trim()) return say("Write a message, or pick template B, C or D.");
     if (send === "none") return say("Pick how to send it: Send Both, Send Email or Send Text.");
     const m = saveMessage({ to: { name: to.name, title: to.title, phone: to.phone, email: to.email }, text, via: send });
     setArchive(getMessages());
@@ -88,12 +88,12 @@ export default function ConnectMessages() {
           <p className="cw-center"><b className="cw-red">{matches.length ? Math.min(idx, matches.length - 1) + 1 : 0}</b> of <b className="cw-red">{matches.length}</b>{sample && <i className="cw-muted"> (sample names)</i>}</p>
         </div>
         <div className="cw-two cw-two-narrow">
-          <div className="cw-box"><b>Messages</b> <i>Edit / Select one</i>{radios("cw-tpl", MSG_OPTIONS, tpl, setTpl)}</div>
+          <div className="cw-box"><b>Message</b> <i>Select one template • Edit in Dashboards - My Custom Marketing Collateral</i>{radios("cw-tpl", MSG_OPTIONS, tpl, setTpl)}</div>
           <div className="cw-box"><b>Send Message</b> <i>Select one</i>{radios("cw-send", SEND_OPTIONS, send, setSend)}</div>
         </div>
         <label className="cw-box cw-msg">
           <span className="ed-label"><b>Message</b> <span className="cw-red">{fmtDate(new Date().toISOString())}</span> • <i>EDIT if applicable</i></span>
-          <textarea rows={6} value={text} onChange={(e) => setText(e.target.value)} placeholder="Pick Message A, B or C above, then edit here." />
+          <textarea rows={6} value={text} onChange={(e) => setText(e.target.value)} placeholder="Write your message, or pick a template above." />
         </label>
         <CardAndPitch p={me} placeholder />
         {flash && <div className="fp-flash fp-flash-block">{flash}</div>}

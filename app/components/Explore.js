@@ -99,7 +99,8 @@ export function CountyMap({ events = [], filters, setFilters, compact = false, f
       <svg className={`county-map county-map-compact ${big ? "county-map-big" : ""}`} viewBox={`0 0 ${MAP_W} ${MAP_H}`} role="group" aria-label="Filter by county">
         {NORCAL_CONTEXT.map((c) => <path key={c.name} className="county-ctx" d={c.d} />)}
         {BAY_COUNTIES.map((c) => {
-          const on = picked0.includes(c.name);
+          // Nov 15 (Cesar): "All Bay Area" (nothing picked) highlights every county.
+          const on = picked0.length === 0 || picked0.includes(c.name);
           return (
             <path key={c.name} d={c.d} className={`county-shape ${on ? "on" : ""}`} tabIndex={0} role="checkbox" aria-checked={on}
               aria-label={`${c.name} County`} onClick={() => toggleRegions([c.name])}

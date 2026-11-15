@@ -3865,3 +3865,14 @@ a.legal-link:hover { background: #fff5c2; }
 .filters-hidden .timeline-col, body.filters-off .layout-with-sidebar > .timeline-col { margin: 0 auto 0 0 !important; }
 /* Nov 10: hidden filters → results use the full page width */
 .filters-hidden .timeline-col, body.filters-off .layout-with-sidebar > .timeline-col { max-width: 100% !important; width: 100% !important; flex: 1 1 100% !important; }
+
+/* ===== Nov 15 (Cesar Rev 261115) ===== */
+/* Listing icons 50px → 30px in every table */
+.obc-img img { width: 30px !important; height: 30px !important; }
+.obc-img .glyph, .obc-img svg { width: 30px; height: 30px; }
+/* Connect with Me ! page bar: bright yellow with a red italic title */
+body:has(.cw-page) .page-bar:not(.page-bar-gray):not(.page-bar-edit) { background: #ffff66 !important; border-color: #c9c400 !important; }
+body:has(.cw-page) .page-bar h1 { color: var(--cg-red); font-style: italic; }
+.cw-qr-row { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; }
+.cw-actions { gap: 2px; }
+@media (max-width: 760px) { .cw-qr-row { grid-template-columns: 1fr; } }

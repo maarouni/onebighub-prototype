@@ -72,7 +72,7 @@ export function ListingTable({ rows }) {
           </a>
           {r.premier && (
             <a href={r.href} className="obc-cell obc-img" tabIndex={-1} aria-hidden="true">
-              <Glyph name={r.image || "expo"} size={r.image === "expo" || !r.image ? 52 : 46} strokeWidth={1.4} />
+              <Glyph name={r.image || "expo"} size={30} strokeWidth={1.6} />
             </a>
           )}
           {r.status && <div className="obc-cell obc-status">{r.status}</div>}

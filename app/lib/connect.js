@@ -40,11 +40,14 @@ export const RELATIONSHIP_GROUPS = [
   { group: "Groups", options: [["group:connection", "Connection"], ["group:referral", "Referral"]] },
 ];
 
+// Nov 15 (Cesar, Rev 261115): A Blank (default) · B Short Message · C Invitation
+// to visit onebigHUB · D Welcome to onebigHUB · E Custom Message.
 export const MESSAGE_TEMPLATES = {
-  none: "",
-  a: "We recently connected on {date} at {event}. Let's network together ! When are you available to talk or meet online / in-person to discuss how we could possibly collaborate ? I look forward to your response. Thank you !",
-  b: "Great meeting you at {event} on {date} ! I'd love to learn more about what you do and see how we can refer business to each other.",
-  c: "Thank you for connecting on onebigHUB. Here is my mini-card — feel free to reach out any time.",
+  a: "",
+  b: "We recently met on {date} at {event}. Let's network together ! When are you available to talk or meet online / in-person to discuss how we could possibly collaborate ? I look forward to your response. Thank you !",
+  c: "Great connecting with you ! Come visit onebigHUB.com — it's where I find events, connections and deals. Scan my QR code or use my link to join my network.",
+  d: "Welcome to onebigHUB ! Thank you for connecting with me. Your profile and our relationship notes are saved — let me know how I can help.",
+  e: "",
 };
 
 // Placeholder network (Cesar's Figma uses sample names too) — shown until

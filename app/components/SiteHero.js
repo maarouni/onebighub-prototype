@@ -27,12 +27,13 @@ const CAL_ROW = [
 ];
 
 // Nov 9 (Cesar, "Revise sub-headers again"): VIEW Profiles first.
+// Nov 15 (Cesar, Rev 261115): VIEW Profiles dropped — the Connections tile
+// itself opens the profiles table.
 const CONN_ROW = [
-  { key: "details", label: "VIEW", sub: "Profiles", href: "/connections?view=profiles", icon: "figViewProfile" },
-  { key: "digest", label: "My Digest -", sub: "Connections", href: "/connections/digest", icon: "figConnDigest" },
   { key: "connect", label: "Connect with me !", href: "/connect", icon: "figConnect", connect: true },
   { key: "introductions", label: "Introductions", href: "/referrals", img: "/icons/introductions.png" },
-  { key: "edit", label: "EDIT", sub: "My Profiles", href: "/profile", icon: "figEditProfile" },
+  { key: "digest", label: "My Digest - Connections", href: "/connections/digest", icon: "figConnDigest" },
+  { key: "edit", label: "EDIT My Profiles", href: "/profile", icon: "figEditProfile" },
 ];
 
 const INTRO_ROW = [
@@ -104,6 +105,7 @@ const pair = (digestLabel, digestSub, digestHref, editLabel, editSub, editHref) 
 const LINES = {
   "calendar:digest": ["Save Time !", "Select filters to curate events • Assign My Attendance Status for each event"],
   "connections:": ["Get Connected !", "Select filters to curate listings"],
+  "connections:connect": ["Get Connected !", <i key="c">Offer before you receive • A little courtesy goes a long way !</i>],
   "connections:digest": ["Get Connected !", "Select filters to curate listings • Assign My Membership Status for each org / group"],
   "introductions:": ["Get Paid", "for Introductions / Referrals that convert to business and/or a beneficial connection"],
   "products:": ["Get Paid !", "Promote your items here • No-Cost and Premier Listings Available"],
@@ -221,7 +223,7 @@ function rowsFor(section, action, path, query) {
         rows.push(<SubRow key="intro" items={INTRO_ROW} on={cur} variant="hsub-plain" />);
         line = lineKey("introductions");
       } else if (action === "connect") {
-        // Connect with Me ! pages: row only, no intro line
+        line = lineKey("connections", "connect");
       } else {
         if (action === "details" || action === "edit") rows.push(<SubRow key="prof" items={PROFILE_ROW} on={query.type} variant="hsub-gold" />);
         if (action !== "edit") line = lineKey("connections", action === "digest" ? "digest" : "");
