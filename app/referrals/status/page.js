@@ -5,8 +5,8 @@ import { ReferralShell, ReferralPicker, Parties, useReferralPicker } from "../..
 import { Field, Area } from "../../components/Form";
 import { CONTACT_TYPES, TRANSACTION_STATUSES, REMINDER_DAYS, logEvent, saveReferral, nowStamp } from "../../lib/referrals";
 
-// Step 3 — Referral Status: the 8-item timeline from Cesar's Figma.
-const ROLES = [{ id: "A", label: "A. Connector" }, { id: "B", label: "B. Vendor" }, { id: "C", label: "C. Potential Client" }];
+// Step 4 — Submit Referral Status: the 8-item timeline from Cesar's Figma.
+const ROLES = [{ id: "A", label: "Connector (A)" }, { id: "B", label: "Participant (B)" }, { id: "C", label: "Participant (C)" }];
 
 function addDays(iso, n) {
   const d = new Date(iso); d.setDate(d.getDate() + n);
@@ -23,7 +23,7 @@ export default function Status() {
   const [tNote, setTNote] = useState("");
 
   if (!list.length || !current) {
-    return <ReferralShell subtitle="Status"><ReferralPicker list={list} id={id} setId={setId} /></ReferralShell>;
+    return <ReferralShell><ReferralPicker list={list} id={id} setId={setId} /></ReferralShell>;
   }
 
   const log = current.log || [];
@@ -52,12 +52,12 @@ export default function Status() {
   const tx = current.transaction || [];
 
   return (
-    <ReferralShell subtitle="Status">
+    <ReferralShell>
       <ReferralPicker list={list} id={id} setId={setId} />
       <Parties r={current} />
 
       <div className="box" style={{ marginTop: 14, overflowX: "auto" }}>
-        <h2>Referral Status</h2>
+        <div className="cw-bar"><span className="step-badge">4</span><b>Submit Referral Status</b> <em>Log In to Select / Submit all that apply</em></div>
         <p className="nt-hint">Suggestion: to maintain transparency and open communication, please correspond with all participants.</p>
         <table className="status-table">
           <thead><tr><th>Item</th>{ROLES.map((r) => <th key={r.id}>{r.label}</th>)}</tr></thead>
@@ -75,6 +75,8 @@ export default function Status() {
         </table>
         <p className="nt-hint">Em Sent email · Txt Left text message · Vm Left voicemail · Sw Spoke with · Cor Corresponded by email and/or text</p>
       </div>
+
+      <a className="cw-box ref-cart" href="/dashboards?open=cart"><span className="step-badge">5</span> <b className="cw-blue">o Completed Transaction</b> <i>Submit to My Shopping Cart and Create Invoice</i></a>
 
       <div className="eval-grid">
         <div className="box job-form">
@@ -102,7 +104,7 @@ export default function Status() {
           <select value={tStatus} onChange={(e) => setTStatus(e.target.value)} style={{ padding: 8 }}>{TRANSACTION_STATUSES.map((s) => <option key={s}>{s}</option>)}</select>
           <Field label="Comments / Notes" wide><Area rows={2} value={tNote} onChange={setTNote} /></Field>
           <button type="button" className="btn-primary" onClick={addTransaction}>Submit status</button>
-          <a className="tpl-action" href={`/referrals/evaluations?id=${encodeURIComponent(current.id)}`}>08. Submit Evaluations →</a>
+          <a className="tpl-action" href={`/referrals/final?id=${encodeURIComponent(current.id)}`}>5. Submit Final Evaluations →</a>
         </div>
       </div>
     </ReferralShell>

@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ReferralShell } from "../components/ReferralShell";
+import { ReferralShell, ConnectorNote } from "../components/ReferralShell";
+import { listReferrals } from "../lib/referrals";
 import { Field, Input, MiniCard, OrLine, Radios } from "../components/Form";
 import { fetchProfiles, matchProfile, newReferralId, saveReferral, REFERRAL_CATEGORIES } from "../lib/referrals";
 import { getProfile } from "../lib/profile";
 import { getUser } from "../lib/auth";
 
-// Step 1 — Identify Vendor (B) and Potential Client (C). You are the Connector (A).
+// Step 1 — Connector (A) Identifies Participants (B, C) (Figma Rev 261115).
 export default function Identify() {
   const router = useRouter();
   const [me, setMe] = useState(null);
@@ -23,11 +24,13 @@ export default function Identify() {
   const [bOffer, setBOffer] = useState("offering");
   const [cat, setCat] = useState("business");
   const [err, setErr] = useState("");
+  const [existing, setExisting] = useState([]);
 
   useEffect(() => {
     setMe(getProfile());
     setLoggedIn(!!getUser());
     fetchProfiles().then(setProfiles);
+    setExisting(listReferrals());
   }, []);
 
   function submit() {
@@ -51,18 +54,27 @@ export default function Identify() {
   const listC = profiles.filter((p) => p.id !== b?.id && matchProfile(p, qc)).slice(0, 30);
 
   return (
-    <ReferralShell subtitle="Identify">
+    <ReferralShell>
+      <div className="cw-bar"><span className="step-badge">1</span><b>Identify Participants</b></div>
+      <div className="cw-box">
+        <span><b>Introduction / Referral</b> <i>Select one</i></span>
+        <label className="fp-option ct-opt"><input type="radio" name="ref-new" defaultChecked /> <span className="fp-label">NEW</span></label>
+        {existing.map((r) => (
+          <a key={r.id} className="ref-existing" href={`/referrals/status?id=${encodeURIComponent(r.id)}`}>o /{(r.id || "").split("-").slice(0, -2).join("-") || "UserName"}/Introductions/{r.ymd}/{r.num} <i>{r.b?.name} ↔ {r.c?.name}</i></a>
+        ))}
+      </div>
+      <ConnectorNote />
       {!loggedIn && <div className="box nt-hint">Tip: <a href="/registration/login">Log In</a> so referrals are saved under your name and your profile shows as the Connector.</div>}
       <div className="pick-grid">
         <section className="pick-col">
-          <h3>A. Connector — You</h3>
-          <p className="nt-hint">Introduces and submits evaluations of B and C. You can also earn referrals from both B and C when both offer them.</p>
+          <h3>Connector (A) <i>You</i></h3>
           {me && <MiniCard p={{ ...me, name: me.name || "Your name" }} />}
           <a href="/profile" className="nt-hint">Edit my profile / elevator pitch →</a>
         </section>
 
         <section className="pick-col">
-          <h3>B. Vendor</h3>
+          <h3>Participant (B)</h3>
+          <p className="nt-hint">Buyer or Seller • Offering or Seeking a Referral • Select one</p>
           <Radios name="boffer" value={bOffer} onChange={setBOffer} options={[{ id: "offering", label: "Offering a referral" }, { id: "seeking", label: "Seeking a referral" }]} />
           <span className="ed-label">Referral category <i>Select one at a time</i></span>
           <Radios name="bcat" value={cat} onChange={(v) => { setCat(v); if (b && (b.category || "business") !== v) setB(null); }} options={REFERRAL_CATEGORIES} />
@@ -70,13 +82,13 @@ export default function Identify() {
           <div className="mini-card-list">
             {listB.map((p) => <MiniCard key={p.id} p={p} selected={b?.id === p.id} onClick={() => setB(p)} />)}
           </div>
-          <p className="nt-hint">{listB.length} of {inCat.length} {REFERRAL_CATEGORIES.find((x) => x.id === cat)?.label.toLowerCase()} profiles{inCat.length === 0 ? " — none yet in the prototype (they come with the database)" : ""}</p>
+          <p className="nt-hint">{listB.length} of {inCat.length} profiles{inCat.length === 0 ? " — none yet in the prototype (they come with the database)" : ""}</p>
         </section>
 
         <section className="pick-col">
-          <h3>C. Potential Client</h3>
-          <p className="nt-hint">Buyer or seller. A profile is NOT required.</p>
-          <Radios name="cmode" value={cMode} onChange={setCMode} options={[{ id: "internal", label: "Has a profile" }, { id: "external", label: "No profile (external)" }]} />
+          <h3>Participant (C) <i>Buyer or Seller</i></h3>
+          <p className="nt-hint">Optional - May offer or seek a referral<br />Optional - May have a profile. If not - create one for them below.</p>
+          <Radios name="cmode" value={cMode} onChange={setCMode} options={[{ id: "internal", label: "SEARCH Individuals" }, { id: "external", label: "No profile — create one" }]} />
           {cMode === "internal" ? (
             <>
               <input placeholder="SEARCH — click to select profile" value={qc} onChange={(e) => setQc(e.target.value)} style={{ padding: "8px 10px" }} />
@@ -98,7 +110,7 @@ export default function Identify() {
       </div>
       <OrLine />
       {err && <p className="ed-error">{err}</p>}
-      <button type="button" className="btn-primary" onClick={submit}>Submit — continue to the Introduction Message</button>
+      <button type="button" className="btn-primary" onClick={submit}>Submit</button>
       <p className="proto-note">Prototype: referrals are saved in this browser until the shared database is set up. Referral fees and payouts aren&rsquo;t calculated yet.</p>
     </ReferralShell>
   );

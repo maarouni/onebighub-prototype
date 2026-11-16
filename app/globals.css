@@ -3876,3 +3876,44 @@ body:has(.cw-page) .page-bar h1 { color: var(--cg-red); font-style: italic; }
 .cw-qr-row { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; }
 .cw-actions { gap: 2px; }
 @media (max-width: 760px) { .cw-qr-row { grid-template-columns: 1fr; } }
+
+/* ===== Introductions 3-Way Referrals (Cesar Rev 261115) ===== */
+.ref-page { max-width: 880px; }
+.ref-steps a { display: block; color: var(--cg-blue); text-decoration: none; font-size: 13.5px; padding: 1px 0; }
+.ref-steps a.on { color: var(--cg-red); font-weight: 700; }
+.ref-steps a:hover { text-decoration: underline; }
+.ref-o { margin-right: 4px; }
+.ref-n { display: inline-block; min-width: 26px; }
+.ref-note { background: #ffd200; border: 1px solid #e0b400; border-radius: 12px; padding: 8px 14px; font-size: 13.5px; }
+.ref-note p { margin: 2px 0 0 18px; }
+.ref-existing { display: block; color: var(--cg-blue); font-size: 13px; text-decoration: none; }
+.ref-sub { margin: -2px 4px; font-size: 13px; }
+.ref-head { display: grid; grid-template-columns: 2fr 1fr; gap: 8px; }
+.ref-subj { display: flex; gap: 6px; align-items: center; }
+.ref-subj input { flex: 1; border: 0; border-bottom: 1px solid #ddd; background: transparent; font: inherit; }
+.ref-page textarea { border: 1px solid #ddd; border-radius: 8px; padding: 8px; font: inherit; background: var(--ec-field); width: 100%; box-sizing: border-box; }
+.ref-cart { flex-direction: row; align-items: center; gap: 8px; text-decoration: none; margin: 8px 0; }
+.ev-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ev-col { display: flex; flex-direction: column; gap: 8px; }
+.ev-by { margin: 0; font-size: 13px; }
+.ev-ref { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 4px; }
+.ev-table { border-collapse: collapse; margin: 4px 0; font-size: 12px; }
+.ev-table th, .ev-table td { border: 1px solid #999; padding: 2px 5px; text-align: center; }
+.ev-table .ev-hi { background: #fff5c2; }
+.ev-avg { margin: 4px 0 0; font-size: 13px; }
+.ev-keys { font-size: 12.5px; gap: 1px; }
+.ev-keys b { display: inline-block; min-width: 24px; }
+.ev-keys p { margin: 6px 0 0; }
+.ev-slider { background: #fff; border: 1px solid var(--cg-box-line); border-radius: 12px; padding: 8px 12px; font-size: 13px; display: flex; flex-direction: column; gap: 2px; }
+.ev-range { display: grid; grid-template-columns: auto 1fr auto 28px; gap: 6px; align-items: center; }
+.ev-range input { accent-color: var(--cg-blue); }
+.ev-range output { font-weight: 700; text-align: center; }
+.ev-legend { list-style: none; margin: 2px 0 0; padding: 0; font-size: 12px; }
+.ev-legend b { display: inline-block; min-width: 20px; }
+.ev-group { margin: 0; font-size: 12.5px; }
+@media (max-width: 760px) { .ev-grid, .ref-head { grid-template-columns: 1fr; } }
+/* Introductions pages: gray title bar (registered pages), normal title, italic step name */
+body:has(.ref-page) .page-bar { background: #c4c4c4 !important; border-color: #a9a9a9 !important; }
+body:has(.ref-page) .page-bar h1 { color: var(--ink) !important; font-style: normal !important; }
+.page-bar h1 .pb-sub { font-size: .8em; font-style: italic; font-weight: 400; margin-left: .3em; }
+body:has(.ref-page) { background: #cfcfcf !important; }

@@ -40,10 +40,10 @@ export async function fetchProfiles() {
 // Oct 27 meeting: referrals are picked from ONE category at a time
 // (Individual, Business, Organization or Group) so the list never mixes them.
 export const REFERRAL_CATEGORIES = [
-  { id: "individual", label: "Individual" },
-  { id: "business", label: "Business" },
-  { id: "organization", label: "Organization" },
-  { id: "group", label: "Group" },
+  { id: "individual", label: "My Indiv. Referrals" },
+  { id: "business", label: "My Biz Referrals" },
+  { id: "organization", label: "My Org Referrals" },
+  { id: "group", label: "My Group Referrals" },
 ];
 
 export function matchProfile(p, q) {
@@ -65,7 +65,10 @@ export const REMINDER_DAYS = [5, 10, 20];
 
 // Evaluation criteria (0 = Low, 10 = High; "N/A" = Not Applicable / No Response).
 export const AV_SCALE = "01 Complete Stranger · 05 Acquaintance · 09 Colleague, Customer, Friend · 10 Family";
-export const CV_SCALE = "01 Cold · 05 Contact when possible · 10 HOT! Contact immediately";
+export const CV_SCALE = "1 Cold / None (Default) · 2 Mild – Maybe · 3 Medium – Sometime · 4 Warm – Soon · 5 HOT ! – Immediately";
+// Slider legends (Figma Rev 261115)
+export const AV_LEGEND = [["01", "Complete Stranger"], ["05", "Acquaintance"], ["09", "Colleague, Customer, Friend"], ["10", "Family"]];
+export const CV_LEGEND = [["1", "Cold / None", "Default"], ["2", "Mild", "Maybe"], ["3", "Medium", "Sometime"], ["4", "Warm", "Soon"], ["5", "HOT !", "Immediately"]];
 export const CRITERIA = [
   { id: "AV", label: "My Acquaintance Value", scale: AV_SCALE },
   { id: "CV", label: "Suggested Contact / Follow-Up Value", scale: CV_SCALE },
@@ -89,11 +92,16 @@ export const INTRO_TEMPLATE = (r) =>
   `I am using the onebigHUB.com 3-Way Introductions feature to automatically track our messages and referral status.\n` +
   `Please click on the link below to view the online profiles, evaluations, and other details of this potential connection.\n\n` +
   `${typeof window !== "undefined" ? window.location.origin : "https://onebigHUB.vercel.app"}/referrals/status?id=${encodeURIComponent(r.id)}\n\n` +
+  `Please contact me if you have any questions.\nThank you for your consideration,\n` +
   `${r.a?.name || ""}`;
 
 export function logEvent(r, entry) {
-  const log = [...(r.log || []), { at: nowStamp(), ...entry }];
+  const log = [...(r.log || []), { at: nowStamp(), atIso: new Date().toISOString(), ...entry }];
   return saveReferral({ ...r, log });
 }
 
 export { nowStamp, writeList };
+
+// 2b — reminder text (Figma): same intro, plus the reminder note.
+export const REMINDER_TEMPLATE = (r) =>
+  INTRO_TEMPLATE(r).replace("Please contact me", "Note: I sent you a message several days ago.\nThe system sends reminder emails after 5, 10 and 20 days, respectively.\n\nPlease contact me");

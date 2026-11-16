@@ -219,8 +219,7 @@ function rowsFor(section, action, path, query) {
       const on = section === "introductions" ? "introductions" : action;
       rows.push(<SubRow key="conn" items={CONN_ROW} on={on} />);
       if (section === "introductions") {
-        const cur = INTRO_ROW.find((r) => r.href === path)?.key;
-        rows.push(<SubRow key="intro" items={INTRO_ROW} on={cur} variant="hsub-plain" />);
+        // Nov 15 (Rev 261115): no A–E row — the steps list sits in the page.
         line = lineKey("introductions");
       } else if (action === "connect") {
         line = lineKey("connections", "connect");
