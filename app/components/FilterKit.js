@@ -38,7 +38,7 @@ export function FilterShell({ onHide, onClear, onDisplay, footer, children }) {
   return (
     <aside className="sidebar filter-panel fp-v2">
       <div className="fp-bar">
-        <span className="fp-title"><b>Filters</b> <i className="fp-seeking">SEEKING</i></span>
+        <span className="fp-title"><b>Filters</b></span>
         {onHide && <button type="button" className="fp-hide" data-tip="Hide filters" onClick={onHide}>Hide</button>}
       </div>
       <div className="fp-step-pill">

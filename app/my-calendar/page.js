@@ -44,11 +44,11 @@ const SYNC_OPTIONS = ["Apple", "Calendly", "Google", "Microsoft Outlook"];
 
 // Placeholder people until there are real accounts (Figma uses sample names too).
 const SAMPLE_SHARED_WITH_ME = [
-  { id: "s1", name: "Angel Claus", org: "NorthPoleTech.com", phone: "1-876-TECHIES", email: "AClaus@NorthPoleTech.com" },
-  { id: "s2", name: "Jack Frost", org: "", phone: "1-800-COO-COO", email: "jack@jackfrost.com" },
+  { id: "s1", name: "Angel Claus", title: "CEO", org: "NorthPoleTech.com", phone: "1-976-TECHIES", email: "AClaus@NorthPoleTech.com", city: "Xmasville, North Pole, Earth" },
+  { id: "s2", name: "Jack Frost", title: "Owner", org: "Jack Frost Heating & Cooling", phone: "1-800-TOO-COOL", email: "jack@jackfrost.com", city: "Xmasville, North Pole, Earth" },
 ];
 
-const EMPTY = { ...EMPTY_FILTERS, view: "upcoming", status: [], types: [], privacy: "all", sync: [] };
+const EMPTY = { ...EMPTY_FILTERS, view: "all", status: [], types: [], privacy: "all", sync: [] };
 
 function chrono(a, b) {
   return `${a.date} ${a.time || ""}`.localeCompare(`${b.date} ${b.time || ""}`);
@@ -104,18 +104,25 @@ function StatusPicker({ value, onChange }) {
   );
 }
 
+// Nov 15 (Cesar): full mini-cards — Name, Title · Business (blue) · picture ·
+// phone · email (blue) · City, State, Country.
 function MiniCard({ p, onRemove }) {
   return (
-    <div className="dg-card">
-      <span className="dg-card-pic" aria-hidden="true">{p.name.split(" ").map((w) => w[0]).join("").slice(0, 2)}</span>
-      <span className="dg-card-txt">
-        <b>{p.name}</b>
-        {p.org && <span>{p.org}</span>}
-        {p.phone && <span>{p.phone}</span>}
-        {p.email && <span>{p.email}</span>}
+    <div className="dg-card dg-card-v2">
+      <span className="dg-card-head">
+        <b>{[p.name, p.title].filter(Boolean).join(", ")}</b>
+        {p.org && <span className="cw-blue">{p.org}</span>}
+      </span>
+      <span className="dg-card-row">
+        <span className="dg-card-pic" aria-hidden="true">{p.name.split(" ").map((w) => w[0]).join("").slice(0, 2)}</span>
+        <span className="dg-card-txt">
+          {p.phone && <span>{p.phone}</span>}
+          {p.email && <span className="cw-blue">{p.email}</span>}
+          {p.city && <span>{p.city}</span>}
+        </span>
       </span>
       {onRemove && (
-        <button type="button" className="dg-icon-btn" data-tip="Remove" aria-label={`Remove ${p.name}`} onClick={onRemove}>
+        <button type="button" className="dg-icon-btn dg-card-x" data-tip="Remove" aria-label={`Remove ${p.name}`} onClick={onRemove}>
           <Glyph name="delete" size={18} />
         </button>
       )}
@@ -294,12 +301,7 @@ export default function MyCalendar() {
               </button>
             </Box>
 
-            <Box title="Dates" hint="Select one">
-              {DATE_VIEWS.map((d) => (
-                <Option key={d.id} type="radio" name="dg-date" checked={f.view === d.id} onChange={() => setF((x) => ({ ...x, view: d.id }))} label={d.label} def={d.def} />
-              ))}
-            </Box>
-
+            {/* Nov 15 (Cesar Rev 261115): no "Dates" box here either */}
             <DateBox title="Date Posted / Revised" field="posted" fromKey="postedFrom" toKey="postedTo" options={DATE_POSTED_OPTIONS} {...kit} />
 
             <Box title="Offering $ Referrals"><CheckList field="referral" options={REFERRAL_OPTIONS} all={false} {...kit} /></Box>
@@ -406,9 +408,9 @@ export default function MyCalendar() {
               </label>
               {share.hideAll && share.people.length > 0 && <p className="dg-count"><em>Hidden from the {share.people.length} people below until you untick this.</em></p>}
               <form className="dg-share-form" onSubmit={addPerson}>
-                <label className="dg-share-label" htmlFor="dg-share-q"><b>SEARCH</b> Individuals: Connections, Name, Email</label>
+                <label className="dg-share-label" htmlFor="dg-share-q"><b>OR SEARCH Individuals</b></label>
                 <div className="dg-share-row">
-                  <input id="dg-share-q" type="text" placeholder="Type text" value={shareQ} onChange={(e) => setShareQ(e.target.value)} />
+                  <input id="dg-share-q" type="text" placeholder="Submit Here" value={shareQ} onChange={(e) => setShareQ(e.target.value)} />
                   <button type="submit" className="dg-icon-btn" data-tip="Add" aria-label="Add person"><Glyph name="plusBold" size={18} /></button>
                 </div>
                 <button type="submit" className="dg-submit">Submit</button>
