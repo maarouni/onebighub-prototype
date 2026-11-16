@@ -25,6 +25,17 @@ export const FOLLOW_UP = [
   { id: "04", label: "04 Warm", hint: "Soon" },
   { id: "05", label: "05 HOT !", hint: "Immediately", hot: true },
 ];
+// Nov 15 (Rev 261115) — step 2 "My Relationship", select 2 max.
+export const MY_RELATIONSHIP = [
+  { id: "connection", label: "Connection", def: true },
+  { id: "colleague", label: "Colleague" },
+  { id: "friend", label: "Friend" },
+  { id: "family", label: "Family" },
+];
+// Relationship set for a person (new records store `rels`; older/sample ones
+// have professional / personal).
+export const relsOf = (p) => new Set([...(p.rels || []), p.professional, p.personal].filter(Boolean));
+
 export const LEVELS = [
   { id: "intro", label: "My Introductions", hint: "Level 1" },
   { id: "1", label: "Level 1" },
@@ -53,9 +64,9 @@ export const MESSAGE_TEMPLATES = {
 // Placeholder network (Cesar's Figma uses sample names too) — shown until
 // real people join through my QR code.
 export const SAMPLE_NETWORK = [
-  { id: "s1", name: "Angel Claus", title: "President", business: "NorthPoleTech.com", phone: "1-976-TECHIES", email: "AClaus@NorthPoleTech.com", city: "Xmasville, North Pole", level: "intro", professional: "connection", personal: "friend", followUp: "04", sample: true },
+  { id: "s1", name: "Angel Claus", title: "President", business: "NorthPoleTech.com", phone: "1-976-TECHIES", email: "AClaus@NorthPoleTech.com", city: "Xmasville, North Pole", level: "intro", professional: "connection", personal: "friend", followUp: "04", offersReferral: true, sample: true },
   { id: "s2", name: "Jack Frost", title: "Owner", business: "Jack Frost Heating & Cooling", phone: "1-800-TOO-COOL", email: "jack@jackfrost.com", city: "Xmasville, North Pole", level: "1", professional: "colleague", followUp: "03", sample: true },
-  { id: "s3", name: "Holly Berry", title: "Realtor", business: "Berry Homes", city: "Pleasanton, CA", level: "1", professional: "referral", followUp: "05", sample: true },
+  { id: "s3", name: "Holly Berry", title: "Realtor", business: "Berry Homes", city: "Pleasanton, CA", level: "1", professional: "referral", followUp: "05", offersReferral: true, sample: true },
   { id: "s4", name: "Nick Cole", title: "CPA", business: "Cole & Co.", city: "Dublin, CA", level: "2", professional: "connection", followUp: "02", sample: true },
   { id: "s5", name: "Ivy Green", title: "Designer", business: "Green Studio", city: "Oakland, CA", level: "2", personal: "connection", followUp: "01", sample: true },
   { id: "s6", name: "Rudy Reyes", title: "Lender", business: "Iron Gate Lending", city: "San Ramon, CA", level: "3", professional: "connection", followUp: "01", sample: true },

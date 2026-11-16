@@ -3928,3 +3928,20 @@ body:has(.ref-page) { background: #cfcfcf !important; }
 .dg-card-v2 { align-items: stretch !important; max-width: 320px; width: 100%; }
 .dg-card-v2 .dg-card-head, .dg-card-v2 .dg-card-row { align-self: flex-start; }
 .dg-cards { align-items: center; }
+
+/* Connect with Me ! Steps 1-3 / 4-6 (Rev 261115) */
+.cw-box input:not([type="radio"]):not([type="checkbox"]), .cw-box textarea { border: 0; border-bottom: 1px solid #ddd; background: transparent; font: inherit; padding: 3px 0; min-width: 0; width: 100%; }
+.cw-box textarea { border: 1px solid #ddd; border-radius: 8px; padding: 6px 8px; background: var(--ec-field); }
+.cw-s2 { display: grid; grid-template-columns: 1fr 1.6fr; gap: 8px; }
+.cw-s2-left, .cw-s2-right { display: flex; flex-direction: column; gap: 8px; }
+.cw-row-opt { flex-direction: row !important; align-items: center; gap: 6px; }
+.cw-citystate2 { display: grid; grid-template-columns: 1fr 80px; gap: 8px; }
+.cw-signup .cw-box { width: 100%; box-sizing: border-box; }
+.cw-social i { font-weight: 400; font-size: 12px; margin-left: 4px; }
+.cw-devnotes { background: #fff7b0; border: 1px solid #e0c800; border-radius: 12px; padding: 8px 14px; display: flex; flex-direction: column; gap: 2px; font-size: 13px; }
+.cw-devnotes span b { display: inline-block; min-width: 190px; }
+.cw-dispf { background: transparent; border: 0; color: var(--cg-blue); font: inherit; font-size: 12.5px; cursor: pointer; }
+.cw-nextlist { gap: 6px; }
+.cw-next-opt { align-items: flex-start !important; }
+.cw-next-sub { display: block; color: var(--ink); font-size: 12.5px; }
+@media (max-width: 760px) { .cw-s2 { grid-template-columns: 1fr; } }

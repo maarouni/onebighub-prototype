@@ -130,7 +130,7 @@ export default function DashboardsPage() {
         ) })}
 
         {S({ id: "messages", n: 9, icon: "comments", title: "My Messages", children: (
-          msgs.length === 0 ? <Empty>No messages yet. Send one from <a href="/connect/messages">Connect with Me ! → Messages</a>.</Empty> : (
+          msgs.length === 0 ? <Empty>No messages yet. Send one from <a href="/connect/network#message">Connect with Me ! → Messages</a>.</Empty> : (
             <ul className="dash-rows">{msgs.map((m) => (
               <li key={m.id}><span className="cw-muted">{m.sent ? String(m.sent).slice(0, 16).replace("T", " ") : ""}</span> <b>{m.to?.name || "—"}</b> {String(m.text || "").slice(0, 90)}</li>
             ))}</ul>
