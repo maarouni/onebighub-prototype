@@ -6,6 +6,9 @@
 export const RATES = {
   premierPerView: 0.005, // $ per view of a Premier listing
   premierPerClick: 0.2, // $ per click to Listing Details (Figma Rates, Rev 261028; was $0.25)
+  privateLabel: 300, // $ Private-Label Main Header (Figma Rates, Nov 16)
+  expoExhibitor: 250, // $ Expo Exhibitor, 6 ft / 8 ft table with linen
+  mixerExhibitor: 100, // $ Mixer Exhibitor, round cocktail table with linen
   ticketFeePaid: 0.75, // $ per ticket, paid events (Figma Rates, Rev 261028; was $0.80)
 };
 

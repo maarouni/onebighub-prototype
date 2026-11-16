@@ -2,15 +2,46 @@
 
 import { useEffect, useState } from "react";
 import { AdPage } from "../../components/AdPages";
-import { Field, Area, Radios, MiniCard } from "../../components/Form";
-import { BARTER, PARTICIPATION, listRequests, saveRequest } from "../../lib/adRequests";
+import { Glyph } from "../../components/Icons";
+import { Bar, EventCard, MiniCardView, PagerRow, optKey } from "../../components/PromoKit";
+import { BARTER, PARTICIPATION, SEEKING, listRequests, saveRequest } from "../../lib/adRequests";
 import { fetchEvents } from "../../lib/events";
-import { fmtWhen } from "../../components/EventVisuals";
 import { nowStamp } from "../../lib/auth";
 
-// Cesar's "Barter Approval" (Figma Advertising/BarterApproval — header
-// "ONLY for Cesar Plata"). Admin page; real access control needs accounts
-// and roles in the database, so the prototype only labels it.
+// Cesar's "Barter Approval" (Figma, Nov 16 — header ONLY for Cesar Plata).
+// Event, Request Submitted / Request # x of y, the requester's two
+// mini-cards, Accept / Decline + Message, then what they selected in each
+// section (read-only). Real access control needs accounts and roles in the
+// database, so the prototype only labels it.
+const label = (opts, key) => {
+  const o = opts.find((x) => optKey(x) === key);
+  if (!o) return key;
+  return Array.isArray(o) ? <>{o[0]} <i>{o[1]}</i></> : o;
+};
+const Sel = ({ opts, keys }) => (keys?.length
+  ? <ul className="ba-sel">{keys.map((k) => <li key={k}>{label(opts, k)}</li>)}</ul>
+  : <span className="ba-none">—</span>);
+
+function ReadOnly({ s, v, barter }) {
+  const allOpts = barter ? s.groups.flatMap((g) => g.options) : s.roles;
+  return (
+    <div className="pk-part ba-ro">
+      <div className="pk-part-side">{s.icon === "megaphone" ? <img className="pk-ico3d" src="/icons/earn.png" alt="" /> : <Glyph name={s.icon} size={s.icon === "expo" ? 96 : 52} />}{v.upload && <img className="ba-up" src={v.upload} alt="Uploaded" />}</div>
+      <div className="pk-part-main">
+        {barter && <><span className="pk-label"><b>Seeking</b> <i className="cw-red">Barter is subject to approval</i></span><Sel opts={SEEKING} keys={v.seek} /></>}
+        <span className="pk-label pk-gap"><b>{barter ? "Offering to Provide" : "Participating as"}</b></span>
+        {v.offerText && <p className="ba-text">{v.offerText}</p>}
+        {barter ? s.groups.map((g, i) => {
+          const keys = (v.roles || []).filter((k) => g.options.some((o) => optKey(o) === k));
+          return (g.title || keys.length) ? <div key={i} className="pk-group">{g.title && <b>{g.title}</b>}<Sel opts={g.options} keys={keys} /></div> : null;
+        }) : <Sel opts={allOpts} keys={v.roles} />}
+        {v.other && <p className="ba-text"><b>Other:</b> {v.other}</p>}
+        {s.fields.map(([k, l, h]) => v.fields?.[k] ? <div key={k}><b>{l}</b>{h && <i> {h}</i>}<p className="ba-text">{v.fields[k]}</p></div> : null)}
+      </div>
+    </div>
+  );
+}
+
 export default function BarterApproval() {
   const [reqs, setReqs] = useState([]);
   const [i, setI] = useState(0);
@@ -24,7 +55,8 @@ export default function BarterApproval() {
     fetchEvents().then((l) => setEvents(Object.fromEntries(l.map((e) => [e.id, e]))));
   }, []);
   const shown = reqs.filter((r) => show === "all" || r.status === show);
-  const r = shown[Math.min(i, shown.length - 1)];
+  const at = Math.min(i, Math.max(0, shown.length - 1));
+  const r = shown[at];
   useEffect(() => { setDecision(r?.decision || ""); setMsg(r?.message || ""); }, [r?.id]);
 
   function submit() {
@@ -33,48 +65,50 @@ export default function BarterApproval() {
     setReqs(listRequests());
   }
 
-  const sections = r?.kind === "barter" ? BARTER : PARTICIPATION;
+  const barter = r?.kind === "barter";
+  const sections = barter ? BARTER : PARTICIPATION;
+  const data = r?.data || {};
   return (
-    <AdPage title="Barter Approval">
-      <div className="box">
-        <p><span className="pill">Admin</span> Only for the site owner. <i>Prototype: shows requests submitted in this browser.</i></p>
-        <Radios name="show" value={show} onChange={(v) => { setShow(v); setI(0); }}
-          options={[{ id: "pending", label: "Pending" }, { id: "accepted", label: "Accepted" }, { id: "declined", label: "Declined" }, { id: "all", label: "All" }]} />
-      </div>
-      {!r ? <div className="box">No {show === "all" ? "" : show} requests.</div> : (
-        <>
-          <div className="box">
-            <div className="send-masoud-actions">
-              <button type="button" className="btn-ghost btn-sm" disabled={i === 0} onClick={() => setI(i - 1)}>‹ Prev</button>
-              <b>Request # {Math.min(i, shown.length - 1) + 1} of {shown.length}</b>
-              <button type="button" className="btn-ghost btn-sm" disabled={i >= shown.length - 1} onClick={() => setI(i + 1)}>Next ›</button>
+    <AdPage title={<>Barter&nbsp;&nbsp;<i className="pb-sub">Approval</i></>} icon="barter">
+      <div className="cw-page pk-page pk-gray">
+        <div className="ba-admin">
+          <span className="pill">Only for Cesar Plata</span>
+          {["pending", "accepted", "declined", "all"].map((k) => (
+            <label key={k} className={`pk-opt ${show === k ? "on" : ""}`}><input type="radio" name="show" checked={show === k} onChange={() => { setShow(k); setI(0); }} /><span>{k[0].toUpperCase() + k.slice(1)}</span></label>
+          ))}
+        </div>
+        {!r ? <div className="pk-gbox pk-white">No {show === "all" ? "" : show} requests yet. <i className="cw-muted">Prototype: shows requests submitted in this browser from <a href="/advertising/barter">Barter</a> and <a href="/advertising/participation">Event Participation</a>.</i></div> : (
+          <>
+            <EventCard e={events[r.events?.[0]]} />
+            <div className="ba-reqbar">
+              <span><b>Request Submitted</b> <span className="cw-red">{r.submitted}</span> · <i>{barter ? "Barter" : "Event Participation"}</i> · <span className={`pill ${r.status}`}>{r.status}</span></span>
+              <PagerRow i={at} n={shown.length} onGo={setI} word="Request #" />
             </div>
-            <p className="nt-hint">{r.kind === "barter" ? "Barter" : "Event Participation"} · Request submitted {r.submitted} · <span className={`pill ${r.status}`}>{r.status}</span></p>
-            <MiniCard p={r.card} />
-            <h3>Event(s)</h3>
-            <ul className="dash-plain-list">{(r.events || []).map((id) => <li key={id}>{events[id] ? `${events[id].title} — ${fmtWhen(events[id])}, ${events[id].city}` : id}</li>)}{!(r.events || []).length && <li>—</li>}</ul>
+            <div className="cw-two">
+              <MiniCardView p={r.card} />
+              <MiniCardView p={r.card} logo />
+            </div>
+            <div className="pk-gbox">
+              <span className="pk-label"><b>Barter Approval</b></span>
+              <div className="pk-opts">
+                {[["accepted", "Accept"], ["declined", "Decline"]].map(([k, t]) => (
+                  <label key={k} className={`pk-opt ${decision === k ? "on" : ""}`}><input type="radio" name="dec" checked={decision === k} onChange={() => setDecision(k)} /><span>{t}</span></label>
+                ))}
+              </div>
+              <span className="pk-label pk-gap"><b>Message</b></span>
+              <textarea className="pk-inline" rows={3} placeholder="Submit Here" value={msg} onChange={(e) => setMsg(e.target.value)} aria-label="Message" />
+              <button type="button" className="cw-submit pk-center" disabled={!decision} onClick={submit}>Submit</button>
+              {r.decided && <span className="nt-hint">Decided {r.decided}.</span>}
+            </div>
             {sections.map((s) => {
-              const sel = r.kind === "barter" ? r.seek?.[s.id] : r.roles?.[s.id];
-              if (!sel?.length) return null;
-              return (
-                <div key={s.id}>
-                  <h3>{s.title}</h3>
-                  <p><b>{r.kind === "barter" ? "Seeking" : "Participating as"}:</b> {sel.join(", ")}</p>
-                  {r.offer?.[s.id] && <p><b>Offering to provide:</b> {r.offer[s.id]}</p>}
-                  {Object.entries(r.text || {}).filter(([k]) => k.startsWith(`${s.id}.`)).map(([k, v]) => v && <p key={k}><b>{k.split(".")[1]}:</b> {v}</p>)}
-                </div>
-              );
+              const v = data[s.id];
+              if (!v || !(v.seek?.length || v.roles?.length || v.offerText || v.other || Object.values(v.fields || {}).some(Boolean))) return null;
+              return <Bar key={s.id} n={s.n} title={s.title}><ReadOnly s={s} v={v} barter={barter} /></Bar>;
             })}
-          </div>
-          <div className="box job-form">
-            <h2>Barter Approval</h2>
-            <Radios name="dec" value={decision} onChange={setDecision} options={[{ id: "accepted", label: "Accept" }, { id: "declined", label: "Decline" }]} />
-            <Field label="Message" wide><Area rows={3} value={msg} onChange={setMsg} /></Field>
-            <button type="button" className="btn-primary" disabled={!decision} onClick={submit}>Submit</button>
-            {r.decided && <p className="nt-hint">Decided {r.decided}.</p>}
-          </div>
-        </>
-      )}
+            {r.payment?.length > 0 && <div className="pk-gbox"><b>Payment</b><span>{r.payment.join(", ")}</span></div>}
+          </>
+        )}
+      </div>
     </AdPage>
   );
 }

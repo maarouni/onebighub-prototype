@@ -2,62 +2,60 @@
 
 import { useState } from "react";
 import { AdPage } from "../../components/AdPages";
-import { Checks, Field, Area } from "../../components/Form";
-import { EventPicker, MiniCardPicker } from "../../components/RequestParts";
-import { BARTER, EXHIBITOR_INSTRUCTIONS, newRequest } from "../../lib/adRequests";
+import { Bar, EventCarousel, useHostedEvents, MiniCardStep, ContactUs, CartBar } from "../../components/PromoKit";
+import { PartBox, PaymentBox, cartPayments, BarterSection, ExhibitorsBox } from "../../components/PartForm";
+import { BARTER, newRequest } from "../../lib/adRequests";
 
-// Cesar's "Barter" (Figma Advertising/Barter, Rev 261025). Seeking barter is
-// subject to approval (Advertising/BarterApproval).
+// Cesar's "Barter with onebigHUB" (Figma, Nov 16): 1 Event(s) · 2a–2d barter
+// sections (Seeking — subject to approval, Offering to Provide) · the
+// Exhibitors and Participants box · 3 Mini-Card(s), Contact Us, Payment ·
+// 4 ADD Selection to My Shopping Cart. Reviewed on Barter Approval.
 export default function Barter() {
-  const [events, setEvents] = useState([]);
-  const [seek, setSeek] = useState({});
-  const [offer, setOffer] = useState({});
-  const [text, setText] = useState({});
+  const events = useHostedEvents();
+  const [ei, setEi] = useState(0);
+  const [data, setData] = useState({});
   const [card, setCard] = useState(null);
+  const [pay, setPay] = useState([]);
   const [err, setErr] = useState("");
   const [done, setDone] = useState(null);
 
   function submit() {
-    const any = BARTER.some((b) => (seek[b.id] || []).length);
-    if (!any) return setErr("Select what you're seeking in at least one barter section.");
-    const missing = BARTER.find((b) => (seek[b.id] || []).length && !(offer[b.id] || "").trim());
-    if (missing) return setErr(`Describe what you're offering to provide in "${missing.title}".`);
-    if (!card?.name?.trim()) return setErr("Select or enter your mini-card.");
+    const sections = BARTER.filter((b) => data[b.id]?.seek?.length);
+    if (!sections.length) return setErr("Select what you're Seeking in at least one barter section (2a–2d).");
+    const missing = sections.find((b) => !data[b.id]?.roles?.length && !(data[b.id]?.offerText || "").trim());
+    if (missing) return setErr(`Tell us what you're Offering to Provide in "${missing.title}".`);
+    if (!card?.name?.trim()) return setErr("Select or submit your mini-card (3).");
     setErr("");
-    setDone(newRequest("barter", { events, seek, offer, text, card }));
-  }
-
-  if (done) {
-    return (
-      <AdPage title="Barter">
-        <section className="ad-box"><h2>Barter request submitted</h2>
-          <p>Request <b>{done.id}</b> · {done.submitted}. Barter is subject to approval — you&rsquo;ll hear back after review.</p>
-          <a href="/advertising" className="tpl-action">Back to Earn with Advertising</a></section>
-      </AdPage>
-    );
+    const ev = events[Math.min(ei, events.length - 1)];
+    const req = newRequest("barter", { events: ev ? [ev.id] : [], data, card, payment: pay });
+    setDone({ ...req, carted: cartPayments(pay, ev, "barter") });
   }
 
   return (
-    <AdPage title="Barter">
-      <EventPicker value={events} onChange={setEvents} />
-      {BARTER.map((b) => (
-        <div key={b.id} className="box job-form">
-          <h2>{b.title}</h2>
-          <p className="nt-hint">If applicable, select / submit all that apply. Seeking barter is subject to approval.</p>
-          <span className="ed-label">Seeking</span>
-          <Checks name={`seek-${b.id}`} options={b.seeking} value={seek[b.id] || []} onChange={(v) => setSeek({ ...seek, [b.id]: v })} />
-          <Field label="Offering to Provide" hint={b.hint} wide><Area rows={2} value={offer[b.id]} onChange={(v) => setOffer({ ...offer, [b.id]: v })} /></Field>
-          {b.fields.map(([k, label]) => <Field key={k} label={label} wide><Area rows={2} value={text[`${b.id}.${k}`]} onChange={(v) => setText({ ...text, [`${b.id}.${k}`]: v })} /></Field>)}
-        </div>
-      ))}
-      <div className="box">
-        <h2>Instructions / Request for All Exhibitors and Participants</h2>
-        <ul className="dash-plain-list">{EXHIBITOR_INSTRUCTIONS.map((t) => <li key={t}>{t}</li>)}</ul>
+    <AdPage title={<>Barter&nbsp;&nbsp;<i className="pb-sub">with onebigHUB</i></>} icon="barter">
+      <div className="cw-page pk-page pk-gray">
+        <Bar n={1} title="Event(s)" hint="Select one at a time"><EventCarousel events={events} index={ei} onIndex={setEi} /></Bar>
+        {BARTER.map((b) => (
+          <div key={b.id} className="cw-section">
+            <Bar n={b.n} title={b.title}>
+              <PartBox icon={b.icon} upload={!!b.upload} v={data[b.id]} onChange={(v) => setData({ ...data, [b.id]: v })}>
+                {(set) => <BarterSection b={b} v={data[b.id] || {}} set={set} />}
+              </PartBox>
+            </Bar>
+            {b.id === "expos" && <ExhibitorsBox />}
+          </div>
+        ))}
+        <Bar n={3} title="Mini-Card(s)" hint="Select / Submit all that apply">
+          <MiniCardStep value={card} onChange={setCard} />
+          <ContactUs />
+          <PaymentBox value={pay} onChange={setPay} />
+        </Bar>
+        {err && <p className="ed-error">{err}</p>}
+        {done ? (
+          <div className="pk-done"><b>Barter request submitted.</b> Request {done.id} · {done.submitted}. Barter is subject to approval — you&rsquo;ll hear back after review.{done.carted ? <> {done.carted} item(s) added to <a href="/dashboards?open=cart">My Shopping Cart</a>.</> : null}</div>
+        ) : <CartBar n={4} onClick={submit} />}
+        <p className="nt-hint">Admin: <a href="/advertising/barter-approval">Barter Approval</a></p>
       </div>
-      <MiniCardPicker value={card} onChange={setCard} />
-      {err && <p className="ed-error">{err}</p>}
-      <button type="button" className="btn-primary" onClick={submit}>Submit</button>
-      <p className="nt-hint" style={{ marginTop: 12 }}>Admin: <a href="/advertising/barter-approval">Barter Approval</a></p>
     </AdPage>
   );
 }

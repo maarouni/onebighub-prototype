@@ -63,7 +63,7 @@ export default function DashboardsPage() {
                 <thead><tr><th>Item</th><th>Event Date</th><th>Qty</th><th>$ Each</th><th>$ Subtotal</th><th /></tr></thead>
                 <tbody>{cart.map((l) => (
                   <tr key={l.id}>
-                    <td><a href={`/event/${l.eventId}`}>{l.eventTitle}</a><span className="rsvp-sub">{l.ticket}{l.promo ? ` · promo ${l.promo}` : ""}</span></td>
+                    <td><a href={l.href || (l.eventId ? `/event/${l.eventId}` : "#")}>{l.eventTitle}</a><span className="rsvp-sub">{l.ticket}{l.promo ? ` · promo ${l.promo}` : ""}</span></td>
                     <td className="cw-red">{l.date ? new Date(`${l.date}T12:00:00`).toLocaleDateString("en-US") : "—"}</td>
                     <td className="cw-red">{l.qty}</td><td className="cw-red">{money(l.each)}</td><td className="cw-red">{money(l.subtotal)}</td>
                     <td><button type="button" className="rsvp-x" aria-label="Remove from cart" onClick={() => remove(l.id)}><Glyph name="delete" size={14} /></button></td>
