@@ -5,8 +5,12 @@ import { useRouter } from "next/navigation";
 import PageTemplate from "../../components/PageTemplate";
 import { Field, Input, PasswordInput, NotRobot, Radios, OrLine } from "../../components/Form";
 import { setUser } from "../../lib/auth";
+import { MiniCardView, PagerRow } from "../../components/PromoKit";
+import { fetchProfiles, matchProfile } from "../../lib/referrals";
 
-// Cesar's "Registration — Sign Up New User" (Figma Rev 261025).
+// Cesar's "Registration — Sign Up New User" (Figma Rev 261025; Nov 16:
+// Username removed, "Who Introduced you to onebigHUB.com ?" added so the
+// introducer gets referral credit even without their QR code).
 // Prototype: no real email sending or password storage. "Verify Email"
 // simulates clicking the link in the confirmation email.
 const TAKEN = ["jsmith", "johnsmith", "admin", "cesar", "masoud"]; // stand-in until there's a database
@@ -27,11 +31,20 @@ export default function SignUp() {
   const [sent, setSent] = useState(null);
   const [ref, setRef] = useState("");
   const [human, setHuman] = useState(false);
+  const [people, setPeople] = useState([]);
+  const [q, setQ] = useState("");
+  const [applied, setApplied] = useState("");
+  const [pi, setPi] = useState(0);
+  const [intro, setIntro] = useState(null);
+  useEffect(() => { fetchProfiles().then(setPeople); }, []);
+  const found = applied ? people.filter((p) => matchProfile(p, applied)) : [];
+  const pAt = Math.min(pi, Math.max(0, found.length - 1));
   const set = (k) => (v) => setF((c) => ({ ...c, [k]: v }));
   useEffect(() => { setRef(new URLSearchParams(window.location.search).get("ref") || ""); }, []);
 
   const sugg = useMemo(() => suggestions(f.first, f.last), [f.first, f.last]);
   const auto = sugg[0] || "";
+  // Username is no longer asked for; one is made from the name.
   const uname = (f.username || auto).trim().toLowerCase();
   const taken = uname && TAKEN.includes(uname);
   const free = sugg.filter((s) => !TAKEN.includes(s)).slice(0, 4);
@@ -44,7 +57,6 @@ export default function SignUp() {
     if (!f.email.trim() && !f.mobile.trim()) er.email = "Enter an email (or a mobile number below)";
     if (f.email && !/^\S+@\S+\.\S+$/.test(f.email)) er.email = "That doesn't look like an email";
     if (f.mobile && !/^[0-9()+\-\s]{10,}$/.test(f.mobile)) er.mobile = "Use (xxx) xxx-xxxx";
-    if (taken) er.username = "Username is already in use — pick one below";
     if (!PW_RULE.test(f.password)) er.password = "At least 8 characters, one uppercase letter and one special character (!@#$%^&*)";
     if (f.confirm !== f.password) er.confirm = "Passwords don't match";
     if (!human) er.robot = "Please tick the box";
@@ -57,7 +69,8 @@ export default function SignUp() {
     setUser({
       name: `${f.first.trim()} ${f.last.trim()}`, first: f.first.trim(), last: f.last.trim(),
       username: uname, identifier: f.email.trim() || f.mobile.trim(), email: f.email.trim(), mobile: f.mobile.trim(),
-      method: f.email.trim() ? "email" : "mobile", referredBy: ref || null, joined: new Date().toISOString(),
+      method: f.email.trim() ? "email" : "mobile",
+      referredBy: intro ? { id: intro.id, name: intro.name } : ref || null, joined: new Date().toISOString(),
     });
     router.push((() => { const n = new URLSearchParams(window.location.search).get("next"); return n && n.startsWith("/") && !n.startsWith("//") ? n : null; })() || "/profile");
   }
@@ -90,19 +103,22 @@ export default function SignUp() {
         <Field label="Email" hint="Required for verification" error={errors.email}><Input type="email" value={f.email} onChange={set("email")} autoComplete="email" /></Field>
         <OrLine />
         <Field label="Mobile" hint="Required for password recovery" error={errors.mobile}><Input type="tel" value={f.mobile} onChange={set("mobile")} placeholder="(xxx) xxx-xxxx" autoComplete="tel" /></Field>
-        <Field label="Username" hint="if applicable, overwrite" error={errors.username}>
-          <Input value={f.username} onChange={set("username")} placeholder={auto || "johnsmith"} autoComplete="username" />
-        </Field>
-        {taken && free.length > 0 && (
-          <div className="ed-field wide">
-            <span className="ed-label">Username is already in use — select one</span>
-            <Radios name="uname" value={f.username} onChange={set("username")} options={free} />
-          </div>
-        )}
         <Field label="Password" req error={errors.password}><PasswordInput value={f.password} onChange={set("password")} autoComplete="new-password" /></Field>
         <Field label="Password Confirm" req error={errors.confirm}><PasswordInput value={f.confirm} onChange={set("confirm")} autoComplete="new-password" /></Field>
         <p className="nt-hint">Password should be at least 8 characters long and contain at least one special character (!@#$%^&amp;*) and one uppercase letter.</p>
-        {ref && <p className="nt-hint">Referred by <b>{ref}</b></p>}
+        <div className="cw-bar rg-introbar"><b>Who Introduced you to onebig<span className="cw-red">HUB</span>.com ?</b></div>
+        {ref && !intro && <p className="nt-hint">Introduced by <b>{ref}</b> (from their QR code)</p>}
+        <div className="pk-gbox">
+          <span className="pk-label"><b>SEARCH</b> <i>Click on mini-card to select</i></span>
+          <input value={q} placeholder="Submit Name Here" onChange={(e) => setQ(e.target.value)}
+            onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); setApplied(q.trim()); setPi(0); } }} aria-label="Search for who introduced you" />
+          <button type="button" className="cw-submit pk-center" onClick={() => { setApplied(q.trim()); setPi(0); }}>Submit</button>
+        </div>
+        {applied && (found.length
+          ? <button type="button" className={`pk-pick ${intro?.id === found[pAt].id ? "on" : ""}`} onClick={() => setIntro(intro?.id === found[pAt].id ? null : found[pAt])} aria-pressed={intro?.id === found[pAt].id}><MiniCardView p={found[pAt]} /></button>
+          : <p className="nt-hint">No members match &ldquo;{applied}&rdquo;.</p>)}
+        {applied && found.length > 0 && <PagerRow i={pAt} n={found.length} onGo={setPi} word="" />}
+        {intro && <p className="nt-hint">Selected: <b>{intro.name}</b> — they&rsquo;ll be credited for introducing you. <button type="button" className="clear-filters-link" onClick={() => setIntro(null)}>Clear</button></p>}
         <NotRobot checked={human} onChange={setHuman} error={errors.robot} />
         {errors.robot && <span className="ed-error">{errors.robot}</span>}
         <button type="submit" className="btn-primary" style={{ marginTop: 10 }}>Continue</button>

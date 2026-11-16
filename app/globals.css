@@ -4149,3 +4149,4 @@ body:has(.ref-page) { background: #cfcfcf !important; }
 .rg-dev { display: block; margin: 10px auto 0; background: none; border: 0; color: #777; font: inherit; font-size: 12px; text-decoration: underline; cursor: pointer; }
 @media (max-width: 640px) { .rg-lock { display: none; } .pk-infocard > div:first-of-type { padding-right: 0; } .pk-infocard-ico { position: static; align-self: flex-end; } }
 .rt-card h3, .rt-card h3 a { font-weight: 700; }
+.rg-introbar { justify-content: center; margin-top: 14px; }
