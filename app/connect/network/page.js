@@ -171,7 +171,7 @@ export default function ConnectSteps46() {
       <SectionBar n={6} icon="idxSigns" title="Next Steps" hint="Select one at a time">
         <div className="cw-box cw-nextlist">
           {[
-            ["a", "/profile", "A - Connections", "Create My No-Cost Profiles: Individual / Business(es) / Organization(s) / Group(s)"],
+            ["a", "/profile", "A - Connect", "Create My No-Cost Profiles: Individual / Business(es) / Organization(s) / Group(s)"],
             ["b", "/connect", <i key="b">B - Connect with Me !</i>, "Invite others with My Custom QR Code"],
             ["c", "/advertising", "C - Promote & Earn !", <>Create My Listings (Regular or Premier)<br />AND share profits from ads and sales fees with your network (3 Levels of Introductions)</>],
             ["d", "/dashboards", "D - Manage My Dashboards & Settings", null],

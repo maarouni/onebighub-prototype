@@ -14,7 +14,7 @@ const PUBLIC = [
   ["ticket", "RSVP / Order Tickets", null, "/event/1/rsvp"],
   ["idxDeal", "Deals", null, "/discounts", { h: true }],
   ["idxDealFill", "Discount / Gift Certificates", null, "/discounts"],
-  ["connections", "Connections", "Curate your networks", "/connections", { h: true, img: "/icons/connections.png" }],
+  ["connections", "Connect", "Curate your networks", "/connections", { h: true, img: "/icons/connections.png" }],
   ["figViewProfile", "Connections Details", null, "/connections?view=profiles"],
   ["figConnect", <>Connect with me ! <b className="cw-red">Killer Feature</b></>, null, "/connect", { it: true }],
   ["typeIndividual", "My Connections Details", "Individual", "/connections?type=individual"],

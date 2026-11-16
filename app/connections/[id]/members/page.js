@@ -43,7 +43,7 @@ export default function OrgMembers() {
   return (
     <PageTemplate
       section="connections"
-      title="Connections Members"
+      title="Connect Members"
       subtitle={o.name}
       legend={false}
       activeAction="details"

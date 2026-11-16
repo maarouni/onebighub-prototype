@@ -135,7 +135,7 @@ function Inner({ digest }) {
     <>
       <PageTemplate
         section="connections"
-        title={digest ? "My Connections Digest" : <>Connections <i>Profiles</i></>}
+        title={digest ? "My Connections Digest" : <>Connect <i>Profiles</i></>}
         legend={false}
         activeAction={digest ? "digest" : viewing ? "details" : null}
         spacer
@@ -153,7 +153,7 @@ function Inner({ digest }) {
           )}
 
           <div className="timeline-col" id="results">
-            <ResultsHead step={digest ? 3 : 2} title={digest ? "My Connections Digest" : "Connections"} q={qRaw} setQ={setQRaw}
+            <ResultsHead step={digest ? 3 : 2} title={digest ? "My Connections Digest" : "Connect"} q={qRaw} setQ={setQRaw}
               showFilters={showFilters} onShowFilters={() => setShowFilters(true)} />
 
             <SendToMasoud load={localOrgs} noun="organizations" format={fmtOrg} subject="onebigHUB - my organizations" />
