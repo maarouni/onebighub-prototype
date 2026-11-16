@@ -4150,3 +4150,12 @@ body:has(.ref-page) { background: #cfcfcf !important; }
 @media (max-width: 640px) { .rg-lock { display: none; } .pk-infocard > div:first-of-type { padding-right: 0; } .pk-infocard-ico { position: static; align-self: flex-end; } }
 .rt-card h3, .rt-card h3 a { font-weight: 700; }
 .rg-introbar { justify-content: center; margin-top: 14px; }
+.bio-links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.bio-pill { border: 1px solid var(--cg-box-line); border-radius: 999px; padding: 2px 12px; font-size: 12.5px; color: var(--cg-blue); text-decoration: none; background: #fff; }
+.bio-pill.off { color: #aaa; border-color: #ddd; }
+.bio-h { margin: 18px 0 4px; } .bio-h i { font-weight: 400; font-size: 12.5px; }
+.bio-row { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; align-items: center; border: 1px solid #ddd; border-radius: 12px; padding: 8px 12px; margin-top: 8px; background: #f7f7f7; }
+.bio-row > :nth-child(3) { grid-column: 1 / -1; }
+.bio-show { display: flex; gap: 12px; font-size: 12.5px; color: var(--cg-blue); }
+.bio-show label { display: inline-flex; gap: 4px; align-items: center; cursor: pointer; }
+.bio-up { color: #888; font-size: 13px; cursor: pointer; }

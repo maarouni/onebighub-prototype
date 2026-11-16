@@ -16,10 +16,15 @@ export function getProfile() {
     phone: p.phone || u?.mobile || "", email: p.email || u?.email || (u?.identifier?.includes("@") ? u.identifier : ""),
     city: p.city || "", url: p.url || "",
     pitchTitle: p.pitchTitle || "", pitch: p.pitch || "", interesting: p.interesting || "",
-    linkedin: p.linkedin || "", links: p.links || [{ name: "", url: "" }, { name: "", url: "" }, { name: "", url: "" }],
+    linkedin: p.linkedin || "", linkedinShow: p.linkedinShow !== false,
+    // Bio (Cesar Nov 16): tagline/title, text and five links — Business Card,
+    // Flyer, Resume, Cover Letter (uploads) and LinkedIn. Blank links removed.
+    bioTitle: p.bioTitle || "", bioText: p.bioText || "", docs: p.docs || {},
     username: u?.username || (u?.name || "guest").toLowerCase().replace(/[^a-z0-9]/g, ""),
   };
 }
+
+export const BIO_DOCS = [["businessCard", "Business Card"], ["flyer", "Flyer", "Your Marketing Collateral"], ["resume", "Resume"], ["coverLetter", "Cover Letter"]];
 
 export function saveProfile(p) {
   try { localStorage.setItem(PROFILE_KEY, JSON.stringify(p)); return true; } catch { return false; }

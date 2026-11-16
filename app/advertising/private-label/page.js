@@ -47,6 +47,11 @@ export default function PrivateLabel() {
 
         <GBox label="URL, Name of Business, Organization or Group" value={h.name} onChange={(name) => set({ name })} />
         <GBox label="Tagline" hint="If applicable" value={h.tagline} onChange={(tagline) => set({ tagline })} />
+        <div className="pk-gbox pk-white">
+          <b className="cw-red">Instructions</b>
+          <span>After you submit payment, contact your domain provider (ex. GoDaddy.com)<br />and point your domain ({h.name.trim() || "YourURL.com"}) to:&nbsp; <b className="cw-red">{(h.name.trim().replace(/^https?:\/\//, "").replace(/^www\./, "").split(".")[0] || "YourURL")}</b><b>.onebigHUB.com</b></span>
+          <span className="nt-hint">Add a CNAME record for <b>www</b> pointing to that address. Changes can take up to 48 hours.</span>
+        </div>
         <CartBar onClick={() => { addToCart([{ id: `pl-${Date.now()}`, kind: "privateLabel", eventTitle: "Private-Labeled Main Header", href: "/advertising/private-label", ticket: h.name || "Header", qty: 1, each: RATES.privateLabel, subtotal: RATES.privateLabel }]); setDone(true); }}
           done={done} disabled={!h.name.trim()}>ADD Selection to My Shopping Cart · {money(RATES.privateLabel)}</CartBar>
       </div>

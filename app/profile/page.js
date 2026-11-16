@@ -7,7 +7,7 @@ import { Field, Input, Area, MiniCard, Radios } from "../components/Form";
 import { Glyph } from "../components/Icons";
 import NetworkGraph from "../components/NetworkGraph";
 import { getUser } from "../lib/auth";
-import { getProfile, saveProfile, getGallery, saveGallery, shrinkImage, GALLERY_MAX } from "../lib/profile";
+import { BIO_DOCS, getProfile, saveProfile, getGallery, saveGallery, shrinkImage, GALLERY_MAX } from "../lib/profile";
 import { listReferrals } from "../lib/referrals";
 
 // My Profile — Cesar's Oct 21 changes: QR code, elevator pitch, external
@@ -52,7 +52,14 @@ export default function ProfilePage() {
 
   if (!p) return null;
   const set = (k) => (v) => setP({ ...p, [k]: v });
-  const setLink = (i, k) => (v) => setP({ ...p, links: p.links.map((l, j) => (j === i ? { ...l, [k]: v } : l)) });
+  const setDoc = (k, patch) => setP({ ...p, docs: { ...p.docs, [k]: { show: true, ...p.docs[k], ...patch } } });
+  function uploadDoc(k, file) {
+    if (!file) return;
+    if (file.size > 1.5e6) { setDoc(k, { name: file.name, src: "" }); setFlash(`${file.name} is over 1.5 MB — name saved; the file itself needs the database.`); return; }
+    const r = new FileReader(); r.onload = () => setDoc(k, { name: file.name, src: r.result }); r.readAsDataURL(file);
+  }
+  const bioLinks = [...BIO_DOCS.map(([k, label]) => ({ label, href: p.docs[k]?.show !== false ? p.docs[k]?.src : "", name: p.docs[k]?.name })),
+    { label: "LinkedIn", href: p.linkedinShow ? p.linkedin : "" }];
 
   function save() {
     setFlash(saveProfile(p) ? "Saved." : "Couldn't save — browser storage is full.");
@@ -87,12 +94,14 @@ export default function ProfilePage() {
           <p className="nt-hint" style={{ whiteSpace: "pre-wrap" }}>{p.pitch || "A brief, persuasive summary of yourself that takes about 30 to 60 seconds to deliver — roughly the length of a short elevator ride."}</p>
           <h3><Glyph name="gem" size={16} /> Interesting Things About Me</h3>
           <p className="nt-hint" style={{ whiteSpace: "pre-wrap" }}>{p.interesting || "—"}</p>
-          <h3>Links</h3>
-          <ul className="dash-plain-list">
-            {p.linkedin && <li><a href={p.linkedin} target="_blank" rel="noreferrer">LinkedIn</a></li>}
-            {p.links.filter((l) => l.url).map((l, i) => <li key={i}><a href={l.url} target="_blank" rel="noreferrer">{l.name || l.url}</a></li>)}
-            {!p.linkedin && !p.links.some((l) => l.url) && <li>—</li>}
-          </ul>
+          <h3>Bio</h3>
+          <p><b>{p.bioTitle || "Tagline / Title"}</b></p>
+          <p className="nt-hint" style={{ whiteSpace: "pre-wrap" }}>{p.bioText || "—"}</p>
+          <div className="bio-links">
+            {bioLinks.map((l) => l.href
+              ? <a key={l.label} className="bio-pill" href={l.href} target="_blank" rel="noreferrer" download={l.name && l.href.startsWith("data:") ? l.name : undefined}>{l.label}</a>
+              : <span key={l.label} className="bio-pill off" title="Not added or hidden">{l.label}</span>)}
+          </div>
         </div>
         <div className="box" id="qr" style={{ textAlign: "center" }}>
           <h2><Glyph name="qr" size={18} /> SCAN My QR Code</h2>
@@ -116,13 +125,31 @@ export default function ProfilePage() {
           <Area rows={4} value={p.pitch} onChange={set("pitch")} />
         </Field>
         <p className="nt-hint">{(p.pitch.trim().match(/\S+/g) || []).length} words</p>
-        <Field label="LinkedIn" wide><Input type="url" value={p.linkedin} onChange={set("linkedin")} placeholder="https://www.linkedin.com/in/…" /></Field>
-        {p.links.map((l, i) => (
-          <div key={i} className="ed-cols" style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: 10, marginTop: 10 }}>
-            <Field label={`External link #${i + 1} — name`}><Input value={l.name} onChange={setLink(i, "name")} placeholder="Website, Instagram, YouTube…" /></Field>
-            <Field label="URL"><Input type="url" value={l.url} onChange={setLink(i, "url")} placeholder="https://" /></Field>
-          </div>
-        ))}
+        <h3 className="bio-h">Bio <i>Edit / Select / Submit / Upload all that apply</i></h3>
+        <Field label="Bio Tagline / Title" wide><Input value={p.bioTitle} onChange={set("bioTitle")} placeholder="Submit Here" /></Field>
+        <Field label="Bio Text" wide><Area rows={5} value={p.bioText} onChange={set("bioText")} placeholder="Submit Here" /></Field>
+        {BIO_DOCS.map(([k, label, hint]) => {
+          const d = p.docs[k] || {};
+          return (
+            <div key={k} className="bio-row">
+              <span className="pk-label"><b>{label}</b>{hint && <i> {hint}</i>}</span>
+              <span className="bio-show">
+                <label><input type="radio" checked={d.show !== false} onChange={() => setDoc(k, { show: true })} /> Display <i>Default</i></label>
+                <label><input type="radio" checked={d.show === false} onChange={() => setDoc(k, { show: false })} /> Hide</label>
+              </span>
+              <label className="bio-up">{d.name ? <>📎 {d.name}</> : "Upload Here"}<input type="file" hidden accept=".pdf,.doc,.docx,image/*" onChange={(e) => uploadDoc(k, e.target.files?.[0])} /></label>
+              {d.name && <button type="button" className="clear-filters-link" onClick={() => setDoc(k, { name: "", src: "" })}>Remove</button>}
+            </div>
+          );
+        })}
+        <div className="bio-row">
+          <span className="pk-label"><b>LinkedIn Profile</b></span>
+          <span className="bio-show">
+            <label><input type="radio" checked={p.linkedinShow} onChange={() => setP({ ...p, linkedinShow: true })} /> Display <i>Default</i></label>
+            <label><input type="radio" checked={!p.linkedinShow} onChange={() => setP({ ...p, linkedinShow: false })} /> Hide</label>
+          </span>
+          <Input type="url" value={p.linkedin} onChange={set("linkedin")} placeholder="http://www.linkedin.com/in/…" />
+        </div>
         <button type="button" className="btn-primary" style={{ marginTop: 12 }} onClick={save}>Save profile</button>
         {flash && <div className="fp-flash fp-flash-block">{flash}</div>}
       </div>
