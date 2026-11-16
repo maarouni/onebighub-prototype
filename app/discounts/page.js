@@ -54,10 +54,9 @@ function DiscountsInner() {
     <>
       <PageTemplate
         section="discounts"
-        title="Deals"
-        subtitle="Discount / Gift Certificates"
+        title={<>Promote &amp; Earn&nbsp;&nbsp;<i className="pb-sub">One Big Table</i></>}
+        icon="discount"
         legend={false}
-        intro={<><strong>Save Money !</strong> Select filters to curate (organize, submit, view) discount / gift certificates. Gift them for yourself, your clients, colleagues, family and friends!</>}
       />
 
       <div className={`page browse-page ${showFilters ? "" : "filters-hidden"}`}>
@@ -68,7 +67,7 @@ function DiscountsInner() {
           )}
 
           <div className="timeline-col" id="results">
-            <ResultsHead title="Discount / Gift Certificates" q={qRaw} setQ={setQRaw}
+            <ResultsHead title="One Big Table of Listings" q={qRaw} setQ={setQRaw}
               showFilters={showFilters} onShowFilters={() => setShowFilters(true)} />
 
             <FillInHere>

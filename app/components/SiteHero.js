@@ -83,6 +83,57 @@ const PRODUCT_ROW3 = [
   { key: "edit", label: "EDIT My Items", icon: "idxProductEdit", href: "/listings/submit", wide: true },
 ];
 
+// Promote & Earn (Cesar Rev 261116): intro box + "Select one at a time" menu
+// replaces the old sub-header rows on every Promote & Earn page.
+const PROMO_MENU = [
+  [
+    { key: "system", label: "Performance-Based Marketing System", href: "/advertising", icon: "idxSparkle" },
+    { key: "table", label: "One Big Table of Listings", href: "/listings", icon: "idxListings" },
+    { key: "digest", label: "My Custom Digest of Listings", href: "/listings/digest", icon: "idxDigestImg" },
+    { key: "edit", label: "EDIT My Listings", href: "/listings/submit", icon: "editMode" },
+  ],
+  [
+    { key: "calculate", label: "Calculate Advertising Cost", href: "/advertising/calculate", icon: "calculate" },
+    { key: "rates", label: <>Rates <i>Win-Win Opportunities</i></>, href: "/advertising/rates", icon: "discount" },
+    { key: "events", label: <>Participate in onebig<span className="cw-red">HUB</span> Events</>, href: "/advertising/participation", icon: "idxSparkle" },
+    { key: "barter", label: <>Barter with onebig<span className="cw-red">HUB</span></>, href: "/advertising/barter", icon: "barter" },
+    { key: "private", label: "Your Private-Labeled Main Header", href: "/advertising/private-label", icon: "idxPrivateLabel" },
+  ],
+];
+function promoKey(section, action, path) {
+  if (path.startsWith("/advertising/calculate")) return "calculate";
+  if (path.startsWith("/advertising/barter")) return "barter";
+  if (path.startsWith("/advertising/private-label")) return "private";
+  if (["/advertising/participation", "/advertising/expos", "/advertising/dinners", "/advertising/workshops"].some((x) => path.startsWith(x))) return "events";
+  if (path.startsWith("/advertising/") ) return "rates";
+  if (path === "/advertising") return "system";
+  if (path.startsWith("/listings/digest") || action === "digest") return "digest";
+  if (path.endsWith("/submit") || action === "edit") return "edit";
+  return "table";
+}
+function PromoMenu({ on }) {
+  return (
+    <>
+      <p className="hh-box pm-intro">
+        <b>Promote &amp; Earn with onebig<span className="cw-red">HUB</span></b> Profit-Sharing from Ads, Introductions / Referrals, and Sales<br />
+        <b className="cw-red">No-Cost</b> and <b>Premier</b> opportunities to promote your listings, businesses, organizations, and groups
+      </p>
+      <nav className="pm-menu" aria-label="Promote & Earn">
+        {PROMO_MENU.map((col, ci) => (
+          <div key={ci} className="pm-col">
+            {ci === 0 && <i className="pm-hint">Select one at a time</i>}
+            {col.map((it) => (
+              <a key={it.key} href={it.href} className={`pm-item ${on === it.key ? "on" : ""}`} aria-current={on === it.key ? "page" : undefined}>
+                <span className="pm-o">{on === it.key ? "●" : "o"}</span><Glyph name={it.icon} size={16} /><span>{it.label}</span>
+              </a>
+            ))}
+          </div>
+        ))}
+      </nav>
+    </>
+  );
+}
+
 // Info (Nov 9 Figma): Index, Icons · About Us · Contact Us · Legal Docs.
 const INFO_ROW = [
   { key: "index", label: "Index, Icons", href: "/info", icon: "idxMenu" },
@@ -230,25 +281,8 @@ function rowsFor(section, action, path, query) {
       break;
     }
     case "promote":
-      rows.push(<SubRow key="promo" items={PROMO_ROW} on={section} />);
-      if (section === "earn") {
-        const isRate = RATE_ROW.some((r) => r.key === path);
-        rows.push(<SubRow key="ads" items={ADS_ROW} on={isRate ? "rates" : path} />);
-        if (isRate) rows.push(<SubRow key="rates" items={RATE_ROW} on={path} cols={4} variant="hsub-plain" />);
-      } else if (section === "products") {
-        rows.push(<SubRow key="types" items={PRODUCT_TYPES} on={query.type} />);
-        rows.push(<SubRow key="pde" items={PRODUCT_ROW3} on={action === "digest" || action === "edit" ? action : query.type} cols="r3" />);
-        line = lineKey("products");
-      } else if (section === "discounts") {
-        rows.push(<SubRow key="dde" items={pair("My Digest - Deals", "Discount / Gift Certificates", "/discounts", "EDIT My Deals", "Discount / Gift Certificates", "/discounts/submit")} on={action} cols={2} />);
-        line = lineKey("discounts");
-      } else if (section === "employment") {
-        rows.push(<SubRow key="ede" items={pair("My Digest - Careers / Jobs", null, "/employment", "EDIT My Employment Listings", null, "/employment/submit")} on={action} cols={2} />);
-        line = lineKey("employment");
-      } else if (section === "notifications") {
-        rows.push(<SubRow key="nde" items={pair("My Digest - Notifications", null, "/notifications", "EDIT My Notifications", null, "/notifications#edit")} on={action} cols={2} />);
-        line = lineKey("notifications");
-      }
+      rows.push(<PromoMenu key="pm" on={promoKey(section, action, path)} />);
+      line = null;
       break;
     default:
       break;

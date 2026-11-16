@@ -660,7 +660,7 @@ export default function Notifications() {
 
   return (
     <div className="page nt-page">
-      <SiteHero section="notifications" title="Custom Notifications" icon="notifications"
+      <SiteHero section="notifications" title={<>Promote &amp; Earn&nbsp;&nbsp;<i className="pb-sub">Custom Notifications</i></>} icon="idxBell"
         mode={tab === "business" ? "edit" : "output"}
         activeAction={tab === "mine" ? "digest" : tab === "business" ? "edit" : "details"} />
 

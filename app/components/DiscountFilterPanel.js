@@ -1,5 +1,7 @@
 "use client";
 
+import ListingTypeBox from "./ListingTypeBox";
+
 import { FilterShell, Box, CheckList, DateBox, DigestBox, RegionBoxes } from "./FilterKit";
 import {
   DATE_POSTED_OPTIONS, REDEEM_OPTIONS, CERT_TYPES, DISCOUNT_OPTIONS, INDUSTRIES, REGION_GROUPS,
@@ -14,6 +16,7 @@ export default function DiscountFilterPanel({ items, filters, setFilters, today,
   const kit = { filters, setFilters, count };
   return (
     <FilterShell onHide={onHide} onClear={() => setFilters(EMPTY_DISCOUNT_FILTERS)} onDisplay={onDisplay}>
+      <ListingTypeBox current="Deals" />
       <DateBox title="Date Posted / Revised" field="posted" fromKey="postedFrom" toKey="postedTo" options={DATE_POSTED_OPTIONS} {...kit} />
       <Box title="Certificate Type">
         <CheckList field="type" options={CERT_TYPES} {...kit} />

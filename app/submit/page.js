@@ -565,7 +565,7 @@ export default function SubmitEvent() {
             <ul className="next-step-list">
               <li><button type="button" className="next-step-link" onClick={(e) => submit(e, true)}><span className="ns-dot" /><Glyph name="cartAdd" size={14} /><span>SUBMIT as a Premier Listing <i>ADD To My Shopping Cart</i>{(f.premier || showCalc) ? ` · ${money(budget)}` : ""}</span></button></li>
               <li><button type="button" className="next-step-link" onClick={() => { setF((x) => ({ ...x, premier: true })); setShowCalc((v) => !v); }}><span className="ns-dot" /><Glyph name="calculate" size={14} /><span>Calculate My Advertising Cost</span></button></li>
-              <li><a href="/advertising/listings" className="next-step-link"><span className="ns-dot" /><Glyph name="eyeView" size={14} /><span>View Advertising Rates</span></a></li>
+              <li><a href="/advertising/rates" className="next-step-link"><span className="ns-dot" /><Glyph name="eyeView" size={14} /><span>View Advertising Rates</span></a></li>
               <li>
                 {confirmDel ? (
                   <span className="next-step-link em-confirm">Delete this listing draft ? <button type="button" className="cw-submit" onClick={() => { setF(EMPTY); setGallery([]); setErrors({}); setConfirmDel(false); window.scrollTo({ top: 0, behavior: "smooth" }); }}>Yes, DELETE</button> <button type="button" className="clear-filters-link" onClick={() => setConfirmDel(false)}>Cancel</button></span>

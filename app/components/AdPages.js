@@ -29,14 +29,13 @@ export function AdNav() {
   );
 }
 
-export function AdPage({ title, children }) {
+export function AdPage({ title, icon = "megaphone", children }) {
   return (
     <PageTemplate
       section="earn"
       title={title}
-      icon="megaphone"
+      icon={icon}
       legend={false}
-      subnav={<AdNav />}
     >
       {children}
     </PageTemplate>

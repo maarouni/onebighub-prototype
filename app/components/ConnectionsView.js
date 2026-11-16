@@ -135,7 +135,7 @@ function Inner({ digest }) {
     <>
       <PageTemplate
         section="connections"
-        title={digest ? "My Connections Digest" : <>Connect <i>Profiles</i></>}
+        title={digest ? "My Connections Digest" : <>Connect&nbsp;&nbsp;<i className="pb-sub">Profiles</i></>}
         legend={false}
         activeAction={digest ? "digest" : viewing ? "details" : null}
         spacer

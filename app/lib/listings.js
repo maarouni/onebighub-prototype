@@ -12,18 +12,62 @@ import { INDUSTRIES } from "./employmentTaxonomy";
 
 export { REGION_GROUPS, INDUSTRIES };
 
-export const LISTING_TYPES = ["Product", "Service", "Membership"];
+// Nov 16 (Cesar, "Promote & Earn One Big Table" Rev 261116): one table, Listing Type
+// (select one). Careers / Jobs, Deals and Notifications keep their own pages.
+export const LISTING_TYPES = ["Product", "Service", "Classified", "Hospitality", "Investment", "Pay-It-Forward", "Membership", "Subscription", "Survey"];
+export const LISTING_TYPE_MENU = [
+  { id: "Careers", label: "Careers / Jobs", icon: "idxBriefcase", href: "/employment" },
+  { id: "Product", label: "Products", icon: "idxProduct" },
+  { id: "Service", label: "Services", icon: "idxService" },
+  { gap: true, id: "Classified", label: "Classifieds", icon: "idxClassified" },
+  { id: "Deals", label: "Deals", icon: "discount", href: "/discounts" },
+  { id: "Hospitality", label: "Hospitality", icon: "dinner" },
+  { id: "Investment", label: "Investments", icon: "idxDeal" },
+  { id: "Pay-It-Forward", label: "Pay-It-Forward", icon: "idxHeart" },
+  { gap: true, id: "Membership", label: "Memberships", icon: "idxMembership" },
+  { id: "Notifications", label: "Notifications", icon: "idxBell", href: "/notifications" },
+  { id: "Subscription", label: "Subscriptions", icon: "idxSubscription" },
+  { id: "Survey", label: "Surveys", icon: "idxSurvey" },
+].map((t) => ({ ...t, href: t.href || `/listings?type=${encodeURIComponent(t.id)}` }));
+
+// Type-specific filter boxes (Figma). Matched against a listing's `tags`.
+export const TYPE_BOXES = {
+  Classified: [
+    { title: "Announcements", options: ["Birthdays", "Business Opening, Launch", "Careers", "Missed Connect", "Obituaries", "Press Releases", "Public Notices", "Ride-Sharing", "Weddings", "Other"] },
+    { title: <>Classifieds <i>Items</i></>, options: ["Antiques", "Appliances, Household", "Arts, Crafts, Decorations", "Beauty", "Books, CDs, DVDs, VHS", "Clothing, Accessories", "Collectibles", "Computers", "Electronics", "Furniture", "Garden", "Health", "Jewelry", "Materials, Supplies", "Musical Instruments", "Recreation, Sports", "Tools", "Toys, Games", "Other"] },
+    { title: <>Classifieds <i>Real Estate</i></>, options: ["Apartments, Condos", "Commercial", "Homes", "Parking, Storage", "Rooms", "Vacation", "Other"] },
+    { title: <>Classifieds <i>Vehicles, Parts</i></>, options: ["Autos", "Aviation", "Bicycles", "Boats", "Construction", "Motorcycles", "Recreational", "Scooters", "Tractors", "Trailers", "Trucks", "Other"] },
+  ],
+  Hospitality: [
+    { title: <>Hospitality <i>Event Type</i></>, options: ["Business: Career Fair", "Business: Conference", "Business: Mixer, Networking", "Business: Expo, Trade Show", "Celebration: Anniversary", "Celebration: Birthday", "Celebration: Gala", "Celebration: Holiday", "Celebration: Wedding", "Entertainment: Concert", "Entertainment: Festival", "Entertainment: Sports", "Other"] },
+    { title: <>Hospitality <i>Services</i></>, options: ["Audio / Visual", "Bar", "Catering, Kitchen", "Décor, Furniture", "Event Staffing", "Entertainment: DJs", "Entertainment: Live Bands", "Lodging: Hotels, Inns", "Lodging: AirBNB", "Transportation: Buses, Limos", "Other"] },
+    { title: <>Hospitality <i>Venues</i></>, options: ["Ballroom", "Banquet Hall", "Brewery", "Business Center", "Conference Room", "Convention Center", "Estate, Mansion", "Hotel", "Park", "Restaurant", "Theater", "Winery", "Other"] },
+  ],
+  Investment: [
+    { title: <>Investment <i>Opportunities</i></>, options: ["Annuities", "Bonds", "CDs", "Collectibles", "Commodities", "Cryptocurrencies", "Exchange-Traded Funds", "Franchise", "Precious Metals", "Product / Service", "Real Estate", "Social Venture", "Other"] },
+    { title: <>Investment <i>Startups</i></>, options: ["Angel Investment", "Venture Capital", "Pre-Seed: Research / Concept / Idea", "Pre-Seed: Prototype / MVP", "Seed: Completed MVP", "Seed: Market Research / Testing", "Post-Seed: Developing Traction", "Post-Seed: Growth", "Post-Seed: Expansion", "Post-Seed: Maturity / Exit"] },
+  ],
+  "Pay-It-Forward": [
+    { title: "Format", options: ["Offering", "Seeking"] },
+    { title: <>Donation <i>Money</i></>, options: ["Animals", "Arts", "Children", "Community", "Senior", "Sports", "Youth", "Other"] },
+    { title: <>Donation <i>Products</i></>, options: ["Arts", "Music", "Books", "Clothing", "Computers", "Equipment", "Food", "Furniture", "Toys", "Other"] },
+    { title: <>Volunteer <i>Ideas &amp; Talent</i></>, options: ["Consulting", "Mentoring", "Public Speaking", "Board of Directors", "Other"] },
+    { title: <>Volunteer <i>Time</i></>, options: ["Animals", "Arts", "Children", "Community", "Senior", "Sports", "Youth", "Other"] },
+  ],
+};
 export const DELIVERY_OPTIONS = ["In-Person", "Online"];
 export const REFERRAL_OPTIONS = [{ id: "no", label: "No" }, { id: "yes", label: "Yes" }];
 export const COST_UNITS = ["one-time", "per hour", "per month", "per year"];
 
 export const COST_OPTIONS = [
   { id: "free", label: "Free", min: 0, max: 0 },
-  { id: "0-15", label: "$ 0 - $ 14.99", min: 0.01, max: 14.99 },
-  { id: "15-30", label: "$ 15 - $ 29.99", min: 15, max: 29.99 },
-  { id: "30-50", label: "$ 30 - $ 49.99", min: 30, max: 49.99 },
+  { id: "0-25", label: "$ 0 - $ 24.99", min: 0.01, max: 24.99 },
+  { id: "25-50", label: "$ 25 - $ 49.99", min: 25, max: 49.99 },
   { id: "50-100", label: "$ 50 - $ 99.99", min: 50, max: 99.99 },
-  { id: "100+", label: "$ 100+", min: 100, max: Infinity },
+  { id: "100-250", label: "$ 100 - $ 249.99", min: 100, max: 249.99 },
+  { id: "250-500", label: "$ 250 - $ 499.99", min: 250, max: 499.99 },
+  { id: "500-1000", label: "$ 500 - $ 999.99", min: 500, max: 999.99 },
+  { id: "1000+", label: "$ 1000+", min: 1000, max: Infinity },
 ];
 
 export const DATE_POSTED_OPTIONS = [
@@ -37,11 +81,11 @@ export const DATE_POSTED_OPTIONS = [
 
 export const EMPTY_LISTING_FILTERS = {
   type: [], posted: "all", postedFrom: "", postedTo: "",
-  referrals: [], delivery: [], cost: [], industry: [], region: [],
+  referrals: [], delivery: [], cost: [], industry: [], region: [], tags: [], categories: [],
 };
 
 // Glyph used in the listing image column, per type.
-export const TYPE_GLYPH = { Product: "products", Service: "service", Membership: "membership" };
+export const TYPE_GLYPH = { Product: "idxProduct", Service: "idxService", Membership: "idxMembership", Classified: "idxClassified", Hospitality: "dinner", Investment: "idxDeal", "Pay-It-Forward": "idxHeart", Subscription: "idxSubscription", Survey: "idxSurvey" };
 
 // Placeholder listings to test the layout — Cesar replaces these.
 const LISTINGS = [
@@ -105,6 +149,31 @@ const LISTINGS = [
     details: "Free for the first 50 onebigHUB sign-ups; shipping included.",
     contact: "", phone: "", email: "", url: "",
   },
+  // Nov 16 sample listings for the new types (placeholders, like the ones above)
+  { id: "p7", type: "Classified", name: "Vintage oak desk — like new", description: "Solid oak, 5 drawers; pick up in Pleasanton",
+    offeredBy: "Private seller", industry: "Retail", city: "Pleasanton", state: "CA", region: "Alameda", delivery: ["In-Person"],
+    costMin: 180, costMax: 180, costUnit: "one-time", referrals: false, expires: "2026-12-15", posted: "2026-11-12", premier: false,
+    tags: ["Furniture"], details: "", contact: "", phone: "", email: "", url: "" },
+  { id: "p8", type: "Hospitality", name: "Garden terrace for mixers (up to 80)", description: "Covered terrace with bar and A/V",
+    offeredBy: "Livermore Valley Winery", industry: "Hospitality", city: "Livermore", state: "CA", region: "Alameda", delivery: ["In-Person"],
+    costMin: 500, costMax: 1500, costUnit: "one-time", referrals: true, expires: "2027-03-31", posted: "2026-11-10", premier: true,
+    tags: ["Winery", "Business: Mixer, Networking", "Bar"], details: "", contact: "", phone: "", email: "", url: "" },
+  { id: "p9", type: "Investment", name: "Seed round — local food-delivery startup", description: "Raising $250K SAFE; MVP live in 3 cities",
+    offeredBy: "Bay Bites Inc.", industry: "Food, Beverage", city: "Oakland", state: "CA", region: "Alameda", delivery: ["Online", "In-Person"],
+    costMin: 10000, costMax: 50000, costUnit: "one-time", referrals: true, expires: "2027-01-31", posted: "2026-11-08", premier: false,
+    tags: ["Seed: Completed MVP", "Angel Investment"], details: "", contact: "", phone: "", email: "", url: "" },
+  { id: "p10", type: "Pay-It-Forward", name: "Volunteers needed — holiday food drive", description: "Sort and pack boxes, Dec 12-14",
+    offeredBy: "Tri-Valley Haven", industry: "Non-Profit", city: "Dublin", state: "CA", region: "Alameda", delivery: ["In-Person"],
+    costMin: 0, costMax: 0, costUnit: "one-time", referrals: false, expires: "2026-12-14", posted: "2026-11-14", premier: true,
+    tags: ["Seeking", "Community"], details: "", contact: "", phone: "", email: "", url: "" },
+  { id: "p11", type: "Subscription", name: "Bay Area Business Weekly — newsletter", description: "Local deals, openings and events every Monday",
+    offeredBy: "BABW Media", industry: "Media, Advertising", city: "San Francisco", state: "CA", region: "San Francisco", delivery: ["Online"],
+    costMin: 0, costMax: 0, costUnit: "per month", referrals: false, expires: "2027-06-30", posted: "2026-11-05", premier: false,
+    details: "", contact: "", phone: "", email: "", url: "" },
+  { id: "p12", type: "Survey", name: "Small-business owner survey (5 min)", description: "Help shape onebigHUB features — enter a $50 gift card drawing",
+    offeredBy: "onebigHUB", industry: "Technology", city: "San Jose", state: "CA", region: "Santa Clara", delivery: ["Online"],
+    costMin: 0, costMax: 0, costUnit: "one-time", referrals: false, expires: "2026-12-31", posted: "2026-11-15", premier: false,
+    details: "", contact: "", phone: "", email: "", url: "" },
 ];
 
 const LOCAL_KEY = "mc_submitted_listings_v1";
@@ -170,6 +239,7 @@ const TESTS = {
   }),
   industry: (l, f) => !f.industry.length || f.industry.includes(l.industry),
   region: (l, f) => !f.region.length || f.region.includes(l.region),
+  tags: (l, f) => !f.tags?.length || (l.tags || []).some((t) => f.tags.includes(t)),
 };
 
 export function listingMatches(l, f, today = new Date(), q = "") {

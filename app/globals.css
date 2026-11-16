@@ -3945,3 +3945,60 @@ body:has(.ref-page) { background: #cfcfcf !important; }
 .cw-next-opt { align-items: flex-start !important; }
 .cw-next-sub { display: block; color: var(--ink); font-size: 12.5px; }
 @media (max-width: 760px) { .cw-s2 { grid-template-columns: 1fr; } }
+
+/* ===== Nov 16 (Cesar Rev 261116) ===== */
+/* Page titles: "Connect  Profiles" — main word upright, second word italic */
+.page-bar h1 .pb-sub { font-style: italic; font-weight: 400; font-size: 1em; margin-left: 0; }
+.page-bar h1 { font-style: normal; }
+/* Less space between the intro line and the filters */
+.hsub-line + * , .site-hero + .page, .site-hero + .tpl-spacer + .page { margin-top: 4px !important; }
+.tpl-spacer { height: 10px; }
+/* Promote & Earn header menu */
+.pm-intro { font-size: 13px; line-height: 1.45; padding: 6px 12px; text-align: left; }
+.pm-menu { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 6px 0 4px; }
+.pm-col { background: #fff; border: 1px solid var(--cg-box-line); border-radius: 12px; padding: 6px 12px; display: flex; flex-direction: column; gap: 2px; }
+.pm-hint { font-size: 12px; color: #444; }
+.pm-item { display: flex; align-items: center; gap: 6px; color: var(--cg-blue); text-decoration: none; font-size: 13.5px; padding: 1px 0; }
+.pm-item:hover span:last-child { text-decoration: underline; }
+.pm-item.on { color: var(--cg-red); font-weight: 700; }
+.pm-o { width: 10px; font-size: 10px; text-align: center; }
+/* Listing Type box */
+.lt-opt { display: flex !important; align-items: center; gap: 5px; text-decoration: none; color: var(--cg-blue); }
+.lt-opt input { pointer-events: none; }
+.lt-gap { margin-top: 8px; }
+.lt-on { color: var(--cg-red); font-weight: 700; }
+/* Promote & Earn landing */
+.pe-box h2 { display: flex; align-items: center; gap: 10px; font-size: 22px; margin: 0 0 6px; }
+.pe-box p { margin: 4px 0; }
+.pe-box ul { margin: 4px 0; padding-left: 20px; }
+.pe-indent { margin-left: 110px !important; }
+.pe-note { font-size: 13px; }
+.pe-share { display: grid; grid-template-columns: 1fr 70px; gap: 10px; }
+.pe-digests { display: flex; flex-direction: column; gap: 4px; margin: 6px 0 0 18px; }
+.pe-dig { display: flex; gap: 10px; align-items: flex-start; text-decoration: none; color: var(--ink); font-size: 13.5px; }
+.pe-dig i { font-size: 12.5px; color: #444; }
+.pe-dig:hover b { text-decoration: underline; }
+.pe-gap { height: 8px; }
+.pe-levels { display: flex; flex-direction: column; align-items: center; gap: 0; font-size: 12px; text-align: center; }
+.pe-levels span { width: 54px; height: 54px; border-radius: 50%; border: 1.5px dashed #777; display: flex; flex-direction: column; justify-content: center; font-weight: 700; }
+.pe-levels i { width: 2px; height: 14px; background: #111; }
+.pe-levels b { border: 1px solid #999; padding: 8px 6px; font-weight: 400; font-style: italic; }
+/* Rates */
+.rt-head { display: grid; grid-template-columns: 140px 1fr 90px; background: #ffd200; border: 1px solid #e0b400; border-radius: 999px; padding: 4px 14px; font-size: 14px; margin-bottom: 8px; }
+.rt-head b:nth-child(2) { text-align: center; } .rt-head b:last-child { text-align: right; }
+.rt-card { display: grid !important; grid-template-columns: 140px 1fr; gap: 10px; align-items: start; margin-bottom: 8px; }
+.rt-icon { display: flex; justify-content: center; padding-top: 6px; }
+.rt-body h3 { margin: 0 0 4px; font-size: 15px; }
+.rt-body h3 a { color: inherit; text-decoration: none; }
+.rt-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.rt-table td { padding: 2px 0; vertical-align: top; }
+.rt-table td:last-child { text-align: right; white-space: nowrap; font-weight: 700; width: 80px; }
+.rt-sub { display: block; font-size: 13px; }
+.rt-note { margin: 4px 0 0; font-size: 13.5px; }
+.rt-foot { background: #ffd200; border-radius: 999px; padding: 4px 14px; font-size: 13px; margin: 4px 0 8px; }
+@media (max-width: 760px) {
+  .pm-menu, .pe-share { grid-template-columns: 1fr; }
+  .pe-levels { flex-direction: row; justify-content: center; } .pe-levels i { width: 14px; height: 2px; }
+  .rt-card { grid-template-columns: 1fr; } .rt-head { grid-template-columns: 1fr 1fr; } .rt-head b:first-child { display: none; }
+  .pe-indent { margin-left: 20px !important; }
+}
