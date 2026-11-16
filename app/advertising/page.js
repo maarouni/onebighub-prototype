@@ -74,7 +74,7 @@ export default function PromoteAndEarn() {
       </section>
 
       <section className="ad-box pe-box">
-        <h2><Glyph name="idxCollateral" size={34} /> Invite / Refer Others to Sign Up</h2>
+        <h2><Glyph name="login" size={34} /> Invite / Refer Others to Sign Up</h2>
         <p><b className="cw-red"><i>No-Cost and Easy !</i></b> <b>With your QR Code and Custom Marketing Collateral</b> — <a href="/connect">Connect with Me !</a></p>
         <p><Glyph name="login" size={16} /> <a href="/registration/signup"><b>Sign Up Today</b></a> to create your account, submit and edit your listings</p>
         <p><Glyph name="dashboards" size={16} /> <a href="/dashboards">Manage Your Dashboards</a></p>

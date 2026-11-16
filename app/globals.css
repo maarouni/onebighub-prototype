@@ -4159,3 +4159,7 @@ body:has(.ref-page) { background: #cfcfcf !important; }
 .bio-show { display: flex; gap: 12px; font-size: 12.5px; color: var(--cg-blue); }
 .bio-show label { display: inline-flex; gap: 4px; align-items: center; cursor: pointer; }
 .bio-up { color: #888; font-size: 13px; cursor: pointer; }
+/* Nov 16 PM (Cesar): space between onebigHUB.com and the tagline; gray menu boxes; blue digest links */
+.navbar .brand-v2 .brand-text .brand-more { margin-top: 9px !important; }
+.pm-col { background: #f2f2f2; }
+.pe-dig b { color: var(--cg-blue); }
