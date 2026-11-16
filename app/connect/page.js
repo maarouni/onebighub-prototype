@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import QRCode from "qrcode";
 import { ConnectPage, SectionBar, CardAndPitch, PersonCard } from "../components/ConnectKit";
 import { Glyph } from "../components/Icons";
-import { getProfile, shrinkImage } from "../lib/profile";
+import { getProfile } from "../lib/profile";
 import { getUser } from "../lib/auth";
 import { FOLLOW_UP, MY_RELATIONSHIP, addToNetwork } from "../lib/connect";
 
@@ -22,8 +22,6 @@ export default function ConnectSteps13() {
   const [flash, setFlash] = useState("");
   // step 2
   const [r, setR] = useState({ rels: ["connection"], followUp: "01", referral: false, when: "", event: "", city: "", state: "CA", introducedBy: "", notes: "" });
-  const [gallery, setGallery] = useState([]);
-  const [gi, setGi] = useState(0);
   // step 3a
   const [c, setC] = useState(BLANK);
   const [hide, setHide] = useState({ phone: true, email: false });
@@ -56,15 +54,7 @@ export default function ConnectSteps13() {
       return { ...x, rels: [...x.rels, id] };
     });
   }
-  async function addGallery(e) {
-    const files = [...(e.target.files || [])].slice(0, 5 - gallery.length);
-    const out = [];
-    for (const f of files) {
-      if (f.type.startsWith("image/")) try { out.push({ src: await shrinkImage(f, 700), name: f.name }); } catch {}
-      else out.push({ name: f.name });
-    }
-    setGallery((g) => [...g, ...out].slice(0, 5));
-  }
+
   const set = (k) => (e) => setC((x) => ({ ...x, [k]: e.target.value }));
 
   function saveRelationship() {
@@ -75,7 +65,7 @@ export default function ConnectSteps13() {
     if (!c.name.trim()) return setErr("Name is required.");
     if (!c.phone.trim() && !c.email.trim()) return setErr("Enter a mobile / phone or an email.");
     setErr("");
-    addToNetwork({ ...c, city: [c.city, c.state].filter(Boolean).join(", "), hide, ...r, level: "intro", gallery: gallery.filter((g) => g.src).map((g) => g.src) });
+    addToNetwork({ ...c, city: [c.city, c.state].filter(Boolean).join(", "), hide, ...r, level: "intro" });
     say(`${c.name} added to My Network.`);
     setTimeout(() => { window.location.href = "/connect/network#message"; }, 900);
   }
@@ -133,23 +123,6 @@ export default function ConnectSteps13() {
           </div>
         </div>
         <label className="cw-box"><span><b>My Notes</b> <i>Private</i></span><textarea rows={4} value={r.notes} onChange={(e) => setRel("notes", e.target.value)} placeholder="Submit Here" /></label>
-        <div className="cw-gallery">
-          <div className="cw-gallery-head"><b>Gallery</b>
-            <span>
-              <label className="cw-icon-btn" data-tip="Add"><Glyph name="plusBold" size={16} /><input type="file" multiple accept="image/*,video/*,application/pdf" onChange={addGallery} hidden /></label>
-              <button type="button" className="cw-icon-btn" data-tip="Delete" onClick={() => { setGallery((g) => g.filter((_, i) => i !== gi)); setGi(0); }}><Glyph name="delete" size={16} /></button>
-            </span>
-          </div>
-          <div className="cw-gallery-body">
-            <button type="button" className="cw-pg" disabled={gi <= 0} onClick={() => setGi((i) => i - 1)} aria-label="Previous"><Glyph name="pagePrev" size={20} /></button>
-            <div className="cw-gallery-slot">
-              {gallery[gi] ? (gallery[gi].src ? <img src={gallery[gi].src} alt={gallery[gi].name} /> : <span>{gallery[gi].name}</span>)
-                : <span><span className="cw-muted">Upload Here</span><br />Business Card<br />Flyer<br />Picture<br />Video<br /><i>Maximum 5 items</i></span>}
-            </div>
-            <button type="button" className="cw-pg" disabled={gi >= gallery.length - 1} onClick={() => setGi((i) => i + 1)} aria-label="Next"><Glyph name="pageNext" size={20} /></button>
-          </div>
-          <p className="cw-muted cw-center">{gallery.length ? gi + 1 : 0} of {gallery.length || 5}</p>
-        </div>
         <div className="em-center"><button type="button" className="cw-submit" onClick={saveRelationship}>Submit</button></div>
       </SectionBar>
 

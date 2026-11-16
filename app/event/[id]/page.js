@@ -127,7 +127,7 @@ export default function EventDetail() {
   const next = pos >= 0 && pos < ring.length - 1 ? ring[pos + 1] : null;
   const online = event.type === "Online";
   const mapQuery = [event.venue, event.address, event.city, event.state].filter(Boolean).join(", ");
-  const typeLabel = event.barter ? "Premier Barter" : event.premier ? "Premier" : "Regular";
+  const typeLabel = event.premier || event.barter ? "Premier" : "Regular";
   const cats = eventCategories(event);
   const oneLine = event.oneLine || firstSentence(event.description);
   const cityLine = [event.city, [event.state, event.zip].filter(Boolean).join(" "), event.country].filter(Boolean).join(", ");

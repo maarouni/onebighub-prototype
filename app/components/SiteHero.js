@@ -64,7 +64,6 @@ const ADS_ROW = [
   { key: "rates", label: "Rates", href: "/advertising/listings", icon: "discount" },
   { key: "/advertising/private-label", label: "Private-Label", sub: "Header", href: "/advertising/private-label", icon: "document" },
   { key: "/advertising/participation", label: "Event", sub: "Participation", href: "/advertising/participation", icon: "expo" },
-  { key: "/advertising/barter", label: "Barter", href: "/advertising/barter", icon: "barter" },
 ];
 const RATE_ROW = RATE_PAGES.map((p) => ({ key: `/advertising/${p.slug}`, label: p.title, href: `/advertising/${p.slug}`, icon: p.icon }));
 

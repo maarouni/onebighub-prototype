@@ -77,7 +77,6 @@ export const CONNECTION_TYPES = [
 export const AD_TYPES = [
   { id: "regular", label: "Regular Free" },
   { id: "premier", label: "Premier" },
-  { id: "barter", label: "Premier Barter" },
 ];
 export const SEEKING_EMPLOYMENT = [
   "Hybrid", "In-Person", "Remote", "Contract", "Focus Study", "F/T Full-Time", "P/T Part-Time", "Affiliate",
@@ -251,7 +250,7 @@ const TESTS = {
   seeking: (o, f) => !f.seeking.length || (o.seeking || []).some((x) => f.seeking.includes(x)),
   level: (o, f) => !f.level.length || f.level.includes(o.level),
   comp: (o, f) => !f.comp.length || f.comp.includes(o.comp),
-  adtype: (o, f) => !f.adtype.length || f.adtype.includes(o.barter ? "barter" : o.premier ? "premier" : "regular"),
+  adtype: (o, f) => !f.adtype.length || f.adtype.includes(o.premier || o.barter ? "premier" : "regular"),
   formats: (o, f) => !f.formats.length || (o.formats || []).some((x) => f.formats.includes(x)),
   tiers: (o, f) => !f.tiers.length || f.tiers.includes(o.premier ? "Premier" : "Regular"),
   members: (o, f) => !f.members.length || inBucket(MEMBER_OPTIONS, f.members, Number(o.members) || 0),

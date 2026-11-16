@@ -10,7 +10,6 @@ import { DATE_POSTED_OPTIONS, REFERRAL_OPTIONS, INDUSTRIES } from "../lib/organi
 export const AD_TYPE_OPTIONS = [
   { id: "regular", label: <>Regular <i>Free</i></> },
   { id: "premier", label: "Premier" },
-  { id: "barter", label: <>Premier <i>Barter</i></> },
 ];
 
 export default function FilterPanel({ events, filters, setFilters, today, q, onHide, onDisplay }) {

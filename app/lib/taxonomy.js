@@ -171,7 +171,7 @@ const SECTION_TESTS = {
     return ago >= 0 && ago <= Number(f.posted);
   },
   referral: (e, f) => !f.referral?.length || f.referral.includes(e.referral ? "yes" : "no"),
-  adtypes: (e, f) => !f.adtypes?.length || f.adtypes.includes(e.barter ? "barter" : e.premier ? "premier" : "regular"),
+  adtypes: (e, f) => !f.adtypes?.length || f.adtypes.includes(e.premier || e.barter ? "premier" : "regular"),
   industry: (e, f) => !f.industry?.length || f.industry.includes(e.industry),
   tiers: (e, f) =>
     !f.tiers.length || f.tiers.includes(e.premier ? "Premier" : "Regular"),

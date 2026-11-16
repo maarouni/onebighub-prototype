@@ -326,8 +326,7 @@ export default function SubmitEvent() {
           <div className="em-box">
             <b>Type</b> <i>Select one</i>
             <R name="typ" checked={!f.premier} onChange={() => setF((x) => ({ ...x, premier: false, barter: false }))}>Regular <i>Free</i> <em>Default</em></R>
-            <R name="typ" checked={f.premier && !f.barter} onChange={() => setF((x) => ({ ...x, premier: true, barter: false }))}>Premier</R>
-            <R name="typ" checked={f.premier && f.barter} onChange={() => setF((x) => ({ ...x, premier: true, barter: true }))}>Premier <i>Barter</i></R>
+            <R name="typ" checked={f.premier} onChange={() => setF((x) => ({ ...x, premier: true, barter: false }))}>Premier</R>
           </div>
           <div className="em-box">
             <b>Privacy</b> <i>Select one</i>

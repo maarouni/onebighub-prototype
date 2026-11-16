@@ -38,7 +38,6 @@ const DATE_VIEWS = [
 const TYPE_OPTIONS = [
   { id: "regular", label: "Regular", hint: "Free", def: true },
   { id: "premier", label: "Premier" },
-  { id: "barter", label: "Premier", hint: "Barter" },
 ];
 const SYNC_OPTIONS = ["Apple", "Calendly", "Google", "Microsoft Outlook"];
 
@@ -61,7 +60,7 @@ function rowImage(e) {
   return "expo";
 }
 
-const typeOf = (e) => (e.barter ? "barter" : e.premier ? "premier" : "regular");
+const typeOf = (e) => (e.premier || e.barter ? "premier" : "regular");
 
 function readJson(key, fallback) {
   try { return JSON.parse(localStorage.getItem(key) || "null") ?? fallback; } catch { return fallback; }
