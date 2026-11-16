@@ -24,7 +24,7 @@ export default function PrivateLabel() {
   const T = ({ on, onClick, label, children }) => <button type="button" className={on ? "on" : ""} onClick={onClick} aria-label={label} title={label}>{children}</button>;
 
   return (
-    <AdPage title={<>Private-Label&nbsp;&nbsp;<i className="pb-sub">Main Header</i></>} icon="megaphone">
+    <AdPage title="Your Private-Labeled Header" icon="idxPrivateLabel">
       <div className="cw-page pk-page pk-gray">
         <section className="pl-preview" style={{ textAlign: h.align }}>
           <UploadBox value={h.logo} onChange={(logo) => set({ logo })} text={<>Upload<br />Logo<br />Here</>} className="pl-logo" />

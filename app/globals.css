@@ -2719,7 +2719,7 @@ input.sel-radio { --sel-radius: 50%; border-radius: 50% !important; }
   .obc-row, .obc-row.premier { grid-template-columns: 104px minmax(0, 1fr) minmax(36px, auto); }
 }
 
-/* ---- Header tagline: "Discover • Connect • Earn" (Oct 28 Figma, confirmed by Masoud Oct 29) ---- */
+/* ---- Header tagline: "Attend • Connect • Earn" (Oct 28 Figma, confirmed by Masoud Oct 29) ---- */
 .brand-more { font-family: "Poppins", var(--font-ui); font-size: 14px; font-weight: 500; font-style: italic; color: var(--ink-soft); align-self: flex-end; margin: 0 0 3px -2px; white-space: nowrap; }
 @media (max-width: 480px) { .brand-more { font-size: 12px; } }
 .nt-show-filters { margin: 0 0 10px; }
@@ -4126,3 +4126,26 @@ body:has(.ref-page) { background: #cfcfcf !important; }
   .cw-two { grid-template-columns: 1fr; }
 }
 .pk-part-side .pk-ico3d { width: 64px; height: 64px; object-fit: contain; }
+/* Nov 16 (2): Event Participation info cards, Rates barter box, sign-up pop-up */
+.pk-infocard { position: relative; background: #fff; border: 1px solid var(--cg-box-line); border-radius: 14px; padding: 10px 14px; font-size: 12.5px; display: flex; flex-direction: column; gap: 6px; }
+.pk-infocard-ico { position: absolute; top: 8px; right: 12px; }
+.pk-infocard > div:first-of-type { padding-right: 110px; }
+.pk-info-h { color: var(--cg-red); font-size: 15px; }
+.pk-infocard ul { margin: 2px 0 0; padding-left: 16px; display: flex; flex-direction: column; gap: 3px; }
+.pk-group-note { font-size: 12.5px; color: #333; padding-left: 14px; }
+.rt-barter { margin-top: 6px; }
+.rt-barter .cw-body { background: #c9c9c9; border-radius: 14px; padding: 8px; display: flex; flex-direction: column; gap: 8px; }
+.rg-back { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 16px; }
+.rg-pop { background: #fff; border: 1px solid #999; border-radius: 6px; width: min(100%, 580px); overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,.3); padding-bottom: 12px; }
+.rg-bar { display: flex; align-items: center; gap: 14px; background: var(--cg-yellow); padding: 10px 16px; font-family: "Castoro", serif; font-size: 26px; }
+.rg-x { margin-left: auto; background: none; border: 0; font-size: 28px; line-height: 1; cursor: pointer; }
+.rg-tag { margin: 12px 16px 8px; border: 1px solid var(--cg-box-line); border-radius: 999px; text-align: center; padding: 4px; font-size: 14px; }
+.rg-box { margin: 0 16px; border: 1px solid var(--cg-box-line); border-radius: 14px; padding: 10px 16px; display: flex; gap: 12px; align-items: center; font-size: 15px; }
+.rg-box > div { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.rg-box p { margin: 0; }
+.rg-box .pk-opt { font-size: 15px; }
+.rg-go { align-self: center; margin-top: 8px; background: #f0962f; border: 0; border-radius: 999px; padding: 6px 26px; font: inherit; font-weight: 700; font-size: 16px; cursor: pointer; }
+.rg-lock { flex-shrink: 0; }
+.rg-dev { display: block; margin: 10px auto 0; background: none; border: 0; color: #777; font: inherit; font-size: 12px; text-decoration: underline; cursor: pointer; }
+@media (max-width: 640px) { .rg-lock { display: none; } .pk-infocard > div:first-of-type { padding-right: 0; } .pk-infocard-ico { position: static; align-self: flex-end; } }
+.rt-card h3, .rt-card h3 a { font-weight: 700; }

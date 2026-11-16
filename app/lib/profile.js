@@ -15,7 +15,7 @@ export function getProfile() {
     name: p.name || u?.name || "", title: p.title || "", business: p.business || "", tagline: p.tagline || "",
     phone: p.phone || u?.mobile || "", email: p.email || u?.email || (u?.identifier?.includes("@") ? u.identifier : ""),
     city: p.city || "", url: p.url || "",
-    pitchTitle: p.pitchTitle || "", pitch: p.pitch || "",
+    pitchTitle: p.pitchTitle || "", pitch: p.pitch || "", interesting: p.interesting || "",
     linkedin: p.linkedin || "", links: p.links || [{ name: "", url: "" }, { name: "", url: "" }, { name: "", url: "" }],
     username: u?.username || (u?.name || "guest").toLowerCase().replace(/[^a-z0-9]/g, ""),
   };

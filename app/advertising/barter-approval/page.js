@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { AdPage } from "../../components/AdPages";
 import { Glyph } from "../../components/Icons";
 import { Bar, EventCard, MiniCardView, PagerRow, optKey } from "../../components/PromoKit";
-import { BARTER, PARTICIPATION, SEEKING, listRequests, saveRequest } from "../../lib/adRequests";
+import { ALL_SECTIONS, SEEKING, listRequests, saveRequest } from "../../lib/adRequests";
+import { hasData } from "../../components/PartForm";
 import { fetchEvents } from "../../lib/events";
 import { nowStamp } from "../../lib/auth";
 
@@ -22,19 +23,18 @@ const Sel = ({ opts, keys }) => (keys?.length
   ? <ul className="ba-sel">{keys.map((k) => <li key={k}>{label(opts, k)}</li>)}</ul>
   : <span className="ba-none">—</span>);
 
-function ReadOnly({ s, v, barter }) {
-  const allOpts = barter ? s.groups.flatMap((g) => g.options) : s.roles;
+function ReadOnly({ s, v }) {
   return (
     <div className="pk-part ba-ro">
       <div className="pk-part-side">{s.icon === "megaphone" ? <img className="pk-ico3d" src="/icons/earn.png" alt="" /> : <Glyph name={s.icon} size={s.icon === "expo" ? 96 : 52} />}{v.upload && <img className="ba-up" src={v.upload} alt="Uploaded" />}</div>
       <div className="pk-part-main">
-        {barter && <><span className="pk-label"><b>Seeking</b> <i className="cw-red">Barter is subject to approval</i></span><Sel opts={SEEKING} keys={v.seek} /></>}
-        <span className="pk-label pk-gap"><b>{barter ? "Offering to Provide" : "Participating as"}</b></span>
+        {s.barter && <><span className="pk-label"><b>Seeking</b> <i className="cw-red">Barter is subject to approval</i></span><Sel opts={SEEKING} keys={v.seek} /></>}
+        <span className="pk-label pk-gap"><b>{s.barter ? "Offering to Provide" : "Selection(s)"}</b></span>
         {v.offerText && <p className="ba-text">{v.offerText}</p>}
-        {barter ? s.groups.map((g, i) => {
+        {s.groups.map((g, i) => {
           const keys = (v.roles || []).filter((k) => g.options.some((o) => optKey(o) === k));
-          return (g.title || keys.length) ? <div key={i} className="pk-group">{g.title && <b>{g.title}</b>}<Sel opts={g.options} keys={keys} /></div> : null;
-        }) : <Sel opts={allOpts} keys={v.roles} />}
+          return (g.title || keys.length || s.groups.length === 1) ? <div key={i} className="pk-group">{g.title && <b>{g.title}</b>}<Sel opts={g.options} keys={keys} /></div> : null;
+        })}
         {v.other && <p className="ba-text"><b>Other:</b> {v.other}</p>}
         {s.fields.map(([k, l, h]) => v.fields?.[k] ? <div key={k}><b>{l}</b>{h && <i> {h}</i>}<p className="ba-text">{v.fields[k]}</p></div> : null)}
       </div>
@@ -66,10 +66,9 @@ export default function BarterApproval() {
   }
 
   const barter = r?.kind === "barter";
-  const sections = barter ? BARTER : PARTICIPATION;
   const data = r?.data || {};
   return (
-    <AdPage title={<>Barter&nbsp;&nbsp;<i className="pb-sub">Approval</i></>} icon="barter">
+    <AdPage title={<>Barter Approval&nbsp;&nbsp;<i className="pb-sub">ONLY for Cesar Plata</i></>} icon="barter">
       <div className="cw-page pk-page pk-gray">
         <div className="ba-admin">
           <span className="pill">Only for Cesar Plata</span>
@@ -100,11 +99,8 @@ export default function BarterApproval() {
               <button type="button" className="cw-submit pk-center" disabled={!decision} onClick={submit}>Submit</button>
               {r.decided && <span className="nt-hint">Decided {r.decided}.</span>}
             </div>
-            {sections.map((s) => {
-              const v = data[s.id];
-              if (!v || !(v.seek?.length || v.roles?.length || v.offerText || v.other || Object.values(v.fields || {}).some(Boolean))) return null;
-              return <Bar key={s.id} n={s.n} title={s.title}><ReadOnly s={s} v={v} barter={barter} /></Bar>;
-            })}
+            {ALL_SECTIONS.map((s) => hasData(data[s.id])
+              ? <Bar key={s.id} n={s.n} title={s.title}><ReadOnly s={s} v={data[s.id]} /></Bar> : null)}
             {r.payment?.length > 0 && <div className="pk-gbox"><b>Payment</b><span>{r.payment.join(", ")}</span></div>}
           </>
         )}

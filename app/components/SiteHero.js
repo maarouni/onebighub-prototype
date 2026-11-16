@@ -96,13 +96,12 @@ const PROMO_MENU = [
     { key: "calculate", label: "Calculate Advertising Cost", href: "/advertising/calculate", icon: "calculate" },
     { key: "rates", label: <>Rates <i>Win-Win Opportunities</i></>, href: "/advertising/rates", icon: "discount" },
     { key: "events", label: <>Participate in onebig<span className="cw-red">HUB</span> Events</>, href: "/advertising/participation", icon: "idxSparkle" },
-    { key: "barter", label: <>Barter with onebig<span className="cw-red">HUB</span></>, href: "/advertising/barter", icon: "barter" },
     { key: "private", label: "Your Private-Labeled Main Header", href: "/advertising/private-label", icon: "idxPrivateLabel" },
   ],
 ];
 function promoKey(section, action, path) {
   if (path.startsWith("/advertising/calculate")) return "calculate";
-  if (path.startsWith("/advertising/barter")) return "barter";
+  if (path.startsWith("/advertising/barter")) return "events";
   if (path.startsWith("/advertising/private-label")) return "private";
   if (["/advertising/participation", "/advertising/expos", "/advertising/dinners", "/advertising/workshops"].some((x) => path.startsWith(x))) return "events";
   if (path.startsWith("/advertising/") ) return "rates";
@@ -121,7 +120,7 @@ function PromoMenu({ on }) {
       <nav className="pm-menu" aria-label="Promote & Earn">
         {PROMO_MENU.map((col, ci) => (
           <div key={ci} className="pm-col">
-            {ci === 0 && <i className="pm-hint">Select one at a time</i>}
+            <i className="pm-hint">{ci === 0 ? "Select one" : "Select one at a time"}</i>
             {col.map((it) => (
               <a key={it.key} href={it.href} className={`pm-item ${on === it.key ? "on" : ""}`} aria-current={on === it.key ? "page" : undefined}>
                 <span className="pm-o">{on === it.key ? "●" : "o"}</span><Glyph name={it.icon} size={16} /><span>{it.label}</span>

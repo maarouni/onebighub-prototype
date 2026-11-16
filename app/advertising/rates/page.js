@@ -3,6 +3,11 @@
 import { AdPage } from "../../components/AdPages";
 import { Glyph } from "../../components/Icons";
 import { RATES } from "../../lib/adRates";
+import { useState } from "react";
+import { Bar } from "../../components/PromoKit";
+import { SectionForm, hasData } from "../../components/PartForm";
+import { BARTER_AD, newRequest } from "../../lib/adRequests";
+import { getProfile } from "../../lib/profile";
 
 // Promote & Earn — Rates (Cesar's Figma Rev 261116): one table of all rates.
 // Advertising / ticket numbers come from lib/adRates so they change in one place.
@@ -20,6 +25,16 @@ const CARDS = [
 ];
 
 export default function Rates() {
+  const [v, setV] = useState({});
+  const [msg, setMsg] = useState("");
+  function submitBarter() {
+    if (!v.seek?.length) return setMsg("Select what you're Seeking.");
+    if (!hasData({ ...v, seek: [] })) return setMsg("Tell us what you're Offering to Provide.");
+    const card = getProfile();
+    const r = newRequest("barter", { events: [], data: { advertising: v }, card });
+    setMsg(`Barter request ${r.id} submitted — subject to approval.${card.name ? "" : " Add your mini-card on EDIT My Profile so we can reach you."}`);
+    setV({});
+  }
   return (
     <AdPage title="Rates" icon="discount">
       <div className="rt-head"><b>Title</b><b>Brief Descriptions</b><b>Rates <span className="cw-red">*</span></b></div>
@@ -33,8 +48,15 @@ export default function Rates() {
           </div>
         </section>
       ))}
-      <div className="rt-foot"><span className="cw-red">*</span> <b>Rates</b> <i>Subject to change without notice. Rates do not include credit card fees.</i></div>
-      <p className="nt-hint">Details: <a href="/advertising/expos">Networking Expos</a> · <a href="/advertising/dinners">Networking Dinners</a> · <a href="/advertising/workshops">Workshops</a> · <a href="/advertising/participation">Participate in onebigHUB Events</a></p>
+      <div className="rt-foot"><span className="cw-red">*</span> <b>Rates</b>&nbsp; <i>Subject to change without notice.&nbsp; Rates do not include credit card fees.</i></div>
+      <div id="barter" className="rt-barter">
+        <Bar title={BARTER_AD.title}>
+          <SectionForm s={BARTER_AD} v={v} onChange={(x) => { setV(x); setMsg(""); }} upload={false} picture />
+          <button type="button" className="cw-submit pk-center" onClick={submitBarter}>Submit</button>
+          {msg && <p className="nt-hint">{msg}</p>}
+        </Bar>
+      </div>
+      <p className="nt-hint">Details: <a href="/advertising/expos">Networking Expos</a> · <a href="/advertising/dinners">Networking Dinners</a> · <a href="/advertising/workshops">Workshops</a> · <a href="/advertising/participation">Event Participation</a></p>
     </AdPage>
   );
 }

@@ -59,7 +59,7 @@ export default function SignUp() {
       username: uname, identifier: f.email.trim() || f.mobile.trim(), email: f.email.trim(), mobile: f.mobile.trim(),
       method: f.email.trim() ? "email" : "mobile", referredBy: ref || null, joined: new Date().toISOString(),
     });
-    router.push("/profile");
+    router.push((() => { const n = new URLSearchParams(window.location.search).get("next"); return n && n.startsWith("/") && !n.startsWith("//") ? n : null; })() || "/profile");
   }
 
   if (sent) {

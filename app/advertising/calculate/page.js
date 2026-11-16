@@ -59,7 +59,7 @@ export default function CalculatePage() {
   }
 
   return (
-    <AdPage title={<>Calculate&nbsp;&nbsp;<i className="pb-sub">Advertising Cost</i></>} icon="calculate">
+    <AdPage title="Calculate Advertising Cost" icon="calculate">
       <div className="cw-page pk-page">
         <section className="pk-head">
           <div><b><span className="cw-red">Performance-Based</span> Marketing System</b><b>Premier Listing:&nbsp; Calculate My Advertising Cost</b></div>

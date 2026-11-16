@@ -17,6 +17,8 @@ const P = {
   eyeView: <><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" /><circle cx="12" cy="12" r="3" /></>,
   plusBold: <><path d="M12 4v16M4 12h16" strokeWidth="3" /></>,
   login: <><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" /><path d="M10 17l5-5-5-5" /><path d="M15 12H3" /></>,
+  gem: <><path d="M6 3h12l4 6-10 12L2 9z" /><path d="M2 9h20" /><path d="M10 3 8 9l4 12 4-12-2-6" /></>,
+  unlock: <><rect x="4" y="11" width="16" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 7.5-2" /><path d="M12 15v2" /></>,
   barter: <><path d="M4 8h14l-3-3" /><path d="M20 16H6l3 3" /></>,
   register: <><circle cx="10" cy="8" r="4" /><path d="M2 21c0-4 3.6-7 8-7s8 3 8 7" /><path d="M19 8v6M16 11h6" /></>,
   user: <><circle cx="12" cy="12" r="9.5" /><text x="12" y="16.2" textAnchor="middle" fontSize="11" fontWeight="700" fill="currentColor" stroke="none">M</text></>,

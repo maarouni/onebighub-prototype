@@ -25,7 +25,7 @@ export default function LogIn() {
     if (Object.keys(er).length) return;
     const name = id.includes("@") ? id.split("@")[0] : id;
     setUser({ name, identifier: id.trim(), method: id.includes("@") ? "email" : "mobile", joined: new Date().toISOString() });
-    router.push(dest);
+    router.push((() => { const n = new URLSearchParams(window.location.search).get("next"); return n && n.startsWith("/") && !n.startsWith("//") ? n : null; })() || dest);
   }
 
   return (

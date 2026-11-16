@@ -196,7 +196,7 @@ export function CartBar({ n, children = "ADD Selection to My Shopping Cart", onC
 // "OPTION Click here to BARTER …"
 export function BarterOption() {
   return (
-    <a className="pk-barter" href="/advertising/barter">
+    <a className="pk-barter" href="/advertising/rates#barter">
       <Glyph name="barter" size={30} />
       <span><b className="cw-red">OPTION</b> Click here to <b className="cw-red">BARTER</b> in exchange for<br />advertising or participation in events hosted by <b>onebig<span className="cw-red">HUB</span></b></span>
     </a>

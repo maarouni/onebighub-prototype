@@ -36,7 +36,7 @@ export default function PromoteAndEarn() {
 
       <section className="ad-box pe-box">
         <h2><Glyph name="idxIntro" size={34} /> Earn Money for Introductions</h2>
-        <p><b className="cw-red"><i>Get Paid</i></b> <i>for Introductions / Referrals that convert to business and/or a beneficial connection</i></p>
+        <p><b className="cw-red"><i>Get Paid</i></b> <i>for Introductions that convert to business and/or a beneficial connection</i></p>
         <ul>
           <li>Identify the Participants: Vendor and Potential Client</li>
           <li>Send Initial Message: Connector (A) introduces Participants (B, C) to each other and Submits initial evaluation(s)</li>

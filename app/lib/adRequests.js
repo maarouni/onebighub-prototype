@@ -18,58 +18,76 @@ export async function fetchHostedEvents() {
 
 // Options are "Label" or ["Label", "italic hint"].
 const TASTINGS = ["Sponsor", "Chocolate / Desserts Tasting", "Wine / Spirits Tasting", "Other"];
-
-export const PARTICIPATION = [
-  { id: "expos", n: "2a", icon: "expo", title: "Participate in Business & Technology Networking Expos, Mixers",
-    roles: ["Venue", "Sponsor", "Exhibitor", "Other"], fields: [] },
-  { id: "dinners", n: "2b", icon: "dinner", title: "Participate in Networking Dinners",
-    roles: ["Restaurant / Venue", ...TASTINGS], fields: [["venue", "Restaurant / Venue Name and Description"], ["menu", "3-Course Prix Fixe Menu"]] },
-  { id: "workshops", n: "2c", icon: "workshop", title: "Participate in Workshops",
-    roles: [["Venue", "Conference Room"], ...TASTINGS], fields: [["workshop", "Workshop", "Title and Description"], ["bio", "Workshop Presenter", "Bio"]] },
-];
+const HUB = <>onebig<span className="cw-red">HUB</span></>;
 
 export const SEEKING = ["Premier Listing(s)", ["Participation in Event(s)", "Hosted by onebigHUB"]];
 const CONSIDER = "We will also consider bartering for event tickets, exhibiting at your events, etc.";
 
-export const BARTER = [
-  { id: "advertising", n: "2a", icon: "megaphone", title: "Barter in Exchange for Advertising / Marketing / Promotions",
-    offerHint: <>Please be specific: ###,### Distribution, Frequency, etc.<br />{CONSIDER}</>, offerText: true,
-    groups: [{ options: [
-      "Distribution of Email / Text Newsletters", ["Distribution of Marketing Collateral", "Flyers, Posters, …"], ["Marketing", "Swag"],
-      ["Media", "Magazine"], ["Media", "Newspaper"], ["Media", "Podcast"], ["Media", "Radio"], ["Media", "Social Media"],
-      ["Hugs and Kisses", "Truly appreciated, but they don't always pay the bills !"],
-    ] }], fields: [] },
-  { id: "expos", n: "2b", icon: "expo", title: "Barter in Exchange to Participate in Biz & Tech Networking Mixers, Expos",
-    offerHint: <>Please be specific.<br />{CONSIDER}</>, offerText: true,
+// Rates page: "Barter in Exchange for Advertising / Marketing / Promotions".
+export const BARTER_AD = { id: "advertising", n: null, icon: "megaphone", barter: true, offerText: true,
+  title: "Barter in Exchange for Advertising / Marketing / Promotions",
+  offerHint: <>Please be specific: ###,### Distribution, Frequency, etc.<br />{CONSIDER}</>,
+  groups: [{ options: [
+    "Distribution of Email / Text Newsletters", ["Distribution of Marketing Collateral", "Flyers, Posters, …"], ["Marketing", "Swag"],
+    ["Media", "Magazine"], ["Media", "Newspaper"], ["Media", "Podcast"], ["Media", "Radio"], ["Media", "Social Media"],
+    ["Hugs and Kisses", "Truly appreciated, but they don't always pay the bills !"],
+  ] }], fields: [] };
+
+const PROMOTE = { b: <>Connect • Pay-It-Forward • Invite Others</>,
+  t: <><b>Please promote the event as: <i>Your Biz</i> and {HUB} cordially invite you …</b><br />Let&rsquo;s collaborate - take ownership of the event. <b><i>This is YOUR event too !</i></b></> };
+const LOGO = <>We will display your logo on the event page, linking to your profile in <b>{HUB}</b> or your website</>;
+const EXPO_ABOUT = (extra) => ({ h: <>About • Instructions</>, li: [
+  <>Expo Typical Attendance 200 - 800+<br />5-Star Hospitality • Upscale Ambiance • Caterers • Exhibitors • Music • Prizes</>,
+  <><b>{PROMOTE.b}</b><br />{PROMOTE.t}</>,
+  <><b>Arrive no later than 4:45pm</b> to set up your exhibitor table, and network with other participants{extra ? <><br />We will provide you with a table linen, cocktail / high-top OR 6-8 ft exhibitor table</> : null}</>,
+  "Bring your banner, business cards, candies, electrical cords, giveaways, marketing collateral, name badges, a basket to collect business cards, etc.",
+  "Bring prizes for the drawing (free OR tickets sold for a participating non-profit)",
+  <><b>This is an upscale event</b> - You will be much more approachable when you stand in front of your table, instead of &lsquo;hiding&rsquo; behind it, unless you are serving food or drinks</>,
+  LOGO,
+  ...(extra ? [] : [<>Discounts available for participating in multiple events<br />Our rates may vary depending on the event date, location, and anticipated attendance</>]),
+] });
+
+// Event Participation — one page for participating and bartering (Nov 16, 7:52 AM).
+export const PART_SECTIONS = [
+  { id: "expos", n: "2a", icon: "expo", title: <>Participate in {HUB} Biz &amp; Tech Networking Expos</>, plain: "Participate in onebigHUB Biz & Tech Networking Expos",
+    info: [
+      { h: "Exhibitor", li: ["Option A: Includes 6 ft or 8 ft table with linen", "Option B: Includes round cocktail table with linen"] },
+      { h: "Sponsor", li: ["List of all attendees", "6 ft or 8 ft table with linen", "30 second introduction during very brief presentation at event",
+        <>Weekly <b>{HUB}</b> Notification:<br />Event sponsored by &lsquo;Your Biz / Org&rsquo; in Expo listing<br />Premier Event listing includes your logo</>,
+        "Deals - Discount / Gift Certificates for 3 months", <>Be a presenter at a monthly <b>{HUB}</b> Workshop</>,
+        "Custom Effective Networking Workshop (1-3 hours at your location) presented by Cesar Plata"] },
+      EXPO_ABOUT(false),
+    ],
+    selectHint: "Select all that apply",
+    groups: [{ options: [["Exhibitor", "Option A: Includes 6 ft or 8 ft table with linen"], ["Exhibitor", "Option B: Includes round cocktail table with linen"], "Sponsor"] }], fields: [] },
+  { id: "exposBarter", n: "2b", icon: "expo", barter: true, offerText: true, title: <>Barter to Participate in {HUB} Biz &amp; Tech Networking Expos</>, plain: "Barter to Participate in onebigHUB Biz & Tech Networking Expos",
+    info: [
+      { h: "Food & Beverage", li: [<>We usually invite multiple caterers to provide quantity and variety<br />Please bring a copy of your catering permit and MINI appetizers, plates, utensils, etc.</>] },
+      { h: "Entertainment", li: ["We usually invite several entertainers to provide variety and opportunities to network / take breaks"] },
+      { h: <>Media <i>Photographers, Podcasters, Reporters, Videographers, …</i></>, li: ["Draw traffic to your business ! Post event pictures / video on your website"] },
+      EXPO_ABOUT(true),
+    ],
+    offerHint: <>Please be specific<br />{CONSIDER}</>,
     groups: [
       { title: "Staff", options: [["Ambassador", "Sign up people to our apps"], "Registration"] },
       { title: "Supplier", options: ["Venue", "Audio / Visual Equipment", ["Furniture", "Cocktail and Exhibitor Tables, Stanchions, etc."], "Decorations", ["Disposable Tableware", "forks, knives, spoons, napkins, plates, glassware, etc."], "Table Linens"] },
-      { title: "Food and Beverage", options: ["Catering", "Chocolates", "Desserts", "Wine / Spirits Bar", "Wine / Spirits Tasting"] },
-      { title: "Entertainment", options: ["Auction", "Art Show", "DJ", "Fashion Show", "Live Music", "Media Show", "Performance", ["Non-Profit", "Wedge Drawing / Raffle"]] },
+      { title: "Food and Beverage", note: <>Includes 6 ft or 8 ft table with linen<br />Bring LOTS of appetizers. Note: We usually invite multiple caterers.</>, options: ["Catering", "Chocolates", "Desserts", "Wine / Spirits Bar", "Wine / Spirits Tasting"] },
+      { title: "Entertainment", note: "Includes round cocktail table with linen", options: ["Auction", "Art Show", "DJ", "Fashion Show", "Live Music", "Media Show", "Performance", ["Non-Profit", "Wedge Drawing / Raffle"]] },
       { title: "Media", options: ["Photography", "Videography"] },
       { title: "Services", options: [["Crew", "Bussers, Janitorial"], ["Crew", "Setting Up / Tearing Down"], "Security", "Valet Parking"] },
     ], fields: [] },
-  { id: "dinners", n: "2c", icon: "dinner", title: "Barter in Exchange to Participate in Networking Dinners", upload: true,
+  { id: "dinners", n: 3, icon: "dinner", barter: true, title: <>Participate in {HUB} Networking Dinners</>, plain: "Participate in onebigHUB Networking Dinners",
+    info: [{ h: "Restaurant Owner", li: ["Showcase your cuisine, promote your restaurant, and earn money",
+      <><b>{PROMOTE.b}</b><br />5-Star Hospitality • 3-Course Prix Fixe Dinner • Upscale Ambiance • Prizes</>] }],
     offerHint: "Please be specific", groups: [{ options: ["Restaurant / Venue", ...TASTINGS] }],
     fields: [["venue", "Restaurant / Venue Name and Description"], ["menu", "3-Course Prix Fixe Menu"]] },
-  { id: "workshops", n: "2d", icon: "workshop", title: "Barter in Exchange to Participate in Workshops", upload: true,
+  { id: "workshops", n: 4, icon: "workshop", barter: true, title: <>Participate in {HUB} Workshops</>, plain: "Participate in onebigHUB Workshops",
+    info: [{ h: "Workshop Presenter", li: [<>Workshop Typical Attendance 10 - 40+<br />5-Star Hospitality • Upscale Ambiance • Prizes</>,
+      "Subject to approval and availability", <><b>{PROMOTE.b}</b><br />{PROMOTE.t}</>,
+      <>Bring prizes for the drawing. Sell your books.<br />Bring your banner, books, candies, giveaways, marketing collateral, etc.</>, LOGO] }],
     offerHint: "Please be specific", groups: [{ options: [["Venue", "Conference Room"], ...TASTINGS] }],
     fields: [["workshop", "Workshop", "Title and Description"], ["bio", "Workshop Presenter", "Bio"]] },
 ];
 
-// "Exhibitors and Participants" box under 2b (Cesar's text).
-export const EXHIBITORS_INFO = [
-  { p: [<><b className="cw-red">These are YOUR EVENTS !</b> Please PROMOTE them to your clients, customers, colleagues and friends.</>,
-    "Arrive no later than 4:45pm to set up your exhibitor table, and network with other participants.",
-    "Please bring your marketing collateral: banner, business cards, electrical cords, candies, giveaways, name badges, a basket to collect business cards, etc.",
-    "We encourage you to also bring gift certificates and/or prizes for the drawing. Our drawing will either be free OR we will invite a non-profit organization to sell tickets.",
-    "This is an upscale event – You will be much more approachable when you stand in front of your table, instead of 'hiding' behind it, unless you are serving food and drinks."] },
-  { h: "Exhibitors and Sponsors", p: [<>Please contact Cesar Plata to discuss a <b className="cw-red">WIN-WIN PACKAGE DEAL</b>, including Premier Listing(s) and more.</>,
-    "Our rates vary depending on the event date, location, and anticipated attendance."] },
-  { h: "Sponsors", p: ["A brief public introduction during the event, list of attendees, and a custom Effective Networking Workshop for your clients and colleagues."] },
-  { h: <>Participants <i>Food &amp; Beverage, Entertainment, Media</i></>, p: [<b className="cw-red">No Cost to Participate</b>,
-    "We will display your mini-card / logo on the event page.", "We will provide you with a table linen, cocktail / high top OR 6 ft exhibitor table."] },
-  { h: "Food & Beverage", p: ["We usually invite multiple caterers to provide quantity and variety.", "Please bring a copy of your catering permit and MINI appetizers, plates, utensils, etc."] },
-  { h: "Entertainment", p: ["We usually invite multiple entertainers to provide variety and opportunities to network and take breaks."] },
-  { h: <>Media <i>Photographers, Podcasters, Videographers, …</i></>, p: ["Draw traffic to your business ! Post event pictures / video on your website."] },
-];
+// Everything Barter Approval can show.
+export const ALL_SECTIONS = [BARTER_AD, ...PART_SECTIONS];

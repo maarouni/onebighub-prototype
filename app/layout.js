@@ -1,10 +1,11 @@
 import "./globals.css";
 import NavBar from "./components/NavBar";
 import SiteFooter from "./components/SiteFooter";
+import RegGate from "./components/RegGate";
 
 export const metadata = {
-  title: "onebigHUB — Discover • Connect • Earn (Prototype)",
-  description: "onebigHUB — Discover • Connect • Earn. Internal prototype, not the live product",
+  title: "onebigHUB — Attend • Connect • Earn (Prototype)",
+  description: "onebigHUB — Attend • Connect • Earn. Internal prototype, not the live product",
 };
 
 export default function RootLayout({ children }) {
@@ -24,6 +25,7 @@ export default function RootLayout({ children }) {
         {children}
 
         <SiteFooter />
+        <RegGate />
       </body>
     </html>
   );
