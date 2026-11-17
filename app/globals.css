@@ -4163,3 +4163,18 @@ body:has(.ref-page) { background: #cfcfcf !important; }
 .navbar .brand-v2 .brand-text .brand-more { margin-top: 9px !important; }
 .pm-col { background: #f2f2f2; }
 .pe-dig b { color: var(--cg-blue); }
+/* Sign Up New User in Cesar's Figma layout (Nov 16): narrow column, gray label-in-box fields */
+.su-figma { max-width: 360px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+.su-figma .ed-field { background: #f2f2f2; border: 1px solid #bdbdbd; border-radius: 14px; padding: 8px 14px; gap: 2px; }
+.su-figma .ed-label { color: var(--ink); font-size: 13px; font-weight: 700; }
+.su-figma .ed-label em, .su-figma .ed-label i { color: var(--ink); font-style: italic; font-weight: 400; font-size: 12.5px; }
+.su-figma .ed-field input { border: 0 !important; background: transparent !important; padding: 2px 0 !important; box-shadow: none !important; font-size: 13px; min-height: 0; height: auto; }
+.su-figma .ed-field input::placeholder { color: #aaa; }
+.su-figma .pw-wrap { background: transparent; }
+.su-figma .ed-field:has(input[type="email"]) { margin-top: 14px; }
+.su-figma .auth-social { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+.su-figma .auth-social button { width: 100%; max-width: 230px; border: 1px solid #999; border-radius: 999px; background: #fff; padding: 4px 12px; font-size: 12.5px; font-weight: 700; color: var(--ink); opacity: 1; display: flex; align-items: center; gap: 10px; justify-content: center; }
+.su-g { color: #4285f4; font-size: 15px; } .su-a { font-size: 15px; }
+.su-figma .nt-hint { color: var(--ink); font-size: 12px; }
+.su-figma .rg-introbar { margin-top: 18px; }
+.su-continue { align-self: center; background: #f0962f; border: 0; border-radius: 999px; padding: 5px 22px; font: inherit; font-weight: 700; font-size: 14px; cursor: pointer; margin-top: 6px; }

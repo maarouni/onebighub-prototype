@@ -9,7 +9,7 @@ import { MiniCardView, PagerRow } from "../../components/PromoKit";
 import { fetchProfiles, matchProfile } from "../../lib/referrals";
 
 // Cesar's "Registration — Sign Up New User" (Figma Rev 261025; Nov 16:
-// Username removed, "Who Introduced you to onebigHUB.com ?" added so the
+// Username removed, "Who introduced you to onebigHUB.com ?" added so the
 // introducer gets referral credit even without their QR code).
 // Prototype: no real email sending or password storage. "Verify Email"
 // simulates clicking the link in the confirmation email.
@@ -37,7 +37,7 @@ export default function SignUp() {
   const [pi, setPi] = useState(0);
   const [intro, setIntro] = useState(null);
   useEffect(() => { fetchProfiles().then(setPeople); }, []);
-  const found = applied ? people.filter((p) => matchProfile(p, applied)) : [];
+  const found = applied ? people.filter((p) => matchProfile(p, applied)) : people;
   const pAt = Math.min(pi, Math.max(0, found.length - 1));
   const set = (k) => (v) => setF((c) => ({ ...c, [k]: v }));
   useEffect(() => { setRef(new URLSearchParams(window.location.search).get("ref") || ""); }, []);
@@ -91,22 +91,22 @@ export default function SignUp() {
 
   return (
     <PageTemplate section={null} title="Registration" subtitle="Sign Up New User" icon="register" narrow tiles={false}>
-      <form className="job-form auth-box" onSubmit={submit} noValidate>
+      <form className="job-form auth-box su-figma" onSubmit={submit} noValidate>
         <p className="big-q">Welcome !</p>
         <div className="auth-social">
-          <button type="button" disabled title="Not wired up in the prototype">Sign in with Google</button>
-          <button type="button" disabled title="Not wired up in the prototype">Sign in with Apple</button>
+          <button type="button" disabled title="Not wired up in the prototype"><b className="su-g">G</b> Sign in with Google</button>
+          <button type="button" disabled title="Not wired up in the prototype"><b className="su-a"></b> Sign in with Apple</button>
         </div>
         <OrLine />
-        <Field label="First Name" req error={errors.first}><Input value={f.first} onChange={set("first")} autoComplete="given-name" /></Field>
-        <Field label="Last Name" req error={errors.last}><Input value={f.last} onChange={set("last")} autoComplete="family-name" /></Field>
-        <Field label="Email" hint="Required for verification" error={errors.email}><Input type="email" value={f.email} onChange={set("email")} autoComplete="email" /></Field>
+        <Field label="First Name" req error={errors.first}><Input value={f.first} onChange={set("first")} autoComplete="given-name" placeholder="Submit Here" /></Field>
+        <Field label="Last Name" req error={errors.last}><Input value={f.last} onChange={set("last")} autoComplete="family-name" placeholder="Submit Here" /></Field>
+        <Field label="Email" hint="Required for Verification" error={errors.email}><Input type="email" value={f.email} onChange={set("email")} autoComplete="email" placeholder="Submit Here" /></Field>
         <OrLine />
-        <Field label="Mobile" hint="Required for password recovery" error={errors.mobile}><Input type="tel" value={f.mobile} onChange={set("mobile")} placeholder="(xxx) xxx-xxxx" autoComplete="tel" /></Field>
-        <Field label="Password" req error={errors.password}><PasswordInput value={f.password} onChange={set("password")} autoComplete="new-password" /></Field>
-        <Field label="Password Confirm" req error={errors.confirm}><PasswordInput value={f.confirm} onChange={set("confirm")} autoComplete="new-password" /></Field>
+        <Field label="Mobile" hint="Required for Password Recovery" error={errors.mobile}><Input type="tel" value={f.mobile} onChange={set("mobile")} placeholder="(xxx) xxx-xxxx" autoComplete="tel" /></Field>
+        <Field label="Password" req error={errors.password}><PasswordInput value={f.password} onChange={set("password")} autoComplete="new-password" placeholder="Submit Here" /></Field>
+        <Field label="Password" hint="Confirm" error={errors.confirm}><PasswordInput value={f.confirm} onChange={set("confirm")} autoComplete="new-password" placeholder="Submit Here" /></Field>
         <p className="nt-hint">Password should be at least 8 characters long and contain at least one special character (!@#$%^&amp;*) and one uppercase letter.</p>
-        <div className="cw-bar rg-introbar"><b>Who Introduced you to onebig<span className="cw-red">HUB</span>.com ?</b></div>
+        <div className="cw-bar rg-introbar"><b>Who introduced you to onebig<span className="cw-red">HUB</span>.com ?</b></div>
         {ref && !intro && <p className="nt-hint">Introduced by <b>{ref}</b> (from their QR code)</p>}
         <div className="pk-gbox">
           <span className="pk-label"><b>SEARCH</b> <i>Click on mini-card to select</i></span>
@@ -114,14 +114,14 @@ export default function SignUp() {
             onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); setApplied(q.trim()); setPi(0); } }} aria-label="Search for who introduced you" />
           <button type="button" className="cw-submit pk-center" onClick={() => { setApplied(q.trim()); setPi(0); }}>Submit</button>
         </div>
-        {applied && (found.length
+        {(found.length
           ? <button type="button" className={`pk-pick ${intro?.id === found[pAt].id ? "on" : ""}`} onClick={() => setIntro(intro?.id === found[pAt].id ? null : found[pAt])} aria-pressed={intro?.id === found[pAt].id}><MiniCardView p={found[pAt]} /></button>
           : <p className="nt-hint">No members match &ldquo;{applied}&rdquo;.</p>)}
-        {applied && found.length > 0 && <PagerRow i={pAt} n={found.length} onGo={setPi} word="" />}
+        {found.length > 0 && <PagerRow i={pAt} n={found.length} onGo={setPi} word="" />}
         {intro && <p className="nt-hint">Selected: <b>{intro.name}</b> — they&rsquo;ll be credited for introducing you. <button type="button" className="clear-filters-link" onClick={() => setIntro(null)}>Clear</button></p>}
         <NotRobot checked={human} onChange={setHuman} error={errors.robot} />
         {errors.robot && <span className="ed-error">{errors.robot}</span>}
-        <button type="submit" className="btn-primary" style={{ marginTop: 10 }}>Continue</button>
+        <button type="submit" className="su-continue">Continue</button>
       </form>
     </PageTemplate>
   );

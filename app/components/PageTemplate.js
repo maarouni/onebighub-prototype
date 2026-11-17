@@ -29,7 +29,7 @@ export default function PageTemplate({
       <SiteHero
         section={section}
         mode={mode}
-        title={<>{title}{subtitle && <em className="pb-sub">{subtitle}</em>}</>}
+        title={<>{title}{subtitle && <>&nbsp;&nbsp;<em className="pb-sub">{subtitle}</em></>}</>}
         icon={icon}
         activeAction={activeAction}
         intro={intro}
