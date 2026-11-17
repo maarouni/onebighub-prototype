@@ -27,17 +27,21 @@ export function AdNav() {
   );
 }
 
-export function AdPage({ title, icon = "megaphone", children }) {
-  return (
+// mode="edit" (Cesar, Nov 17): Event Participation, Private-Labeled Header and
+// Barter Approval are gray EDIT pages — gray title bar, upright title, gray page.
+export function AdPage({ title, icon = "megaphone", mode = "output", children }) {
+  const page = (
     <PageTemplate
       section="earn"
       title={title}
       icon={icon}
+      mode={mode}
       legend={false}
     >
       {children}
     </PageTemplate>
   );
+  return mode === "edit" ? <div className="pe-edit">{page}</div> : page;
 }
 
 export function RateCard({ slug, children }) {

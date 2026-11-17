@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { ConnectPage, SectionBar, CardAndPitch, PersonCard, NetworkGraph } from "../../components/ConnectKit";
-import { Box, Option } from "../../components/FilterKit";
+import { Box, Option, RefIcon } from "../../components/FilterKit";
 import { MiniCard } from "../../components/Form";
 import { Glyph } from "../../components/Icons";
 import { getProfile } from "../../lib/profile";
@@ -26,7 +26,7 @@ export default function ConnectSteps46() {
   const [relNone, setRelNone] = useState(false);
   const [lvl, setLvl] = useState([]);
   const [lvlNone, setLvlNone] = useState(false);
-  const [offer, setOffer] = useState("no");
+  const [offer, setOffer] = useState("both");
   // messages
   const [q, setQ] = useState("");
   const [applied, setApplied] = useState("");
@@ -50,6 +50,7 @@ export default function ConnectSteps46() {
     if (rel.length) { const s = relsOf(p); if (!rel.some((k) => (k === "referrals" ? p.professional === "referral" || p.referral : s.has(k)))) return false; }
     if (lvl.length && !lvl.includes(p.level || "1")) return false;
     if (offer === "yes" && !p.offersReferral) return false;
+    if (offer === "no" && p.offersReferral) return false;
     return true;
   }), [people, follow, rel, relNone, lvl, lvlNone, offer]);
   const n = (f) => people.filter(f).length;
@@ -104,8 +105,9 @@ export default function ConnectSteps46() {
                 <Option checked={lvlNone} onChange={() => { setLvlNone((v) => !v); setLvl([]); }} label="None" />
                 {LEVEL_OPTS.map(([id, l]) => <Option key={id} checked={lvl.includes(id)} onChange={() => { setLvlNone(false); tog(lvl, setLvl, id); }} label={l} />)}
               </Box>
-              <Box title="Offering $ Referrals">
-                <Option type="radio" name="cw-offer" checked={offer === "no"} onChange={() => setOffer("no")} label="No" def />
+              <Box title="Offering $ Referrals" icon={<RefIcon />}>
+                <Option type="radio" name="cw-offer" checked={offer === "both"} onChange={() => setOffer("both")} label="Both" def />
+                <Option type="radio" name="cw-offer" checked={offer === "no"} onChange={() => setOffer("no")} label="No" />
                 <Option type="radio" name="cw-offer" checked={offer === "yes"} onChange={() => setOffer("yes")} label="Yes" />
               </Box>
             </div>

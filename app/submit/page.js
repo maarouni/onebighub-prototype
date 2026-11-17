@@ -298,8 +298,8 @@ export default function SubmitEvent() {
                 ) : (
                   <span>{preview.type === "Online" ? "Online" : cityCode(preview)}, Hosted by {preview.hostedBy}, <span className="obc-price">{preview.cost}</span></span>
                 )}
+                {prem && <span className="obc-inline-img obc-inline-ph">{gallery[0]?.type?.startsWith("image") ? <img src={gallery[0].src} alt="" /> : <small>Icon,<br />Image<br />or Logo</small>}</span>}
               </span>
-              {prem && <span className="obc-cell obc-img">{gallery[0]?.type?.startsWith("image") ? <img src={gallery[0].src} alt="" /> : <><Glyph name="gallery" size={30} strokeWidth={1.4} /><small>Icon, Image or Logo</small></>}</span>}
             </span>
           </button>
         ))}

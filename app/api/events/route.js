@@ -4,9 +4,20 @@ import path from "path";
 
 const DATA_PATH = path.join(process.cwd(), "data", "events.json");
 
+// Sample events carry postedDaysAgo so "Date Posted / Revised — Past 7 days"
+// (the default since Cesar's Nov 17 Figma) keeps showing them in the prototype.
+function withPosted(e) {
+  if (typeof e.postedDaysAgo !== "number") return e;
+  const d = new Date(); d.setDate(d.getDate() - e.postedDaysAgo);
+  const pad = (n) => String(n).padStart(2, "0");
+  return { ...e, posted: `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}` };
+}
+
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const raw = await fs.readFile(DATA_PATH, "utf-8");
-  return NextResponse.json(JSON.parse(raw));
+  return NextResponse.json(JSON.parse(raw).map(withPosted));
 }
 
 export async function POST(request) {

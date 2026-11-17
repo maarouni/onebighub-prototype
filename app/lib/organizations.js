@@ -66,7 +66,7 @@ export const ROSTER_GROUPS = [
 
 // Oct 30 (Cesar's Figma Rev 261030): Connections filters now mirror the other
 // sections — people, businesses, orgs and groups share one filter set.
-export const REFERRAL_OPTIONS = [{ id: "no", label: "No", def: true }, { id: "yes", label: "Yes" }];
+export const REFERRAL_OPTIONS = [{ id: "no", label: "No" }, { id: "yes", label: "Yes" }];
 export const CONNECTION_TYPES = [
   { id: "indPersonal", label: "Individuals Personal" },
   { id: "indProfessional", label: "Individuals Professional" },

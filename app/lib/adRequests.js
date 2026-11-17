@@ -89,5 +89,10 @@ export const PART_SECTIONS = [
     fields: [["workshop", "Workshop", "Title and Description"], ["bio", "Workshop Presenter", "Bio"]] },
 ];
 
+// Private-Labeled Header page: "Barter in Exchange for My Private-Labeled Header".
+export const BARTER_PL = { id: "privateLabel", n: null, icon: "idxPrivateLabel", barter: true,
+  title: "Barter in Exchange for My Private-Labeled Header", groups: [],
+  fields: [["name", "URL, Name of Business, Organization or Group"], ["tagline", "Tagline"]] };
+
 // Everything Barter Approval can show.
-export const ALL_SECTIONS = [BARTER_AD, ...PART_SECTIONS];
+export const ALL_SECTIONS = [BARTER_AD, BARTER_PL, ...PART_SECTIONS];

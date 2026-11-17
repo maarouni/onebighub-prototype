@@ -1,6 +1,6 @@
 "use client";
 
-import { FilterShell, Box, CheckList, DateBox, RegionBoxes, Option } from "./FilterKit";
+import { FilterShell, Box, CheckList, DateBox, RegionBoxes, Option, BothBox, RefIcon } from "./FilterKit";
 import ListingTypeBox from "./ListingTypeBox";
 import {
   DATE_POSTED_OPTIONS, REFERRAL_OPTIONS, DELIVERY_OPTIONS, COST_OPTIONS,
@@ -21,9 +21,7 @@ export default function ListingsFilterPanel({ items, filters, setFilters, today,
     <FilterShell onHide={onHide} onClear={() => setFilters(EMPTY_LISTING_FILTERS)} onDisplay={onDisplay}>
       <ListingTypeBox current={type} onPick={(id) => setFilters((f) => ({ ...f, type: id ? [id] : [], tags: [] }))} />
       <DateBox title="Date Posted / Revised" field="posted" fromKey="postedFrom" toKey="postedTo" options={DATE_POSTED_OPTIONS} {...kit} />
-      <Box title="Offering $ Referrals">
-        <CheckList field="referrals" options={REFERRAL_OPTIONS} {...kit} all={false} />
-      </Box>
+      <BothBox title="Offering $ Referrals" icon={<RefIcon />} field="referrals" options={REFERRAL_OPTIONS} {...kit} />
       {(TYPE_BOXES[type] || []).map((b, i) => (
         <Box key={i} title={b.title} defaultOpen={i === 0}>
           <Option type="radio" name={`tb-${i}`} checked={!b.options.some((o) => filters.tags.includes(o))} onChange={() => setFilters((f) => ({ ...f, tags: f.tags.filter((t) => !b.options.includes(t)) }))} label="None" def />
@@ -31,9 +29,7 @@ export default function ListingsFilterPanel({ items, filters, setFilters, today,
         </Box>
       ))}
       {type !== "Pay-It-Forward" && (
-        <Box title="Format">
-          <CheckList field="delivery" options={DELIVERY_OPTIONS} {...kit} all={false} />
-        </Box>
+        <BothBox title="Format" field="delivery" options={DELIVERY_OPTIONS} {...kit} />
       )}
       <Box title={type === "Investment" ? "Cost / Seeking" : "Cost"}>
         <CheckList field="cost" options={COST_OPTIONS} {...kit} />

@@ -120,6 +120,23 @@ export function CheckList({ field, options, filters, setFilters, count, all = tr
   );
 }
 
+// "Both Default / No / Yes" style box (Cesar, Nov 17 — global filter boxes).
+// Stored as an array so the matching code is unchanged: [] = Both.
+export function BothBox({ title, icon, field, options, filters, setFilters, count }) {
+  const cur = filters[field] || [];
+  const both = cur.length !== 1;
+  return (
+    <Box title={title} icon={icon}>
+      <Option type="radio" name={`both-${field}`} checked={both} onChange={() => setFilters((f) => ({ ...f, [field]: [] }))} label="Both" def />
+      {options.map((o) => (
+        <Option key={optId(o)} type="radio" name={`both-${field}`} checked={!both && cur[0] === optId(o)}
+          onChange={() => setFilters((f) => ({ ...f, [field]: [optId(o)] }))} label={optLabel(o)} count={count ? count(field, optId(o)) : undefined} />
+      ))}
+    </Box>
+  );
+}
+export const RefIcon = () => <Glyph name="referral" size={17} className="ref-ico" />;
+
 // Single-choice date box ("All Default", Today, … MM/DD/YY - MM/DD/YY).
 // Default end of a custom range: two weeks from today.
 function twoWeeksAhead() {
@@ -134,7 +151,7 @@ export function DateBox({ title = "Dates", field, fromKey, toKey, options, filte
     <Box title={title} hint="Select one">
       {options.map((o) => (
         <Option key={o.id} type="radio" name={`date-${field}`} checked={filters[field] === o.id}
-          onChange={() => setFilters((f) => ({ ...f, [field]: o.id, ...(o.id === "custom" && !f[toKey] ? { [toKey]: twoWeeksAhead() } : {}) }))} label={o.label} def={o.id === "all"}
+          onChange={() => setFilters((f) => ({ ...f, [field]: o.id, ...(o.id === "custom" && !f[toKey] ? { [toKey]: twoWeeksAhead() } : {}) }))} label={o.label} def={o.def ?? o.id === "all"}
           count={o.id === "custom" || !count ? undefined : count(field, o.id)} />
       ))}
       {filters[field] === "custom" && (

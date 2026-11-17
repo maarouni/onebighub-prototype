@@ -1,14 +1,14 @@
 "use client";
 
-import { FilterShell, Box, Option, CheckList, DateBox, GroupedBox, DigestBox, RegionBoxes } from "./FilterKit";
-import { DATE_OPTIONS, COST_OPTIONS, REGION_GROUPS, CATEGORY_GROUPS, EMPTY_FILTERS, countFor } from "../lib/taxonomy";
-import { DATE_POSTED_OPTIONS, REFERRAL_OPTIONS, INDUSTRIES } from "../lib/organizations";
+import { FilterShell, Box, CheckList, DateBox, GroupedBox, DigestBox, RegionBoxes, BothBox, RefIcon } from "./FilterKit";
+import { COST_OPTIONS, REGION_GROUPS, CATEGORY_GROUPS, EMPTY_FILTERS, CAL_POSTED_OPTIONS, FORMAT_OPTIONS, countFor } from "../lib/taxonomy";
+import { REFERRAL_OPTIONS, INDUSTRIES } from "../lib/organizations";
 
 // One Big Calendar filters — Nov 8 (Cesar's Figma): Dates · Date Posted / Revised ·
 // Offering $ Referrals · Event Costs · Format · Type · Categories · Industries ·
 // Regions · Add Selections to My Calendar Digest.
 export const AD_TYPE_OPTIONS = [
-  { id: "regular", label: <>Regular <i>Free</i></>, def: true },
+  { id: "regular", label: <>Regular <i>Free</i></> },
   { id: "premier", label: "Premier" },
 ];
 
@@ -21,21 +21,14 @@ export default function FilterPanel({ events, filters, setFilters, today, q, onH
   return (
     <FilterShell onHide={onHide} onClear={() => setFilters(EMPTY_FILTERS)} onDisplay={onDisplay}>
       {/* Nov 15 (Cesar Rev 261115, confirmed by Masoud): no "Dates" box — Date Posted / Revised comes first */}
-      <DateBox title="Date Posted / Revised" field="posted" fromKey="postedFrom" toKey="postedTo" options={DATE_POSTED_OPTIONS} {...kit} />
-
-      <Box title="Offering $ Referrals"><CheckList field="referral" options={REFERRAL_OPTIONS} all={false} {...kit} /></Box>
-
+      {/* Nov 17 (Cesar's Figma): Past 7 days default; Both / No / Yes boxes; Format before Event Costs */}
+      <DateBox title="Date Posted / Revised" field="posted" fromKey="postedFrom" toKey="postedTo" options={CAL_POSTED_OPTIONS} {...kit} />
+      <BothBox title="Offering $ Referrals" icon={<RefIcon />} field="referral" options={REFERRAL_OPTIONS} {...kit} />
+      <BothBox title="Format" field="formats" options={FORMAT_OPTIONS} {...kit} />
       <Box title="Event Costs">
         <CheckList field="costs" options={COST_OPTIONS} {...kit} />
       </Box>
-
-      <Box title="Format">
-        <CheckList field="formats" options={[{ id: "In-Person", label: "In-Person" }, { id: "Online", label: "Online / Virtual" }]} all={false} {...kit} />
-      </Box>
-
-      <Box title="Type">
-        <CheckList field="adtypes" options={AD_TYPE_OPTIONS} all={false} {...kit} />
-      </Box>
+      <BothBox title="Type" field="adtypes" options={AD_TYPE_OPTIONS} {...kit} />
 
       <GroupedBox title="Categories" field="categories" groups={CATEGORY_GROUPS} {...kit} />
 

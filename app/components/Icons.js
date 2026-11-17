@@ -17,6 +17,8 @@ const P = {
   eyeView: <><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" /><circle cx="12" cy="12" r="3" /></>,
   plusBold: <><path d="M12 4v16M4 12h16" strokeWidth="3" /></>,
   login: <><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" /><path d="M10 17l5-5-5-5" /><path d="M15 12H3" /></>,
+  // Offering $ Referrals badge (Cesar Nov 17): scalloped seal with a $
+  referral: <><path d="M12 2.5l2 1.6 2.5-.4 1 2.3 2.3 1-.4 2.5 1.6 2-1.6 2 .4 2.5-2.3 1-1 2.3-2.5-.4-2 1.6-2-1.6-2.5.4-1-2.3-2.3-1 .4-2.5L2.5 12l1.6-2-.4-2.5 2.3-1 1-2.3 2.5.4z" /><path d="M14.3 9.3c-.4-.8-1.3-1.2-2.3-1.2-1.3 0-2.3.7-2.3 1.7 0 2.4 4.8 1.2 4.8 3.8 0 1-1 1.8-2.5 1.8-1.1 0-2-.5-2.4-1.3" /><path d="M12 6.8v1.3M12 15.2v1.6" /></>,
   gem: <><path d="M6 3h12l4 6-10 12L2 9z" /><path d="M2 9h20" /><path d="M10 3 8 9l4 12 4-12-2-6" /></>,
   unlock: <><rect x="4" y="11" width="16" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 7.5-2" /><path d="M12 15v2" /></>,
   barter: <><path d="M4 8h14l-3-3" /><path d="M20 16H6l3 3" /></>,

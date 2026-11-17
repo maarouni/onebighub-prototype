@@ -104,11 +104,22 @@ export const ATTENDANCE_STATUSES = [
   { id: "waitlist", icon: "W", label: "Waitlist / Pending" },
 ];
 
+// Date Posted / Revised on One Big Calendar and My Calendar Digest (Nov 17):
+// no "All" — Past 30+ days shows everything; Past 7 days is the default.
+export const CAL_POSTED_OPTIONS = [
+  { id: "today", label: "Today" },
+  { id: "7", label: "Past 7 days", def: true },
+  { id: "15", label: "Past 15 days" },
+  { id: "30", label: "Past 30+ days" },
+  { id: "custom", label: "MM/DD/YY - MM/DD/YY" },
+];
+export const FORMAT_OPTIONS = [{ id: "In-Person", label: "In-Person" }, { id: "Online", label: "Online" }];
+
 export const EMPTY_FILTERS = {
   formats: [],
   tiers: [],
   // Nov 8 (Cesar's Figma filters)
-  posted: "all",
+  posted: "7", // Nov 17 (Cesar's Figma): Date Posted / Revised defaults to Past 7 days
   postedFrom: "",
   postedTo: "",
   referral: [],

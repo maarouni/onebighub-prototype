@@ -1,15 +1,16 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ATTENDANCE_STATUSES, COST_OPTIONS, REGION_GROUPS, CATEGORY_GROUPS, EMPTY_FILTERS, matches, googleCalendarUrl } from "../lib/taxonomy";
+import { ATTENDANCE_STATUSES, COST_OPTIONS, REGION_GROUPS, CATEGORY_GROUPS, EMPTY_FILTERS, CAL_POSTED_OPTIONS, FORMAT_OPTIONS, matches, googleCalendarUrl } from "../lib/taxonomy";
 import { fetchEvents } from "../lib/events";
 import { fmtTime, fmtDateRange, isoOf } from "../components/EventVisuals";
 import { cityCode } from "../lib/cityCodes";
 import { addToCart } from "../lib/cart";
 import PageTemplate from "../components/PageTemplate";
 import { ResultsHead, ListingTable, Pager } from "../components/ListingTable";
-import { Box, Option, CheckList, GroupedBox, RegionBoxes, FilterShell, DateBox } from "../components/FilterKit";
-import { DATE_POSTED_OPTIONS, REFERRAL_OPTIONS, INDUSTRIES } from "../lib/organizations";
+import { Box, Option, CheckList, GroupedBox, RegionBoxes, FilterShell, DateBox, BothBox, RefIcon } from "../components/FilterKit";
+import { REFERRAL_OPTIONS, INDUSTRIES } from "../lib/organizations";
+import { PagerRow } from "../components/PromoKit";
 import { NextStep } from "../components/Steps";
 import { Glyph } from "../components/Icons";
 import CollapseArrow from "../components/CollapseArrow";
@@ -36,7 +37,7 @@ const DATE_VIEWS = [
   { id: "all", label: "All dates" },
 ];
 const TYPE_OPTIONS = [
-  { id: "regular", label: "Regular", hint: "Free", def: true },
+  { id: "regular", label: <>Regular <i>Free</i></> },
   { id: "premier", label: "Premier" },
 ];
 const SYNC_OPTIONS = ["Apple", "Calendly", "Google", "Microsoft Outlook"];
@@ -157,6 +158,7 @@ export default function MyCalendar() {
   const [q, setQ] = useState("");
   const [page, setPage] = useState(1);
   const [sharedIdx, setSharedIdx] = useState(0);
+  const [allowIdx, setAllowIdx] = useState(0);
   const [share, setShare] = useState({ hideAll: false, people: [] });
   const [shareQ, setShareQ] = useState("");
   const [flash, setFlash] = useState("");
@@ -300,10 +302,10 @@ export default function MyCalendar() {
               </button>
             </Box>
 
-            {/* Nov 15 (Cesar Rev 261115): no "Dates" box here either */}
-            <DateBox title="Date Posted / Revised" field="posted" fromKey="postedFrom" toKey="postedTo" options={DATE_POSTED_OPTIONS} {...kit} />
-
-            <Box title="Offering $ Referrals"><CheckList field="referral" options={REFERRAL_OPTIONS} all={false} {...kit} /></Box>
+            {/* Nov 17 (Cesar's Figma): Past 7 days default; Both / No / Yes boxes; Format right after Referrals */}
+            <DateBox title="Date Posted / Revised" field="posted" fromKey="postedFrom" toKey="postedTo" options={CAL_POSTED_OPTIONS} {...kit} />
+            <BothBox title="Offering $ Referrals" icon={<RefIcon />} field="referral" options={REFERRAL_OPTIONS} {...kit} />
+            <BothBox title="Format" field="formats" options={FORMAT_OPTIONS} {...kit} />
 
             <Box title="My Attendance Status" hint="Select all that apply">
               <Option type="radio" name="dg-status-all" checked={!f.status.length} onChange={() => setF((x) => ({ ...x, status: [] }))} label="All" def />
@@ -315,24 +317,15 @@ export default function MyCalendar() {
 
             <Box title="Event Costs"><CheckList field="costs" options={COST_OPTIONS} {...kit} /></Box>
 
-            <Box title="Format">
-              <CheckList field="formats" options={[{ id: "In-Person", label: "In-Person" }, { id: "Online", label: "Online / Virtual" }]} {...kit} />
-            </Box>
+            <BothBox title="Type" field="types" options={TYPE_OPTIONS} {...kit} />
 
-            <Box title="Type" hint="Select all that apply">
-              {TYPE_OPTIONS.map((t) => (
-                <Option key={t.id} checked={f.types.includes(t.id)} onChange={() => toggleIn("types", t.id)}
-                  label={<>{t.label}{t.hint && <i> {t.hint}</i>}</>} def={t.def} />
-              ))}
-            </Box>
-
-            <Box title="Privacy" hint="Select one">
-              <Option type="radio" name="dg-priv" checked={f.privacy === "all"} onChange={() => setF((x) => ({ ...x, privacy: "all" }))} label="All" def />
+            <Box title="Privacy">
+              <Option type="radio" name="dg-priv" checked={f.privacy === "all"} onChange={() => setF((x) => ({ ...x, privacy: "all" }))} label="Both" def />
               <Option type="radio" name="dg-priv" checked={f.privacy === "public"} onChange={() => setF((x) => ({ ...x, privacy: "public" }))} label="Public" />
               <Option type="radio" name="dg-priv" checked={f.privacy === "private"} onChange={() => setF((x) => ({ ...x, privacy: "private" }))} label="Private" />
             </Box>
 
-            <Box title="Sync with My Calendars" hint="Select all that apply" note="Two-way sync comes with accounts. For now use ADD to My Google / Apple iCal Calendar below the table.">
+            <Box title="Sync with My Calendars" note={<>Automatic two-way sync needs real accounts (coming with the database). Until then, tick listings in the table and use <b>step 4</b> &rarr; <b>ADD Selection(s) to My Google Calendar</b> or <b>My Apple iCal Calendar</b>.</>}>
               {SYNC_OPTIONS.map((o) => (
                 <Option key={o} checked={f.sync.includes(o)} onChange={() => toggleIn("sync", o)} label={o} />
               ))}
@@ -380,30 +373,29 @@ export default function MyCalendar() {
 
             <NextStep step={4} options={nextOptions} />
 
-            <SideBox title="I am allowed to VIEW Others' Calendar Digests" count={shared.length}>
-              <div className="dg-carousel">
-                <button type="button" className="obc-pg" aria-label="Previous" disabled={sharedIdx <= 0} onClick={() => setSharedIdx((i) => i - 1)}>
-                  <Glyph name="pagePrev" size={24} />
-                </button>
-                <div className="dg-cards">
-                  {shared.slice(sharedIdx, sharedIdx + 2).map((p) => (
-                    <a key={p.id} href="/connect" className="dg-card-link"><MiniCard p={p} /></a>
-                  ))}
-                </div>
-                <button type="button" className="obc-pg" aria-label="Next" disabled={sharedIdx + 2 >= shared.length} onClick={() => setSharedIdx((i) => i + 1)}>
-                  <Glyph name="pageNext" size={24} />
-                </button>
+            {/* Nov 17 (Cesar's Figma): header pill, mini-cards without an outer box, "## - ## of ##" pager */}
+            <SideBox title="I am Allowed to VIEW Others' Calendar Digests" count={shared.length}>
+              <div className="dg-cards">
+                {shared.slice(sharedIdx, sharedIdx + 2).map((p) => (
+                  <a key={p.id} href="/connect" className="dg-card-link"><MiniCard p={p} /></a>
+                ))}
               </div>
-              <p className="dg-count"><b>{Math.min(sharedIdx + 2, shared.length)}</b> of <b>{shared.length}</b> <em>(sample names until accounts are live)</em></p>
+              <div className="pk-pager dg-pager">
+                <button type="button" onClick={() => setSharedIdx((i) => Math.max(0, i - 2))} disabled={sharedIdx <= 0} aria-label="Previous"><Glyph name="pagePrev" size={22} /></button>
+                <span><b className="cw-red">{shared.length ? sharedIdx + 1 : 0}</b> - <b className="cw-red">{Math.min(sharedIdx + 2, shared.length)}</b> of <b className="cw-red">{shared.length}</b></span>
+                <button type="button" onClick={() => setSharedIdx((i) => i + 2)} disabled={sharedIdx + 2 >= shared.length} aria-label="Next"><Glyph name="pageNext" size={22} /></button>
+              </div>
+              <p className="dg-count"><em>Sample names until accounts are live</em></p>
             </SideBox>
 
             <SideBox title="Allow Others to VIEW My Calendar Digest" count={share.hideAll ? 0 : share.people.length}>
               {/* Nov 9 (Cesar): the digest is PRIVATE by default; owners pick who may
                   see it. "Hide … to ALL" instantly hides it from everyone, including
                   people already on the list (their access comes back when unticked). */}
+              <div className="dg-allow-box">
               <label className="fp-option dg-opt">
                 <input type="checkbox" checked={!!share.hideAll} onChange={() => saveShare({ ...share, hideAll: !share.hideAll })} />
-                <span className="fp-label">Hide My Calendar Digest to ALL</span>
+                <span className="fp-label">Hide My Calendar Digest to ALL <em>Default</em></span>
               </label>
               {share.hideAll && share.people.length > 0 && <p className="dg-count"><em>Hidden from the {share.people.length} people below until you untick this.</em></p>}
               <form className="dg-share-form" onSubmit={addPerson}>
@@ -414,13 +406,19 @@ export default function MyCalendar() {
                 </div>
                 <button type="submit" className="dg-submit">Submit</button>
               </form>
-              {share.people.length > 0 && (
-                <div className="dg-cards dg-cards-list">
-                  {share.people.map((p) => (
-                    <MiniCard key={p.id} p={p} onRemove={() => saveShare({ ...share, people: share.people.filter((x) => x.id !== p.id) })} />
-                  ))}
-                </div>
-              )}
+              </div>
+              {share.people.length > 0 && (() => {
+                const at = Math.min(allowIdx, share.people.length - 1);
+                const p = share.people[at];
+                return (
+                  <>
+                    <div className="dg-cards dg-cards-list">
+                      <MiniCard key={p.id} p={p} onRemove={() => saveShare({ ...share, people: share.people.filter((x) => x.id !== p.id) })} />
+                    </div>
+                    <PagerRow i={at} n={share.people.length} onGo={setAllowIdx} word="" />
+                  </>
+                );
+              })()}
             </SideBox>
           </div>
         </div>

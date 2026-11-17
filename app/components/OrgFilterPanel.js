@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { FOLLOW_UP, RELATIONSHIP_GROUPS } from "../lib/connect";
-import { FilterShell, Box, Sub, Option, CheckList, DateBox, GroupedBox, DigestBox, RegionBoxes } from "./FilterKit";
+import { FilterShell, Box, Sub, Option, CheckList, DateBox, GroupedBox, DigestBox, RegionBoxes, BothBox, RefIcon } from "./FilterKit";
 import {
   DATE_POSTED_OPTIONS, REFERRAL_OPTIONS, CONNECTION_TYPES, AD_TYPES, SEEKING_EMPLOYMENT, CONN_LEVELS, CONN_COMP, MEMBER_OPTIONS, DUES_OPTIONS, MEMBERSHIP_STATUSES,
   CATEGORY_GROUPS, INDUSTRIES, REGION_GROUPS, EMPTY_ORG_FILTERS, countOrgsFor,
@@ -59,7 +59,7 @@ export default function OrgFilterPanel({ items, filters, setFilters, ctx, onHide
         ))}
       </Box>
       <DateBox title="Date Posted / Revised" field="posted" fromKey="postedFrom" toKey="postedTo" options={DATE_POSTED_OPTIONS} {...kit} />
-      <Box title="Offering $ Referrals"><CheckList field="referral" options={REFERRAL_OPTIONS} all={false} {...kit} /></Box>
+      <BothBox title="Offering $ Referrals" icon={<RefIcon />} field="referral" options={REFERRAL_OPTIONS} {...kit} />
       {digest ? (
         <>
           <Box title="My Follow-Up Status" hint="Select all that apply">

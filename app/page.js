@@ -6,6 +6,8 @@ import HomeHero from "./components/HomeHero";
 import { NextStep } from "./components/Steps";
 import { ResultsHead, ListingTable, Pager } from "./components/ListingTable";
 import { Glyph } from "./components/Icons";
+import HubLogo from "./components/HubLogo";
+import { RefIcon } from "./components/FilterKit";
 import { fmtTime, fmtWhen, fmtDateRange, isoOf } from "./components/EventVisuals";
 import { EMPTY_FILTERS, matches } from "./lib/taxonomy";
 import { fetchEvents, localEvents } from "./lib/events";
@@ -13,7 +15,7 @@ import SendToMasoud from "./components/SendToMasoud";
 import { cityCode } from "./lib/cityCodes";
 
 const STORAGE_KEY = "mc_my_calendar_v1";
-const FILTERS_KEY = "mc_current_filters_v1";
+const FILTERS_KEY = "mc_current_filters_v2"; // v2: Nov 17 defaults (Past 7 days)
 const SHOW_FILTERS_KEY = "mc_show_filters_v1";
 const PAGE_SIZE = 10; // rows per page in the One Big Calendar table
 
@@ -147,10 +149,11 @@ function SuperCalendarInner() {
               title: <>{isPrivate(e) && <span className="priv-icon" data-tip="Hide, Private — only you see this"><Glyph name="private" size={13} /></span>}{e.title}</>,
               // Nov 7 (Cesar): regular titles not bold; premier title + host bold.
               lines: e.premier
-                ? [`${cityCode(e)}${e.type !== "Online" && e.region ? `, ${e.region}` : ""}`, <>Hosted by <b>{e.hostedBy}</b></>, <>{e.cost}{e.referral && <i className="obc-ref"> • $ Referral</i>}</>]
-                : [<>{cityCode(e)}, Hosted by {e.hostedBy}, <span className="obc-price">{e.cost}</span>{e.referral && <i className="obc-ref"> • $ Referral</i>}</>],
+                ? [`${cityCode(e)}${e.type !== "Online" && e.region ? `, ${e.region}` : ""}`, <>Hosted by <b>{e.hostedBy}</b></>, <>{e.cost}{e.referral && <span className="obc-ref">• <RefIcon /></span>}</>]
+                : [<>{cityCode(e)}, Hosted by {e.hostedBy}, <span className="obc-price">{e.cost}</span>{e.referral && <span className="obc-ref">• <RefIcon /></span>}</>],
               premier: e.premier,
               image: rowImage(e),
+              imageNode: /onebighub/i.test(e.hostedBy || "") ? <HubLogo size={30} /> : null,
               barter: e.barter,
               selected: !!selected[e.id],
               onToggle: () => toggle(e.id),

@@ -69,12 +69,13 @@ export function ListingTable({ rows }) {
             <span className="obc-title">{r.title}</span>
             {r.lines.filter(Boolean).map((l, i) => <span key={i}>{l}</span>)}
             {r.barter && <span className="obc-barter" data-tip="Barter – no payment, not tracked"><Glyph name="barter" size={15} /></span>}
+            {/* Nov 17 (Cesar): no separate image column — the premier icon sits in the listing box */}
+            {r.premier && (
+              <span className="obc-inline-img" aria-hidden="true">
+                {r.imageNode || <Glyph name={r.image || "expo"} size={30} strokeWidth={1.6} />}
+              </span>
+            )}
           </a>
-          {r.premier && (
-            <a href={r.href} className="obc-cell obc-img" tabIndex={-1} aria-hidden="true">
-              <Glyph name={r.image || "expo"} size={30} strokeWidth={1.6} />
-            </a>
-          )}
           {r.status && <div className="obc-cell obc-status">{r.status}</div>}
           <div className="obc-cell obc-sel">
             {r.extra}

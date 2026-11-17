@@ -3,7 +3,7 @@
     "id": "1",
     "title": "Business & Tech Networking Expo",
     "hostedBy": "onebigHUB",
-    "date": "2026-10-08",
+    "date": "2027-01-14",
     "time": "18:00-21:00",
     "city": "San Jose",
     "region": "Santa Clara",
@@ -19,13 +19,15 @@
     "premier": true,
     "description": "A large mixer bringing together founders, investors, and tech professionals from across the South Bay. Expect lightning intros, an exhibitor floor, and a cash bar.",
     "posted": "2026-11-04",
-    "industry": "Technology"
+    "industry": "Technology",
+    "postedDaysAgo": 0,
+    "referral": true
   },
   {
     "id": "2",
-    "title": "Workshop: Advanced Networking Techniques",
-    "hostedBy": "everyCircle",
-    "date": "2026-10-10",
+    "title": "WORKSHOP - Advanced Networking Techniques",
+    "hostedBy": "onebigHUB",
+    "date": "2027-01-16",
     "time": "18:00-21:00",
     "city": "San Jose",
     "region": "Santa Clara",
@@ -37,17 +39,18 @@
     ],
     "cost": "$10 RSVP / $20 Door",
     "price": 10,
-    "premier": false,
+    "premier": true,
     "description": "A hands-on session on building a referral engine for your business — scripts, follow-up cadences, and how to ask for introductions without it feeling awkward.",
     "barter": true,
     "posted": "2026-10-31",
-    "industry": "Financial"
+    "industry": "Financial",
+    "postedDaysAgo": 1
   },
   {
     "id": "3",
     "title": "3-Course Dinner & Networking",
     "hostedBy": "onebigHUB",
-    "date": "2026-10-14",
+    "date": "2027-01-20",
     "time": "18:00-21:00",
     "city": "Walnut Creek",
     "region": "Contra Costa",
@@ -60,17 +63,18 @@
     ],
     "cost": "$25 RSVP / $35 Door",
     "price": 25,
-    "premier": false,
+    "premier": true,
     "description": "A seated dinner capped at a small group size so every table actually gets to talk business. Vegetarian option available on request.",
     "posted": "2026-10-27",
     "industry": "Professional Services",
-    "referral": true
+    "referral": true,
+    "postedDaysAgo": 2
   },
   {
     "id": "4",
     "title": "Online Founders Roundtable",
     "hostedBy": "onebigHUB",
-    "date": "2026-10-16",
+    "date": "2027-01-22",
     "time": "12:00-13:00",
     "city": "Online",
     "region": "",
@@ -85,13 +89,14 @@
     "premier": false,
     "description": "A monthly video call for early-stage founders to trade notes on fundraising, hiring, and go-to-market — no pitching, just peer advice.",
     "posted": "2026-10-23",
-    "industry": "Construction"
+    "industry": "Construction",
+    "postedDaysAgo": 3
   },
   {
     "id": "5",
     "title": "Tri-Valley Morning Mixer",
     "hostedBy": "Tri-Valley Chamber",
-    "date": "2026-09-24",
+    "date": "2026-12-31",
     "time": "07:30-09:00",
     "city": "Pleasanton",
     "region": "Alameda",
@@ -106,13 +111,15 @@
     "premier": false,
     "description": "Coffee, pastries and quick intros with Tri-Valley business owners before the workday starts.",
     "posted": "2026-10-19",
-    "industry": "Food & Beverage"
+    "industry": "Food & Beverage",
+    "postedDaysAgo": 4,
+    "referral": true
   },
   {
     "id": "6",
     "title": "AI for Small Business: Lunch & Learn",
     "hostedBy": "Bay Area SBDC",
-    "date": "2026-09-24",
+    "date": "2026-12-31",
     "time": "12:00-13:30",
     "city": "Oakland",
     "region": "Alameda",
@@ -129,13 +136,14 @@
     "description": "Practical ways small businesses are using AI tools for marketing, bookkeeping and customer service — with live demos.",
     "posted": "2026-10-15",
     "industry": "Hospitality",
-    "referral": true
+    "referral": true,
+    "postedDaysAgo": 5
   },
   {
     "id": "7",
     "title": "SF Startup Pitch Night",
     "hostedBy": "Founders Circle SF",
-    "date": "2026-09-26",
+    "date": "2027-01-02",
     "time": "18:30-21:00",
     "city": "San Francisco",
     "region": "San Francisco",
@@ -151,13 +159,14 @@
     "premier": true,
     "description": "Six early-stage startups pitch to a panel of angels and VCs, followed by open networking.",
     "posted": "2026-10-11",
-    "industry": "Healthcare"
+    "industry": "Healthcare",
+    "postedDaysAgo": 6
   },
   {
     "id": "8",
     "title": "Women in Real Estate Brunch",
     "hostedBy": "WIRE Bay Area",
-    "date": "2026-09-27",
+    "date": "2027-01-03",
     "time": "10:30-12:30",
     "city": "Palo Alto",
     "region": "Santa Clara",
@@ -173,13 +182,15 @@
     "premier": false,
     "description": "Brunch and a panel on building a real estate portfolio, with agents, lenders and investors.",
     "posted": "2026-10-07",
-    "industry": "Education"
+    "industry": "Education",
+    "postedDaysAgo": 1,
+    "referral": true
   },
   {
     "id": "9",
     "title": "Latino Business Alliance Mixer",
     "hostedBy": "Hispanic Chamber of Silicon Valley",
-    "date": "2026-09-29",
+    "date": "2027-01-05",
     "time": "17:30-19:30",
     "city": "San Jose",
     "region": "Santa Clara",
@@ -196,13 +207,14 @@
     "description": "Bilingual networking for Latino entrepreneurs, professionals and allies.",
     "posted": "2026-10-03",
     "industry": "Non Profit",
-    "referral": true
+    "referral": true,
+    "postedDaysAgo": 2
   },
   {
     "id": "10",
     "title": "Virtual Job Fair: Tech & Biotech",
     "hostedBy": "Bay Area Careers Collective",
-    "date": "2026-09-30",
+    "date": "2027-01-06",
     "time": "10:00-14:00",
     "city": "Online",
     "region": "",
@@ -218,13 +230,14 @@
     "premier": true,
     "description": "Meet recruiters from 40+ Bay Area tech and biotech employers in virtual booths.",
     "posted": "2026-11-06",
-    "industry": "Business"
+    "industry": "Business",
+    "postedDaysAgo": 3
   },
   {
     "id": "11",
     "title": "Marin Wine & Networking Evening",
     "hostedBy": "Marin Business Circle",
-    "date": "2026-10-01",
+    "date": "2027-01-07",
     "time": "17:30-20:00",
     "city": "San Rafael",
     "region": "Marin",
@@ -240,13 +253,14 @@
     "premier": false,
     "description": "Local wineries pour while Marin professionals mingle on the terrace.",
     "posted": "2026-11-02",
-    "industry": "Technology"
+    "industry": "Technology",
+    "postedDaysAgo": 4
   },
   {
     "id": "12",
     "title": "Real Estate Investor Meetup",
     "hostedBy": "East Bay REIA",
-    "date": "2026-10-02",
+    "date": "2027-01-08",
     "time": "18:30-20:30",
     "city": "Fremont",
     "region": "Alameda",
@@ -263,13 +277,14 @@
     "description": "Deal reviews, lender Q&A and open networking for small multifamily and single-family investors.",
     "posted": "2026-10-29",
     "industry": "Financial",
-    "referral": true
+    "referral": true,
+    "postedDaysAgo": 5
   },
   {
     "id": "13",
     "title": "Peninsula Chamber Business Expo",
     "hostedBy": "San Mateo Area Chamber",
-    "date": "2026-10-06",
+    "date": "2027-01-12",
     "time": "11:00-16:00",
     "city": "San Mateo",
     "region": "San Mateo",
@@ -284,13 +299,14 @@
     "premier": true,
     "description": "80+ local exhibitors, a speaker stage and B2B matchmaking tables.",
     "posted": "2026-10-25",
-    "industry": "Professional Services"
+    "industry": "Professional Services",
+    "postedDaysAgo": 6
   },
   {
     "id": "14",
     "title": "Napa Valley Harvest Social",
     "hostedBy": "Napa Young Professionals",
-    "date": "2026-10-09",
+    "date": "2027-01-15",
     "time": "17:00-20:00",
     "city": "Napa",
     "region": "Napa",
@@ -306,13 +322,14 @@
     "premier": false,
     "description": "Harvest-season celebration with local food, wine and live music.",
     "posted": "2026-10-21",
-    "industry": "Construction"
+    "industry": "Construction",
+    "postedDaysAgo": 0
   },
   {
     "id": "15",
     "title": "Sustainability & Clean Energy Summit",
     "hostedBy": "Bay Area Climate Forum",
-    "date": "2026-10-12",
+    "date": "2027-01-18",
     "time": "09:00-17:00",
     "city": "San Francisco",
     "region": "San Francisco",
@@ -327,16 +344,17 @@
     "price": 149,
     "premier": true,
     "description": "Full-day summit on clean energy, building decarbonization and climate-tech investment.",
-    "endDate": "2026-10-13",
+    "endDate": "2027-01-19",
     "posted": "2026-10-17",
     "industry": "Food & Beverage",
-    "referral": true
+    "referral": true,
+    "postedDaysAgo": 2
   },
   {
     "id": "16",
     "title": "Asian American Professionals Mixer",
     "hostedBy": "AAPN Bay Area",
-    "date": "2026-10-13",
+    "date": "2027-01-19",
     "time": "18:00-20:30",
     "city": "Cupertino",
     "region": "Santa Clara",
@@ -352,13 +370,14 @@
     "premier": false,
     "description": "Career-focused networking with panel Q&A from senior leaders across tech and finance.",
     "posted": "2026-10-13",
-    "industry": "Hospitality"
+    "industry": "Hospitality",
+    "postedDaysAgo": 3
   },
   {
     "id": "17",
     "title": "Sonoma County Small Business Workshop",
     "hostedBy": "Sonoma SBDC",
-    "date": "2026-10-15",
+    "date": "2027-01-21",
     "time": "09:30-12:00",
     "city": "Santa Rosa",
     "region": "Sonoma",
@@ -374,13 +393,14 @@
     "premier": false,
     "description": "Business plans, SBA loans and local grant programs explained by SBDC advisors.",
     "posted": "2026-10-09",
-    "industry": "Healthcare"
+    "industry": "Healthcare",
+    "postedDaysAgo": 9
   },
   {
     "id": "18",
     "title": "Solano Community Resource Fair",
     "hostedBy": "Solano Community Network",
-    "date": "2026-10-17",
+    "date": "2027-01-23",
     "time": "10:00-14:00",
     "city": "Vacaville",
     "region": "Solano",
@@ -397,13 +417,14 @@
     "description": "Nonprofits, health providers and county services under one roof.",
     "posted": "2026-10-05",
     "industry": "Education",
-    "referral": true
+    "referral": true,
+    "postedDaysAgo": 12
   },
   {
     "id": "19",
     "title": "Sacramento Tech Meetup",
     "hostedBy": "Sac Tech Collective",
-    "date": "2026-10-20",
+    "date": "2027-01-26",
     "time": "18:00-20:30",
     "city": "Sacramento",
     "region": "Sacramento Valley",
@@ -419,13 +440,14 @@
     "premier": false,
     "description": "Lightning talks from local engineers followed by pizza and networking.",
     "posted": "2026-11-08",
-    "industry": "Non Profit"
+    "industry": "Non Profit",
+    "postedDaysAgo": 1
   },
   {
     "id": "20",
     "title": "Online Workshop: LinkedIn for Business Owners",
     "hostedBy": "everyCircle",
-    "date": "2026-10-21",
+    "date": "2027-01-27",
     "time": "12:00-13:00",
     "city": "Online",
     "region": "",
@@ -441,13 +463,14 @@
     "premier": false,
     "description": "Profile, content and outreach tactics that turn LinkedIn into a steady referral source.",
     "posted": "2026-11-04",
-    "industry": "Business"
+    "industry": "Business",
+    "postedDaysAgo": 4
   },
   {
     "id": "21",
     "title": "Monterey Bay Tourism & Hospitality Mixer",
     "hostedBy": "Central Coast Hospitality Assn",
-    "date": "2026-10-23",
+    "date": "2027-01-29",
     "time": "17:00-19:00",
     "city": "Monterey",
     "region": "Central Coast",
@@ -464,13 +487,14 @@
     "description": "Hotel, restaurant and tour operators meet local vendors and marketers.",
     "posted": "2026-10-31",
     "industry": "Technology",
-    "referral": true
+    "referral": true,
+    "postedDaysAgo": 20
   },
   {
     "id": "22",
     "title": "Oakland Black Business Expo",
     "hostedBy": "Oakland Black Business Network",
-    "date": "2026-10-24",
+    "date": "2027-01-30",
     "time": "11:00-17:00",
     "city": "Oakland",
     "region": "Alameda",
@@ -485,15 +509,16 @@
     "price": 0,
     "premier": true,
     "description": "Shop, network and hear from founders at the East Bay's largest Black-owned business showcase.",
-    "endDate": "2026-10-25",
+    "endDate": "2027-01-31",
     "posted": "2026-10-27",
-    "industry": "Financial"
+    "industry": "Financial",
+    "postedDaysAgo": 35
   },
   {
     "id": "23",
     "title": "LA Proptech Conference",
     "hostedBy": "Proptech West",
-    "date": "2026-11-05",
+    "date": "2027-02-11",
     "time": "08:30-17:30",
     "city": "Los Angeles",
     "region": "Southern California",
@@ -509,13 +534,14 @@
     "premier": false,
     "description": "Two tracks on real estate technology, AI underwriting and capital markets.",
     "posted": "2026-10-23",
-    "industry": "Professional Services"
+    "industry": "Professional Services",
+    "postedDaysAgo": 5
   },
   {
     "id": "24",
     "title": "National Small Business Week Virtual Summit",
     "hostedBy": "SBA Partners",
-    "date": "2026-11-10",
+    "date": "2027-02-16",
     "time": "09:00-15:00",
     "city": "Online",
     "region": "",
@@ -532,7 +558,8 @@
     "description": "Nationwide livestream with sessions on funding, exporting and government contracting.",
     "posted": "2026-10-19",
     "industry": "Construction",
-    "referral": true
+    "referral": true,
+    "postedDaysAgo": 2
   },
   {
     "id": "25",
@@ -555,7 +582,8 @@
     "description": "Year-end celebration with dinner stations, a DJ and a toy drive.",
     "endDate": "2027-01-08",
     "posted": "2026-10-15",
-    "industry": "Food & Beverage"
+    "industry": "Food & Beverage",
+    "postedDaysAgo": 0
   },
   {
     "id": "26",
@@ -577,7 +605,8 @@
     "description": "International founder and investor summit with a Bay Area delegation.",
     "endDate": "2026-11-20",
     "posted": "2026-10-11",
-    "industry": "Hospitality"
+    "industry": "Hospitality",
+    "postedDaysAgo": 3
   },
   {
     "id": "27",
@@ -601,6 +630,7 @@
     "endDate": "2026-12-01",
     "posted": "2026-10-07",
     "industry": "Healthcare",
-    "referral": true
+    "referral": true,
+    "postedDaysAgo": 6
   }
 ]

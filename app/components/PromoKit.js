@@ -8,6 +8,8 @@ import { fetchHostedEvents } from "../lib/adRequests";
 import { fetchProfiles, matchProfile } from "../lib/referrals";
 import { getProfile } from "../lib/profile";
 import { fmtDateRange, fmtTime } from "./EventVisuals";
+import { ListingTable } from "./ListingTable";
+import HubLogo from "./HubLogo";
 
 // Shared parts of Cesar's Promote & Earn forms (Figma, Nov 16): Calculate
 // Advertising Cost, Private-Label Header, Event Participation, Barter and
@@ -48,13 +50,33 @@ export function EventCard({ e }) {
   );
 }
 
+// Nov 17 (Cesar's Figma): the event is shown as a One Big Calendar listing row
+// (with its select circle) and a "## of ##" pager underneath.
+export function EventRow({ e, selected = false, onToggle }) {
+  if (!e) return <div className="pk-event pk-event-empty">No events hosted by onebigHUB are listed yet.</div>;
+  const hub = /onebighub/i.test(e.hostedBy || "");
+  return (
+    <ListingTable rows={[{
+      id: e.id,
+      href: `/event/${e.id}`,
+      left: [fmtDateRange(e.date, e.endDate), fmtTime(e.time)],
+      title: e.title,
+      lines: [`${e.city || ""}${e.region && e.type !== "Online" ? `, ${e.region}` : ""}`, <>Hosted by <b>{hub ? <>onebig<span className="cw-red">HUB</span></> : e.hostedBy}</b></>,
+        <>{e.cost || "Free"}{e.referral && <span className="obc-ref">• <Glyph name="referral" size={17} className="ref-ico" /></span>}</>],
+      premier: true,
+      imageNode: hub ? <HubLogo size={30} /> : <Glyph name={eventIcon(e)} size={30} />,
+      selected,
+      onToggle: onToggle || (() => {}),
+    }]} />
+  );
+}
+
 export function EventCarousel({ events, index, onIndex }) {
   const i = Math.min(index, Math.max(0, events.length - 1));
   return (
-    <div className="pk-carousel">
-      <button type="button" onClick={() => onIndex(i - 1)} disabled={i <= 0} aria-label="Previous event"><Glyph name="pagePrev" size={22} /></button>
-      <EventCard e={events[i]} />
-      <button type="button" onClick={() => onIndex(i + 1)} disabled={i >= events.length - 1} aria-label="Next event"><Glyph name="pageNext" size={22} /></button>
+    <div className="pk-evpick">
+      <EventRow e={events[i]} />
+      <PagerRow i={i} n={events.length} onGo={(n) => onIndex(Math.min(Math.max(0, n), events.length - 1))} word="" />
     </div>
   );
 }

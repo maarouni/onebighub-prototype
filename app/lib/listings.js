@@ -56,7 +56,7 @@ export const TYPE_BOXES = {
   ],
 };
 export const DELIVERY_OPTIONS = ["In-Person", "Online"];
-export const REFERRAL_OPTIONS = [{ id: "no", label: "No", def: true }, { id: "yes", label: "Yes" }];
+export const REFERRAL_OPTIONS = [{ id: "no", label: "No" }, { id: "yes", label: "Yes" }];
 export const COST_UNITS = ["one-time", "per hour", "per month", "per year"];
 
 export const COST_OPTIONS = [
