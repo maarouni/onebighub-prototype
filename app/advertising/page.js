@@ -59,7 +59,7 @@ export default function PromoteAndEarn() {
               {DIGESTS.map((d, i) => d === null ? <span key={i} className="pe-gap" /> : (
                 <a key={d[1]} href={d[3]} className="pe-dig">
                   {d[0] === "calendar" || d[0] === "connections" ? <img src={`/icons/${d[0]}.png`} alt="" width="20" height="20" /> : <Glyph name={d[0]} size={18} />}
-                  <span><b>{d[1]}</b> {d[2] && <i>{d[2]}</i>}</span>
+                  <span><b>{d[1]}</b>{d[2] && <>&nbsp;&nbsp;<i>{d[2]}</i></>}</span>
                 </a>
               ))}
             </div>
