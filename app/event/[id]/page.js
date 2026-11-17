@@ -146,6 +146,8 @@ export default function EventDetail() {
   const details = [
     ["Date Posted / Revised", fmtStamp(event.revised || event.posted)],
     [<><Glyph name="referral" size={16} className="ref-ico" />Offering $ Referrals</>, event.referral ? (typeof event.referral === "string" ? event.referral : "Yes") : "No"],
+    // Nov 17 12:10 (Cesar): referral Description sits right under Offering $ Referrals
+    [<span className="evd-fact-sub">Description</span>, event.referralDesc || (typeof event.referral === "string" ? event.referral : event.referral ? "Ask the host for referral terms" : "—")],
     ["Format", online ? "Online" : "In-Person"],
     [<><b className="att-sym-inline">{statusMeta.icon}</b> My Attendance Status</>, <a href="/my-calendar">{statusMeta.label}</a>],
     ["Ticket Costs", event.cost || "Free"],

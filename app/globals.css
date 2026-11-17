@@ -4257,3 +4257,4 @@ body:has(.ref-page) { background: #cfcfcf !important; }
 @media (max-width: 760px) { .evd-v3 .evd-head3 { flex-direction: column; } }
 /* Nov 16 PM (Cesar, "Unfreeze main header"): frozen on a computer, scrolls away on a phone */
 @media (max-width: 760px) { .navbar, header.navbar { position: static !important; } }
+.evd-fact-sub { font-weight: 400; }
