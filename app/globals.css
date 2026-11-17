@@ -4178,3 +4178,4 @@ body:has(.ref-page) { background: #cfcfcf !important; }
 .su-figma .nt-hint { color: var(--ink); font-size: 12px; }
 .su-figma .rg-introbar { margin-top: 18px; }
 .su-continue { align-self: center; background: #f0962f; border: 0; border-radius: 999px; padding: 5px 22px; font: inherit; font-weight: 700; font-size: 14px; cursor: pointer; margin-top: 6px; }
+.ad-box.pe-box h2 { font-family: var(--font-ui), "Source Sans 3", sans-serif; font-weight: 700 !important; font-size: 26px; letter-spacing: -0.01em; }
