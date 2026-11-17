@@ -7,7 +7,7 @@ import HubLogo from "../components/HubLogo";
 // Promote & Earn — landing page (Cesar's Figma Rev 261116, /PromoteAndEarn).
 const DIGESTS = [
   ["calendar", "One Big Calendar", "Sell tickets, Assign your Attendance Status", "/"],
-  ["connections", "Connect", <>Individuals, Businesses, Organizations, Groups<br /><i>Assign your Membership Status</i></>, "/connections"],
+  ["connections", "Connect", <>Individuals, Businesses, Organizations, Groups<br /><i>Assign your Membership Status</i></>, "/connect"],
   ["idxBriefcase", "Careers / Jobs", "Assign your Employment Application Status", "/employment"],
   ["idxProduct", "Products", null, "/listings?type=Product"],
   ["idxService", "Services", null, "/listings?type=Service"],
@@ -75,7 +75,7 @@ export default function PromoteAndEarn() {
 
       <section className="ad-box pe-box">
         <h2><Glyph name="login" size={34} /> Invite / Refer Others to Sign Up</h2>
-        <p><b className="cw-red"><i>No-Cost and Easy !</i></b> <b>With your QR Code and Custom Marketing Collateral</b> — <a href="/connect">Connect with Me !</a></p>
+        <p><b className="cw-red"><i>No-Cost and Easy !</i></b> <b>With your QR Code and Custom Marketing Collateral</b> — <a href="/connect-with-me">Connect with Me !</a></p>
         <p><Glyph name="login" size={16} /> <a href="/registration/signup"><b>Sign Up Today</b></a> to create your account, submit and edit your listings</p>
         <p><Glyph name="dashboards" size={16} /> <a href="/dashboards">Manage Your Dashboards</a></p>
       </section>

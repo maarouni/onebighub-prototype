@@ -30,9 +30,9 @@ const CAL_ROW = [
 // Nov 15 (Cesar, Rev 261115): VIEW Profiles dropped — the Connections tile
 // itself opens the profiles table.
 const CONN_ROW = [
-  { key: "connect", label: "Connect with me !", href: "/connect", icon: "figConnect", connect: true },
+  { key: "connect", label: "Connect with me !", href: "/connect-with-me", icon: "figConnect", connect: true },
   { key: "introductions", label: "Introductions", href: "/referrals", img: "/icons/introductions.png" },
-  { key: "digest", label: "My Digest - Connections", href: "/connections/digest", icon: "figConnDigest" },
+  { key: "digest", label: "My Digest - Connections", href: "/connect/digest", icon: "figConnDigest" },
   { key: "edit", label: "EDIT My Profiles", href: "/profile", icon: "figEditProfile" },
 ];
 
@@ -45,10 +45,10 @@ const INTRO_ROW = [
 ];
 
 const PROFILE_ROW = [
-  { key: "individual", label: "Individual Profiles", href: "/connections?type=individual", img: "/icons/fig/type-individual.png" },
-  { key: "business", label: "Biz Profiles", href: "/connections?type=business", img: "/icons/fig/type-biz.png" },
-  { key: "org", label: "Org Profiles", href: "/connections?type=org", img: "/icons/fig/type-org.png" },
-  { key: "group", label: "Group Profiles", href: "/connections?type=group", img: "/icons/fig/type-group.png" },
+  { key: "individual", label: "Individual Profiles", href: "/connect?type=individual", img: "/icons/fig/type-individual.png" },
+  { key: "business", label: "Biz Profiles", href: "/connect?type=business", img: "/icons/fig/type-biz.png" },
+  { key: "org", label: "Org Profiles", href: "/connect?type=org", img: "/icons/fig/type-org.png" },
+  { key: "group", label: "Group Profiles", href: "/connect?type=group", img: "/icons/fig/type-group.png" },
 ];
 
 const PROMO_ROW = [
@@ -197,7 +197,7 @@ const PB_IMG = {
 // (<) and (>) step through the sections, wrapping around.
 const SECTION_ORDER = [
   { key: "calendar", href: "/" },
-  { key: "connections", href: "/connections" },
+  { key: "connections", href: "/connect" },
   { key: "introductions", href: "/referrals" },
   { key: "earn", href: "/advertising" },
   { key: "products", href: "/listings" },
@@ -238,7 +238,7 @@ function PageBar({ title, icon, mode, section, gray }) {
 // box in the Connections row).
 export function ConnectWithMe() {
   return (
-    <a href="/connect" className="connect-me" data-tip="Connect with me ! — scan my QR code, mini-card, messages">
+    <a href="/connect-with-me" className="connect-me" data-tip="Connect with me ! — scan my QR code, mini-card, messages">
       <Glyph name="figConnect" size={26} />
       <b><i>Connect with me !</i></b>
     </a>

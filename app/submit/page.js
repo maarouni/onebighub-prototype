@@ -477,7 +477,7 @@ export default function SubmitEvent() {
             {[["name", "Name, Title"], ["biz", "Name of Biz / Org"], ["url", "URL of Biz / Org", "https://"], ["phone", "Phone"], ["email", "Email"], ["place", "City, State, Country"]].map(([k, l, ph]) => (
               <label key={k} className="em-row"><b>{l}</b><input value={f.contact[k] || ""} onChange={(e) => setIn("contact", k, e.target.value)} placeholder={ph || "Submit Here"} /></label>
             ))}
-            <p className="em-row"><b>OR SEARCH Individuals</b> <a href="/connect">Create / Edit Mini-Card</a></p>
+            <p className="em-row"><b>OR SEARCH Individuals</b> <a href="/connect-with-me">Create / Edit Mini-Card</a></p>
           </div>
 
           <div className="em-box">

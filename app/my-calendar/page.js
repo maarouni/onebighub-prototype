@@ -387,7 +387,7 @@ export default function MyCalendar() {
                 </button>
                 <div className="dg-cards">
                   {shared.slice(sharedIdx, sharedIdx + 2).map((p) => (
-                    <a key={p.id} href="/connections" className="dg-card-link"><MiniCard p={p} /></a>
+                    <a key={p.id} href="/connect" className="dg-card-link"><MiniCard p={p} /></a>
                   ))}
                 </div>
                 <button type="button" className="obc-pg" aria-label="Next" disabled={sharedIdx + 2 >= shared.length} onClick={() => setSharedIdx((i) => i + 1)}>

@@ -8,7 +8,7 @@ import { DATE_POSTED_OPTIONS, REFERRAL_OPTIONS, INDUSTRIES } from "../lib/organi
 // Offering $ Referrals · Event Costs · Format · Type · Categories · Industries ·
 // Regions · Add Selections to My Calendar Digest.
 export const AD_TYPE_OPTIONS = [
-  { id: "regular", label: <>Regular <i>Free</i></> },
+  { id: "regular", label: <>Regular <i>Free</i></>, def: true },
   { id: "premier", label: "Premier" },
 ];
 

@@ -172,7 +172,7 @@ export default function ConnectSteps46() {
         <div className="cw-box cw-nextlist">
           {[
             ["a", "/profile", "A - Connect", "Create My No-Cost Profiles: Individual / Business(es) / Organization(s) / Group(s)"],
-            ["b", "/connect", <i key="b">B - Connect with Me !</i>, "Invite others with My Custom QR Code"],
+            ["b", "/connect-with-me", <i key="b">B - Connect with Me !</i>, "Invite others with My Custom QR Code"],
             ["c", "/advertising", "C - Promote & Earn !", <>Create My Listings (Regular or Premier)<br />AND share profits from ads and sales fees with your network (3 Levels of Introductions)</>],
             ["d", "/dashboards", "D - Manage My Dashboards & Settings", null],
             ["e", "/info/contact", <b key="e"><i>How may we be of help to you ?</i></b>, <>Please <a href="/info/contact">contact us</a> with your comments and questions</>],
@@ -184,7 +184,7 @@ export default function ConnectSteps46() {
           ))}
         </div>
       </SectionBar>
-      <p className="cw-next"><a href="/connect">← Steps 1-3: SCAN My QR Code · Relationship &amp; Notes · New User</a></p>
+      <p className="cw-next"><a href="/connect-with-me">← Steps 1-3: SCAN My QR Code · Relationship &amp; Notes · New User</a></p>
     </ConnectPage>
   );
 }

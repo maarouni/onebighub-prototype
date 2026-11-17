@@ -14,8 +14,8 @@ import {
 
 // Oct 30 (Cesar's Figma Rev 261030): Connections and My Connections Digest are
 // TWO pages that share one layout.
-//   /connections         browse everyone, tick rows, "ADD Selection(s) to My Connections Digest"
-//   /connections/digest  your digest: Sets, My Membership Status (thin gray column on the right),
+//   /connect         browse everyone, tick rows, "ADD Selection(s) to My Connections Digest"
+//   /connect/digest  your digest: Sets, My Membership Status (thin gray column on the right),
 //                        "ADD New Listing / EDIT / DELETE Selection(s) from My Connections Digest"
 
 const SEL_KEY = "mc_org_selection_v1";
@@ -109,7 +109,7 @@ function Inner({ digest }) {
   function addToDigest() {
     const base = digestIds || [];
     writeJson(DIGEST_KEY, [...new Set([...base, ...selIds])]);
-    window.location.href = "/connections/digest";
+    window.location.href = "/connect/digest";
   }
   function deleteFromDigest() {
     const base = digestIds || items.map((o) => o.id);
@@ -120,13 +120,13 @@ function Inner({ digest }) {
 
   const nextOptions = digest
     ? [
-        { id: "details", icon: "eyeView", label: "View Selection(s)", href: firstSel ? `/connections/${firstSel.id}` : "/connections/digest", def: true },
-        { id: "add", icon: "addNew", label: "ADD New Listing", href: "/connections/submit" },
-        { id: "edit", icon: "editMode", label: "EDIT Selection(s)", href: firstSel ? `/connections/submit?id=${firstSel.id}` : "/connections/submit" },
+        { id: "details", icon: "eyeView", label: "View Selection(s)", href: firstSel ? `/connect/${firstSel.id}` : "/connect/digest", def: true },
+        { id: "add", icon: "addNew", label: "ADD New Listing", href: "/connect/submit" },
+        { id: "edit", icon: "editMode", label: "EDIT Selection(s)", href: firstSel ? `/connect/submit?id=${firstSel.id}` : "/connect/submit" },
         { id: "del", icon: "delete", label: "DELETE Selection(s) from My Connections Digest", onClick: deleteFromDigest },
       ]
     : [
-        { id: "details", icon: "eyeView", label: "View Selection(s)", href: firstSel ? `/connections/${firstSel.id}` : "/connections", def: true },
+        { id: "details", icon: "eyeView", label: "View Selection(s)", href: firstSel ? `/connect/${firstSel.id}` : "/connect", def: true },
         { id: "digest", icon: "plusBold", label: "ADD Selection(s) to My Connections Digest", onClick: addToDigest },
         { id: "signup", icon: "login", label: "Sign Up / Log in to ADD Listings to My Connections Digest", href: "/registration" },
       ];
@@ -161,7 +161,7 @@ function Inner({ digest }) {
             {pageItems.length === 0 && (
               <div className="empty-state">
                 {digest && digestIds && digestIds.length === 0
-                  ? <>Your digest is empty. <a href="/connections">Browse Connections</a> and ADD Selection(s).</>
+                  ? <>Your digest is empty. <a href="/connect">Browse Connections</a> and ADD Selection(s).</>
                   : <>Nothing matches yet.{" "}
                     <button type="button" className="clear-filters-link" onClick={() => setFilters(EMPTY_ORG_FILTERS)}>Clear filters</button></>}
               </div>
@@ -169,7 +169,7 @@ function Inner({ digest }) {
 
             <ListingTable rows={pageItems.map((o) => ({
               id: o.id,
-              href: `/connections/${o.id}`,
+              href: `/connect/${o.id}`,
               left: [`Revised ${shortYmd(o.posted)}`, o.premier ? fmtMembers(o.members) : null],
               title: o.name,
               lines: o.premier

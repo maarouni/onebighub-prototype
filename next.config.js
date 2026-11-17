@@ -10,8 +10,15 @@ module.exports = {
   env: { NEXT_PUBLIC_BUILD_STAMP: buildStamp },
   async redirects() {
     return [
-      { source: "/organizations", destination: "/connections", permanent: true },
-      { source: "/organizations/:path*", destination: "/connections/:path*", permanent: true },
+      { source: "/organizations", destination: "/connect", permanent: true },
+      { source: "/organizations/:path*", destination: "/connect/:path*", permanent: true },
+      // Nov 16: Connect profiles moved /connections -> /connect; Connect with Me ! -> /connect-with-me.
+      { source: "/connect/network", destination: "/connect-with-me/network", permanent: false },
+      { source: "/connect/signup", destination: "/connect-with-me#new-user", permanent: false },
+      { source: "/connect/messages", destination: "/connect-with-me/network#message", permanent: false },
+      { source: "/connect/next", destination: "/connect-with-me/network#next", permanent: false },
+      { source: "/connections", destination: "/connect", permanent: true },
+      { source: "/connections/:path*", destination: "/connect/:path*", permanent: true },
       // Oct 26: Cesar's Figma calls the products section "OtherListings".
       { source: "/other-listings", destination: "/listings", permanent: true },
       { source: "/OtherListings", destination: "/listings", permanent: true },

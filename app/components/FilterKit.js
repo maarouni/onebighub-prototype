@@ -114,7 +114,7 @@ export function CheckList({ field, options, filters, setFilters, count, all = tr
         <Option type="radio" name={`all-${field}`} checked={!cur.length} onChange={() => setFilters((f) => ({ ...f, [field]: [] }))} label={allLabel} def />
       )}
       {options.map((o) => (
-        <Option key={optId(o)} checked={cur.includes(optId(o))} onChange={() => toggle(optId(o))} label={optLabel(o)} count={count ? count(field, optId(o)) : undefined} />
+        <Option key={optId(o)} checked={cur.includes(optId(o))} onChange={() => toggle(optId(o))} label={optLabel(o)} def={!!o?.def} count={count ? count(field, optId(o)) : undefined} />
       ))}
     </>
   );

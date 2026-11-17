@@ -26,11 +26,11 @@ export default function OrgDetail() {
     setStatusState(readMembership()[id] || "");
     try { setSaved(!!JSON.parse(localStorage.getItem(SEL_KEY) || "{}")[id]); } catch {}
     try { setLoggedIn(!!localStorage.getItem("mc_user_v1")); } catch {}
-    QRCode.toDataURL(`${window.location.origin}/connections/${id}`, { width: 240, margin: 1 }).then(setQr).catch(() => {});
+    QRCode.toDataURL(`${window.location.origin}/connect/${id}`, { width: 240, margin: 1 }).then(setQr).catch(() => {});
   }, [id]);
 
   if (o === undefined) return <div className="tpl"><p>Loading…</p></div>;
-  if (o === null) return <div className="tpl"><div className="empty-state">Couldn&rsquo;t find that organization. <a href="/connections">Back to Connections</a></div></div>;
+  if (o === null) return <div className="tpl"><div className="empty-state">Couldn&rsquo;t find that organization. <a href="/connect">Back to Connections</a></div></div>;
 
   function toggle() {
     try {
@@ -51,7 +51,7 @@ export default function OrgDetail() {
       subtitle="Get Connected! Learn about this organization and set your membership status."
       legend={false}
       activeAction="details"
-      actions={<a href="/connections" className="tpl-action">← All organizations</a>}
+      actions={<a href="/connect" className="tpl-action">← All organizations</a>}
     >
       <div className="disc-detail org-detail">
         <div className="disc-detail-main">
@@ -103,7 +103,7 @@ export default function OrgDetail() {
 
           <h4 className="section-label">Members</h4>
           {canSeeRoster ? (
-            <p><a href={`/connections/${o.id}/members`}>View Leadership, Staff and Members →</a> <span className="nt-hint">({(o.roster || []).length} listed)</span></p>
+            <p><a href={`/connect/${o.id}/members`}>View Leadership, Staff and Members →</a> <span className="nt-hint">({(o.roster || []).length} listed)</span></p>
           ) : (
             <p className="nt-hint">
               {o.memberList === "members" ? "Member list is visible to members only — set your status to Member to view it." :
@@ -121,7 +121,7 @@ export default function OrgDetail() {
             {qr ? <img src={qr} alt={`QR code for ${o.name}`} /> : <div style={{ padding: 40 }}>Generating QR code…</div>}
             <div className="qr-card-label"><b>Organization QR Code</b> — share this page at events.</div>
           </div>
-          <a className="btn-ghost btn-sm" href={`/connections/submit?id=${o.id}`}>EDIT My Connections Details</a>
+          <a className="btn-ghost btn-sm" href={`/connect/submit?id=${o.id}`}>EDIT My Connections Details</a>
         </aside>
       </div>
     </PageTemplate>

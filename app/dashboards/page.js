@@ -109,7 +109,7 @@ export default function DashboardsPage() {
         ) })}
 
         {S({ id: "referrals", n: 5, icon: "connections", title: "My Transactions", hint: "Introductions / Referrals", children: (
-          <Empty>Referral payouts show here — 10 % of sales revenue shared up to 3 levels. <a href="/refer">How it works</a> · <a href="/connect">Invite with my QR code</a></Empty>
+          <Empty>Referral payouts show here — 10 % of sales revenue shared up to 3 levels. <a href="/refer">How it works</a> · <a href="/connect-with-me">Invite with my QR code</a></Empty>
         ) })}
 
         {S({ id: "attendees", n: 6, icon: "ticket", title: "My Events", hint: "List of Attendees", children: (
@@ -126,11 +126,11 @@ export default function DashboardsPage() {
         ) })}
 
         {S({ id: "collateral", n: 8, icon: "qr", title: "My Custom Marketing Collateral", children: (
-          <Empty>Your QR code, flyers and email templates. <a href="/connect">My QR Code</a>{mine[0] && <> · <a href={`/event/${mine[0].id}/flyer`}>Flyer for {mine[0].title}</a></>}</Empty>
+          <Empty>Your QR code, flyers and email templates. <a href="/connect-with-me">My QR Code</a>{mine[0] && <> · <a href={`/event/${mine[0].id}/flyer`}>Flyer for {mine[0].title}</a></>}</Empty>
         ) })}
 
         {S({ id: "messages", n: 9, icon: "comments", title: "My Messages", children: (
-          msgs.length === 0 ? <Empty>No messages yet. Send one from <a href="/connect/network#message">Connect with Me ! → Messages</a>.</Empty> : (
+          msgs.length === 0 ? <Empty>No messages yet. Send one from <a href="/connect-with-me/network#message">Connect with Me ! → Messages</a>.</Empty> : (
             <ul className="dash-rows">{msgs.map((m) => (
               <li key={m.id}><span className="cw-muted">{m.sent ? String(m.sent).slice(0, 16).replace("T", " ") : ""}</span> <b>{m.to?.name || "—"}</b> {String(m.text || "").slice(0, 90)}</li>
             ))}</ul>

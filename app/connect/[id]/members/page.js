@@ -36,7 +36,7 @@ export default function OrgMembers() {
   }, [o, q, sort]);
 
   if (o === undefined) return <div className="tpl"><p>Loading…</p></div>;
-  if (o === null) return <div className="tpl"><div className="empty-state">Couldn&rsquo;t find that organization. <a href="/connections">Back to Connections</a></div></div>;
+  if (o === null) return <div className="tpl"><div className="empty-state">Couldn&rsquo;t find that organization. <a href="/connect">Back to Connections</a></div></div>;
 
   const visible = rosterVisible(o, status, loggedIn);
 
@@ -47,7 +47,7 @@ export default function OrgMembers() {
       subtitle={o.name}
       legend={false}
       activeAction="details"
-      actions={<a href={`/connections/${o.id}`} className="tpl-action">← Connections Details</a>}
+      actions={<a href={`/connect/${o.id}`} className="tpl-action">← Connections Details</a>}
     >
       {!visible ? (
         <div className="empty-state">

@@ -10,7 +10,7 @@ import { getUser } from "../lib/auth";
 // During development every page stays reachable — "Preview anyway" goes on.
 const MEMBERS_ONLY = [
   /^\/submit/, /^\/listings\/submit/, /^\/listings\/digest/, /^\/dashboards/, /^\/profile/, /^\/my-calendar/,
-  /^\/connections\/submit/, /^\/connections\/digest/, /^\/connect\/network/, /^\/referrals/, /^\/cart/,
+  /^\/connect\/submit/, /^\/connect\/digest/, /^\/connect-with-me\/network/, /^\/referrals/, /^\/cart/,
   /^\/advertising\/private-label/, /^\/advertising\/barter-approval/, /^\/event\/[^/]+\/rsvp\/edit/,
 ];
 export const membersOnly = (path) => MEMBERS_ONLY.some((r) => r.test(path));

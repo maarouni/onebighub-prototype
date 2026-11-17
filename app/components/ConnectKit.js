@@ -99,11 +99,11 @@ export function NextLink({ href, children }) {
 // Nov 9 (Cesar): instead of a "Next" link, every page lists ALL the remaining
 // steps as collapsed bars, so users see where they are and can skip ahead.
 export const CONNECT_STEPS = [
-  { n: 2, icon: "register", title: <i>Welcome !</i>, hint: "Sign Up to Create Your Profile and more ...", href: "/connect/signup" },
-  { n: 3, icon: "idxMiniCard", title: "New Users - Create My Mini-Card", hint: "Submit / Upload all that apply", href: "/connect/submit" },
-  { n: 4, icon: "idxAssign", title: "Assign My Relationship & Notes", hint: "Private", href: "/connect/submit#relationship" },
-  { n: 5, icon: "idxMessages", title: "Send Messages", href: "/connect/messages" },
-  { n: 6, icon: "idxSigns", title: "Next Steps", href: "/connect/next" },
+  { n: 2, icon: "register", title: <i>Welcome !</i>, hint: "Sign Up to Create Your Profile and more ...", href: "/connect-with-me/signup" },
+  { n: 3, icon: "idxMiniCard", title: "New Users - Create My Mini-Card", hint: "Submit / Upload all that apply", href: "/connect-with-me/submit" },
+  { n: 4, icon: "idxAssign", title: "Assign My Relationship & Notes", hint: "Private", href: "/connect-with-me/submit#relationship" },
+  { n: 5, icon: "idxMessages", title: "Send Messages", href: "/connect-with-me/messages" },
+  { n: 6, icon: "idxSigns", title: "Next Steps", href: "/connect-with-me/next" },
 ];
 export function UpcomingSteps({ from }) {
   const list = CONNECT_STEPS.filter((s) => s.n >= from);
