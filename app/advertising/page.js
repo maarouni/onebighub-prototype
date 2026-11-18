@@ -6,9 +6,9 @@ import HubLogo from "../components/HubLogo";
 
 // Promote & Earn — landing page (Cesar's Figma Rev 261116, /PromoteAndEarn).
 const DIGESTS = [
-  ["calendar", "One Big Calendar", "Sell tickets, Assign your Attendance Status", "/"],
+  ["calendar", "Calendar", "Sell tickets, Assign your Attendance Status", "/"],
   ["connections", "Connect", <>Individuals, Businesses, Organizations, Groups<br /><i>Assign your Membership Status</i></>, "/connect"],
-  ["idxBriefcase", "Careers / Jobs", "Assign your Employment Application Status", "/employment"],
+  ["idxBriefcase", "Employment", "Assign your Employment Application Status", "/employment"],
   ["idxProduct", "Products", null, "/listings?type=Product"],
   ["idxService", "Services", null, "/listings?type=Service"],
   null,
