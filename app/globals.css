@@ -4263,3 +4263,8 @@ body:has(.ref-page) { background: #cfcfcf !important; }
 .lt-opt img { flex-shrink: 0; }
 .find-menu .find-types-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0 10px; }
 .find-menu .pm-hint b { font-style: normal; color: var(--ink); }
+/* Nov 18 (Masoud): one select-circle column width for every row */
+.obc-row, .obc-row.premier { grid-template-columns: 150px minmax(0, 1fr) 44px; }
+@media (max-width: 640px) { .obc-row, .obc-row.premier { grid-template-columns: 104px minmax(0, 1fr) 40px; } }
+/* Nov 18: two spaces before italic hints ("One Big Table  Default", "Regular  Free") */
+.fp-label em, .fp-label i, .pm-item i, .pk-opt i, .lt-opt em, .bio-show i { margin-left: .3em; }
