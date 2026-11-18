@@ -54,7 +54,11 @@ function ListingsInner({ digest = false }) {
     setSelected(next);
     try { localStorage.setItem(SEL_KEY, JSON.stringify(next)); } catch {}
   }
-  const typeLabel = (FIND_TYPES.find((t) => t.id === filters.type?.[0]) || { label: "Listings" }).label;
+  // Nov 18 (Cesar, "Find One Big Table headers"): title bar = view + italic
+  // type with the type's icon; results bar = "view - Type".
+  const curType = FIND_TYPES.find((t) => t.id === filters.type?.[0]);
+  const typeLabel = curType ? curType.label : digest ? "Other Listings" : "Listings";
+  const viewName = digest ? "My Custom Digest" : "One Big Table";
   const scrollToResults = () => document.getElementById("results")?.scrollIntoView({ block: "start", behavior: "smooth" });
 
   return (
@@ -62,8 +66,9 @@ function ListingsInner({ digest = false }) {
       <PageTemplate
         section="products"
         activeAction={digest ? "digest" : null}
-        title={<>Find&nbsp;&nbsp;<i className="pb-sub">{digest ? "My Custom Digest" : "One Big Table"}</i></>}
-        icon={digest ? "idxProduct" : "idxProduct"}
+        title={<>{viewName}&nbsp;&nbsp;<i className="pb-sub">{curType ? curType.label : digest ? "Listing" : "Listings"}</i></>}
+        icon={curType?.icon || "idxProduct"}
+        typeIcon={curType?.icon || "idxProduct"}
         legend={false}
       />
 
@@ -75,7 +80,7 @@ function ListingsInner({ digest = false }) {
           )}
 
           <div className="timeline-col" id="results">
-            <ResultsHead step={digest ? 3 : 2} title={`${digest ? "My Custom Digest" : "One Big Table"} - ${typeLabel}`} q={qRaw} setQ={setQRaw}
+            <ResultsHead step={digest ? 3 : 2} title={`${viewName} - ${typeLabel}`} q={qRaw} setQ={setQRaw}
               addHref={digest ? "/listings/submit" : undefined} editHref={digest ? "/listings/submit" : undefined}
               showFilters={showFilters} onShowFilters={() => setShowFilters(true)} />
 

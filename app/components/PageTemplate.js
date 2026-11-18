@@ -23,6 +23,7 @@ export default function PageTemplate({
   icon,
   legend,          // kept for compatibility; the color legend is no longer shown
   tiles = true,    // false: no hub tiles (Registration pages, Nov 8 Figma)
+  typeIcon,
 }) {
   return (
     <div className={`tpl tpl-mode-${mode} ${narrow ? "tpl-narrow" : ""}`}>
@@ -34,6 +35,7 @@ export default function PageTemplate({
         activeAction={activeAction}
         intro={intro}
         tiles={tiles}
+        typeIcon={typeIcon}
       />
 
       {(actions || status === "construction") && (

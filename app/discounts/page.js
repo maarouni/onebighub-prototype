@@ -54,7 +54,7 @@ function DiscountsInner() {
     <>
       <PageTemplate
         section="discounts"
-        title={<>Find&nbsp;&nbsp;<i className="pb-sub">One Big Table</i></>}
+        title={<>One Big Table&nbsp;&nbsp;<i className="pb-sub">Deals</i></>}
         icon="discount"
         legend={false}
       />

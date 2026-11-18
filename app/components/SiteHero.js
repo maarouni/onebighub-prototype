@@ -236,7 +236,7 @@ const SECTION_ORDER = [
   { key: "notifications", href: "/notifications" },
 ];
 
-function PageBar({ title, icon, mode, section, gray }) {
+function PageBar({ title, icon, mode, section, gray, typeIcon }) {
   const i = Math.max(0, SECTION_ORDER.findIndex((x) => x.key === section));
   const prev = SECTION_ORDER[(i + SECTION_ORDER.length - 1) % SECTION_ORDER.length];
   const next = SECTION_ORDER[(i + 1) % SECTION_ORDER.length];
@@ -246,7 +246,9 @@ function PageBar({ title, icon, mode, section, gray }) {
         <Glyph name="pagePrev" size={30} />
       </a>
       <span className={`pb-icon ${mode === "edit" ? "pb-icon-dark" : ""}`}>
-        {String(icon).startsWith("fig")
+        {typeIcon
+          ? (PB_IMG[typeIcon] ? <img src={`/icons/${PB_IMG[typeIcon]}.png`} alt="" width="48" height="48" /> : <Glyph name={typeIcon} size={44} />)
+          : String(icon).startsWith("fig")
           ? <Glyph name={icon} size={40} />
           : mode !== "edit" && SECTION_IMG[section]
           ? <img src={`/icons/${SECTION_IMG[section]}.png`} alt="" width="48" height="48" />
@@ -328,6 +330,7 @@ export default function SiteHero({
   intro,                // intro line for pages without one of Cesar's default lines
   noLine = false,       // hide the intro line
   tiles = true,         // false: title bar + tagline only (Registration pages)
+  typeIcon,             // Find listing-type icon; wins over the section image
 }) {
   const path = usePathname() || "/";
   const [query, setQuery] = useState({});
@@ -340,7 +343,7 @@ export default function SiteHero({
 
   return (
     <div className={`site-hero site-hero-${mode}`}>
-      <PageBar title={title} icon={barIcon} mode={mode} section={section} gray={current === "digest"} />
+      <PageBar title={title} icon={barIcon} mode={mode} section={section} gray={current === "digest"} typeIcon={typeIcon} />
 
       <p className="hh-box hh-intro hh-oneline">
         {/* Nov 9 (Cesar, flyer): new tagline. Old: One-Stop • Results-Based Marketing • Revenue-Sharing System */}

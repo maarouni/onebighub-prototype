@@ -280,7 +280,7 @@ export default function MyCalendar() {
 
   return (
     <>
-      <PageTemplate section="calendar" title={<>Find&nbsp;&nbsp;<i className="pb-sub">My Custom Digest</i></>} legend={false} activeAction="digest"
+      <PageTemplate section="calendar" title={<>My Custom Digest&nbsp;&nbsp;<i className="pb-sub">Calendar</i></>} icon="idxDigestImg" typeIcon="calDigest" legend={false} activeAction="digest"
         intro={<><b><i>Save Time !</i></b> Select filters to curate events &bull; Assign <b>My Attendance Status</b> for each event</>} />
       <div className="page browse-page digest-page">
         <div className="layout-with-sidebar">

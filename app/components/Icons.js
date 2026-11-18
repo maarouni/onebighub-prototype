@@ -112,6 +112,7 @@ const P = {
   idxPrivateLabel: <><rect x="3" y="3" width="18" height="18" rx="3" /><path d="M8 16l1-3.5 6-6 2.5 2.5-6 6zM7 18h10" /></>,
   idxSwitch: <><rect x="2" y="7" width="20" height="10" rx="5" fill="currentColor" /><circle cx="16.5" cy="12" r="3.3" fill="#fff" stroke="none" /></>,
   idxListings: <path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01" strokeWidth="2.4" />,
+  calDigest: <><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M8 3v4M16 3v4M3 9.5h18" /><circle cx="10" cy="13.5" r="2" /><path d="M6.5 19.5c.5-2 2-3 3.5-3s3 1 3.5 3" /><path d="M16 21l5-5" /></>,
   idxDigestImg: <><path d="M4 21V10l8-6 8 6v11z" /><path d="M4 10l8 5 8-5" /><path d="M9 6V3h6v3" /></>,
   idxTarget: <><circle cx="12" cy="12" r="9.5" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2.5" /><path d="M14 10l6-6M17 4h3v3" /></>,
   idxHome: <><path d="M3 11 12 3l9 8" /><path d="M5 10v10h14V10M10 20v-5h4v5" /></>,
