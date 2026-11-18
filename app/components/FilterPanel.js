@@ -1,5 +1,6 @@
 "use client";
 
+import ListingTypeBox from "./ListingTypeBox";
 import { FilterShell, Box, CheckList, DateBox, GroupedBox, DigestBox, RegionBoxes, BothBox, RefIcon } from "./FilterKit";
 import { COST_OPTIONS, REGION_GROUPS, CATEGORY_GROUPS, EMPTY_FILTERS, CAL_POSTED_OPTIONS, FORMAT_OPTIONS, countFor } from "../lib/taxonomy";
 import { REFERRAL_OPTIONS, INDUSTRIES } from "../lib/organizations";
@@ -20,6 +21,7 @@ export default function FilterPanel({ events, filters, setFilters, today, q, onH
 
   return (
     <FilterShell onHide={onHide} onClear={() => setFilters(EMPTY_FILTERS)} onDisplay={onDisplay}>
+      <ListingTypeBox current="Calendar" view="table" />
       {/* Nov 15 (Cesar Rev 261115, confirmed by Masoud): no "Dates" box — Date Posted / Revised comes first */}
       {/* Nov 17 (Cesar's Figma): Past 7 days default; Both / No / Yes boxes; Format before Event Costs */}
       <DateBox title="Date Posted / Revised" field="posted" fromKey="postedFrom" toKey="postedTo" options={CAL_POSTED_OPTIONS} {...kit} />

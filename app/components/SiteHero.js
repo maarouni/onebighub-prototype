@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import IconNav, { MAIN_OF } from "./IconNav";
+import { FIND_TYPES } from "./ListingTypeBox";
 import HubLogo from "./HubLogo";
 import { Glyph } from "./Icons";
 import { RATE_PAGES } from "../lib/adRates";
@@ -84,16 +85,15 @@ const PRODUCT_ROW3 = [
 
 // Promote & Earn (Cesar Rev 261116): intro box + "Select one at a time" menu
 // replaces the old sub-header rows on every Promote & Earn page.
+// Nov 18 (Rev 261118): Achieve replaces Promote & Earn; One Big Table / My
+// Custom Digest / EDIT My Listings moved to Find's filter column.
 const PROMO_MENU = [
   [
     { key: "system", label: "Performance-Based Marketing System", href: "/advertising", icon: "idxSparkle" },
-    { key: "table", label: "One Big Table of Listings", href: "/listings", icon: "idxListings" },
-    { key: "digest", label: "My Custom Digest of Listings", href: "/listings/digest", icon: "idxDigestImg" },
-    { key: "edit", label: "EDIT My Listings", href: "/listings/submit", icon: "editMode" },
-  ],
-  [
     { key: "calculate", label: "Calculate Advertising Cost", href: "/advertising/calculate", icon: "calculate" },
     { key: "rates", label: <>Rates <i>Win-Win Opportunities</i></>, href: "/advertising/rates", icon: "discount" },
+  ],
+  [
     { key: "events", label: <>Participate in onebig<span className="cw-red">HUB</span> Events</>, href: "/advertising/participation", icon: "idxSparkle" },
     { key: "private", label: "Your Private-Labeled Main Header", href: "/advertising/private-label", icon: "idxPrivateLabel" },
   ],
@@ -116,10 +116,10 @@ function PromoMenu({ on }) {
         <b>Promote &amp; Earn with onebig<span className="cw-red">HUB</span></b> Profit-Sharing from Ads, Introductions / Referrals, and Sales<br />
         <b className="cw-red">No-Cost</b> and <b>Premier</b> opportunities to promote your listings, businesses, organizations, and groups
       </p>
-      <nav className="pm-menu" aria-label="Promote & Earn">
+      <nav className="pm-menu" aria-label="Achieve">
         {PROMO_MENU.map((col, ci) => (
           <div key={ci} className="pm-col">
-            <i className="pm-hint">{ci === 0 ? "Select one" : "Select one at a time"}</i>
+            <i className="pm-hint">{ci === 0 ? "Select one at a time" : "\u00a0"}</i>
             {col.map((it) => (
               <a key={it.key} href={it.href} className={`pm-item ${on === it.key ? "on" : ""}`} aria-current={on === it.key ? "page" : undefined}>
                 <span className="pm-o">{on === it.key ? "●" : "o"}</span><Glyph name={it.icon} size={16} /><span>{it.label}</span>
@@ -129,6 +129,36 @@ function PromoMenu({ on }) {
         ))}
       </nav>
     </>
+  );
+}
+
+// Find pages without a filter column (Event Details, RSVP, EDIT pages) get the
+// same two choices the filter column shows on One Big Table / My Custom Digest.
+const FIND_FILTER_PAGES = ["/", "/my-calendar", "/listings", "/listings/digest", "/employment", "/discounts", "/notifications"];
+function FindMenu({ path, query }) {
+  const typeId = path.startsWith("/employment") ? "Careers" : path.startsWith("/discounts") ? "Deals"
+    : path.startsWith("/listings") ? query.type || null : "Calendar";
+  const t = FIND_TYPES.find((x) => x.id === typeId) || { table: "/listings", digest: "/listings/digest", edit: "/listings/submit" };
+  const view = path.endsWith("/submit") || path.endsWith("/edit") ? "edit" : path.includes("digest") || path === "/my-calendar" ? "digest" : "table";
+  const views = [["table", "One Big Table", "idxListings"], ["digest", "My Custom Digest", "idxDigestImg"], ["edit", "EDIT My Listings", "editMode"]];
+  return (
+    <nav className="pm-menu find-menu" aria-label="Find">
+      <div className="pm-col">
+        <i className="pm-hint">Select one</i>
+        {views.map(([k, label, icon]) => (
+          <a key={k} href={t[k]} className={`pm-item ${view === k ? "on" : ""}`}><span className="pm-o">{view === k ? "●" : "o"}</span><Glyph name={icon} size={16} /><span>{label}</span></a>
+        ))}
+      </div>
+      <div className="pm-col find-types">
+        <i className="pm-hint"><b>Listings</b> Select one</i>
+        <div className="find-types-grid">
+          {FIND_TYPES.map((x) => (
+            <a key={x.id} href={x.table} className={`pm-item ${typeId === x.id ? "on" : ""}`}><span className="pm-o">{typeId === x.id ? "●" : "o"}</span>
+              {x.img ? <img src={x.img} alt="" width="16" height="16" /> : <Glyph name={x.icon} size={16} />}<span>{x.label}</span></a>
+          ))}
+        </div>
+      </div>
+    </nav>
   );
 }
 
@@ -186,11 +216,11 @@ function SubRow({ items, on, cols, variant = "" }) {
 
 // Page-bar icon per section (Tarek's colorized set).
 const SECTION_IMG = {
-  calendar: "calendar", connections: "connections", introductions: "introductions", earn: "earn",
+  calendar: "calendar", connections: "connections", introductions: "introductions", earn: "achieve",
   products: "products", discounts: "deals", employment: "careers", notifications: "notifications",
 };
 const PB_IMG = {
-  calendar: "calendar", connections: "connections", connectMe: "introductions", megaphone: "earn",
+  calendar: "calendar", connections: "connections", connectMe: "introductions", megaphone: "achieve",
   products: "products", discount: "deals", employment: "careers", notifications: "notifications",
 };
 
@@ -261,8 +291,9 @@ function rowsFor(section, action, path, query) {
 
   switch (MAIN_OF[section]) {
     case "calendar":
-      rows.push(<SubRow key="cal" items={CAL_ROW} on={action} />);
-      line = lineKey("calendar", action);
+      // Find (Nov 18): the One Big Table / My Custom Digest / EDIT and Listings
+      // choices live in the filter column; other Find pages show them here.
+      if (!FIND_FILTER_PAGES.includes(path)) rows.push(<FindMenu key="find" path={path} query={query} />);
       break;
     case "connections": {
       const on = section === "introductions" ? "introductions" : action;

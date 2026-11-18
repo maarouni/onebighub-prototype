@@ -12,14 +12,14 @@ import { GroupedBox } from "./FilterKit";
 // One Big Table of Listings filters (Cesar's Figma Rev 261116). Products,
 // Services, Memberships, Subscriptions and Surveys share the same filters;
 // Classifieds, Hospitality, Investments and Pay-It-Forward add their own boxes.
-export default function ListingsFilterPanel({ items, filters, setFilters, today, q, onHide, onDisplay, digestMode, setDigestMode }) {
+export default function ListingsFilterPanel({ items, filters, setFilters, today, q, onHide, onDisplay, digestMode, setDigestMode, view = "table" }) {
   const count = (key, v) => countListingsFor(items, filters, { [key]: key === "posted" ? v : [v] }, today, q);
   const kit = { filters, setFilters, count };
   const type = filters.type[0] || null;
   const toggleTag = (t) => setFilters((f) => ({ ...f, tags: f.tags.includes(t) ? f.tags.filter((x) => x !== t) : [...f.tags, t] }));
   return (
     <FilterShell onHide={onHide} onClear={() => setFilters(EMPTY_LISTING_FILTERS)} onDisplay={onDisplay}>
-      <ListingTypeBox current={type} onPick={(id) => setFilters((f) => ({ ...f, type: id ? [id] : [], tags: [] }))} />
+      <ListingTypeBox current={type} view={view} onPick={(id) => setFilters((f) => ({ ...f, type: id ? [id] : [], tags: [] }))} />
       <DateBox title="Date Posted / Revised" field="posted" fromKey="postedFrom" toKey="postedTo" options={DATE_POSTED_OPTIONS} {...kit} />
       <BothBox title="Offering $ Referrals" icon={<RefIcon />} field="referrals" options={REFERRAL_OPTIONS} {...kit} />
       {(TYPE_BOXES[type] || []).map((b, i) => (

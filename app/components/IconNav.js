@@ -7,10 +7,13 @@
 //   Promote & Earn    — advertising, products & services, deals, careers / jobs, notifications
 // Selected tile: gold background, bold burgundy text.
 
+// Nov 18 (Cesar Rev 261118, tagline Find • Connect • Achieve): the three main
+// headers are now Find (calendar + every listing type), Connect and Achieve
+// (was Promote & Earn).
 export const HUB_TILES = [
-  { key: "calendar", href: "/", img: "calendar", label: "One Big Calendar", tip: "Curate your Calendar Digest" },
+  { key: "calendar", href: "/", img: "find", label: "Find", tip: "Calendar, careers / jobs, products, services, deals … — One Big Table and My Custom Digest" },
   { key: "connections", href: "/connect", img: "connections", label: "Connect", tip: "Connect with me !, introductions, profiles" },
-  { key: "promote", href: "/advertising", img: "earn", label: "Promote & Earn", tip: "Ads & events, products & services, deals, careers / jobs, notifications" },
+  { key: "promote", href: "/advertising", img: "achieve", label: "Achieve", tip: "Performance-based marketing, advertising cost, rates, events, private-labeled header" },
 ];
 
 // Which main tile each page section belongs to.
@@ -19,10 +22,11 @@ export const MAIN_OF = {
   connections: "connections",
   introductions: "connections",
   earn: "promote",
-  products: "promote",
-  discounts: "promote",
-  employment: "promote",
-  notifications: "promote",
+  // Listing tables moved from Promote & Earn to Find (Nov 18).
+  products: "calendar",
+  discounts: "calendar",
+  employment: "calendar",
+  notifications: "calendar",
 };
 
 export default function IconNav({ active, mode = "output" }) {

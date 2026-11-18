@@ -124,7 +124,7 @@ export default function EventDetail() {
   if (event === null) {
     return (
       <div className="page">
-        <div className="empty-state">Couldn&apos;t find that event. <a href="/">Back to One Big Calendar</a></div>
+        <div className="empty-state">Couldn&apos;t find that event. <a href="/">Back to Find</a></div>
       </div>
     );
   }

@@ -58,16 +58,16 @@ export function FilterShell({ onHide, onClear, onDisplay, footer, children }) {
   );
 }
 
-export function Box({ title, title2, hint, icon, defaultOpen = true, disabled, note, children }) {
+export function Box({ title, title2, hint, icon, defaultOpen = true, disabled, note, className = "", children }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <section className={`fp-box ${disabled ? "fp-disabled" : ""}`}>
+    <section className={`fp-box ${disabled ? "fp-disabled" : ""} ${className}`}>
       <div className="fp-box-head">
         <span className="fp-box-title">
           <b>{icon}{title}</b>
           {!title2 && hint && <em>{hint}</em>}
         </span>
-        <CollapseArrow open={open} onClick={() => setOpen((o) => !o)} label={typeof title === "string" ? title : "section"} />
+        {title && <CollapseArrow open={open} onClick={() => setOpen((o) => !o)} label={typeof title === "string" ? title : "section"} />}
       </div>
       {title2 && <div className="fp-box-title2"><b>{title2}</b>{hint && <em> {hint}</em>}</div>}
       {open && (

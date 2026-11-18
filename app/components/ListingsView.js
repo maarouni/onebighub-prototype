@@ -3,6 +3,7 @@
 import { Suspense, useEffect, useMemo, useState } from "react";
 import PageTemplate from "./PageTemplate";
 import ListingsFilterPanel from "./ListingsFilterPanel";
+import { FIND_TYPES } from "./ListingTypeBox";
 import { NextStep } from "./Steps";
 import { ResultsHead, ListingTable, Pager, shortYmd } from "./ListingTable";
 import { cityCode } from "../lib/cityCodes";
@@ -53,6 +54,7 @@ function ListingsInner({ digest = false }) {
     setSelected(next);
     try { localStorage.setItem(SEL_KEY, JSON.stringify(next)); } catch {}
   }
+  const typeLabel = (FIND_TYPES.find((t) => t.id === filters.type?.[0]) || { label: "Listings" }).label;
   const scrollToResults = () => document.getElementById("results")?.scrollIntoView({ block: "start", behavior: "smooth" });
 
   return (
@@ -60,7 +62,7 @@ function ListingsInner({ digest = false }) {
       <PageTemplate
         section="products"
         activeAction={digest ? "digest" : null}
-        title={<>Promote &amp; Earn&nbsp;&nbsp;<i className="pb-sub">{digest ? "My Digest" : "One Big Table"}</i></>}
+        title={<>Find&nbsp;&nbsp;<i className="pb-sub">{digest ? "My Custom Digest" : "One Big Table"}</i></>}
         icon={digest ? "idxProduct" : "idxProduct"}
         legend={false}
       />
@@ -69,11 +71,11 @@ function ListingsInner({ digest = false }) {
         <div className="layout-with-sidebar">
           {showFilters && (
             <ListingsFilterPanel items={items} filters={filters} setFilters={setFilters} today={today} q={q}
-              onHide={() => setShowFilters(false)} onDisplay={scrollToResults} digestMode={digestMode} setDigestMode={setDigestMode} />
+              onHide={() => setShowFilters(false)} onDisplay={scrollToResults} digestMode={digestMode} setDigestMode={setDigestMode} view={digest ? "digest" : "table"} />
           )}
 
           <div className="timeline-col" id="results">
-            <ResultsHead step={digest ? 3 : 2} title={digest ? "My Custom Digest - Listings" : "One Big Table of Listings"} q={qRaw} setQ={setQRaw}
+            <ResultsHead step={digest ? 3 : 2} title={`${digest ? "My Custom Digest" : "One Big Table"} - ${typeLabel}`} q={qRaw} setQ={setQRaw}
               addHref={digest ? "/listings/submit" : undefined} editHref={digest ? "/listings/submit" : undefined}
               showFilters={showFilters} onShowFilters={() => setShowFilters(true)} />
 

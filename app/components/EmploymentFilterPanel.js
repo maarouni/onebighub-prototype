@@ -23,7 +23,7 @@ export default function EmploymentFilterPanel({ jobs, filters, setFilters, today
   const kit = { filters, setFilters, count };
   return (
     <FilterShell onHide={onHide} onClear={() => setFilters(EMPTY_JOB_FILTERS)} onDisplay={onDisplay}>
-      <ListingTypeBox current="Careers" />
+      <ListingTypeBox current="Careers" view="table" />
       <DateBox title="Date Posted" field="posted" fromKey="postedFrom" toKey="postedTo" options={DATE_POSTED_OPTIONS} {...kit} />
       <Box title="Minimum Compensation"><CheckList field="comp" options={COMP_OPTIONS} {...kit} /></Box>
       <Box title="Sort by" hint="Select one" defaultOpen={false}>

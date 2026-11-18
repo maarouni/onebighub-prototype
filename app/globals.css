@@ -4258,3 +4258,8 @@ body:has(.ref-page) { background: #cfcfcf !important; }
 /* Nov 16 PM (Cesar, "Unfreeze main header"): frozen on a computer, scrolls away on a phone */
 @media (max-width: 760px) { .navbar, header.navbar { position: static !important; } }
 .evd-fact-sub { font-weight: 400; }
+/* Nov 18 (Rev 261118): Find menu (pages without filter column) + Find filter boxes */
+.find-box .fp-box-head { min-height: 0; }
+.lt-opt img { flex-shrink: 0; }
+.find-menu .find-types-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0 10px; }
+.find-menu .pm-hint b { font-style: normal; color: var(--ink); }

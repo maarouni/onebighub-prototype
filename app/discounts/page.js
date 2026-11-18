@@ -54,7 +54,7 @@ function DiscountsInner() {
     <>
       <PageTemplate
         section="discounts"
-        title={<>Promote &amp; Earn&nbsp;&nbsp;<i className="pb-sub">One Big Table</i></>}
+        title={<>Find&nbsp;&nbsp;<i className="pb-sub">One Big Table</i></>}
         icon="discount"
         legend={false}
       />
@@ -67,7 +67,7 @@ function DiscountsInner() {
           )}
 
           <div className="timeline-col" id="results">
-            <ResultsHead title="One Big Table of Listings" q={qRaw} setQ={setQRaw}
+            <ResultsHead title="One Big Table - Deals" q={qRaw} setQ={setQRaw}
               showFilters={showFilters} onShowFilters={() => setShowFilters(true)} />
 
             <FillInHere>

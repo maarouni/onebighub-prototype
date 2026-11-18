@@ -16,7 +16,7 @@ export { REGION_GROUPS, INDUSTRIES };
 // (select one). Careers / Jobs, Deals and Notifications keep their own pages.
 export const LISTING_TYPES = ["Product", "Service", "Classified", "Hospitality", "Investment", "Pay-It-Forward", "Membership", "Subscription", "Survey"];
 export const LISTING_TYPE_MENU = [
-  { id: "Careers", label: "Careers / Jobs", icon: "idxBriefcase", href: "/employment" },
+  { id: "Careers", label: "Employment", icon: "idxBriefcase", href: "/employment" },
   { id: "Product", label: "Products", icon: "idxProduct" },
   { id: "Service", label: "Services", icon: "idxService" },
   { gap: true, id: "Classified", label: "Classifieds", icon: "idxClassified" },

@@ -73,7 +73,7 @@ function EmploymentInner() {
     <>
       <PageTemplate
         section="employment"
-        title={<>Promote &amp; Earn&nbsp;&nbsp;<i className="pb-sub">One Big Table</i></>}
+        title={<>Find&nbsp;&nbsp;<i className="pb-sub">One Big Table</i></>}
         icon="idxBriefcase"
         legend={false}
         actions={<a href="/employment/submit" className="tpl-action" data-tip="Add New listing">+ Post a Listing</a>}
@@ -87,7 +87,7 @@ function EmploymentInner() {
           )}
 
           <div className="timeline-col" id="results">
-            <ResultsHead title="One Big Table of Listings" q={qRaw} setQ={setQRaw}
+            <ResultsHead title="One Big Table - Careers" q={qRaw} setQ={setQRaw}
               showFilters={showFilters} onShowFilters={() => setShowFilters(true)} />
 
             <FillInHere>

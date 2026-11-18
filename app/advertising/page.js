@@ -26,7 +26,7 @@ const DIGESTS = [
 
 export default function PromoteAndEarn() {
   return (
-    <AdPage title="Promote & Earn">
+    <AdPage title="Achieve">
       <section className="ad-box pe-box">
         <h2><HubLogo size={34} /> Performance-Based Marketing System</h2>
         <p><b className="cw-red"><i>SAVE $$$ !</i></b> <b>Full Transparency</b> <span className="cw-red">*</span> <a href="/advertising/calculate">Calculate and Manage your Advertising Cost</a> based on # times your listing may be displayed in user&rsquo;s matching filters and pages:</p>

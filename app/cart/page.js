@@ -52,7 +52,7 @@ export default function CartPage() {
         <div className="cart-empty">
           <Glyph name="cart" size={40} strokeWidth={1.4} />
           <p>Your cart is empty. Use <Glyph name="cartAdd" size={15} /> <b>Add item to My Shopping Cart</b> on a ticketed event to add one.</p>
-          <a href="/" className="btn-primary btn-sm">Browse One Big Calendar</a>
+          <a href="/" className="btn-primary btn-sm">Browse One Big Table - Calendar</a>
         </div>
       ) : (
         <table className="cart-table">

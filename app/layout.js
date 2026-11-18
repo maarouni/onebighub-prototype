@@ -4,8 +4,8 @@ import SiteFooter from "./components/SiteFooter";
 import RegGate from "./components/RegGate";
 
 export const metadata = {
-  title: "onebigHUB — Attend • Connect • Earn (Prototype)",
-  description: "onebigHUB — Attend • Connect • Earn. Internal prototype, not the live product",
+  title: "onebigHUB — Find • Connect • Achieve (Prototype)",
+  description: "onebigHUB — Find • Connect • Achieve. Internal prototype, not the live product",
 };
 
 export default function RootLayout({ children }) {

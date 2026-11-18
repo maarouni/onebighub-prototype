@@ -175,7 +175,7 @@ export default function ConnectSteps46() {
           {[
             ["a", "/profile", "A - Connect", "Create My No-Cost Profiles: Individual / Business(es) / Organization(s) / Group(s)"],
             ["b", "/connect-with-me", <i key="b">B - Connect with Me !</i>, "Invite others with My Custom QR Code"],
-            ["c", "/advertising", "C - Promote & Earn !", <>Create My Listings (Regular or Premier)<br />AND share profits from ads and sales fees with your network (3 Levels of Introductions)</>],
+            ["c", "/advertising", "C - Achieve !", <>Create My Listings (Regular or Premier)<br />AND share profits from ads and sales fees with your network (3 Levels of Introductions)</>],
             ["d", "/dashboards", "D - Manage My Dashboards & Settings", null],
             ["e", "/info/contact", <b key="e"><i>How may we be of help to you ?</i></b>, <>Please <a href="/info/contact">contact us</a> with your comments and questions</>],
           ].map(([id, href, label, sub]) => (

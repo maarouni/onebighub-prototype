@@ -57,11 +57,11 @@ export default function NavBar() {
         {/* Oct 28 (Cesar's Figma Rev 261028): colored hub mark — burgundy core,
             blue and light-blue nodes — at the top of the logo size hierarchy
             (75 → 60 → 45 → 30 px), burgundy "HUB", tagline underneath. */}
-        <a href="/" className="brand brand-v2" aria-label="onebigHUB.com — Attend • Connect • Earn — Home">
+        <a href="/" className="brand brand-v2" aria-label="onebigHUB.com — Find • Connect • Achieve — Home">
           <HubLogo className="brand-cal brand-hub" size={75} />
           <span className="brand-text">
             <span className="brand-word">onebig<b>HUB</b><small>.com</small></span>
-            <span className="brand-more">Attend • Connect • Earn</span>
+            <span className="brand-more">Find • Connect • Achieve</span>
           </span>
         </a>
 

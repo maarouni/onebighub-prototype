@@ -11,6 +11,7 @@ import { ResultsHead, ListingTable, Pager } from "../components/ListingTable";
 import { Box, Option, CheckList, GroupedBox, RegionBoxes, FilterShell, DateBox, BothBox, RefIcon } from "../components/FilterKit";
 import { REFERRAL_OPTIONS, INDUSTRIES } from "../lib/organizations";
 import { PagerRow } from "../components/PromoKit";
+import ListingTypeBox from "../components/ListingTypeBox";
 import { NextStep } from "../components/Steps";
 import { Glyph } from "../components/Icons";
 import CollapseArrow from "../components/CollapseArrow";
@@ -279,11 +280,12 @@ export default function MyCalendar() {
 
   return (
     <>
-      <PageTemplate section="calendar" title="My Calendar Digest" legend={false} activeAction="digest"
+      <PageTemplate section="calendar" title={<>Find&nbsp;&nbsp;<i className="pb-sub">My Custom Digest</i></>} legend={false} activeAction="digest"
         intro={<><b><i>Save Time !</i></b> Select filters to curate events &bull; Assign <b>My Attendance Status</b> for each event</>} />
       <div className="page browse-page digest-page">
         <div className="layout-with-sidebar">
           <FilterShell onClear={() => { setF(EMPTY); setSetName("none"); }} onDisplay={() => document.getElementById("results")?.scrollIntoView({ behavior: "smooth" })}>
+            <ListingTypeBox current="Calendar" view="digest" />
             <Box title="Sets" hint="Select one">
               <Option type="radio" name="dg-set" checked={setName === "none"} onChange={() => pickSet("none")} label="No Filter Sets" def />
               {["A", "B", "C"].map((n) => (
@@ -339,12 +341,12 @@ export default function MyCalendar() {
           </FilterShell>
 
           <div className="timeline-col" id="results">
-            <ResultsHead step={3} title="My Calendar Digest" q={q} setQ={setQ} showFilters onShowFilters={() => {}} addHref="/submit" editHref="/submit" />
+            <ResultsHead step={3} title="My Custom Digest - Calendar" q={q} setQ={setQ} showFilters onShowFilters={() => {}} addHref="/submit" editHref="/submit" />
             {flash && <div className="fp-flash fp-flash-block">{flash}</div>}
 
             {mine.length === 0 && (
               <div className="empty-state">
-                Your digest is empty. <a href="/">Browse One Big Calendar</a> and ADD Selection(s) to My Calendar Digest.
+                Your digest is empty. <a href="/">Browse One Big Table - Calendar</a> and ADD Selection(s) to My Calendar Digest.
               </div>
             )}
             {mine.length > 0 && shown.length === 0 && (

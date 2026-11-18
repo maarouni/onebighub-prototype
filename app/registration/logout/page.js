@@ -29,7 +29,7 @@ export default function LogOut() {
             <p className="sad-face" aria-hidden="true">☹</p>
             <p className="big-q">OK ... buh-bye</p>
             <p style={{ textAlign: "center" }}>See you again soon !</p>
-            <p style={{ textAlign: "center" }}><a href="/">Back to One Big Calendar</a></p>
+            <p style={{ textAlign: "center" }}><a href="/">Back to Find</a></p>
           </>
         ) : (
           <>
