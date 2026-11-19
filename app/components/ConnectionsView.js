@@ -8,6 +8,7 @@ import { ResultsHead, ListingTable, Pager, shortYmd } from "./ListingTable";
 import { cityCode } from "../lib/cityCodes";
 import SendToMasoud from "./SendToMasoud";
 import OrgStatusPicker from "./OrgStatusPicker";
+import { Glyph } from "./Icons";
 import {
   EMPTY_ORG_FILTERS, orgMatches, fetchOrgs, localOrgs, readMembership, writeMembership, fmtMembers, fmtDues,
 } from "../lib/organizations";
@@ -25,6 +26,35 @@ const PAGE_SIZE = 8;
 
 const fmtOrg = (o) =>
   `${o.name}${o.premier ? " (PREMIER)" : ""}\n   ${o.tagline}\n   ${(o.formats || []).join(" / ")} · ${(o.categories || []).join(", ")} · ${o.industry}\n   ${o.city}, ${o.state || "CA"} (${o.region}) · ${fmtMembers(o.members)} · ${fmtDues(o.dues)}`;
+
+// Nov 19 (Cesar's Figma, Connect Profiles): one row format per profile type —
+//   Individual • Name, Title / Tagline · Business / Organization / Group / City, State
+//   Business • Name / Tagline / (premier) xxx Employees / City, State
+//   Organization | Group • Name / Tagline / (premier) Members • $ Annual Dues / City, State
+// with the type icon top-right and "Posted MM/DD/YY" bottom-right.
+const KIND = {
+  indPersonal: ["Individual", "person"], indProfessional: ["Individual", "person"],
+  biz: ["Business", "typeBiz"], org: ["Organization", "typeOrg"], group: ["Group", "typeGroup"],
+};
+const mmddyy = (d) => { const [y, m, dd] = String(d || "").split("-"); return y ? `${m}/${dd}/${y.slice(2)}` : ""; };
+export function profileRow(o, extra = {}) {
+  const [label, icon] = KIND[o.kind || "org"] || KIND.org;
+  const ind = label === "Individual";
+  const where = `${o.city || ""}${o.state ? `, ${o.state}` : ""}`;
+  const t = o.premier ? <i key="t">{o.tagline}</i> : o.tagline;
+  const lines = ind
+    ? [<>{t}{o.business ? <> &nbsp;/&nbsp; {o.business}</> : null}</>, where]
+    : label === "Business"
+      ? [t, o.premier && o.employees ? `${Number(o.employees).toLocaleString()} Employees` : null, where]
+      : [t, o.premier ? `${fmtMembers(o.members)} • ${fmtDues(o.dues)}` : null, where];
+  return {
+    id: o.id, href: `/connect/${o.id}`, left: null, premier: o.premier, alwaysImg: true,
+    title: <>{label} • {o.name}{ind && o.title ? `, ${o.title}` : ""}</>,
+    lines, posted: `Posted ${mmddyy(o.posted)}`,
+    imageNode: <Glyph name={icon} size={24} />,
+    ...extra,
+  };
+}
 
 const readJson = (k, d) => { try { return JSON.parse(localStorage.getItem(k) || "null") ?? d; } catch { return d; } };
 const writeJson = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
@@ -127,8 +157,8 @@ function Inner({ digest }) {
       ]
     : [
         { id: "details", icon: "eyeView", label: "View Selection(s)", href: firstSel ? `/connect/${firstSel.id}` : "/connect", def: true },
-        { id: "digest", icon: "plusBold", label: "ADD Selection(s) to My Connections Digest", onClick: addToDigest },
-        { id: "signup", icon: "login", label: "Sign Up / Log in to ADD Listings to My Connections Digest", href: "/registration" },
+        { id: "digest", icon: "plusBold", label: "ADD Selection(s) to My Connect Digest", onClick: addToDigest },
+        { id: "signup", icon: "login", label: "Sign Up / Log In to ADD Listings to My Connect Digest", href: "/registration" },
       ];
 
   return (
@@ -168,16 +198,7 @@ function Inner({ digest }) {
               </div>
             )}
 
-            <ListingTable rows={pageItems.map((o) => ({
-              id: o.id,
-              href: `/connect/${o.id}`,
-              left: [`Revised ${shortYmd(o.posted)}`, o.premier ? fmtMembers(o.members) : null],
-              title: o.name,
-              lines: o.premier
-                ? [<i key="t">{o.tagline}</i>, `${cityCode({ city: o.city })}, ${(o.formats || []).join(" / ")}`, `${(o.categories || []).join(" • ")} • ${o.industry}`, fmtDues(o.dues)]
-                : [`${cityCode({ city: o.city })}, ${o.tagline}`],
-              premier: o.premier,
-              image: "organizations",
+            <ListingTable rows={pageItems.map((o) => profileRow(o, {
               selected: !!selected[o.id],
               onToggle: () => toggle(o.id),
               status: digest ? <OrgStatusPicker value={membership[o.id] || ""} onChange={(st) => setStatus(o.id, st)} compact /> : null,

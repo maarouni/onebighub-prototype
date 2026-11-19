@@ -61,16 +61,20 @@ export function ListingTable({ rows }) {
   return (
     <div className="obc-table" role="list">
       {rows.map((r) => (
-        <article key={r.id} role="listitem" className={`obc-row ${r.premier ? "premier" : "regular"} ${r.status ? "has-status" : ""} ${r.selected ? "selected" : ""}`}>
-          <a href={r.href} className="obc-cell obc-when" tabIndex={-1}>
-            {r.left.filter(Boolean).map((l, i) => <span key={i}>{l}</span>)}
-          </a>
+        <article key={r.id} role="listitem" className={`obc-row ${r.premier ? "premier" : "regular"} ${r.status ? "has-status" : ""} ${r.selected ? "selected" : ""} ${r.left ? "" : "no-when"}`}>
+          {r.left && (
+            <a href={r.href} className="obc-cell obc-when" tabIndex={-1}>
+              {r.left.filter(Boolean).map((l, i) => <span key={i}>{l}</span>)}
+            </a>
+          )}
           <a href={r.href} className="obc-cell obc-main">
             <span className="obc-title">{r.title}</span>
             {r.lines.filter(Boolean).map((l, i) => <span key={i}>{l}</span>)}
             {r.barter && <span className="obc-barter" data-tip="Barter – no payment, not tracked"><Glyph name="barter" size={15} /></span>}
             {/* Nov 17 (Cesar): no separate image column — the premier icon sits in the listing box */}
-            {r.premier && (
+            {/* Nov 19 (Cesar, Connect Profiles): profile-type icon on every row + "Posted MM/DD/YY" bottom right */}
+            {r.posted && <span className="obc-posted">{r.posted}</span>}
+            {(r.premier || r.alwaysImg) && (
               <span className="obc-inline-img" aria-hidden="true">
                 {r.imageNode || <Glyph name={r.image || "expo"} size={30} strokeWidth={1.6} />}
               </span>

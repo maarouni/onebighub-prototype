@@ -17,9 +17,9 @@ export const ORG_FORMATS = ["In-Person", "Online / Virtual"];
 export const ORG_TIERS = ["Premier", "Regular"];
 
 export const DATE_POSTED_OPTIONS = [
-  { id: "all", label: "All" },
+  { id: "all", label: "All", def: false },
   { id: "today", label: "Today" },
-  { id: "7", label: "Past 7 days" },
+  { id: "7", label: "Past 7 days", def: true },
   { id: "15", label: "Past 15 days" },
   { id: "30", label: "Past 30+ days" },
   { id: "custom", label: "MM/DD/YY - MM/DD/YY" },
@@ -90,10 +90,12 @@ export const CONN_COMP = [
 
 export const EMPTY_ORG_FILTERS = {
   referral: [], ctype: [], seeking: [], level: [], comp: [], adtype: [],
-  posted: "all", postedFrom: "", postedTo: "",
+  posted: "7", postedFrom: "", postedTo: "", // Nov 19 (Cesar's Figma): Past 7 days default
   formats: [], tiers: [], members: [], dues: [], status: [],
   categories: [], industry: [], region: [],
 };
+
+const daysAgo = (n) => { const d = new Date(); d.setDate(d.getDate() - n); return d.toISOString().slice(0, 10); };
 
 // Placeholder organizations to test the layout — Cesar replaces these.
 const ORGS = [
@@ -101,7 +103,7 @@ const ORGS = [
     id: "o1", name: "Tri-Valley Business Alliance", tagline: "Connecting small businesses across Pleasanton, Dublin and Livermore",
     formats: ["In-Person", "Online / Virtual"], premier: true,
     categories: ["Networking", "Business, Financial"], industry: "Business",
-    city: "Pleasanton", state: "CA", region: "Alameda", members: 420, dues: 150, posted: "2026-10-12",
+    city: "Pleasanton", state: "CA", region: "Alameda", members: 420, dues: 150, posted: daysAgo(1),
     why: "Help local owners grow through referrals, education and advocacy.",
     benefits: "Monthly mixers, member directory, ribbon cuttings, discounted workshops.",
     url: "", profileUrl: "", phone: "(925) 555-0110", email: "", contactName: "Membership Desk", memberList: "public",
@@ -117,7 +119,7 @@ const ORGS = [
     id: "o2", name: "East Bay Women in Tech", tagline: "Mentorship, meetups and career growth for women in technology",
     formats: ["In-Person", "Online / Virtual"], premier: false,
     categories: ["Female, Women", "Career", "Emerging Tech"], industry: "Technology",
-    city: "Oakland", state: "CA", region: "Alameda", members: 2300, dues: 0, posted: "2026-10-08",
+    city: "Oakland", state: "CA", region: "Alameda", members: 2300, dues: 0, posted: daysAgo(3),
     why: "Close the gender gap in Bay Area tech.", benefits: "Mentor matching, job board, monthly talks.",
     url: "", profileUrl: "", phone: "", email: "", contactName: "", memberList: "members",
     roster: [
@@ -129,7 +131,7 @@ const ORGS = [
     id: "o3", name: "Peninsula Real Estate Investors Club", tagline: "Monthly deal reviews and education for Bay Area investors",
     formats: ["In-Person"], premier: true,
     categories: ["Business Investor, Startup", "Seminar, Workshop"], industry: "Financial",
-    city: "San Mateo", state: "CA", region: "San Mateo", members: 860, dues: 99, posted: "2026-10-03",
+    city: "San Mateo", state: "CA", region: "San Mateo", members: 860, dues: 99, posted: daysAgo(5),
     why: "Make investors better underwriters.", benefits: "Deal nights, lender panels, member-only market reports.",
     url: "", profileUrl: "", phone: "", email: "", contactName: "Club Organizer", memberList: "registered",
     roster: [
@@ -140,7 +142,7 @@ const ORGS = [
     id: "o4", name: "Bay Area Hispanic Professionals Network", tagline: "Career and business networking for Latino professionals",
     formats: ["In-Person", "Online / Virtual"], premier: false,
     categories: ["Hispanic, Latino, Latinx", "Networking"], industry: "Professional Services",
-    city: "San Jose", state: "CA", region: "Santa Clara", members: 6200, dues: 60, posted: "2026-09-29",
+    city: "San Jose", state: "CA", region: "Santa Clara", members: 6200, dues: 60, posted: daysAgo(6),
     why: "Grow Latino leadership across the Bay Area.", benefits: "Scholarships, chapter events, annual gala.",
     url: "", profileUrl: "", phone: "", email: "", contactName: "", memberList: "hide",
     roster: [],
@@ -149,7 +151,7 @@ const ORGS = [
     id: "o5", name: "Golden Gate Nonprofit Collaborative", tagline: "Shared resources and training for San Francisco nonprofits",
     formats: ["Online / Virtual"], premier: false,
     categories: ["Community", "Education"], industry: "Non Profit",
-    city: "San Francisco", state: "CA", region: "San Francisco", members: 18500, dues: 250, posted: "2026-09-20",
+    city: "San Francisco", state: "CA", region: "San Francisco", members: 18500, dues: 250, posted: daysAgo(9),
     why: "Stronger nonprofits, stronger city.", benefits: "Grant-writing clinics, board training, shared vendor rates.",
     url: "", profileUrl: "", phone: "", email: "", contactName: "", memberList: "public",
     roster: [
@@ -160,10 +162,44 @@ const ORGS = [
     id: "o6", name: "Northern California Engineers Society", tagline: "Professional development for engineers statewide",
     formats: ["In-Person", "Online / Virtual"], premier: false,
     categories: ["Education", "Conference"], industry: "Science",
-    city: "Sacramento", state: "CA", region: "Sacramento Valley", members: 52000, dues: 1200, posted: "2026-09-12",
+    city: "Sacramento", state: "CA", region: "Sacramento Valley", members: 52000, dues: 1200, posted: daysAgo(12),
     why: "Advance the engineering profession.", benefits: "PE exam prep, continuing education credits, annual conference.",
     url: "", profileUrl: "", phone: "", email: "", contactName: "", memberList: "hide",
     roster: [],
+  },
+  // Nov 19 (Cesar's Figma, Connect Profiles): the table mixes Individual,
+  // Business, Organization and Group profiles. Placeholders — Cesar replaces these.
+  {
+    id: "p1", kind: "indProfessional", name: "Angel Claus", title: "President", business: "NorthPoleTech.com",
+    tagline: "Toy-tech consulting for small makers", premier: true, referral: true,
+    categories: ["Business, Financial"], industry: "Technology", city: "San Jose", state: "CA", region: "Santa Clara", posted: daysAgo(0),
+    phone: "1-976-TECHIES", email: "AClaus@NorthPoleTech.com", pitchTitle: "Helping makers ship faster",
+    pitch: "I help small product teams turn prototypes into products customers love — on time and on budget.",
+    seeking: ["Consultant"], level: "Founder / Owner",
+  },
+  {
+    id: "p2", kind: "indPersonal", name: "Jordan Lee", title: "Marketing Manager", business: "Valley Credit Union",
+    tagline: "Community banking and local events", premier: false,
+    categories: ["Networking"], industry: "Finance", city: "Dublin", state: "CA", region: "Alameda", posted: daysAgo(1),
+  },
+  {
+    id: "b1", kind: "biz", name: "Jack Frost Heating & Cooling", tagline: "Family-owned HVAC service since 1998", premier: true, referral: true,
+    employees: 45, categories: ["Business, Financial"], industry: "Construction", city: "Fremont", state: "CA", region: "Alameda", posted: daysAgo(2),
+    phone: "1-800-TOO-COOL", email: "jack@jackfrost.com", why: "Comfortable homes, honest prices.", benefits: "Same-day service, 10-year warranties.",
+  },
+  {
+    id: "b2", kind: "biz", name: "Bay Bright Cleaning", tagline: "Eco-friendly office cleaning", premier: false,
+    employees: 12, categories: ["Business, Financial"], industry: "Services", city: "Hayward", state: "CA", region: "Alameda", posted: daysAgo(4),
+  },
+  {
+    id: "g1", kind: "group", name: "Tri-Valley Hiking Club", tagline: "Weekend hikes for all levels", premier: true,
+    members: 380, dues: 25, categories: ["Community", "Health, Wellness"], industry: "Recreation", city: "Livermore", state: "CA", region: "Alameda", posted: daysAgo(2),
+    formats: ["In-Person"], memberList: "public", roster: [],
+  },
+  {
+    id: "g2", kind: "group", name: "Peninsula Founders Circle", tagline: "Monthly founder roundtables", premier: false,
+    members: 60, dues: 0, categories: ["Networking"], industry: "Business", city: "Palo Alto", state: "CA", region: "Santa Clara", posted: daysAgo(6),
+    formats: ["In-Person"], memberList: "members", roster: [],
   },
 ];
 

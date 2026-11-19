@@ -309,7 +309,7 @@ function rowsFor(section, action, path, query) {
         line = lineKey("connections", "connect");
       } else {
         if (action === "details") rows.push(<SubRow key="prof" items={PROFILE_ROW} on={query.type} variant="hsub-gold" />);
-        if (action !== "edit") line = lineKey("connections", action === "digest" ? "digest" : "");
+        if (action !== "edit" && action !== "view") line = lineKey("connections", action === "digest" ? "digest" : "");
       }
       break;
     }

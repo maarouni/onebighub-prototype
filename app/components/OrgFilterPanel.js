@@ -108,8 +108,8 @@ export default function OrgFilterPanel({ items, filters, setFilters, ctx, onHide
         <CheckList field="members" options={MEMBER_OPTIONS} {...kit} allLabel="No Response" />
         <Sub title="Annual Dues"><CheckList field="dues" options={DUES_OPTIONS} {...kit} allLabel="No Response" /></Sub>
       </Box>
+      {!digest && <DigestBox digest="My Connect Digest" />}
       <AdTypesBox {...kit} />
-      {!digest && <DigestBox digest="My Connections Digest" />}
       <GroupedBox title="Categories" field="categories" groups={CATEGORY_GROUPS} {...kit} />
       <Box title="Industries" defaultOpen={filters.industry.length > 0}>
         <CheckList field="industry" options={INDUSTRIES} {...kit} />

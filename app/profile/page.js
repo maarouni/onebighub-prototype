@@ -6,6 +6,7 @@ import PageTemplate from "../components/PageTemplate";
 import { Field, Input, Area, MiniCard, Radios } from "../components/Form";
 import { Glyph } from "../components/Icons";
 import NetworkGraph from "../components/NetworkGraph";
+import { SectionBar } from "../components/ConnectKit";
 import { getUser } from "../lib/auth";
 import { BIO_DOCS, getProfile, saveProfile, getGallery, saveGallery, shrinkImage, GALLERY_MAX } from "../lib/profile";
 import { listReferrals } from "../lib/referrals";
@@ -114,7 +115,7 @@ export default function ProfilePage() {
 
   return (
     <PageTemplate section="connections" activeAction="edit" mode="edit" title={<>Connect&nbsp;&nbsp;<i className="pb-sub">EDIT My Profile</i></>} icon="person" typeIcon="person"
-      intro={<><strong>Get Connected !</strong> <i>Offer before you receive&nbsp;&nbsp;•&nbsp;&nbsp;A little courtesy goes a long way !</i></>}>
+      intro={<><strong className="cw-red">Get Connected !</strong> <i>Offer before you receive&nbsp;&nbsp;•&nbsp;&nbsp;A little courtesy goes a long way !</i></>}>
       <div className={`page browse-page ep-page ${showFilters ? "" : "filters-hidden"}`}>
         <div className="layout-with-sidebar">
           {showFilters && <ProfileFilters onHide={() => setShowFilters(false)} />}
@@ -122,6 +123,7 @@ export default function ProfilePage() {
       {!showFilters && <button type="button" className="ep-show" onClick={() => setShowFilters(true)}>Display Filters</button>}
       {!user && <p className="nt-hint ep-login">You&rsquo;re not logged in — <a href="/registration/login">Log In</a> or <a href="/registration/signup">Sign Up</a> so your profile is saved under your name.</p>}
 
+      <SectionBar n={1} title="Profile Details" hint="Edit / Submit / Upload all that apply">
       <div className="eval-grid">
         <div className="box">
           <h2>My Mini-Card</h2>
@@ -149,7 +151,6 @@ export default function ProfilePage() {
       </div>
 
       <div className="box job-form">
-        <h2>Edit My Profile</h2>
         <Field label="Name"><Input value={p.name} onChange={set("name")} /></Field>
         <Field label="Title"><Input value={p.title} onChange={set("title")} /></Field>
         <Field label="Business / Organization / Group"><Input value={p.business} onChange={set("business")} /></Field>
@@ -187,10 +188,36 @@ export default function ProfilePage() {
           </span>
           <Input type="url" value={p.linkedin} onChange={set("linkedin")} placeholder="http://www.linkedin.com/in/…" />
         </div>
-        <button type="button" className="btn-primary" style={{ marginTop: 12 }} onClick={save}>Save profile</button>
+        <button type="button" className="cw-submit pk-center" style={{ marginTop: 12 }} onClick={save}>Submit</button>
         {flash && <div className="fp-flash fp-flash-block">{flash}</div>}
       </div>
+      </SectionBar>
 
+      <SectionBar n={2} title="OFFERING" hint="Select listings to delete • Add listings in their respective sections">
+        <p className="ep-dev"><b className="cw-red">Developer Note</b> This section is identical to <b>VIEW Profiles Individual OFFERING</b> — your events, products and services show here once posted.</p>
+        <div className="ep-links"><a href="/submit">ADD Event</a><a href="/listings/submit">ADD Listing</a><a href="/employment/submit">ADD Job</a></div>
+      </SectionBar>
+
+      <SectionBar n={3} title="SEEKING" hint="Edit / Select / Submit one at a time">
+        <div className="box job-form">
+          <Field label="Listing Selection" hint="Display Default • Hide" wide><Input value={p.seekingText || ""} onChange={set("seekingText")} placeholder="Submit Brief Description Here" /></Field>
+          <Field label="Position Title" wide><Input value={p.seekPosition || ""} onChange={set("seekPosition")} placeholder="Submit Here" /></Field>
+          <Field label="Compensation Range" hint="Select / Submit one" wide><Input value={p.seekComp || ""} onChange={set("seekComp")} placeholder="$ xx,xxx per year" /></Field>
+          <Field label="Employment Location" hint="within radius from address" wide><Input value={p.seekLocation || ""} onChange={set("seekLocation")} placeholder="Radius ## mi • Address • City • State" /></Field>
+          <button type="button" className="cw-submit pk-center" onClick={save}>Submit</button>
+        </div>
+      </SectionBar>
+
+      <SectionBar n={4} title="Affiliations" hint="Edit / Select / Submit one at a time">
+        <div className="box job-form">
+          <Field label="SEARCH Business / Organization / Group" hint="Click to Select" wide><Input value={p.affSearch || ""} onChange={set("affSearch")} placeholder="Submit Here" /></Field>
+          <Field label="My Position / Title" wide><Input value={p.affTitle || ""} onChange={set("affTitle")} placeholder="Submit Here" /></Field>
+          <Field label="Member Since" wide><Input value={p.affSince || ""} onChange={set("affSince")} placeholder="MM/DD/YYYY" /></Field>
+          <button type="button" className="cw-submit pk-center" onClick={save}>Submit</button>
+        </div>
+      </SectionBar>
+
+      <SectionBar n={5} title="Gallery" hint="Edit / Upload all that apply">
       <div className="box">
         <h2>Gallery <i className="nt-hint">Business card, flyer, picture — maximum {GALLERY_MAX} items</i></h2>
         <div className="gallery-grid">
@@ -207,12 +234,18 @@ export default function ProfilePage() {
         <p className="nt-hint">{gallery.length} of {GALLERY_MAX}. Images only in the prototype; PDFs and videos need file storage (database).</p>
       </div>
 
+      </SectionBar>
+
+      <SectionBar n={6} title="Interesting Things About Me">
       <div className="box" id="interesting">
         <h2><Glyph name="gem" size={18} /> Interesting Things About Me</h2>
         <Area rows={4} value={p.interesting} onChange={set("interesting")} placeholder="Submit Here — hobbies, fun facts, causes you support, places you've lived…" />
         <button type="button" className="btn-primary" style={{ marginTop: 10 }} onClick={save}>Submit</button>
       </div>
 
+      </SectionBar>
+
+      <SectionBar n={7} title="My Network" hint="Select one for each item">
       <div className="box" id="network">
         <h2>My Connections, Introductions, Referrals</h2>
         <div className="send-masoud-actions" style={{ flexWrap: "wrap" }}>
@@ -233,6 +266,15 @@ export default function ProfilePage() {
         {view === "cards" && <div className="mini-card-list">{cardLevel1.length ? cardLevel1.map((c, i) => <MiniCard key={i} p={c} />) : <p className="nt-hint">No connections yet.</p>}</div>}
         {view === "map" && <p className="nt-hint">Map view needs everyone&rsquo;s locations — it comes with the database.</p>}
         <p className="proto-note">Levels 2 and 3 are other members&rsquo; connections, so they fill in once there&rsquo;s a shared database with real users. Revenue-sharing percentages aren&rsquo;t applied here.</p>
+      </div>
+      </SectionBar>
+
+      <div className="pk-gbox ep-final">
+        <span className="pk-label"><i>Select one</i></span>
+        <a className="pk-opt" href="/advertising/calculate"><input type="radio" readOnly tabIndex={-1} /><Glyph name="cart" size={15} /><span>SUBMIT as a Premier Listing&nbsp;&nbsp;<i>ADD To My Shopping Cart</i></span></a>
+        <a className="pk-opt" href="/advertising/calculate"><input type="radio" readOnly tabIndex={-1} /><Glyph name="calculate" size={15} /><span>Calculate My Advertising Cost</span></a>
+        <a className="pk-opt" href="/advertising/rates"><input type="radio" readOnly tabIndex={-1} /><Glyph name="dollarCircle" size={15} /><span>View Advertising Rates</span></a>
+        <button type="button" className="pk-opt ep-del" onClick={() => setFlash("Prototype: deleting your listing comes with accounts / the database.")}><input type="radio" readOnly tabIndex={-1} /><Glyph name="delete" size={15} /><span>DELETE Listing</span></button>
       </div>
           </div>
         </div>
