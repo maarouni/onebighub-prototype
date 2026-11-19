@@ -101,7 +101,8 @@ function Inner({ digest }) {
   const visible = useMemo(() => {
     const list = pool.filter((o) => orgMatches(o, filters, ctx));
     // Premier first, then newest posted / revised.
-    return list.sort((a, b) => (!!b.premier - !!a.premier) || String(b.posted).localeCompare(String(a.posted)));
+    // Nov 19 (Cesar): sample profiles always on top, then Premier, then newest.
+    return list.sort((a, b) => (!!b.sample - !!a.sample) || (!!b.premier - !!a.premier) || String(b.posted).localeCompare(String(a.posted)));
   }, [pool, filters, ctx]);
 
   const totalPages = Math.max(1, Math.ceil(visible.length / PAGE_SIZE));

@@ -167,39 +167,34 @@ const ORGS = [
     url: "", profileUrl: "", phone: "", email: "", contactName: "", memberList: "hide",
     roster: [],
   },
-  // Nov 19 (Cesar's Figma, Connect Profiles): the table mixes Individual,
-  // Business, Organization and Group profiles. Placeholders — Cesar replaces these.
+  // Nov 19 (Cesar, "Connect Profiles, Samples"): four fun sample profiles —
+  // one per profile type — always displayed at the top of the table.
   {
-    id: "p1", kind: "indProfessional", name: "Angel Claus", title: "President", business: "NorthPoleTech.com",
-    tagline: "Toy-tech consulting for small makers", premier: true, referral: true,
-    categories: ["Business, Financial"], industry: "Technology", city: "San Jose", state: "CA", region: "Santa Clara", posted: daysAgo(0),
-    phone: "1-976-TECHIES", email: "AClaus@NorthPoleTech.com", pitchTitle: "Helping makers ship faster",
-    pitch: "I help small product teams turn prototypes into products customers love — on time and on budget.",
-    seeking: ["Consultant"], level: "Founder / Owner",
+    id: "santa", kind: "indProfessional", sample: true, name: "Santa Claus", title: "Chief Gift Officer", business: "Santa's Workshop",
+    tagline: "Delivering joy worldwide, one chimney at a time", premier: true, referral: true,
+    categories: ["Community"], industry: "Logistics", city: "North Pole", state: "AK", region: "International", posted: daysAgo(0),
+    phone: "1-800-HO-HO-HO", email: "santa@northpole.example", pitchTitle: "Making spirits bright since forever",
+    pitch: "I lead a global team that designs, builds and delivers gifts to every good girl and boy — on time, every year.",
+    interesting: "Favorite cookie: snickerdoodle. Reindeer whisperer. Has never missed a deadline.",
+    seeking: ["Volunteer"], level: "Founder / Owner",
   },
   {
-    id: "p2", kind: "indPersonal", name: "Jordan Lee", title: "Marketing Manager", business: "Valley Credit Union",
-    tagline: "Community banking and local events", premier: false,
-    categories: ["Networking"], industry: "Finance", city: "Dublin", state: "CA", region: "Alameda", posted: daysAgo(1),
+    id: "santas-workshop", kind: "biz", sample: true, name: "Santa's Workshop", tagline: "Handcrafted toys, made by elves since the dawn of time", premier: true, referral: true,
+    employees: 10000, founded: "Long, long ago", categories: ["Business, Financial"], industry: "Manufacturing", city: "North Pole", state: "AK", region: "International", posted: daysAgo(0),
+    phone: "1-800-TOYS-4U", email: "workshop@northpole.example", contactName: "Head Elf",
+    why: "Every child deserves a gift made with care.", benefits: "Quality toys, on-time delivery, naughty / nice screening.",
   },
   {
-    id: "b1", kind: "biz", name: "Jack Frost Heating & Cooling", tagline: "Family-owned HVAC service since 1998", premier: true, referral: true,
-    employees: 45, categories: ["Business, Financial"], industry: "Construction", city: "Fremont", state: "CA", region: "Alameda", posted: daysAgo(2),
-    phone: "1-800-TOO-COOL", email: "jack@jackfrost.com", why: "Comfortable homes, honest prices.", benefits: "Same-day service, 10-year warranties.",
+    id: "island-broken-toys", kind: "org", sample: true, name: "Santa's Island for Broken Toys", tagline: "A home for every misfit toy", premier: true,
+    members: 1225, dues: 0, categories: ["Community"], industry: "Non Profit", city: "Island of Misfit Toys", state: "", region: "International", posted: daysAgo(0),
+    formats: ["In-Person"], why: "No toy left behind.", benefits: "Repairs, re-homing and a warm place to wait for Christmas Eve.",
+    contactName: "King Moonracer", memberList: "public", roster: [],
   },
   {
-    id: "b2", kind: "biz", name: "Bay Bright Cleaning", tagline: "Eco-friendly office cleaning", premier: false,
-    employees: 12, categories: ["Business, Financial"], industry: "Services", city: "Hayward", state: "CA", region: "Alameda", posted: daysAgo(4),
-  },
-  {
-    id: "g1", kind: "group", name: "Tri-Valley Hiking Club", tagline: "Weekend hikes for all levels", premier: true,
-    members: 380, dues: 25, categories: ["Community", "Health, Wellness"], industry: "Recreation", city: "Livermore", state: "CA", region: "Alameda", posted: daysAgo(2),
-    formats: ["In-Person"], memberList: "public", roster: [],
-  },
-  {
-    id: "g2", kind: "group", name: "Peninsula Founders Circle", tagline: "Monthly founder roundtables", premier: false,
-    members: 60, dues: 0, categories: ["Networking"], industry: "Business", city: "Palo Alto", state: "CA", region: "Santa Clara", posted: daysAgo(6),
-    formats: ["In-Person"], memberList: "members", roster: [],
+    id: "naughty-anonymous", kind: "group", sample: true, name: "Naughty Anonymous", tagline: "A 12-step support group for getting back on the Nice List", premier: true,
+    members: 312, dues: 0, categories: ["Community", "Health, Wellness"], industry: "Recreation", city: "North Pole", state: "AK", region: "International", posted: daysAgo(0),
+    formats: ["In-Person", "Online / Virtual"], why: "Everyone deserves a second chance before December 24th.", benefits: "Weekly meetings, a sponsor elf, and cocoa.",
+    memberList: "members", roster: [],
   },
 ];
 

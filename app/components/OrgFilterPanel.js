@@ -61,7 +61,7 @@ export default function OrgFilterPanel({ items, filters, setFilters, ctx, onHide
             onChange={() => setFilters((f) => {
               const on = ids.every((i) => f.ctype.includes(i));
               return { ...f, ctype: on ? f.ctype.filter((x) => !ids.includes(x)) : [...new Set([...f.ctype, ...ids])] };
-            })} label={label} />
+            })} label={label} count={countOrgsFor(items, filters, { ctype: ids }, ctx)} />
         ))}
       </Box>
       <DateBox title="Date Posted / Revised" field="posted" fromKey="postedFrom" toKey="postedTo" options={DATE_POSTED_OPTIONS} {...kit} />
