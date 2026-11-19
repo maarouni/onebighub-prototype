@@ -27,7 +27,7 @@ export function NextStep({ noun = "Listing", digest = "My Listing Digest", diges
     // Wording from Cesar's Figma Rev 261028 (same on every section).
     { id: "details", icon: "eyeView", label: "View Selection(s)", href: detailsHref || digestHref, def: true },
     { id: "digest", icon: "plusBold", label: `ADD Selection(s) to ${digest}`, href: digestHref },
-    { id: "signup", icon: "login", label: `Sign Up / Log in to ADD Listings to ${digest}`, href: "/registration" },
+    { id: "signup", icon: "login", label: `Sign Up / Log In to ADD Listings to ${digest}`, href: "/registration" },
   ];
   return (
     <div className="next-step next-step-box">

@@ -15,19 +15,19 @@ export default function DiscountFilterPanel({ items, filters, setFilters, today,
   const count = (key, v) => countDiscountsFor(items, filters, { [key]: key === "posted" ? v : [v] }, today, q);
   const kit = { filters, setFilters, count };
   return (
-    <FilterShell onHide={onHide} onClear={() => setFilters(EMPTY_DISCOUNT_FILTERS)} onDisplay={onDisplay}>
+    <FilterShell compact onHide={onHide} onClear={() => setFilters(EMPTY_DISCOUNT_FILTERS)} onDisplay={onDisplay}>
       <ListingTypeBox current="Deals" view="table" />
       <DateBox title="Date Posted / Revised" field="posted" fromKey="postedFrom" toKey="postedTo" options={DATE_POSTED_OPTIONS} {...kit} />
-      <Box title="Certificate Type">
+      <Box title="Deal Type">
         <CheckList field="type" options={CERT_TYPES} {...kit} />
       </Box>
-      <Box title="Format - Redeem Certificate">
+      <Box title="Format" hint="Redeem Deal">
         <CheckList field="redeem" options={REDEEM_OPTIONS} {...kit} />
       </Box>
       <Box title="Discount">
         <CheckList field="value" options={DISCOUNT_OPTIONS} {...kit} />
       </Box>
-      <DigestBox digest="My Certificates Digest" />
+      <DigestBox digest="My Listings Digest" />
       <Box title="Industries" defaultOpen={filters.industry.length > 0}>
         <CheckList field="industry" options={INDUSTRIES} {...kit} />
       </Box>

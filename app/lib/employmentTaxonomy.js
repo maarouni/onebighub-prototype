@@ -24,9 +24,9 @@ export const SORT_OPTIONS = [
 ];
 
 export const DATE_POSTED_OPTIONS = [
-  { id: "all", label: "All" },
+  { id: "all", label: "All", def: false },
   { id: "today", label: "Today" },
-  { id: "7", label: "Past 7 days" },
+  { id: "7", label: "Past 7 days", def: true },
   { id: "15", label: "Past 15 days" },
   { id: "30", label: "Past 30+ days" },
   { id: "custom", label: "MM/DD/YY - MM/DD/YY" },
@@ -58,7 +58,7 @@ export const EMPTY_JOB_FILTERS = {
   type: [],
   region: [],
   industry: [],
-  posted: "all",
+  posted: "7",
   sort: "posted",
 };
 

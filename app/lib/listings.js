@@ -10,6 +10,9 @@
 import { REGION_GROUPS } from "./taxonomy";
 import { INDUSTRIES } from "./employmentTaxonomy";
 
+// Nov 19 (Cesar's Find Figma): "Past 7 days" is the default, so sample posts stay recent.
+const daysAgo = (n) => { const d = new Date(); d.setDate(d.getDate() - n); return d.toISOString().slice(0, 10); };
+
 export { REGION_GROUPS, INDUSTRIES };
 
 // Nov 16 (Cesar, "Promote & Earn One Big Table" Rev 261116): one table, Listing Type
@@ -23,9 +26,9 @@ export const LISTING_TYPE_MENU = [
   { id: "Deals", label: "Deals", icon: "discount", href: "/discounts" },
   { id: "Hospitality", label: "Hospitality", icon: "dinner" },
   { id: "Investment", label: "Investments", icon: "idxDeal" },
-  { id: "Pay-It-Forward", label: "Pay-It-Forward", icon: "idxHeart" },
   { gap: true, id: "Membership", label: "Memberships", icon: "idxMembership" },
   { id: "Notifications", label: "Notifications", icon: "idxBell", href: "/notifications" },
+  { id: "Pay-It-Forward", label: "Pay-It-Forward", icon: "idxHeart" },
   { id: "Subscription", label: "Subscriptions", icon: "idxSubscription" },
   { id: "Survey", label: "Surveys", icon: "idxSurvey" },
 ].map((t) => ({ ...t, href: t.href || `/listings?type=${encodeURIComponent(t.id)}` }));
@@ -71,16 +74,16 @@ export const COST_OPTIONS = [
 ];
 
 export const DATE_POSTED_OPTIONS = [
-  { id: "all", label: "All" },
+  { id: "all", label: "All", def: false },
   { id: "today", label: "Today" },
-  { id: "7", label: "Past 7 days" },
+  { id: "7", label: "Past 7 days", def: true },
   { id: "15", label: "Past 15 days" },
   { id: "30", label: "Past 30+ days" },
   { id: "custom", label: "MM/DD/YY - MM/DD/YY" },
 ];
 
 export const EMPTY_LISTING_FILTERS = {
-  type: [], posted: "all", postedFrom: "", postedTo: "",
+  type: [], posted: "7", postedFrom: "", postedTo: "",
   referrals: [], delivery: [], adtype: [], cost: [], industry: [], region: [], tags: [], categories: [],
 };
 
@@ -95,7 +98,7 @@ const LISTINGS = [
     offeredBy: "Tri-Valley Business Alliance", industry: "Professional Services",
     city: "Pleasanton", state: "CA", region: "Alameda", delivery: ["In-Person", "Online"],
     costMin: 250, costMax: 600, costUnit: "per year", referrals: true,
-    expires: "2027-03-31", posted: "2026-10-22", premier: true,
+    expires: "2027-03-31", posted: daysAgo(1), premier: true,
     details: "Three tiers: Individual, Small Business and Corporate. Members get two free expo tables a year.",
     contact: "Membership desk", phone: "(925) 555-0118", email: "", url: "",
   },
@@ -105,7 +108,7 @@ const LISTINGS = [
     offeredBy: "Bay Ledger Bookkeeping", industry: "Financial",
     city: "Walnut Creek", state: "CA", region: "Contra Costa", delivery: ["Online"],
     costMin: 300, costMax: 900, costUnit: "per month", referrals: true,
-    expires: "2027-01-31", posted: "2026-10-18", premier: true,
+    expires: "2027-01-31", posted: daysAgo(3), premier: true,
     details: "QuickBooks and Xero. Free first-month cleanup for onebigHUB members.",
     contact: "Owner", phone: "", email: "", url: "",
   },
@@ -115,7 +118,7 @@ const LISTINGS = [
     offeredBy: "Peninsula Print Shop", industry: "Media, Advertising",
     city: "San Mateo", state: "CA", region: "San Mateo", delivery: ["In-Person", "Online"],
     costMin: 129, costMax: 249, costUnit: "one-time", referrals: false,
-    expires: "2026-12-31", posted: "2026-10-12", premier: false,
+    expires: "2026-12-31", posted: daysAgo(5), premier: false,
     details: "Includes stand, carry bag and one design revision.",
     contact: "", phone: "", email: "", url: "",
   },
@@ -125,7 +128,7 @@ const LISTINGS = [
     offeredBy: "East Bay Mobile Notary", industry: "Professional Services",
     city: "Oakland", state: "CA", region: "Alameda", delivery: ["In-Person"],
     costMin: 15, costMax: 150, costUnit: "one-time", referrals: true,
-    expires: "2027-02-28", posted: "2026-10-08", premier: false,
+    expires: "2027-02-28", posted: daysAgo(0), premier: false,
     details: "$15 per signature at the office; travel fee for mobile appointments.",
     contact: "", phone: "", email: "", url: "",
   },
@@ -135,7 +138,7 @@ const LISTINGS = [
     offeredBy: "SoMa Commons", industry: "Business",
     city: "San Francisco", state: "CA", region: "San Francisco", delivery: ["In-Person"],
     costMin: 180, costMax: 180, costUnit: "one-time", referrals: false,
-    expires: "2026-12-15", posted: "2026-10-02", premier: false,
+    expires: "2026-12-15", posted: daysAgo(2), premier: false,
     details: "Includes coffee, Wi-Fi and one hour of meeting room time per pass.",
     contact: "", phone: "", email: "", url: "",
   },
@@ -145,34 +148,34 @@ const LISTINGS = [
     offeredBy: "Silicon Valley Print Co.", industry: "Media, Advertising",
     city: "San Jose", state: "CA", region: "Santa Clara", delivery: ["Online"],
     costMin: 0, costMax: 0, costUnit: "one-time", referrals: false,
-    expires: "2026-11-30", posted: "2026-09-28", premier: false,
+    expires: "2026-11-30", posted: daysAgo(4), premier: false,
     details: "Free for the first 50 onebigHUB sign-ups; shipping included.",
     contact: "", phone: "", email: "", url: "",
   },
   // Nov 16 sample listings for the new types (placeholders, like the ones above)
   { id: "p7", type: "Classified", name: "Vintage oak desk — like new", description: "Solid oak, 5 drawers; pick up in Pleasanton",
     offeredBy: "Private seller", industry: "Retail", city: "Pleasanton", state: "CA", region: "Alameda", delivery: ["In-Person"],
-    costMin: 180, costMax: 180, costUnit: "one-time", referrals: false, expires: "2026-12-15", posted: "2026-11-12", premier: false,
+    costMin: 180, costMax: 180, costUnit: "one-time", referrals: false, expires: "2026-12-15", posted: daysAgo(6), premier: false,
     tags: ["Furniture"], details: "", contact: "", phone: "", email: "", url: "" },
   { id: "p8", type: "Hospitality", name: "Garden terrace for mixers (up to 80)", description: "Covered terrace with bar and A/V",
     offeredBy: "Livermore Valley Winery", industry: "Hospitality", city: "Livermore", state: "CA", region: "Alameda", delivery: ["In-Person"],
-    costMin: 500, costMax: 1500, costUnit: "one-time", referrals: true, expires: "2027-03-31", posted: "2026-11-10", premier: true,
+    costMin: 500, costMax: 1500, costUnit: "one-time", referrals: true, expires: "2027-03-31", posted: daysAgo(1), premier: true,
     tags: ["Winery", "Business: Mixer, Networking", "Bar"], details: "", contact: "", phone: "", email: "", url: "" },
   { id: "p9", type: "Investment", name: "Seed round — local food-delivery startup", description: "Raising $250K SAFE; MVP live in 3 cities",
     offeredBy: "Bay Bites Inc.", industry: "Food, Beverage", city: "Oakland", state: "CA", region: "Alameda", delivery: ["Online", "In-Person"],
-    costMin: 10000, costMax: 50000, costUnit: "one-time", referrals: true, expires: "2027-01-31", posted: "2026-11-08", premier: false,
+    costMin: 10000, costMax: 50000, costUnit: "one-time", referrals: true, expires: "2027-01-31", posted: daysAgo(3), premier: false,
     tags: ["Seed: Completed MVP", "Angel Investment"], details: "", contact: "", phone: "", email: "", url: "" },
   { id: "p10", type: "Pay-It-Forward", name: "Volunteers needed — holiday food drive", description: "Sort and pack boxes, Dec 12-14",
     offeredBy: "Tri-Valley Haven", industry: "Non-Profit", city: "Dublin", state: "CA", region: "Alameda", delivery: ["In-Person"],
-    costMin: 0, costMax: 0, costUnit: "one-time", referrals: false, expires: "2026-12-14", posted: "2026-11-14", premier: true,
+    costMin: 0, costMax: 0, costUnit: "one-time", referrals: false, expires: "2026-12-14", posted: daysAgo(5), premier: true,
     tags: ["Seeking", "Community"], details: "", contact: "", phone: "", email: "", url: "" },
   { id: "p11", type: "Subscription", name: "Bay Area Business Weekly — newsletter", description: "Local deals, openings and events every Monday",
     offeredBy: "BABW Media", industry: "Media, Advertising", city: "San Francisco", state: "CA", region: "San Francisco", delivery: ["Online"],
-    costMin: 0, costMax: 0, costUnit: "per month", referrals: false, expires: "2027-06-30", posted: "2026-11-05", premier: false,
+    costMin: 0, costMax: 0, costUnit: "per month", referrals: false, expires: "2027-06-30", posted: daysAgo(0), premier: false,
     details: "", contact: "", phone: "", email: "", url: "" },
   { id: "p12", type: "Survey", name: "Small-business owner survey (5 min)", description: "Help shape onebigHUB features — enter a $50 gift card drawing",
     offeredBy: "onebigHUB", industry: "Technology", city: "San Jose", state: "CA", region: "Santa Clara", delivery: ["Online"],
-    costMin: 0, costMax: 0, costUnit: "one-time", referrals: false, expires: "2026-12-31", posted: "2026-11-15", premier: false,
+    costMin: 0, costMax: 0, costUnit: "one-time", referrals: false, expires: "2026-12-31", posted: daysAgo(2), premier: false,
     details: "", contact: "", phone: "", email: "", url: "" },
 ];
 

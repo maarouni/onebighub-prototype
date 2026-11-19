@@ -22,9 +22,11 @@ export default function EmploymentFilterPanel({ jobs, filters, setFilters, today
     countJobsFor(jobs, filters, section, { [section]: section === "posted" ? value : [value] }, today, q);
   const kit = { filters, setFilters, count };
   return (
-    <FilterShell onHide={onHide} onClear={() => setFilters(EMPTY_JOB_FILTERS)} onDisplay={onDisplay}>
+    <FilterShell compact onHide={onHide} onClear={() => setFilters(EMPTY_JOB_FILTERS)} onDisplay={onDisplay}>
       <ListingTypeBox current="Careers" view="table" />
-      <DateBox title="Date Posted" field="posted" fromKey="postedFrom" toKey="postedTo" options={DATE_POSTED_OPTIONS} {...kit} />
+      <DateBox title="Date Posted / Revised" field="posted" fromKey="postedFrom" toKey="postedTo" options={DATE_POSTED_OPTIONS} {...kit} />
+      <Box title="Employment Type" hint="If applicable"><CheckList field="type" options={EMPLOYMENT_TYPES} {...kit} /></Box>
+      <Box title="Employment Level"><CheckList field="level" options={EMPLOYMENT_LEVELS} {...kit} /></Box>
       <Box title="Minimum Compensation"><CheckList field="comp" options={COMP_OPTIONS} {...kit} /></Box>
       <Box title="Sort by" hint="Select one" defaultOpen={false}>
         {SORT_OPTIONS.map((o) => (
@@ -32,11 +34,9 @@ export default function EmploymentFilterPanel({ jobs, filters, setFilters, today
             onChange={() => setFilters((f) => ({ ...f, sort: o.id }))} label={o.label} def={o.id === "posted"} />
         ))}
       </Box>
-      <Box title="Employment Level"><CheckList field="level" options={EMPLOYMENT_LEVELS} {...kit} /></Box>
-      <Box title="Employment Types"><CheckList field="type" options={EMPLOYMENT_TYPES} {...kit} /></Box>
-      <AdTypesBox {...kit} />
-      <DigestBox digest="My Employment Digest" />
-      <Box title="Industry(ies)" defaultOpen={filters.industry.length > 0}>
+      <AdTypesBox title="Ad Type" {...kit} />
+      <DigestBox digest="My Listings Digest" />
+      <Box title="Industries" defaultOpen={filters.industry.length > 0}>
         <CheckList field="industry" options={INDUSTRIES} {...kit} />
         <SubmitIndustry />
       </Box>

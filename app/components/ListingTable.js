@@ -115,3 +115,9 @@ export function shortYmd(iso) {
   const M = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][m - 1];
   return `${M} ${String(d).padStart(2, "0")} ‘${String(y).slice(2)}`;
 }
+
+// "MM/DD/YY" (Cesar's Figma, Nov 19)
+export function mmddyy(iso) {
+  const [y, m, d] = String(iso || "").slice(0, 10).split("-");
+  return y && m && d ? `${m}/${d}/${y.slice(2)}` : "";
+}

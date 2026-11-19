@@ -4,7 +4,7 @@ import { Suspense, useEffect, useMemo, useState } from "react";
 import PageTemplate from "../components/PageTemplate";
 import DiscountFilterPanel from "../components/DiscountFilterPanel";
 import { NextStep } from "../components/Steps";
-import { ResultsHead, ListingTable, Pager, shortYmd } from "../components/ListingTable";
+import { ResultsHead, ListingTable, Pager, shortYmd, mmddyy } from "../components/ListingTable";
 import { cityCode } from "../lib/cityCodes";
 import FillInHere from "../components/FillInHere";
 import SendToMasoud from "../components/SendToMasoud";
@@ -87,11 +87,12 @@ function DiscountsInner() {
             <ListingTable rows={pageItems.map((d) => ({
               id: d.id,
               href: `/discounts/${d.id}`,
-              left: [discountLabel(d), `Exp ${shortYmd(d.expires)}`],
-              title: d.offer,
+              left: null,
+              title: <>Deal • {d.offer}</>,
               lines: d.premier
-                ? [d.description, <>{cityCode({ city: d.city })}, <b>{d.company}</b> · {d.industry}</>, `Redeem ${(d.redeem || []).join(" / ")}`]
-                : [`${cityCode({ city: d.city })}, ${d.company}`],
+                ? [<i key="d">{d.description}</i>, <b key="c">{d.company}</b>, [(d.redeem || []).join(" / "), d.industry].filter(Boolean).join(" • "), cityCode({ city: d.city }), `${discountLabel(d)} • Expires ${mmddyy(d.expires)}`]
+                : [d.company, cityCode({ city: d.city }), `${discountLabel(d)} • Expires ${mmddyy(d.expires)}`],
+              posted: `Posted / Revised ${mmddyy(d.posted)}`,
               premier: d.premier,
               image: "discount",
               selected: !!selected[d.id],

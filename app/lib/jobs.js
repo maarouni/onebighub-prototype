@@ -1,3 +1,8 @@
+
+
+// Nov 19 (Cesar's Find Figma): "Past 7 days" is the default, so sample posts stay recent.
+const daysAgo = (n) => { const d = new Date(); d.setDate(d.getDate() - n); return d.toISOString().slice(0, 10); };
+
 // Mock Employment listings data — matches Cesar's "Employment" wireframe card fields.
 const JOBS = [
   {
@@ -8,7 +13,7 @@ const JOBS = [
     city: "Oakland", region: "Alameda",
     level: "Management", types: ["Hybrid", "FT Full-Time"],
     compType: "yearly", compMin: 85000, compMax: 110000,
-    posted: "2026-10-05", premier: true,
+    posted: daysAgo(1), premier: true,
   },
   {
     id: "j2",
@@ -18,7 +23,7 @@ const JOBS = [
     city: "San Francisco", region: "San Francisco",
     level: "Founder, Owner", types: ["In-Person", "Entrepreneur"],
     compType: "none", compMin: 0, compMax: 0,
-    posted: "2026-10-02", premier: true,
+    posted: daysAgo(3), premier: true,
   },
   {
     id: "j3",
@@ -28,7 +33,7 @@ const JOBS = [
     city: "San Mateo", region: "San Mateo",
     level: "Staff", types: ["Remote", "PT Part-Time"],
     compType: "hourly", compMin: 28, compMax: 35,
-    posted: "2026-09-29",
+    posted: daysAgo(5),
   },
   {
     id: "j4",
@@ -38,7 +43,7 @@ const JOBS = [
     city: "Walnut Creek", region: "Contra Costa",
     level: "Executive", types: ["In-Person", "Employee"],
     compType: "yearly", compMin: 95000, compMax: 140000,
-    posted: "2026-09-25",
+    posted: daysAgo(0),
   },
   {
     id: "j5",
@@ -48,7 +53,7 @@ const JOBS = [
     city: "San Jose", region: "Santa Clara",
     level: "Staff", types: ["In-Person", "Volunteer"],
     compType: "volunteer", compMin: 0, compMax: 0,
-    posted: "2026-09-20",
+    posted: daysAgo(2),
   },
   {
     id: "j6",
@@ -58,7 +63,7 @@ const JOBS = [
     city: "Fremont", region: "Alameda",
     level: "Consultant", types: ["Hybrid", "Contractor", "Affiliate"],
     compType: "none", compMin: 0, compMax: 0,
-    posted: "2026-09-18",
+    posted: daysAgo(4),
   },
   {
     id: "j7",
@@ -68,7 +73,7 @@ const JOBS = [
     city: "Redwood City", region: "San Mateo",
     level: "Management", types: ["Remote", "FT Full-Time"],
     compType: "monthly", compMin: 6500, compMax: 8000,
-    posted: "2026-09-12",
+    posted: daysAgo(6),
   },
   {
     id: "j8",
@@ -78,7 +83,7 @@ const JOBS = [
     city: "Santa Rosa", region: "Sonoma",
     level: "Management", types: ["In-Person", "FT Full-Time"],
     compType: "yearly", compMin: 100000, compMax: 130000,
-    posted: "2026-09-08",
+    posted: daysAgo(1),
   },
 ];
 

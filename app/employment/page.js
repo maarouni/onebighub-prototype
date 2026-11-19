@@ -3,7 +3,7 @@
 import { Suspense, useEffect, useMemo, useState } from "react";
 import PageTemplate from "../components/PageTemplate";
 import { NextStep } from "../components/Steps";
-import { ResultsHead, ListingTable, Pager, shortYmd } from "../components/ListingTable";
+import { ResultsHead, ListingTable, Pager, shortYmd, mmddyy } from "../components/ListingTable";
 import { cityCode } from "../lib/cityCodes";
 import EmploymentFilterPanel from "../components/EmploymentFilterPanel";
 import { EMPTY_JOB_FILTERS, jobMatches, sortJobs } from "../lib/employmentTaxonomy";
@@ -108,11 +108,12 @@ function EmploymentInner() {
             <ListingTable rows={[...featuredShown, ...pageItems].map((j) => ({
               id: j.id,
               href: `#job-${j.id}`,
-              left: [compLabel(j), `Posted ${shortYmd(j.posted)}`],
-              title: j.title,
+              left: null,
+              title: <>Career / Job • {j.title}</>,
               lines: j.premier
-                ? [<>{cityCode({ city: j.city })}, <b>{j.company}</b> · {j.industry}</>, j.level, (j.types || []).join(", ")]
-                : [`${cityCode({ city: j.city })}, ${j.company}`],
+                ? [<i key="l">{[(j.types || []).join(", "), j.level].filter(Boolean).join(" • ")}</i>, <b key="c">{j.company}</b>, j.industry, cityCode({ city: j.city }), compLabel(j)]
+                : [j.company, cityCode({ city: j.city }), compLabel(j)],
+              posted: `Posted / Revised ${mmddyy(j.posted)}`,
               premier: j.premier,
               image: "employment",
               selected: !!selected[j.id],

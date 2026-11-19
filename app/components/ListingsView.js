@@ -5,7 +5,8 @@ import PageTemplate from "./PageTemplate";
 import ListingsFilterPanel from "./ListingsFilterPanel";
 import { FIND_TYPES } from "./ListingTypeBox";
 import { NextStep } from "./Steps";
-import { ResultsHead, ListingTable, Pager, shortYmd } from "./ListingTable";
+import { ResultsHead, ListingTable, Pager, shortYmd, mmddyy } from "./ListingTable";
+import { Glyph } from "./Icons";
 import { cityCode } from "../lib/cityCodes";
 import FillInHere from "./FillInHere";
 import SendToMasoud from "./SendToMasoud";
@@ -101,11 +102,14 @@ function ListingsInner({ digest = false }) {
             <ListingTable rows={pageItems.map((l) => ({
               id: l.id,
               href: `/listings/${l.id}`,
-              left: [l.type, costLabel(l), `Exp ${shortYmd(l.expires)}`],
-              title: l.name,
+              // Nov 19 (Cesar's Find Figma): "Product • Title" rows, no date column,
+              // "Posted / Revised MM/DD/YY" bottom right.
+              left: null,
+              title: <>{l.type} • {l.name}</>,
               lines: l.premier
-                ? [l.description, <>{cityCode({ city: l.city })}, <b>{l.offeredBy}</b> · {l.industry}</>, `${(l.delivery || []).join(" / ")}${l.referrals ? " · $ Referrals" : ""}`]
-                : [`${cityCode({ city: l.city })}, ${l.offeredBy}`],
+                ? [<i key="d">{l.description}</i>, <b key="o">{l.offeredBy}</b>, [(l.delivery || []).join(" / "), (l.categories || []).join(", "), l.industry].filter(Boolean).join(" • "), cityCode({ city: l.city }), `${costLabel(l)} • Expires ${mmddyy(l.expires)}`]
+                : [l.offeredBy, cityCode({ city: l.city }), <>{costLabel(l)} • Expires {mmddyy(l.expires)}{l.referrals && <span className="obc-ref"> • <Glyph name="referral" size={15} className="ref-ico" /></span>}</>],
+              posted: `Posted / Revised ${mmddyy(l.posted)}`,
               premier: l.premier,
               image: TYPE_GLYPH[l.type] || "products",
               selected: !!selected[l.id],

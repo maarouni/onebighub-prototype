@@ -32,16 +32,30 @@ export function useFiltersHidden() {
   return useSyncExternalStore((cb) => { hideSubs.add(cb); return () => hideSubs.delete(cb); }, () => filtersHidden, () => false);
 }
 
-export function FilterShell({ onHide, onClear, onDisplay, footer, children }) {
+export function FilterShell({ onHide, onClear, onDisplay, footer, children, compact }) {
   useEffect(() => () => setFiltersHidden(false), []);
   onHide = onHide || (() => setFiltersHidden(true));
   return (
     <aside className="sidebar filter-panel fp-v2">
+      {/* Nov 19 (Cesar's Find Figma): "(1) Filters ✕ … Hide" in one bar */}
+      {compact ? (
+        <div className="fp-bar fp-bar-compact">
+          <span className="step-badge" aria-hidden="true">1</span>
+          <span className="fp-title"><b>Filters</b></span>
+          <button type="button" className="fp-clear-x" data-tip="Clear All" aria-label="Clear all filters" onClick={onClear}>
+            <svg width="21" height="21" viewBox="0 0 30 30" aria-hidden="true" fill="none" stroke="#111" strokeWidth="1.6" strokeLinejoin="round">
+              <path d="M6 9.2 9.2 6 15 11.8 20.8 6 24 9.2 18.2 15 24 20.8 20.8 24 15 18.2 9.2 24 6 20.8 11.8 15Z" />
+            </svg>
+          </button>
+          {onHide && <button type="button" className="fp-hide" data-tip="Hide filters" onClick={onHide}>Hide</button>}
+        </div>
+      ) : (
       <div className="fp-bar">
         <span className="fp-title"><b>Filters</b></span>
         {onHide && <button type="button" className="fp-hide" data-tip="Hide filters" onClick={onHide}>Hide</button>}
       </div>
-      <div className="fp-step-pill">
+      )}
+      {!compact && <div className="fp-step-pill">
         <span className="step-badge" aria-hidden="true">1</span>
         <em>Select all that apply</em>
         <button type="button" className="fp-clear-x" data-tip="Clear All" aria-label="Clear all filters" onClick={onClear}>
@@ -49,7 +63,7 @@ export function FilterShell({ onHide, onClear, onDisplay, footer, children }) {
             <path d="M6 9.2 9.2 6 15 11.8 20.8 6 24 9.2 18.2 15 24 20.8 20.8 24 15 18.2 9.2 24 6 20.8 11.8 15Z" />
           </svg>
         </button>
-      </div>
+      </div>}
       {children}
       {/* Nov 9 (Cesar): "2 Submit Display Results" removed — results update as
           soon as a filter is picked. Digest pages put "2 Save Filter Set" here. */}
@@ -138,8 +152,8 @@ export function BothBox({ title, icon, field, options, filters, setFilters, coun
 // Nov 19 (Cesar): "Ad Types" — o Both Default · o Regular Free · o Premier;
 // sits at the bottom of the open boxes (just above Categories / Industries / Regions).
 export const AD_TYPE_BOTH = [{ id: "regular", label: <>Regular&nbsp;&nbsp;<i>Free</i></> }, { id: "premier", label: "Premier" }];
-export function AdTypesBox({ field = "adtype", ...kit }) {
-  return <BothBox title="Ad Types" field={field} options={AD_TYPE_BOTH} {...kit} />;
+export function AdTypesBox({ field = "adtype", title = "Ad Types", ...kit }) {
+  return <BothBox title={title} field={field} options={AD_TYPE_BOTH} {...kit} />;
 }
 export const RefIcon = () => <Glyph name="referral" size={17} className="ref-ico" />;
 

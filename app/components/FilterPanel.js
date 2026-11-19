@@ -20,7 +20,7 @@ export default function FilterPanel({ events, filters, setFilters, today, q, onH
   const kit = { filters, setFilters, count };
 
   return (
-    <FilterShell onHide={onHide} onClear={() => setFilters(EMPTY_FILTERS)} onDisplay={onDisplay}>
+    <FilterShell compact onHide={onHide} onClear={() => setFilters(EMPTY_FILTERS)} onDisplay={onDisplay}>
       <ListingTypeBox current="Calendar" view="table" />
       {/* Nov 15 (Cesar Rev 261115, confirmed by Masoud): no "Dates" box — Date Posted / Revised comes first */}
       {/* Nov 17 (Cesar's Figma): Past 7 days default; Both / No / Yes boxes; Format before Event Costs */}
@@ -31,7 +31,7 @@ export default function FilterPanel({ events, filters, setFilters, today, q, onH
         <CheckList field="costs" options={COST_OPTIONS} {...kit} />
       </Box>
 
-      <AdTypesBox field="adtypes" {...kit} />
+      <AdTypesBox title="Ad Type" field="adtypes" {...kit} />
 
       <GroupedBox title="Categories" field="categories" groups={CATEGORY_GROUPS} {...kit} />
 
