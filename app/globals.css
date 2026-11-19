@@ -4268,3 +4268,14 @@ body:has(.ref-page) { background: #cfcfcf !important; }
 @media (max-width: 640px) { .obc-row, .obc-row.premier { grid-template-columns: 104px minmax(0, 1fr) 40px; } }
 /* Nov 18: two spaces before italic hints ("One Big Table  Default", "Regular  Free") */
 .fp-label em, .fp-label i, .pm-item i, .pk-opt i, .lt-opt em, .bio-show i { margin-left: .3em; }
+
+/* Nov 18 (Cesar, Achieve Rev 261118): Barter Approval — pale-yellow page */
+.pe-pale { background: #f7f3bf; border-radius: 12px; padding: 8px 10px 14px; }
+.pe-pale .pk-page, .pe-pale .pk-gray { background: transparent; }
+.pe-pale .page-bar { background: #f6d84a; }
+.pe-dig-desc { display: block; font-style: italic; font-weight: 400; color: #444; }
+.pe-bul { display: flex; gap: 8px; align-items: flex-start; }
+.pe-bul > svg { flex: 0 0 auto; margin-top: 2px; }
+/* Achieve pages (pk-page) keep the standard yellow title bar, upright "Achieve" + italic name */
+body:has(.cw-page.pk-page) .page-bar:not(.page-bar-gray):not(.page-bar-edit) { background: var(--cg-yellow) !important; border-color: var(--cg-yellow-line) !important; }
+body:has(.cw-page.pk-page) .page-bar h1 { color: var(--ink); font-style: normal; }

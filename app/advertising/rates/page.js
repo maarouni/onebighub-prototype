@@ -15,8 +15,8 @@ const $ = (n) => `$ ${n < 1 ? n.toFixed(n < 0.01 ? 3 : 2) : n}`;
 const CARDS = [
   { icon: "idxIntro", title: <>Profit-Share Distribution<br />Introductions / Referrals</>, rows: [["Connector (A)", "70 %"], [<>onebig<span className="cw-red">HUB</span>.com</>, "30 %"]],
     note: <><b className="cw-red">Note:</b> The Connector (A) can also earn from Participants (B, C) when both offer referrals</> },
-  { icon: "idxBank", title: <>Profit-Share Distribution<br />Advertising, Sales &amp; Ticket Fees</>, rows: [["Profile - 1 Level away from Vendor", "5 %"], ["Profile - 2 Levels away from Vendor", "3 %"], ["Profile - 3 Levels away from Vendor", "2 %"], [<>onebig<span className="cw-red">HUB</span>.com</>, "90 %"]] },
-  { img: "/icons/earn.png", title: "Advertising - Listings", href: "/advertising/calculate", rows: [["Regular Listing", "$ Free"], ["Premier Listing, per view", $(RATES.premierPerView)], ["Premier Listing, per click", $(RATES.premierPerClick)], [<><Glyph name="barter" size={14} /> Barter for Premier Listing <i className="rt-sub">Subject to approval</i></>, "$ TBD"]] },
+  { icon: "moneyBag", title: <>Profit-Share Distribution<br />Advertising, Sales &amp; Ticket Fees</>, rows: [["Profile - 1 Level away from Vendor", "5 %"], ["Profile - 2 Levels away from Vendor", "3 %"], ["Profile - 3 Levels away from Vendor", "2 %"], [<>onebig<span className="cw-red">HUB</span>.com</>, "90 %"]] },
+  { icon: "megaphone", title: "Advertising - Listings", href: "/advertising/calculate", rows: [["Regular Listing", "$ Free"], ["Premier Listing, per view", $(RATES.premierPerView)], ["Premier Listing, per click", $(RATES.premierPerClick)], [<><Glyph name="barter" size={14} /> Barter for Premier Listing <i className="rt-sub">Subject to approval</i></>, "$ TBD"]] },
   { icon: "idxProduct", title: "Sales", rows: [["Item Sales Fee", "3 %"], ["Free Events - Per Ticket Fee", "$ Free"], ["Paid Events - Per Ticket Fee", $(RATES.ticketFeePaid)], [<>Private-Label <i>Main Header</i></>, `$ ${RATES.privateLabel}`]] },
   { icon: "expo", title: <>onebig<span className="cw-red">HUB</span> Networking Expos</>, href: "/advertising/expos", rows: [["Ticket with RSVP", "$ Free"], ["Ticket at Door", "$ 10"], ["Exhibitor - 6 ft or 8 ft table with linen", "$ 250"], ["Exhibitor - round cocktail table w/linen", "$ 100"], ["Sponsor - Package Deal", "$ TBD"], [<><Glyph name="barter" size={14} /> Barter for Participation <i className="rt-sub">Subject to approval</i></>, "$ TBD"]],
     note: <>Caterer, Beverage Provider (Spirits, Wine)<br />Entertainment, Location<br />Non-Profits, Organizations</> },
@@ -36,7 +36,7 @@ export default function Rates() {
     setV({});
   }
   return (
-    <AdPage title="Rates" icon="discount">
+    <AdPage title={<>Achieve&nbsp;&nbsp;<i className="pb-sub">Rates</i></>} icon="dollarCircle" typeIcon="dollarCircle">
       <div className="rt-head"><b>Title</b><b>Brief Descriptions</b><b>Rates <span className="cw-red">*</span></b></div>
       {CARDS.map((c, i) => (
         <section key={i} className="ad-box rt-card">

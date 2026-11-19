@@ -72,7 +72,7 @@ export default function BarterApproval() {
   const sAt = Math.min(si, Math.max(0, secs.length - 1));
   const sec = secs[sAt];
   return (
-    <AdPage title={<>Barter Approval&nbsp;&nbsp;<i className="pb-sub">ONLY for Cesar Plata</i></>} icon="barter" mode="edit">
+    <AdPage title={<>Achieve&nbsp;&nbsp;<i className="pb-sub">Barter Approval</i></>} icon="barter" typeIcon="barter" tint="pale">
       <div className="cw-page pk-page">
         <div className="ba-admin">
           <span className="pill">Only for Cesar Plata</span>

@@ -29,18 +29,21 @@ export function AdNav() {
 
 // mode="edit" (Cesar, Nov 17): Event Participation, Private-Labeled Header and
 // Barter Approval are gray EDIT pages — gray title bar, upright title, gray page.
-export function AdPage({ title, icon = "megaphone", mode = "output", children }) {
+export function AdPage({ title, icon = "megaphone", mode = "output", typeIcon, tint, children }) {
   const page = (
     <PageTemplate
       section="earn"
       title={title}
       icon={icon}
       mode={mode}
+      typeIcon={typeIcon}
       legend={false}
     >
       {children}
     </PageTemplate>
   );
+  // Nov 18 (Rev 261118): Barter Approval is a pale-yellow page.
+  if (tint === "pale") return <div className="pe-pale">{page}</div>;
   return mode === "edit" ? <div className="pe-edit">{page}</div> : page;
 }
 

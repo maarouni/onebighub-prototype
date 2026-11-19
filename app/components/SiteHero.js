@@ -91,11 +91,11 @@ const PROMO_MENU = [
   [
     { key: "system", label: "Performance-Based Marketing System", href: "/advertising", icon: "idxSparkle" },
     { key: "calculate", label: "Calculate Advertising Cost", href: "/advertising/calculate", icon: "calculate" },
-    { key: "rates", label: <>Rates <i>Win-Win Opportunities</i></>, href: "/advertising/rates", icon: "discount" },
   ],
   [
+    { key: "rates", label: <>Rates <i>Win-Win Opportunities</i></>, href: "/advertising/rates", icon: "dollarCircle" },
     { key: "events", label: <>Participate in onebig<span className="cw-red">HUB</span> Events</>, href: "/advertising/participation", icon: "idxSparkle" },
-    { key: "private", label: "Your Private-Labeled Main Header", href: "/advertising/private-label", icon: "idxPrivateLabel" },
+    { key: "private", label: "Your Private-Labeled Main Header", href: "/advertising/private-label", icon: "editMode" },
   ],
 ];
 function promoKey(section, action, path) {
@@ -113,7 +113,7 @@ function PromoMenu({ on }) {
   return (
     <>
       <p className="hh-box pm-intro">
-        <b>Promote &amp; Earn with onebig<span className="cw-red">HUB</span></b> Profit-Sharing from Ads, Introductions / Referrals, and Sales<br />
+        <b>onebig<span className="cw-red">HUB</span></b> Profit-Sharing from Advertising, Introductions / Referrals, and Sales<br />
         <b className="cw-red">No-Cost</b> and <b>Premier</b> opportunities to promote your listings, businesses, organizations, and groups
       </p>
       <nav className="pm-menu" aria-label="Achieve">

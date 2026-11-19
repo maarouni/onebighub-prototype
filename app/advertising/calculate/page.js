@@ -18,7 +18,7 @@ import { addToCart } from "../../lib/rsvp";
 // until view/click tracking exists; nothing is charged.
 const SECTIONS = [
   ["One Big Calendar", "Events", 4200, 180], ["My Calendars", "Events", 1800, 90], ["Discount / Gift Certificates", "", 1500, 60],
-  ["Organizations", "", 1200, 50], ["Employment", "Careers / Jobs", 900, 40], ["Notifications", "", 2600, 140],
+  ["Organizations", "", 1200, 50], ["Employment", "Employment", 900, 40], ["Notifications", "", 2600, 140],
 ];
 const iso = (d) => d.toISOString().slice(0, 10);
 const plus = (n) => { const d = new Date(); d.setDate(d.getDate() + n); return iso(d); };
@@ -59,7 +59,7 @@ export default function CalculatePage() {
   }
 
   return (
-    <AdPage title="Calculate Advertising Cost" icon="calculate">
+    <AdPage title={<>Achieve&nbsp;&nbsp;<i className="pb-sub">Calculate Ad Cost</i></>} icon="calculate" typeIcon="calculate">
       <div className="cw-page pk-page">
         <section className="pk-head">
           <div><b><span className="cw-red">Performance-Based</span> Marketing System</b><b>Premier Listing:&nbsp; Calculate My Advertising Cost</b></div>

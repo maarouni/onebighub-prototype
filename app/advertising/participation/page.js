@@ -35,7 +35,7 @@ export default function Participation() {
   }
 
   return (
-    <AdPage title="Event Participation" icon="idxSparkle" mode="edit">
+    <AdPage title={<>Achieve&nbsp;&nbsp;<i className="pb-sub">Event Participation</i></>} icon="idxSparkle" mode="edit">
       <div className="cw-page pk-page pk-gray">
         <Bar n={1} title="Event(s)" hint="Select one at a time"><EventCarousel events={events} index={ei} onIndex={setEi} /></Bar>
         {PART_SECTIONS.map((s) => (
