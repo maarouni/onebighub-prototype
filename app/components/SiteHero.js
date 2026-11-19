@@ -31,9 +31,10 @@ const CAL_ROW = [
 // Nov 15 (Cesar, Rev 261115): VIEW Profiles dropped — the Connections tile
 // itself opens the profiles table.
 const CONN_ROW = [
-  { key: "connect", label: "Connect with me !", href: "/connect-with-me", icon: "figConnect", connect: true },
-  { key: "introductions", label: "Introductions", href: "/referrals", img: "/icons/introductions.png" },
-  { key: "digest", label: "My Digest - Connections", href: "/connect/digest", icon: "figConnDigest" },
+  // Nov 19 (Cesar, "Connect Headers"): white Connect with Me !, line icons, "My Digest  Connections"
+  { key: "connect", label: "Connect with Me !", href: "/connect-with-me", icon: "figConnect", connect: true },
+  { key: "introductions", label: "Introductions", href: "/referrals", icon: "idxIntro" },
+  { key: "digest", label: <>My Digest&nbsp;&nbsp;<i className="hsub-it">Connections</i></>, href: "/connect/digest", icon: "nodeGraph" },
   { key: "edit", label: "EDIT My Profiles", href: "/profile", icon: "figEditProfile" },
 ];
 
@@ -89,7 +90,7 @@ const PRODUCT_ROW3 = [
 // Custom Digest / EDIT My Listings moved to Find's filter column.
 const PROMO_MENU = [
   [
-    { key: "system", label: "Performance-Based Marketing System", href: "/advertising", icon: "idxSparkle" },
+    { key: "system", label: "Performance-Based Marketing System", href: "/advertising", icon: "megaphone" },
     { key: "calculate", label: "Calculate Advertising Cost", href: "/advertising/calculate", icon: "calculate" },
   ],
   [
@@ -112,10 +113,6 @@ function promoKey(section, action, path) {
 function PromoMenu({ on }) {
   return (
     <>
-      <p className="hh-box pm-intro">
-        <b>onebig<span className="cw-red">HUB</span></b> Profit-Sharing from Advertising, Introductions / Referrals, and Sales<br />
-        <b className="cw-red">No-Cost</b> and <b>Premier</b> opportunities to promote your listings, businesses, organizations, and groups
-      </p>
       <nav className="pm-menu" aria-label="Achieve">
         {PROMO_MENU.map((col, ci) => (
           <div key={ci} className="pm-col">
@@ -128,6 +125,11 @@ function PromoMenu({ on }) {
           </div>
         ))}
       </nav>
+      {/* Nov 19 (Cesar, Achieve): the Profit-Sharing box sits BELOW the two menu boxes */}
+      <p className="hh-box pm-intro">
+        <b>onebig<span className="cw-red">HUB</span></b> Profit-Sharing from Advertising, Introductions / Referrals, and Sales<br />
+        <b className="cw-red">No-Cost</b> and <b>Premier</b> opportunities to promote your listings, businesses, organizations, and groups
+      </p>
     </>
   );
 }
@@ -183,9 +185,9 @@ const pair = (digestLabel, digestSub, digestHref, editLabel, editSub, editHref) 
 // Intro line under the rows: [red italic lead, rest].
 const LINES = {
   "calendar:digest": ["Save Time !", "Select filters to curate events • Assign My Attendance Status for each event"],
-  "connections:": ["Get Connected !", "Select filters to curate listings"],
+  "connections:": ["Get Connected !", <i key="c">Select filters to curate listings</i>],
   "connections:connect": ["Get Connected !", <i key="c">Offer before you receive • A little courtesy goes a long way !</i>],
-  "connections:digest": ["Get Connected !", "Select filters to curate listings • Assign My Membership Status for each org / group"],
+  "connections:digest": ["Get Connected !", <i key="c">Select filters to curate listings&nbsp;&nbsp;•&nbsp;&nbsp;Assign My Membership Status for each org / group</i>],
   "introductions:": ["Get Paid", "for Introductions / Referrals that convert to business and/or a beneficial connection"],
   "products:": ["Get Paid !", "Promote your items here • No-Cost and Premier Listings Available"],
   "discounts:": ["Everyone loves a good deal !", "Distribute certificates as gifts, incentives, raffle prizes, and rewards !"],
@@ -306,7 +308,7 @@ function rowsFor(section, action, path, query) {
       } else if (action === "connect") {
         line = lineKey("connections", "connect");
       } else {
-        if (action === "details" || action === "edit") rows.push(<SubRow key="prof" items={PROFILE_ROW} on={query.type} variant="hsub-gold" />);
+        if (action === "details") rows.push(<SubRow key="prof" items={PROFILE_ROW} on={query.type} variant="hsub-gold" />);
         if (action !== "edit") line = lineKey("connections", action === "digest" ? "digest" : "");
       }
       break;

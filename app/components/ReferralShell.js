@@ -24,7 +24,7 @@ export function ReferralShell({ children }) {
   const [qs, setQs] = useState("");
   useEffect(() => { const id = new URLSearchParams(window.location.search).get("id"); setQs(id ? `?id=${encodeURIComponent(id)}` : ""); }, []);
   return (
-    <PageTemplate section="introductions" title={<>Introductions <i className="pb-sub">{cur.sub}</i></>} icon="idxIntro">
+    <PageTemplate section="introductions" title={<>Introductions&nbsp;&nbsp;<i className="pb-sub">{cur.sub}</i></>} icon="idxIntro">
       <div className="cw-page ref-page">
         <nav className="cw-box ref-steps" aria-label="3-Way Introductions / Referrals steps">
           <span><b>3-Way Introductions / Referrals</b> <i>Select in order</i> <b className="cw-red">Note:</b> <i>You must Sign Up or Log In</i></span>

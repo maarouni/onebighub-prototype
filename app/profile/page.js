@@ -9,6 +9,36 @@ import NetworkGraph from "../components/NetworkGraph";
 import { getUser } from "../lib/auth";
 import { BIO_DOCS, getProfile, saveProfile, getGallery, saveGallery, shrinkImage, GALLERY_MAX } from "../lib/profile";
 import { listReferrals } from "../lib/referrals";
+import { FilterShell, Box, Option, CheckList, GroupedBox, RegionBoxes, AdTypesBox } from "../components/FilterKit";
+import { CATEGORY_GROUPS, INDUSTRIES, REGION_GROUPS } from "../lib/organizations";
+
+// Nov 19 (Cesar, "Connect EDIT My Profiles"): gray EDIT page with a filters
+// column — how YOUR profile is listed (Profile Type, My Membership Status,
+// Ad Types, Categories, Industries, Regions). Saved with the profile.
+const LIST_KEY = "mc_profile_listing_v1";
+const EMPTY_LISTING = { ptype: "individual", membership: "all", adtype: [], categories: [], industry: [], region: [] };
+const P_TYPES = [["individual", "Individual"], ["business", "Business"], ["organization", "Organization"], ["group", "Group"]];
+const P_MEMBER = [["all", "All", true], ["na", <><b>N</b>&nbsp;&nbsp;Not a Member</>], ["member", <><b>✓</b>&nbsp;&nbsp;Member</>], ["considering", <><b>&gt;</b>&nbsp;&nbsp;Considering to apply</>]];
+function ProfileFilters({ onHide }) {
+  const [f, setF] = useState(EMPTY_LISTING);
+  useEffect(() => { try { setF({ ...EMPTY_LISTING, ...JSON.parse(localStorage.getItem(LIST_KEY) || "{}") }); } catch {} }, []);
+  const setFilters = (fn) => setF((cur) => { const n = typeof fn === "function" ? fn(cur) : fn; try { localStorage.setItem(LIST_KEY, JSON.stringify(n)); } catch {} return n; });
+  const kit = { filters: f, setFilters };
+  return (
+    <FilterShell onHide={onHide} onClear={() => setFilters(EMPTY_LISTING)}>
+      <Box title="Profile Type" hint="Select one">
+        {P_TYPES.map(([id, label]) => <Option key={id} type="radio" name="pf-ptype" checked={f.ptype === id} onChange={() => setFilters((x) => ({ ...x, ptype: id }))} label={label} />)}
+      </Box>
+      <Box title="My Membership Status" hint="If applicable">
+        {P_MEMBER.map(([id, label, def]) => <Option key={id} type="radio" name="pf-member" checked={f.membership === id} onChange={() => setFilters((x) => ({ ...x, membership: id }))} label={label} def={def} />)}
+      </Box>
+      <AdTypesBox {...kit} />
+      <GroupedBox title="Categories" field="categories" groups={CATEGORY_GROUPS} {...kit} />
+      <Box title="Industries" defaultOpen={false}><CheckList field="industry" options={INDUSTRIES} {...kit} /></Box>
+      <RegionBoxes field="region" groups={REGION_GROUPS} {...kit} />
+    </FilterShell>
+  );
+}
 
 // My Profile — Cesar's Oct 21 changes: QR code, elevator pitch, external
 // profile links, a gallery (max 5 items), and the 3-level Connections graph
@@ -29,6 +59,7 @@ export default function ProfilePage() {
   const [depth, setDepth] = useState(1);
   const [sample, setSample] = useState(false);
   const [refs, setRefs] = useState([]);
+  const [showFilters, setShowFilters] = useState(true);
 
   useEffect(() => {
     const prof = getProfile();
@@ -82,8 +113,14 @@ export default function ProfilePage() {
   const cardLevel1 = levels.map((n) => n.card || { name: n.label });
 
   return (
-    <PageTemplate section="connections" activeAction="edit" title="My Profile" subtitle="Mini-Card · Elevator Pitch · QR Code · Connections" icon="miniCard"
-      intro={user ? <>Logged in as <b>{user.name}</b>. Your mini-card shows on referrals, events you join and your connections.</> : <>You&rsquo;re not logged in — <a href="/registration/login">Log In</a> or <a href="/registration/signup">Sign Up</a> so your profile is saved under your name.</>}>
+    <PageTemplate section="connections" activeAction="edit" mode="edit" title={<>Connect&nbsp;&nbsp;<i className="pb-sub">EDIT My Profile</i></>} icon="person" typeIcon="person"
+      intro={<><strong>Get Connected !</strong> <i>Offer before you receive&nbsp;&nbsp;•&nbsp;&nbsp;A little courtesy goes a long way !</i></>}>
+      <div className={`page browse-page ep-page ${showFilters ? "" : "filters-hidden"}`}>
+        <div className="layout-with-sidebar">
+          {showFilters && <ProfileFilters onHide={() => setShowFilters(false)} />}
+          <div className="timeline-col">
+      {!showFilters && <button type="button" className="ep-show" onClick={() => setShowFilters(true)}>Display Filters</button>}
+      {!user && <p className="nt-hint ep-login">You&rsquo;re not logged in — <a href="/registration/login">Log In</a> or <a href="/registration/signup">Sign Up</a> so your profile is saved under your name.</p>}
 
       <div className="eval-grid">
         <div className="box">
@@ -196,6 +233,9 @@ export default function ProfilePage() {
         {view === "cards" && <div className="mini-card-list">{cardLevel1.length ? cardLevel1.map((c, i) => <MiniCard key={i} p={c} />) : <p className="nt-hint">No connections yet.</p>}</div>}
         {view === "map" && <p className="nt-hint">Map view needs everyone&rsquo;s locations — it comes with the database.</p>}
         <p className="proto-note">Levels 2 and 3 are other members&rsquo; connections, so they fill in once there&rsquo;s a shared database with real users. Revenue-sharing percentages aren&rsquo;t applied here.</p>
+      </div>
+          </div>
+        </div>
       </div>
     </PageTemplate>
   );

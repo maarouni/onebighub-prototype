@@ -1,6 +1,6 @@
 "use client";
 
-import { FilterShell, Box, CheckList, DateBox, RegionBoxes, Option, BothBox, RefIcon } from "./FilterKit";
+import { FilterShell, Box, CheckList, DateBox, RegionBoxes, Option, BothBox, RefIcon, AdTypesBox } from "./FilterKit";
 import ListingTypeBox from "./ListingTypeBox";
 import {
   DATE_POSTED_OPTIONS, REFERRAL_OPTIONS, DELIVERY_OPTIONS, COST_OPTIONS,
@@ -39,6 +39,7 @@ export default function ListingsFilterPanel({ items, filters, setFilters, today,
         <Option type="radio" name="lt-digest" checked={digestMode === "auto"} onChange={() => setDigestMode?.("auto")} label="Automatically" />
         <p className="fp-aside"><i>Saves time and is a useful reminder to see updates (My Notification Digest)</i></p>
       </Box>
+      <AdTypesBox {...kit} />
       <GroupedBox title="Categories" field="categories" groups={CATEGORY_GROUPS} {...kit} />
       <Box title="Industries" defaultOpen={filters.industry.length > 0}>
         <CheckList field="industry" options={INDUSTRIES} {...kit} />

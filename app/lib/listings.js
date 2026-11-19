@@ -81,7 +81,7 @@ export const DATE_POSTED_OPTIONS = [
 
 export const EMPTY_LISTING_FILTERS = {
   type: [], posted: "all", postedFrom: "", postedTo: "",
-  referrals: [], delivery: [], cost: [], industry: [], region: [], tags: [], categories: [],
+  referrals: [], delivery: [], adtype: [], cost: [], industry: [], region: [], tags: [], categories: [],
 };
 
 // Glyph used in the listing image column, per type.
@@ -228,6 +228,7 @@ const TESTS = {
     if (f.posted === "30") return diff >= 0;
     return diff >= 0 && diff <= Number(f.posted);
   },
+  adtype: (l, f) => !f.adtype?.length || f.adtype.includes(l.premier ? "premier" : "regular"),
   referrals: (l, f) => !f.referrals.length || f.referrals.includes(l.referrals ? "yes" : "no"),
   delivery: (l, f) => !f.delivery.length || (l.delivery || []).some((d) => f.delivery.includes(d)),
   // A listing matches a cost bucket when its range overlaps the bucket.

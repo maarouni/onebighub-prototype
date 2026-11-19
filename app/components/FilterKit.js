@@ -135,6 +135,12 @@ export function BothBox({ title, icon, field, options, filters, setFilters, coun
     </Box>
   );
 }
+// Nov 19 (Cesar): "Ad Types" — o Both Default · o Regular Free · o Premier;
+// sits at the bottom of the open boxes (just above Categories / Industries / Regions).
+export const AD_TYPE_BOTH = [{ id: "regular", label: <>Regular&nbsp;&nbsp;<i>Free</i></> }, { id: "premier", label: "Premier" }];
+export function AdTypesBox({ field = "adtype", ...kit }) {
+  return <BothBox title="Ad Types" field={field} options={AD_TYPE_BOTH} {...kit} />;
+}
 export const RefIcon = () => <Glyph name="referral" size={17} className="ref-ico" />;
 
 // Single-choice date box ("All Default", Today, … MM/DD/YY - MM/DD/YY).

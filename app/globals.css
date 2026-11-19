@@ -4279,3 +4279,23 @@ body:has(.ref-page) { background: #cfcfcf !important; }
 /* Achieve pages (pk-page) keep the standard yellow title bar, upright "Achieve" + italic name */
 body:has(.cw-page.pk-page) .page-bar:not(.page-bar-gray):not(.page-bar-edit) { background: var(--cg-yellow) !important; border-color: var(--cg-yellow-line) !important; }
 body:has(.cw-page.pk-page) .page-bar h1 { color: var(--ink); font-style: normal; }
+
+/* Nov 19 (Cesar, Find Filters): Listings box — fixed radio + icon slots and a
+   few extra pixels before the text, so labels stay aligned when one turns bold. */
+.lt-opt { gap: 8px !important; }
+.lt-opt > input { flex: 0 0 auto; margin: 0; }
+.lt-opt > img, .lt-opt > svg { flex: 0 0 18px; width: 18px; height: 18px; object-fit: contain; }
+.lt-opt .fp-label { padding-left: 3px; }
+/* Nov 19 (Cesar, Connect Headers): Connect with Me ! is a white button unless it's the current page */
+.hsub-connect:not(.on) { background: #fff !important; border-color: var(--cg-box-line) !important; color: var(--cg-blue) !important; }
+.hsub-it { font-style: italic; font-weight: 400; color: var(--ink); }
+.hsub-item.on .hsub-it { color: inherit; }
+/* Nov 19 (Cesar, Connect Headers): Introductions pages keep the gray title bar */
+body:has(.ref-page) .page-bar:not(.page-bar-gray):not(.page-bar-edit) { background: #c4c4c4 !important; border-color: #a9a9a9 !important; }
+/* Nov 19: EDIT My Profile — filters column + gray page */
+.ep-page { padding: 0; max-width: none; }
+.ep-page .timeline-col > .box, .ep-page .timeline-col > .eval-grid { margin-top: 0; }
+.ep-show { margin: 0 0 10px auto; display: block; border: 1px solid var(--cg-box-line); background: var(--cg-yellow); border-radius: 999px; padding: 4px 14px; color: var(--cg-blue); cursor: pointer; }
+/* Nov 19 (Cesar, Achieve): "Rates  Win-Win Opportunities" — italic part in black */
+.pm-item:not(.on) i { color: var(--ink); }
+.pm-menu + .pm-intro { margin-top: 10px; }

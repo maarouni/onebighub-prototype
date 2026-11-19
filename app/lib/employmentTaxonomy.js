@@ -52,6 +52,7 @@ export const INDUSTRIES = [
 ];
 
 export const EMPTY_JOB_FILTERS = {
+  adtype: [],
   comp: [],
   level: [],
   type: [],
@@ -74,6 +75,7 @@ function postedDate(j) {
 }
 
 const SECTION_TESTS = {
+  adtype: (j, f) => !f.adtype?.length || f.adtype.includes(j.premier ? "premier" : "regular"),
   comp: (j, f) => !f.comp.length || f.comp.includes(j.compType),
   level: (j, f) => !f.level.length || f.level.includes(j.level),
   type: (j, f) => !f.type.length || (j.types || []).some((t) => f.type.includes(t)),

@@ -123,7 +123,7 @@ function Inner({ digest }) {
         { id: "details", icon: "eyeView", label: "View Selection(s)", href: firstSel ? `/connect/${firstSel.id}` : "/connect/digest", def: true },
         { id: "add", icon: "addNew", label: "ADD New Listing", href: "/connect/submit" },
         { id: "edit", icon: "editMode", label: "EDIT Selection(s)", href: firstSel ? `/connect/submit?id=${firstSel.id}` : "/connect/submit" },
-        { id: "del", icon: "delete", label: "DELETE Selection(s) from My Connections Digest", onClick: deleteFromDigest },
+        { id: "del", icon: "delete", label: "DELETE Selection(s) from My Connect Digest", onClick: deleteFromDigest },
       ]
     : [
         { id: "details", icon: "eyeView", label: "View Selection(s)", href: firstSel ? `/connect/${firstSel.id}` : "/connect", def: true },
@@ -135,7 +135,8 @@ function Inner({ digest }) {
     <>
       <PageTemplate
         section="connections"
-        title={digest ? "My Connections Digest" : <>Connect&nbsp;&nbsp;<i className="pb-sub">Profiles</i></>}
+        title={digest ? <>Connect&nbsp;&nbsp;<i className="pb-sub">My Digest</i></> : <>Connect&nbsp;&nbsp;<i className="pb-sub">Profiles</i></>}
+        typeIcon={digest ? "nodeGraph" : undefined}
         legend={false}
         activeAction={digest ? "digest" : viewing ? "details" : null}
         spacer
@@ -153,7 +154,7 @@ function Inner({ digest }) {
           )}
 
           <div className="timeline-col" id="results">
-            <ResultsHead step={digest ? 3 : 2} title={digest ? "My Connections Digest" : "Connect"} q={qRaw} setQ={setQRaw}
+            <ResultsHead step={digest ? 3 : 2} title={digest ? "My Connect Digest" : "Connect"} q={qRaw} setQ={setQRaw}
               showFilters={showFilters} onShowFilters={() => setShowFilters(true)} />
 
             <SendToMasoud load={localOrgs} noun="organizations" format={fmtOrg} subject="onebigHUB - my organizations" />

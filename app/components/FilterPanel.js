@@ -1,7 +1,7 @@
 "use client";
 
 import ListingTypeBox from "./ListingTypeBox";
-import { FilterShell, Box, CheckList, DateBox, GroupedBox, DigestBox, RegionBoxes, BothBox, RefIcon } from "./FilterKit";
+import { FilterShell, Box, CheckList, DateBox, GroupedBox, DigestBox, RegionBoxes, BothBox, RefIcon, AdTypesBox } from "./FilterKit";
 import { COST_OPTIONS, REGION_GROUPS, CATEGORY_GROUPS, EMPTY_FILTERS, CAL_POSTED_OPTIONS, FORMAT_OPTIONS, countFor } from "../lib/taxonomy";
 import { REFERRAL_OPTIONS, INDUSTRIES } from "../lib/organizations";
 
@@ -30,7 +30,8 @@ export default function FilterPanel({ events, filters, setFilters, today, q, onH
       <Box title="Event Costs">
         <CheckList field="costs" options={COST_OPTIONS} {...kit} />
       </Box>
-      <BothBox title="Type" field="adtypes" options={AD_TYPE_OPTIONS} {...kit} />
+
+      <AdTypesBox field="adtypes" {...kit} />
 
       <GroupedBox title="Categories" field="categories" groups={CATEGORY_GROUPS} {...kit} />
 

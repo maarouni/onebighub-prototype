@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FOLLOW_UP, RELATIONSHIP_GROUPS } from "../lib/connect";
-import { FilterShell, Box, Sub, Option, CheckList, DateBox, GroupedBox, DigestBox, RegionBoxes, BothBox, RefIcon } from "./FilterKit";
+import { FilterShell, Box, Sub, Option, CheckList, DateBox, GroupedBox, DigestBox, RegionBoxes, BothBox, RefIcon, AdTypesBox } from "./FilterKit";
 import {
   DATE_POSTED_OPTIONS, REFERRAL_OPTIONS, CONNECTION_TYPES, AD_TYPES, SEEKING_EMPLOYMENT, CONN_LEVELS, CONN_COMP, MEMBER_OPTIONS, DUES_OPTIONS, MEMBERSHIP_STATUSES,
   CATEGORY_GROUPS, INDUSTRIES, REGION_GROUPS, EMPTY_ORG_FILTERS, countOrgsFor,
@@ -14,13 +13,20 @@ import {
 // "2 Save Filter Set".
 // Nov 13 (Cesar): "Profile Types" box (All · Individual · Business · Organization
 // · Group) now comes before Date Posted / Revised, on Connections and the Digest.
+const DIGEST_FOLLOW = [["all", "All"], ["none", "None"], ["01", "01 Cold", "Doubtful"], ["02", "02 Mild", "Maybe"], ["03", "03 Medium", "Sometime"], ["04", "04 Warm", "Soon"], ["05", "05 HOT !", "Very Soon"]];
+const DIGEST_REL = [["all", "All"], ["none", "None"], ["referral", "Referral"], ["connection", "Connection"], ["colleague", "Colleague"], ["friend", "Friend"], ["family", "Family"]];
+const NETWORK_LEVELS = [["all", "All"], ["none", "None"], ["intro1", "My Introductions", "Level 1"], ["c1", "My Connect", "Level 1"], ["c2", "My Connect", "Level 2"], ["c3", "My Connect", "Level 3"]];
+const EMPLOYEE_RANGES = ["All", "0 - 5", "6 - 20", "21 - 50", "51 - 100", "101 - 250", "251 - 500", "501 +"];
 const PROFILE_TYPES = [["Individual", ["indPersonal", "indProfessional"]], ["Business", ["biz"]], ["Organization", ["org"]], ["Group", ["group"]]];
 
 export default function OrgFilterPanel({ items, filters, setFilters, ctx, onHide, onDisplay, digest = false, setName = "none", onPickSet, onSaveSet, onClearSet, sets = {} }) {
   const count = (key, v) => countOrgsFor(items, filters, { [key]: key === "posted" ? v : [v] }, ctx);
   const kit = { filters, setFilters, count };
-  const [follow, setFollow] = useState([]);
+  const [follow, setFollow] = useState("all");
   const [rel, setRel] = useState([]);
+  const [levels, setLevels] = useState([]);
+  const [empMode, setEmpMode] = useState("none");
+  const [emps, setEmps] = useState("none");
   const tog = (list, set) => (v) => set(list.includes(v) ? list.filter((x) => x !== v) : [...list, v]);
   const savePill = digest && (
     <button type="button" className="fp-submit-pill fp-set-pill" onClick={onSaveSet} disabled={setName === "none"}
@@ -59,38 +65,50 @@ export default function OrgFilterPanel({ items, filters, setFilters, ctx, onHide
         ))}
       </Box>
       <DateBox title="Date Posted / Revised" field="posted" fromKey="postedFrom" toKey="postedTo" options={DATE_POSTED_OPTIONS} {...kit} />
-      <BothBox title="Offering $ Referrals" icon={<RefIcon />} field="referral" options={REFERRAL_OPTIONS} {...kit} />
-      {digest ? (
+      {digest && (
         <>
-          <Box title="My Follow-Up Status" hint="Select all that apply">
-            <Option type="radio" name="org-follow-all" checked={!follow.length} onChange={() => setFollow([])} label="All - My Network" def />
-            {FOLLOW_UP.map((f) => (
-              <Option key={f.id} checked={follow.includes(f.id)} onChange={() => tog(follow, setFollow)(f.id)}
-                label={<>{f.hot ? <>05 <b className="cw-hot">HOT !</b></> : f.label} <i>{f.hint}</i></>} />
+          {/* Nov 19 (Cesar's Figma, Connect My Digest) */}
+          <Box title="My Follow-Up Status" hint="Select one">
+            {DIGEST_FOLLOW.map(([id, label, hint]) => (
+              <Option key={id} type="radio" name="org-follow" checked={follow === id} onChange={() => setFollow(id)} def={id === "all"}
+                label={<>{id === "05" ? <>05 <b className="cw-hot">HOT !</b></> : label}{hint && <i>{hint}</i>}</>} />
             ))}
           </Box>
-          <Box title="My Relationships" hint="Select all that apply">
-            <Option type="radio" name="org-rel-all" checked={!rel.length} onChange={() => setRel([])} label="All" def />
-            <Option checked={rel.includes("referrals")} onChange={() => tog(rel, setRel)("referrals")} label="My Referrals / Circles of Influence" />
-            {RELATIONSHIP_GROUPS.map((g) => (
-              <Sub key={g.group + (g.sub || "")} title={g.group} hint={g.sub}>
-                {g.options.map(([id, label]) => <Option key={id} checked={rel.includes(id)} onChange={() => tog(rel, setRel)(id)} label={label} />)}
-              </Sub>
+          <Box title="My Relationships" hint="Select up to 3">
+            {DIGEST_REL.map(([id, label]) => (
+              <Option key={id} checked={id === "all" ? !rel.length : rel.includes(id)} def={id === "all"} label={label}
+                onChange={() => id === "all" ? setRel([]) : setRel(rel.includes(id) ? rel.filter((x) => x !== id) : rel.length < 3 ? [...rel, id] : rel)} />
+            ))}
+          </Box>
+          <Box title="Network Levels" hint="Select all that apply">
+            {NETWORK_LEVELS.map(([id, label, hint]) => (
+              <Option key={id} checked={id === "all" ? !levels.length : levels.includes(id)} def={id === "all"}
+                onChange={() => id === "all" ? setLevels([]) : tog(levels, setLevels)(id)} label={<>{label}{hint && <i>{hint}</i>}</>} />
             ))}
           </Box>
         </>
-      ) : null}
-      <Box title="Ad Types"><CheckList field="adtype" options={AD_TYPES} all={false} {...kit} /></Box>
-      <Box title="Seeking Employment">
-        <CheckList field="seeking" options={SEEKING_EMPLOYMENT} {...kit} />
-        <Sub title="Employment Level"><CheckList field="level" options={CONN_LEVELS} {...kit} /></Sub>
+      )}
+      <BothBox title="Offering $ Referrals" icon={<RefIcon />} field="referral" options={REFERRAL_OPTIONS} {...kit} />
+      <Box title="Employment" hint="Select one, if applicable">
+        {[["none", "No Response"], ["offering", "Offering"], ["seeking", "Seeking"]].map(([id, label]) => (
+          <Option key={id} type="radio" name="org-emp-mode" checked={empMode === id} onChange={() => setEmpMode(id)} label={label} def={id === "none"} />
+        ))}
+      </Box>
+      <Box title="Employment">
+        <CheckList field="seeking" options={SEEKING_EMPLOYMENT} {...kit} allLabel="No Response" />
+        <Sub title="Employment Level"><CheckList field="level" options={CONN_LEVELS} {...kit} allLabel="No Response" /></Sub>
         <Sub title="Minimum Compensation"><CheckList field="comp" options={CONN_COMP} {...kit} allLabel="No Response" /></Sub>
       </Box>
-      {digest && <Box title="My Membership Status" hint="if applicable"><CheckList field="status" options={MEMBERSHIP_STATUSES} {...kit} /></Box>}
-      <Box title="Memberships">
-        <Sub title="# Members" hint="if applicable"><CheckList field="members" options={MEMBER_OPTIONS} {...kit} /></Sub>
-        <Sub title="Annual Dues" hint="if applicable"><CheckList field="dues" options={DUES_OPTIONS} {...kit} /></Sub>
+      <Box title="# Employees" hint="If applicable">
+        <Option type="radio" name="org-emps" checked={emps === "none"} onChange={() => setEmps("none")} label="No Response" def />
+        {EMPLOYEE_RANGES.map((r) => <Option key={r} type="radio" name="org-emps" checked={emps === r} onChange={() => setEmps(r)} label={r} />)}
       </Box>
+      {digest && <Box title="My Membership Status" hint="If applicable"><CheckList field="status" options={MEMBERSHIP_STATUSES} {...kit} /></Box>}
+      <Box title="# Members" hint="If applicable">
+        <CheckList field="members" options={MEMBER_OPTIONS} {...kit} allLabel="No Response" />
+        <Sub title="Annual Dues"><CheckList field="dues" options={DUES_OPTIONS} {...kit} allLabel="No Response" /></Sub>
+      </Box>
+      <AdTypesBox {...kit} />
       {!digest && <DigestBox digest="My Connections Digest" />}
       <GroupedBox title="Categories" field="categories" groups={CATEGORY_GROUPS} {...kit} />
       <Box title="Industries" defaultOpen={filters.industry.length > 0}>

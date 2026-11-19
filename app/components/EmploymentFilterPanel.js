@@ -14,7 +14,7 @@ import {
   EMPTY_JOB_FILTERS,
   countJobsFor,
 } from "../lib/employmentTaxonomy";
-import { FilterShell, Box, Option, CheckList, DateBox, DigestBox, RegionBoxes } from "./FilterKit";
+import { FilterShell, Box, Option, CheckList, DateBox, DigestBox, RegionBoxes, AdTypesBox } from "./FilterKit";
 
 // Employment filters — same shared structure as One Big Calendar.
 export default function EmploymentFilterPanel({ jobs, filters, setFilters, today, q, onHide, onDisplay }) {
@@ -34,6 +34,7 @@ export default function EmploymentFilterPanel({ jobs, filters, setFilters, today
       </Box>
       <Box title="Employment Level"><CheckList field="level" options={EMPLOYMENT_LEVELS} {...kit} /></Box>
       <Box title="Employment Types"><CheckList field="type" options={EMPLOYMENT_TYPES} {...kit} /></Box>
+      <AdTypesBox {...kit} />
       <DigestBox digest="My Employment Digest" />
       <Box title="Industry(ies)" defaultOpen={filters.industry.length > 0}>
         <CheckList field="industry" options={INDUSTRIES} {...kit} />

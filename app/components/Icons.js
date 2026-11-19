@@ -113,6 +113,8 @@ const P = {
   idxSwitch: <><rect x="2" y="7" width="20" height="10" rx="5" fill="currentColor" /><circle cx="16.5" cy="12" r="3.3" fill="#fff" stroke="none" /></>,
   idxListings: <path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01" strokeWidth="2.4" />,
   calDigest: <><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M8 3v4M16 3v4M3 9.5h18" /><circle cx="10" cy="13.5" r="2" /><path d="M6.5 19.5c.5-2 2-3 3.5-3s3 1 3.5 3" /><path d="M16 21l5-5" /></>,
+  person: <><circle cx="12" cy="12" r="10" /><circle cx="12" cy="9.5" r="3.5" /><path d="M5.5 18.5c1.3-2.6 3.8-4 6.5-4s5.2 1.4 6.5 4" /></>,
+  nodeGraph: <><circle cx="12" cy="12" r="2.2" /><circle cx="4.5" cy="6" r="1.8" /><circle cx="19.5" cy="6" r="1.8" /><circle cx="4.5" cy="18" r="1.8" /><circle cx="19.5" cy="18" r="1.8" /><circle cx="12" cy="3.5" r="1.6" /><circle cx="12" cy="20.5" r="1.6" /><path d="M10.2 10.8 6 7.2M13.8 10.8 18 7.2M10.2 13.2 6 16.8M13.8 13.2 18 16.8M12 9.8V5.1M12 14.2v4.7" /></>,
   moneyBag: <><path d="M9 3h6l-1.5 3h-3z" /><path d="M10.5 6C6 8.5 4 12.5 4 15.5 4 19 7 21 12 21s8-2 8-5.5c0-3-2-7-6.5-9.5" /><path d="M14 11.5c-.4-.8-1.2-1.2-2-1.2-1.2 0-2 .6-2 1.5 0 2 4 1.2 4 3.2 0 .9-.9 1.6-2 1.6-.9 0-1.7-.4-2.1-1.2M12 9.3v1M12 16.6v1" /></>,
   dollarCircle: <><circle cx="12" cy="12" r="9.5" /><path d="M15 8.8c-.5-.9-1.6-1.4-3-1.4-1.7 0-2.9.9-2.9 2.1 0 2.8 6 1.7 6 4.6 0 1.3-1.3 2.3-3.1 2.3-1.4 0-2.6-.6-3.1-1.6M12 5.5v1.9M12 16.6v1.9" /></>,
   idxDigestImg: <><path d="M4 21V10l8-6 8 6v11z" /><path d="M4 10l8 5 8-5" /><path d="M9 6V3h6v3" /></>,
