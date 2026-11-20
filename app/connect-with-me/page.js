@@ -129,7 +129,6 @@ export default function ConnectSteps13() {
 
       <NetworkSection step={3} />
 
-      <p className="cw-next"><a href="/connect-with-me/network">Steps 4-6: Sign Up / Log In · Send a Message · Next Steps →</a></p>
     </ConnectPage>
   );
 }

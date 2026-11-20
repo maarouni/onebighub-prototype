@@ -218,7 +218,6 @@ export default function ConnectSteps46() {
           ))}
         </div>
       </SectionBar>
-      <p className="cw-next"><a href="/connect-with-me">← Steps 1-3: SCAN My QR Code · Relationship &amp; Notes · View My Network</a></p>
     </ConnectPage>
   );
 }
