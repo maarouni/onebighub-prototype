@@ -4433,3 +4433,7 @@ b + i, b + em, strong + i, strong + em,
 .cw-social-blue { background: #4285f4 !important; color: #fff !important; border-color: #4285f4 !important; max-width: 220px; padding: 4px 10px 4px 4px; }
 .cw-g-wrap { background: #fff; border-radius: 3px; display: inline-flex; padding: 4px; }
 .cw-card-center { display: flex; justify-content: center; } .cw-card-center > * { max-width: 360px; width: 100%; }
+
+/* Nov 20 (Cesar 11:48): icons are in color or black — never the blue link color */
+svg.glyph { color: #111 !important; }
+.pk-cart svg.glyph, .cw-social-blue svg.glyph, .btn-primary svg.glyph, .cw-submit svg.glyph { color: inherit !important; }
