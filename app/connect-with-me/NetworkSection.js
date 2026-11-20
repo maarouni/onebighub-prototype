@@ -92,6 +92,7 @@ export default function NetworkSection({ step = 3 }) {
               </div>
             )}
             <div className="cw-netbox">
+              {sample && view === "graph" && <b className="cw-sample-title">Sample Node Graph</b>}
               {view === "graph" ? <NetworkGraph me={center} people={shown} />
                 : <div className="cw-list">{shown.map((p) => <MiniCard key={p.id} p={p} />)}{!shown.length && <p className="cw-muted">Nobody matches these filters.</p>}</div>}
               {sample && <p className="cw-muted cw-sample">{loggedIn ? "Sample names until people join through your QR code." : <>Sample network for <b>Santa Claus</b> — <a href="/connect-with-me/network#signup">Sign Up / Log In</a> to see your own.</>}</p>}
