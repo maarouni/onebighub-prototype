@@ -4418,3 +4418,5 @@ body:has(.cw-page) .page-bar h1 { color: var(--ink); }
 b + i, b + em, strong + i, strong + em,
 .fp-label > i, .fp-label > em, .fp-box-title > em, .fp-box-title > i,
 .cw-bar i, .pk-label > i, .pk-opt > i, .ct-opt .fp-label i { margin-left: .32em; }
+/* Nov 20 (Masoud): "HOT !" — bold italic burgundy everywhere */
+.cw-hot { color: var(--cg-red, #7a1010) !important; font-style: italic !important; font-weight: 700; }

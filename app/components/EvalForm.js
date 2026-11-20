@@ -25,7 +25,7 @@ function Slider({ c, value, onChange }) {
         <output className={na ? "cw-muted" : "cw-red"}>{na ? "–" : value}</output>
       </div>
       {c.id === "AV" && <ul className="ev-legend">{AV_LEGEND.map(([n, t]) => <li key={n}><b>{n}</b> {t}</li>)}</ul>}
-      {c.id === "CV" && <ul className="ev-legend">{CV_LEGEND.map(([n, t, h]) => <li key={n}><b>{n}</b> {n === "5" ? <b className="cw-red">{t}</b> : t} <i>{h}</i></li>)}</ul>}
+      {c.id === "CV" && <ul className="ev-legend">{CV_LEGEND.map(([n, t, h]) => <li key={n}><b>{n}</b> {n === "5" ? <b className="cw-hot">{t}</b> : t} <i>{h}</i></li>)}</ul>}
     </div>
   );
 }
