@@ -5,6 +5,7 @@ import { ConnectPage, SectionBar, CardAndPitch, PersonCard, NetworkGraph } from 
 import { Box, Option, RefIcon } from "../../components/FilterKit";
 import { MiniCard } from "../../components/Form";
 import { Glyph } from "../../components/Icons";
+import { PagerRow } from "../../components/PromoKit";
 import { getProfile } from "../../lib/profile";
 import { getNetwork, SAMPLE_NETWORK, relsOf, MESSAGE_TEMPLATES, fillTemplate, saveMessage, addToNetwork } from "../../lib/connect";
 import { getUser, setUser } from "../../lib/auth";
@@ -174,12 +175,9 @@ export default function ConnectSteps46() {
           <input type="text" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Submit Here" onKeyDown={(e) => { if (e.key === "Enter") { setApplied(q); setIdx(0); } }} />
           <div className="em-center"><button type="button" className="cw-submit" onClick={() => { setApplied(q); setIdx(0); }}>Submit</button></div>
         </div>
-        <div className="cw-carousel">
-          <button type="button" className="cw-pg" disabled={idx <= 0} onClick={() => setIdx((i) => i - 1)} aria-label="Previous"><Glyph name="pagePrev" size={22} /></button>
-          {to ? <PersonCard p={to} /> : <p className="cw-muted">Nobody matches “{applied}”.</p>}
-          <button type="button" className="cw-pg" disabled={idx >= matches.length - 1} onClick={() => setIdx((i) => i + 1)} aria-label="Next"><Glyph name="pageNext" size={22} /></button>
-        </div>
-        <p className="cw-center"><b className="cw-red">{matches.length ? Math.min(idx, matches.length - 1) + 1 : 0}</b> of <b className="cw-red">{matches.length}</b>{sample && <i className="cw-muted"> (sample names)</i>}</p>
+        {/* Nov 20 (Figma): mini-card centered, "## of ##" pager bar underneath */}
+        <div className="cw-card-center">{to ? <PersonCard p={to} /> : <p className="cw-muted">Nobody matches “{applied}”.</p>}</div>
+        <PagerRow i={Math.min(idx, Math.max(0, matches.length - 1))} n={matches.length} onGo={(n) => setIdx(Math.min(Math.max(0, n), matches.length - 1))} word="" />
         <div className="cw-box">
           <span><b>Message</b> <i>Select one template •</i> <b>Edit in Dashboards</b> <i>- My Custom Marketing Collateral</i></span>
           {MSG_OPTIONS.map(([id, l, def]) => (

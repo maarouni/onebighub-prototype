@@ -4432,3 +4432,4 @@ b + i, b + em, strong + i, strong + em,
 .cw-social b { font-weight: 700; }
 .cw-social-blue { background: #4285f4 !important; color: #fff !important; border-color: #4285f4 !important; max-width: 220px; padding: 4px 10px 4px 4px; }
 .cw-g-wrap { background: #fff; border-radius: 3px; display: inline-flex; padding: 4px; }
+.cw-card-center { display: flex; justify-content: center; } .cw-card-center > * { max-width: 360px; width: 100%; }
