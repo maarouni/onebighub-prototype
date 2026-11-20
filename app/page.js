@@ -7,11 +7,11 @@ import PageTemplate from "./components/PageTemplate";
 const CARDS = [
   {
     href: "/calendar", img: "/icons/find.png", title: "Find", head: "One Big Table of Listings",
-    lines: [<i key="1">Events, Marketplace, Opportunities …</i>, <><b>Custom Digests</b> - <i>Select Filters, Assign Attendance …</i></>],
+    lines: [<i key="1">Events, Marketplace, Opportunities …</i>, <><b>Custom Digests</b>&nbsp;-&nbsp;&nbsp;<i>Select Filters, Assign Attendance …</i></>],
   },
   {
     href: "/connect-with-me", img: "/icons/connections.png", title: "Connect", head: <>Performance-Based Marketing <span className="cw-red">*</span></>,
-    lines: [<><b>Custom Profiles</b> - <i>Individual, Biz, Org, Group</i></>, <><b>Virtual Biz Card</b> - <i>Add Notes, View Node Graphs</i></>,
+    lines: [<><b>Custom Profiles</b>&nbsp;-&nbsp;&nbsp;<i>Individual, Biz, Org, Group</i></>, <><b>Virtual Biz Card</b>&nbsp;-&nbsp;&nbsp;<i>Add Notes, View Node Graphs</i></>,
       <><span className="cw-red">*</span> <i>Advertising based on <b className="cw-red">RESULTS</b>:&nbsp; # clicks or views</i></>],
   },
   {

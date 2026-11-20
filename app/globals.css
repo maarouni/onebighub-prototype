@@ -4437,3 +4437,18 @@ b + i, b + em, strong + i, strong + em,
 /* Nov 20 (Cesar 11:48): icons are in color or black — never the blue link color */
 svg.glyph { color: #111 !important; }
 .pk-cart svg.glyph, .cw-social-blue svg.glyph, .btn-primary svg.glyph, .cw-submit svg.glyph { color: inherit !important; }
+/* Nov 20 12:38 (Cesar's HOME Figma): wider cards inset from the edges, larger type, more line spacing */
+.home-cards { max-width: none !important; margin: 32px 40px 16px !important; gap: 24px !important; }
+.home-card { padding: 30px 36px !important; gap: 40px !important; border-radius: 22px !important; }
+.home-card img { width: 120px !important; height: 120px !important; }
+.home-card-text { font-size: 22px !important; gap: 10px !important; }
+.home-card-title { font-size: 42px !important; }
+.home-card-head { font-size: 33px !important; margin-bottom: 8px !important; }
+@media (max-width: 700px) {
+  .home-cards { margin: 18px 0 10px !important; gap: 14px !important; }
+  .home-card { padding: 16px !important; gap: 14px !important; }
+  .home-card img { width: 64px !important; height: 64px !important; }
+  .home-card-text { font-size: 15px !important; gap: 5px !important; }
+  .home-card-title { font-size: 26px !important; }
+  .home-card-head { font-size: 20px !important; }
+}
