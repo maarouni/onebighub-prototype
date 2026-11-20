@@ -4427,3 +4427,8 @@ b + i, b + em, strong + i, strong + em,
 .cw-counts-t td:nth-child(2) { font-weight: 700; width: 140px; white-space: nowrap; }
 .cw-counts-t td:nth-child(3) { font-style: italic; }
 .cw-counts-t tr.cw-ct-gap td { padding-top: 14px; }
+/* Nov 20 (Masoud): Sign in with Apple / Google visible on every device, full opacity (Figma) */
+.cw-social { opacity: 1 !important; color: #111; cursor: pointer; max-width: 300px; margin: 0 auto; width: 100%; }
+.cw-social b { font-weight: 700; }
+.cw-social-blue { background: #4285f4 !important; color: #fff !important; border-color: #4285f4 !important; max-width: 220px; padding: 4px 10px 4px 4px; }
+.cw-g-wrap { background: #fff; border-radius: 3px; display: inline-flex; padding: 4px; }

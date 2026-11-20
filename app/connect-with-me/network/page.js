@@ -130,9 +130,9 @@ export default function ConnectSteps46() {
       <span id="new-user" />
       <SectionBar n="4a" icon="register" title="New User" hint={<>Sign Up • Select one</>}>
         <div className="cw-signup">
-          <button type="button" className="cw-social" disabled title="Needs Apple sign-in set up"><b></b> Sign in with Apple <i>Auto-fills info</i></button>
+          <button type="button" className="cw-social" onClick={() => say("Sign in with Apple needs an Apple developer account — coming with the live version.")}><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="#000" d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8s2.3-1.3 3.1-2.5c1-1.4 1.4-2.8 1.4-2.9 0 0-2.7-1-2.7-4.1zM13.9 4.9c.7-.9 1.2-2 1.1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.1.1 2.3-.6 3-1.5z"/></svg> <b>Sign in with Apple</b> <i>Auto-fills info</i></button>
           <div className="form-or"><span>OR</span></div>
-          <button type="button" className="cw-social" disabled title="Needs Google sign-in set up"><b className="cw-g">G</b> Sign in with Google <i>Auto-fills info</i></button>
+          <button type="button" className="cw-social" onClick={() => say("Sign in with Google needs Google sign-in set up — coming with the live version.")}><svg width="16" height="16" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.5l6.7-6.7C35.6 2.4 30.2 0 24 0 14.6 0 6.6 5.4 2.6 13.3l7.8 6C12.3 13.6 17.6 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.2 5.3-4.6 6.9l7.2 5.6c4.2-3.9 7.1-9.6 7.1-17z"/><path fill="#FBBC05" d="M10.4 28.7c-.5-1.4-.8-3-.8-4.7s.3-3.3.8-4.7l-7.8-6C1 16.6 0 20.2 0 24s1 7.4 2.6 10.7l7.8-6z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.2-5.6c-2 1.4-4.7 2.2-8.7 2.2-6.4 0-11.7-4.1-13.6-9.8l-7.8 6C6.6 42.6 14.6 48 24 48z"/></svg> <b>Sign in with Google</b> <i>Auto-fills info</i></button>
           <div className="form-or"><span>OR</span></div>
           <PersonCard p={preview} placeholder />
           <label className="cw-box"><b>Name, Title</b><input value={c.name} onChange={set("name")} placeholder="Submit Here" /></label>
@@ -162,7 +162,7 @@ export default function ConnectSteps46() {
           {lerr && <p className="ed-error">{lerr}</p>}
           <div className="em-center"><button type="button" className="cw-submit cw-continue" onClick={logIn}>Continue</button></div>
           <div className="form-or"><span>OR</span></div>
-          <button type="button" className="cw-social" disabled title="Needs Google sign-in set up"><b className="cw-g">G</b> Sign in with Google</button>
+          <button type="button" className="cw-social cw-social-blue" onClick={() => say("Sign in with Google needs Google sign-in set up — coming with the live version.")}><span className="cw-g-wrap"><svg width="16" height="16" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.5l6.7-6.7C35.6 2.4 30.2 0 24 0 14.6 0 6.6 5.4 2.6 13.3l7.8 6C12.3 13.6 17.6 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.2 5.3-4.6 6.9l7.2 5.6c4.2-3.9 7.1-9.6 7.1-17z"/><path fill="#FBBC05" d="M10.4 28.7c-.5-1.4-.8-3-.8-4.7s.3-3.3.8-4.7l-7.8-6C1 16.6 0 20.2 0 24s1 7.4 2.6 10.7l7.8-6z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.2-5.6c-2 1.4-4.7 2.2-8.7 2.2-6.4 0-11.7-4.1-13.6-9.8l-7.8 6C6.6 42.6 14.6 48 24 48z"/></svg></span> Sign in with Google</button>
           <p className="cw-center"><b>Don&rsquo;t have an account ?</b> <a href="#new-user">Sign Up</a></p>
         </div>
       </SectionBar>
