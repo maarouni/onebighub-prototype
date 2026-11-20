@@ -4407,3 +4407,8 @@ body:has(.cw-page) .page-bar h1 { color: var(--ink); }
 /* Nov 20 (Masoud, match Figma): Step 1 stacks QR → mini-card → elevator pitch → Action, one column */
 .cw-sec-stack .cw-two { display: flex !important; flex-direction: column; gap: 10px; }
 .cw-sec-stack .cw-two > * { width: 100%; box-sizing: border-box; }
+/* Nov 20 (Masoud): filter / input boxes always have the gray background */
+.fp-box, .cw-box:has(input, textarea, select), .cw-section .cw-box:has(.fp-option),
+.pk-gbox:not(.pk-white):not(.ep-final):not(.fd-final) { background: #f2f2f2 !important; border-color: #9a9a9a !important; }
+.cw-box:has(input, textarea, select) input:not([type="radio"]):not([type="checkbox"]),
+.cw-box:has(input, textarea, select) select { background: transparent !important; }
