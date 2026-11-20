@@ -77,9 +77,9 @@ export default function ConnectSteps13() {
   return (
     <ConnectPage>
       <SectionBar n={1} icon="qr" title="SCAN My QR Code" hint="Created Automatically">
-        <div className="cw-qr-row">
-          <div className="cw-qr">{qr ? <img src={qr} alt="My Connect with Me QR code" width="200" height="200" /> : <div className="cw-qr-wait" />}</div>
-          <div className="cw-box cw-actions">
+        <div className="cw-qr cw-qr-solo">{qr ? <img src={qr} alt="My Connect with Me QR code" width="200" height="200" /> : <div className="cw-qr-wait" />}</div>
+        <CardAndPitch p={me} placeholder />
+        <div className="cw-box cw-actions">
             <span><b>Action</b> <i>Select one at a time</i></span>
             {[["exchange", "Exchange Contact Info", true], ["scan", "SCAN Other's QR Code"], ["follow", "Connect and Follow"], ["copy", "Copy Link"]].map(([id, label, def]) => (
               <label key={id} className="fp-option ct-opt">
@@ -88,13 +88,11 @@ export default function ConnectSteps13() {
               </label>
             ))}
           </div>
-        </div>
-        <CardAndPitch p={me} placeholder />
         {flash && <div className="fp-flash fp-flash-block">{flash}</div>}
       </SectionBar>
 
       <span id="relationship" />
-      <SectionBar n={2} icon="idxAssign" title="Assign My Relationship & Notes" hint="Private">
+      <SectionBar n={2} icon="idxAssign" title="Assign My Relationship & Notes" hint="Private" className="cw-sec-gray">
         <div className="cw-s2">
           <div className="cw-s2-left">
             <div className="cw-box">
@@ -103,6 +101,7 @@ export default function ConnectSteps13() {
                 <label key={o.id} className="fp-option ct-opt"><input type="checkbox" checked={r.rels.includes(o.id)} onChange={() => toggleRel(o.id)} /> <span className="fp-label">{o.label}{o.def && <i> Default</i>}</span></label>
               ))}
             </div>
+            <label className="cw-box fp-option ct-opt cw-row-opt"><input type="checkbox" checked={r.referral} onChange={(e) => setRel("referral", e.target.checked)} /> <span className="fp-label">ADD to My Referrals</span></label>
             <div className="cw-box">
               <span><b>Follow-Up Status</b> <i>Select one</i></span>
               {FOLLOW_UP.map((o) => (
@@ -110,7 +109,6 @@ export default function ConnectSteps13() {
                   <span className="fp-label">{o.hot ? <>05 <b className="cw-hot">HOT !</b></> : o.label} <i>{o.hint}</i></span></label>
               ))}
             </div>
-            <label className="cw-box fp-option ct-opt cw-row-opt"><input type="checkbox" checked={r.referral} onChange={(e) => setRel("referral", e.target.checked)} /> <span className="fp-label">ADD to My Referrals</span></label>
           </div>
           <div className="cw-s2-right">
             <label className="cw-box"><span><b>Connection Date, Time</b> <i>EDIT if applicable</i></span>
@@ -131,12 +129,6 @@ export default function ConnectSteps13() {
 
       <NetworkSection step={3} />
 
-      <div className="cw-devnotes">
-        <b className="cw-red">Developer Notes:</b>
-        <span><b>Connection Date, Time</b> <i>Auto-fills today&apos;s date and time</i></span>
-        <span><b>Connection Event / Location</b> <i>Auto-saves info for next contact at event</i></span>
-        <span><b>City</b> <i>Auto-fills when geo-location is enabled</i></span>
-      </div>
       <p className="cw-next"><a href="/connect-with-me/network">Steps 4-6: Sign Up / Log In · Send a Message · Next Steps →</a></p>
     </ConnectPage>
   );

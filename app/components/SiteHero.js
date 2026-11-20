@@ -138,6 +138,18 @@ function PromoMenu({ on }) {
 // Find pages without a filter column (Event Details, RSVP, EDIT pages) get the
 // same two choices the filter column shows on One Big Table / My Custom Digest.
 const FIND_FILTER_PAGES = ["/calendar", "/my-calendar", "/listings", "/listings/digest", "/employment", "/discounts", "/notifications"];
+// Nov 20 (Cesar, Rev 261120): One Big Table (Default) | My Custom Digest | EDIT My Listings
+function findView(path, query) {
+  const typeId = path.startsWith("/employment") ? "Careers" : path.startsWith("/discounts") ? "Deals"
+    : path.startsWith("/listings") ? query.type || null : path.startsWith("/notifications") ? "Notifications" : "Calendar";
+  const t = FIND_TYPES.find((x) => x.id === typeId) || { table: "/listings", digest: "/listings/digest", edit: "/listings/submit" };
+  const view = path.endsWith("/submit") || path.endsWith("/edit") ? "edit" : path.includes("digest") || path === "/my-calendar" ? "digest" : "table";
+  return [
+    { key: "table", label: <>One Big Table&nbsp;&nbsp;<i className="hsub-it">Default</i></>, href: t.table, icon: "idxListings" },
+    { key: "digest", label: "My Custom Digest", href: t.digest, icon: "idxDigestImg" },
+    { key: "edit", label: "EDIT My Listings", href: t.edit, icon: "editMode" },
+  ].map((x) => ({ ...x, _on: view }));
+}
 function FindMenu({ path, query }) {
   const typeId = path.startsWith("/employment") ? "Careers" : path.startsWith("/discounts") ? "Deals"
     : path.startsWith("/listings") ? query.type || null : "Calendar";
@@ -300,7 +312,8 @@ function rowsFor(section, action, path, query) {
       // choices live in the filter column; other Find pages show them here.
       // Nov 19: details pages (/listings/x, /employment/x, /discounts/x) carry their own Filters bar
       const isDetail = /^\/(listings|employment|discounts)\/(?!submit|digest)[^/]+$/.test(path);
-      if (!FIND_FILTER_PAGES.includes(path) && !isDetail) rows.push(<FindMenu key="find" path={path} query={query} />);
+      if (FIND_FILTER_PAGES.includes(path) && path !== "/notifications") { const items = findView(path, query); rows.push(<SubRow key="findv" items={items} on={items[0]._on} cols={3} variant="hsub-conn2 hsub-find3" />); }
+      else if (!isDetail) rows.push(<FindMenu key="find" path={path} query={query} />);
       break;
     case "connections": {
       const on = section === "introductions" ? "introductions" : action;
@@ -309,10 +322,11 @@ function rowsFor(section, action, path, query) {
         // Nov 15 (Rev 261115): no A–E row — the steps list sits in the page.
         line = lineKey("introductions");
       } else if (action === "connect") {
-        line = lineKey("connections", "connect");
+        line = null; // Nov 20 10:30 AM (Cesar): no "Get Connected !" line on Connect with Me !
       } else {
         if (action === "details") rows.push(<SubRow key="prof" items={PROFILE_ROW} on={query.type} variant="hsub-gold" />);
-        if (action !== "edit" && action !== "view") line = lineKey("connections", action === "digest" ? "digest" : "");
+        // Nov 20 10:23 AM (Cesar): Connect Profiles drops its "Get Connected ! Select filters …" line
+        if (action === "digest") line = lineKey("connections", "digest");
       }
       break;
     }

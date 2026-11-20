@@ -4380,3 +4380,27 @@ body:has(.fd-page) .page-bar h1 { color: var(--ink); font-style: normal; }
 .home-card-title { color: var(--cg-blue); font-size: 32px; line-height: 1.1; }
 .home-card-head { font-size: 26px; line-height: 1.2; margin-bottom: 4px; }
 @media (max-width: 560px) { .home-card { gap: 12px; padding: 14px; } .home-card img { width: 60px; height: 60px; } .home-card-text { font-size: 14px; } .home-card-title { font-size: 24px; } .home-card-head { font-size: 19px; } }
+
+/* Nov 20 (Masoud): Registration chooser — box as wide as the bar above, contents centered, yellow Continue */
+.auth-box.reg-box { max-width: none; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.reg-box .ed-label { display: block; }
+.reg-box .radio-group, .reg-box [role="radiogroup"] { justify-content: center; }
+.reg-box .reg-continue { margin: 14px auto 0; background: var(--cg-yellow) !important; color: #111 !important; border: 1px solid var(--cg-yellow-line); font-weight: 700; }
+.reg-box .reg-continue:hover { filter: brightness(.96); }
+
+/* Nov 20 (Cesar 10:30 / Masoud): Connect with Me ! — gold header, full-width steps, stacked mobile layout */
+body:has(.cw-page) .page-bar:not(.page-bar-gray):not(.page-bar-edit) { background: var(--cg-yellow) !important; border-color: var(--cg-yellow-line) !important; }
+body:has(.cw-page) .page-bar h1 { color: var(--ink); }
+.cw-page { max-width: none !important; width: 100%; }
+.cw-qr-solo { display: flex; justify-content: center; margin: 0 auto 10px; }
+.cw-sec-gray .cw-box { background: #f2f2f2 !important; border-color: #9a9a9a !important; }
+.cw-sec-gray .cw-s2 { display: flex !important; flex-direction: column; gap: 10px; }
+.cw-sec-gray .cw-s2-left, .cw-sec-gray .cw-s2-right { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+.cw-page .cw-actions { margin-top: 10px; }
+/* Find (Rev 261120): One Big Table | My Custom Digest | EDIT My Listings row */
+.hsub.hsub-find3 { grid-template-columns: repeat(3, 1fr) !important; }
+/* Cesar (10:03 AM): "Your Performance-Based Marketing System" 16px → 24px, everywhere */
+.hh-intro.hh-oneline { font-size: 24px !important; }
+@media (max-width: 560px) { .hh-intro.hh-oneline { font-size: 17px !important; } }
+/* Cesar (10:08 AM): extra space between the tagline box and the FIND card on HOME */
+.home-cards { margin-top: 22px !important; }

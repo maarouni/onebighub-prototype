@@ -54,7 +54,8 @@ export function FindViewBox({ current = "Calendar", view = "table" }) {
 export default function ListingTypeBox({ current = "Calendar", view = "table", onPick }) {
   return (
     <>
-      <FindViewBox current={current} view={view} />
+      {/* Nov 20 (Cesar, Rev 261120): the "Select one" view box moved out of the
+          filter column into a 3-button row under Find / Connect / Achieve. */}
       <Box title="Listings" hint="Select one" className="lt-box">
         {FIND_TYPES.map((t) => {
           const on = current === t.id;

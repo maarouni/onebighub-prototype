@@ -13,17 +13,17 @@ import { Glyph } from "./Icons";
 export function ConnectPage({ subtitle, children }) {
   return (
     <PageTemplate section="connections" activeAction="connect" icon="figConnect"
-      title={<>Welcome&nbsp;&nbsp;<i className="pb-sub">Connect with Me !</i></>} subtitle={subtitle}>
+      title={<i>Connect with Me !</i>} subtitle={subtitle}>
       <div className="cw-page">{children}</div>
     </PageTemplate>
   );
 }
 
 // Yellow section bar with a red step number, collapsible (Figma "1 SCAN My QR Code").
-export function SectionBar({ n, icon, title, hint, right, defaultOpen = true, children }) {
+export function SectionBar({ n, icon, title, hint, right, defaultOpen = true, className = "", children }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <section className="cw-section">
+    <section className={`cw-section ${className}`}>
       <div className="cw-bar">
         {n != null && <StepBadge n={n} />}
         {icon && <Glyph name={icon} size={18} />}

@@ -15,12 +15,12 @@ export default function RegistrationPage() {
   const go = () => router.push(`/registration/${pick}${typeof window !== "undefined" ? window.location.search : ""}`);
   return (
     <PageTemplate section={null} title="Registration" icon="register" narrow tiles={false}>
-      <div className="box auth-box">
+      <div className="box auth-box reg-box">
         {user && <p className="nt-hint">You&rsquo;re logged in as <b>{user.name}</b>.</p>}
         <span className="ed-label">Select one</span>
         <Radios name="reg" value={pick} onChange={setPick}
           options={[{ id: "signup", label: "Sign Up New User" }, { id: "login", label: "Log In" }, { id: "logout", label: "Log Out" }]} />
-        <button type="button" className="btn-primary" style={{ marginTop: 14 }} onClick={go}>Continue</button>
+        <button type="button" className="btn-primary reg-continue" onClick={go}>Continue</button>
       </div>
     </PageTemplate>
   );
