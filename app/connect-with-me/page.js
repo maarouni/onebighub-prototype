@@ -76,7 +76,7 @@ export default function ConnectSteps13() {
 
   return (
     <ConnectPage>
-      <SectionBar n={1} icon="qr" title="SCAN My QR Code" hint="Created Automatically">
+      <SectionBar n={1} icon="qr" title="SCAN My QR Code" hint="Created Automatically" className="cw-sec-stack">
         <div className="cw-qr cw-qr-solo">{qr ? <img src={qr} alt="My Connect with Me QR code" width="200" height="200" /> : <div className="cw-qr-wait" />}</div>
         <CardAndPitch p={me} placeholder />
         <div className="cw-box cw-actions">

@@ -4404,3 +4404,6 @@ body:has(.cw-page) .page-bar h1 { color: var(--ink); }
 @media (max-width: 560px) { .hh-intro.hh-oneline { font-size: 17px !important; } }
 /* Cesar (10:08 AM): extra space between the tagline box and the FIND card on HOME */
 .home-cards { margin-top: 22px !important; }
+/* Nov 20 (Masoud, match Figma): Step 1 stacks QR → mini-card → elevator pitch → Action, one column */
+.cw-sec-stack .cw-two { display: flex !important; flex-direction: column; gap: 10px; }
+.cw-sec-stack .cw-two > * { width: 100%; box-sizing: border-box; }
