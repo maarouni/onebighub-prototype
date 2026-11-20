@@ -4412,3 +4412,9 @@ body:has(.cw-page) .page-bar h1 { color: var(--ink); }
 .pk-gbox:not(.pk-white):not(.ep-final):not(.fd-final) { background: #f2f2f2 !important; border-color: #9a9a9a !important; }
 .cw-box:has(input, textarea, select) input:not([type="radio"]):not([type="checkbox"]),
 .cw-box:has(input, textarea, select) select { background: transparent !important; }
+
+/* Nov 20 (Masoud): two spaces between a bold label and its italic hint, site-wide
+   ("Follow-Up Status  Select one", "01 Cold / None  Default", bar titles, box titles). */
+b + i, b + em, strong + i, strong + em,
+.fp-label > i, .fp-label > em, .fp-box-title > em, .fp-box-title > i,
+.cw-bar i, .pk-label > i, .pk-opt > i, .ct-opt .fp-label i { margin-left: .32em; }
