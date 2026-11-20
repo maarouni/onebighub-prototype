@@ -6,10 +6,13 @@ import { Box, Option, RefIcon } from "../../components/FilterKit";
 import { MiniCard } from "../../components/Form";
 import { Glyph } from "../../components/Icons";
 import { getProfile } from "../../lib/profile";
-import { getNetwork, SAMPLE_NETWORK, FOLLOW_UP, relsOf, MESSAGE_TEMPLATES, fillTemplate, saveMessage } from "../../lib/connect";
+import { getNetwork, SAMPLE_NETWORK, relsOf, MESSAGE_TEMPLATES, fillTemplate, saveMessage, addToNetwork } from "../../lib/connect";
+import { getUser, setUser } from "../../lib/auth";
 
-// Connect with Me ! — Steps 4-6 (Cesar's Figma Rev 261115):
-// 4 View My Network (Display / Hide Filters) · 5 Send a Message · 6 Next Steps.
+const BLANK = { name: "", title: "", business: "", phone: "", email: "", city: "", state: "CA" };
+
+// Connect with Me ! — Steps 4-6 (Cesar's Figma Rev 261120):
+// 4 Sign Up / Log In (4a New User, 4b Current User) · 5 Send a Message · 6 Next Steps.
 const MSG_OPTIONS = [["a", "A - Blank Message", true], ["b", <>B - Short Message <i>We recently met …</i></>], ["c", <>C - Invitation to visit onebig<b className="cw-red">HUB</b></>], ["d", <>D - Welcome to onebig<b className="cw-red">HUB</b></>], ["e", "E - Custom Message"]];
 const SEND_AS = [["both", "Both Email and Text", true], ["email", "Email"], ["text", "Text"]];
 const REL_OPTS = [["referrals", "Referrals"], ["connection", "Connections"], ["colleague", "Colleagues"], ["friend", "Friends"], ["family", "Family"]];
@@ -38,7 +41,39 @@ export default function ConnectSteps46() {
   const [next, setNext] = useState("");
 
   const [stamp, setStamp] = useState("");
-  useEffect(() => { setMe(getProfile()); setReal(getNetwork()); setStamp(new Date().toLocaleString("en-US", { month: "2-digit", day: "2-digit", year: "2-digit", hour: "numeric", minute: "2-digit" })); }, []);
+  // step 4 / 4a / 4b
+  const [auth, setAuth] = useState("signup");
+  const [user, setUserState] = useState(null);
+  const loggedIn = !!user;
+  const [c, setC] = useState(BLANK);
+  const [hide, setHide] = useState({ phone: true, email: false });
+  const [err, setErr] = useState("");
+  const [lid, setLid] = useState("");
+  const [lpw, setLpw] = useState("");
+  const [lerr, setLerr] = useState("");
+  const set = (k) => (e) => setC((x) => ({ ...x, [k]: e.target.value }));
+  const preview = { ...c, city: [c.city, c.state].filter(Boolean).join(", "), phone: hide.phone ? "" : c.phone, email: hide.email ? "" : c.email };
+  function submitAll() {
+    if (!c.name.trim()) return setErr("Name is required.");
+    if (!c.phone.trim() && !c.email.trim()) return setErr("Enter a mobile / phone or an email.");
+    setErr("");
+    let rel = {}; try { rel = JSON.parse(localStorage.getItem("mc_pending_relationship_v1") || "{}"); } catch {}
+    addToNetwork({ ...c, city: [c.city, c.state].filter(Boolean).join(", "), hide, ...rel, level: "intro" });
+    setUser({ name: c.name, identifier: c.email || c.phone, method: c.email ? "email" : "mobile", joined: new Date().toISOString() });
+    setUserState(getUser());
+    say(`Welcome, ${c.name} — you're signed up.`);
+    document.getElementById("message")?.scrollIntoView({ behavior: "smooth" });
+  }
+  function logIn() {
+    if (!lid.trim()) return setLerr("Enter your email or mobile.");
+    if (!lpw) return setLerr("Enter your password.");
+    setLerr("");
+    const name = lid.includes("@") ? lid.split("@")[0] : lid;
+    setUser({ name, identifier: lid.trim(), method: lid.includes("@") ? "email" : "mobile", joined: new Date().toISOString() });
+    setUserState(getUser());
+    say(`Welcome back, ${name}.`);
+  }
+  useEffect(() => { setUserState(getUser()); setMe(getProfile()); setReal(getNetwork()); setStamp(new Date().toLocaleString("en-US", { month: "2-digit", day: "2-digit", year: "2-digit", hour: "numeric", minute: "2-digit" })); }, []);
   const sample = real.length === 0;
   const people = sample ? SAMPLE_NETWORK : real;
   const tog = (list, set, v) => set(list.includes(v) ? list.filter((x) => x !== v) : [...list, v]);
@@ -77,61 +112,58 @@ export default function ConnectSteps46() {
 
   return (
     <ConnectPage>
-      <SectionBar n={4} icon="figViewProfile" title="View My Network" right={toggleBtn}>
-        <PersonCard p={me} placeholder />
-        <div className={`cw-net ${showFilters ? "" : "cw-net-full"}`}>
-          {showFilters && (
-            <div className="cw-filters">
-              <div className="cw-mini-bar"><b>Filters</b><button type="button" onClick={() => setShowFilters(false)}>Hide</button></div>
-              <Box title="View as" hint="Select one">
-                <Option type="radio" name="cw-view" checked={view === "graph"} onChange={() => setView("graph")} label="Graph" def />
-                <Option type="radio" name="cw-view" checked={view === "list"} onChange={() => setView("list")} label="List" />
-              </Box>
-              <Box title={<>My Follow-Up Status <i>Private</i></>} hint="Select one">
-                <Option type="radio" name="cw-fu" checked={follow === "all"} onChange={() => setFollow("all")} label="All" def />
-                <Option type="radio" name="cw-fu" checked={follow === "none"} onChange={() => setFollow("none")} label="None" />
-                {FOLLOW_UP.map((f) => (
-                  <Option key={f.id} type="radio" name="cw-fu" checked={follow === f.id} onChange={() => setFollow(f.id)}
-                    label={<>{f.hot ? <>05 <b className="cw-hot">HOT !</b></> : f.label.replace(" / None", "")} <i>{({ "01": "Doubtful", "02": "Maybe", "03": "Sometime", "04": "Soon", "05": "Very Soon" })[f.id]}</i></>} />
-                ))}
-              </Box>
-              <Box title="My Relationships" hint="Select all that apply">
-                <Option checked={!rel.length && !relNone} onChange={() => { setRel([]); setRelNone(false); }} label="All" def />
-                <Option checked={relNone} onChange={() => { setRelNone((v) => !v); setRel([]); }} label="None" />
-                {REL_OPTS.map(([id, l]) => <Option key={id} checked={rel.includes(id)} onChange={() => { setRelNone(false); tog(rel, setRel, id); }} label={l} />)}
-              </Box>
-              <Box title="Levels" hint="Select all that apply">
-                <Option checked={!lvl.length && !lvlNone} onChange={() => { setLvl([]); setLvlNone(false); }} label="All" def />
-                <Option checked={lvlNone} onChange={() => { setLvlNone((v) => !v); setLvl([]); }} label="None" />
-                {LEVEL_OPTS.map(([id, l]) => <Option key={id} checked={lvl.includes(id)} onChange={() => { setLvlNone(false); tog(lvl, setLvl, id); }} label={l} />)}
-              </Box>
-              <Box title="Offering $ Referrals" icon={<RefIcon />}>
-                <Option type="radio" name="cw-offer" checked={offer === "both"} onChange={() => setOffer("both")} label="Both" def />
-                <Option type="radio" name="cw-offer" checked={offer === "no"} onChange={() => setOffer("no")} label="No" />
-                <Option type="radio" name="cw-offer" checked={offer === "yes"} onChange={() => setOffer("yes")} label="Yes" />
-              </Box>
-            </div>
+      <span id="signup" />
+      {/* Nov 20 (Cesar's Figma Rev 261120): 4 Sign Up / Log In · 4a New User · 4b Current User */}
+      <SectionBar n={4} icon="login" title="Sign Up / Log In" hint="Select one, if applicable">
+        <div className="cw-box">
+          {loggedIn ? <p>You&rsquo;re logged in as <b>{user?.name}</b>. <a href="/connect-with-me">View My Network (Step 3) →</a></p> : (
+            <>
+              {[["signup", <><b className="cw-red">Sign Up</b> <i>New User • Required to save your notes, create your digests, and much more</i></>], ["login", <>Log In <i>Current User</i></>]].map(([id, l]) => (
+                <label key={id} className="fp-option ct-opt"><input type="radio" name="cw-auth" checked={auth === id} onChange={() => setAuth(id)} /> <span className="fp-label">{l}</span></label>
+              ))}
+              <div className="em-center"><button type="button" className="cw-submit" onClick={() => document.getElementById(auth === "signup" ? "new-user" : "current-user")?.scrollIntoView({ behavior: "smooth" })}>Submit</button></div>
+            </>
           )}
-          <div className="cw-netmain">
-            {!showFilters && (
-              <div className="cw-mini-bar"><b>View as</b>
-                <label><input type="radio" name="cw-view2" checked={view === "graph"} onChange={() => setView("graph")} /> Graph <i>Default</i></label>
-                <label><input type="radio" name="cw-view2" checked={view === "list"} onChange={() => setView("list")} /> List</label>
-              </div>
-            )}
-            <div className="cw-netbox">
-              {view === "graph" ? <NetworkGraph me={me} people={shown} />
-                : <div className="cw-list">{shown.map((p) => <MiniCard key={p.id} p={p} />)}{!shown.length && <p className="cw-muted">Nobody matches these filters.</p>}</div>}
-              {sample && <p className="cw-muted cw-sample">Sample names until people join through your QR code.</p>}
-            </div>
-          </div>
         </div>
-        <div className="cw-counts">
-          <span><b className="cw-red">{n((p) => p.level === "intro")}</b> <b>My Introductions</b> <i>Level 1 - Signed up directly with my QR Code OR on my profile</i></span>
-          {["1", "2", "3"].map((l) => <span key={l}><b className="cw-red">{n((p) => p.level === l)}</b> <b>My Connections</b> <i>Level {l}</i></span>)}
-          <span><b className="cw-red">xxx,xxx</b> <b>Users Near Me</b> <i>Geo-locations must be enabled</i></span>
-          <span><b className="cw-red">{people.length}</b> <b>My Network</b> <i>Levels 1 - 3 My Introductions + My Connections</i></span>
-          <span><b className="cw-red">xxx,xxx</b> <b>onebig<span className="cw-red">HUB</span></b> <i>All Levels</i></span>
+      </SectionBar>
+
+      <span id="new-user" />
+      <SectionBar n="4a" icon="register" title="New User" hint={<>Sign Up • Select one</>}>
+        <div className="cw-signup">
+          <button type="button" className="cw-social" disabled title="Needs Apple sign-in set up"><b></b> Sign in with Apple <i>Auto-fills info</i></button>
+          <div className="form-or"><span>OR</span></div>
+          <button type="button" className="cw-social" disabled title="Needs Google sign-in set up"><b className="cw-g">G</b> Sign in with Google <i>Auto-fills info</i></button>
+          <div className="form-or"><span>OR</span></div>
+          <PersonCard p={preview} placeholder />
+          <label className="cw-box"><b>Name, Title</b><input value={c.name} onChange={set("name")} placeholder="Submit Here" /></label>
+          <label className="cw-box"><b>Business / Organization / Group</b><input value={c.business} onChange={set("business")} placeholder="Submit Here" /></label>
+          <label className="cw-box"><span className="cw-label-row"><b>Mobile / Phone</b> <button type="button" className="cw-link" onClick={() => setHide((h) => ({ ...h, phone: !h.phone }))}>{hide.phone ? "Hide" : "Display"}</button></span>
+            <input type="tel" value={c.phone} onChange={set("phone")} placeholder="(xxx) xxx-xxxx" /></label>
+          <label className="cw-box"><span className="cw-label-row"><b>Email</b> <button type="button" className="cw-link" onClick={() => setHide((h) => ({ ...h, email: !h.email }))}>{hide.email ? "Hide" : "Display"}</button></span>
+            <input type="email" value={c.email} onChange={set("email")} placeholder="Submit Here" /></label>
+          <div className="cw-citystate2">
+            <label className="cw-box"><b>City</b><input value={c.city} onChange={set("city")} placeholder="Submit Here" /></label>
+            <label className="cw-box"><b>State</b><input value={c.state} onChange={set("state")} placeholder="CA" maxLength={2} /></label>
+          </div>
+          {err && <p className="ed-error">{err}</p>}
+          <div className="em-center"><button type="button" className="cw-submit" onClick={submitAll}>Submit</button></div>
+          
+        </div>
+      </SectionBar>
+
+
+      <span id="current-user" />
+      <SectionBar n="4b" icon="login" title="Current User" hint="Log In">
+        <div className="cw-signup">
+          <p className="big-q cw-center">Welcome Back !</p>
+          <label className="cw-box"><span><b>Email or Mobile</b> <i>Required</i></span><input value={lid} onChange={(e) => setLid(e.target.value)} placeholder="Submit Here  or  (xxx) xxx-xxxx" autoComplete="username" /></label>
+          <label className="cw-box"><span><b>Password</b> <i>Required</i></span><input type="password" value={lpw} onChange={(e) => setLpw(e.target.value)} placeholder="Submit Here" autoComplete="current-password" /></label>
+          <button type="button" className="cw-link" onClick={() => say("Password reset needs the shared database — not wired up in the prototype yet.")}><i>Forgot Password ?</i></button>
+          {lerr && <p className="ed-error">{lerr}</p>}
+          <div className="em-center"><button type="button" className="cw-submit cw-continue" onClick={logIn}>Continue</button></div>
+          <div className="form-or"><span>OR</span></div>
+          <button type="button" className="cw-social" disabled title="Needs Google sign-in set up"><b className="cw-g">G</b> Sign in with Google</button>
+          <p className="cw-center"><b>Don&rsquo;t have an account ?</b> <a href="#new-user">Sign Up</a></p>
         </div>
       </SectionBar>
 
@@ -175,7 +207,7 @@ export default function ConnectSteps46() {
           {[
             ["a", "/profile", "A - Connect", "Create My No-Cost Profiles: Individual / Business(es) / Organization(s) / Group(s)"],
             ["b", "/connect-with-me", <i key="b">B - Connect with Me !</i>, "Invite others with My Custom QR Code"],
-            ["c", "/advertising", "C - Achieve !", <>Create My Listings (Regular or Premier)<br />AND share profits from ads and sales fees with your network (3 Levels of Introductions)</>],
+            ["c", "/advertising", "C - Promote & Earn !", <>Create My Listings (Regular or Premier)<br />AND share profits from ads and sales fees with your network (3 Levels of Introductions)</>],
             ["d", "/dashboards", "D - Manage My Dashboards & Settings", null],
             ["e", "/info/contact", <b key="e"><i>How may we be of help to you ?</i></b>, <>Please <a href="/info/contact">contact us</a> with your comments and questions</>],
           ].map(([id, href, label, sub]) => (
@@ -186,7 +218,7 @@ export default function ConnectSteps46() {
           ))}
         </div>
       </SectionBar>
-      <p className="cw-next"><a href="/connect-with-me">← Steps 1-3: SCAN My QR Code · Relationship &amp; Notes · New User</a></p>
+      <p className="cw-next"><a href="/connect-with-me">← Steps 1-3: SCAN My QR Code · Relationship &amp; Notes · View My Network</a></p>
     </ConnectPage>
   );
 }

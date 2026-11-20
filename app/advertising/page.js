@@ -8,7 +8,7 @@ import HubLogo from "../components/HubLogo";
 // Performance-Based Marketing System, Invite / Refer, Earn Money for
 // Introductions, Marketing & Profit-Sharing (Find-section digests).
 const DIGESTS = [
-  ["calendar", "One Big Calendar", "Sell tickets, Assign your Attendance Status", "/"],
+  ["calendar", "One Big Calendar", "Sell tickets, Assign your Attendance Status", "/calendar"],
   ["connections", "Connect", <>Individuals, Businesses, Organizations, Groups<br />Assign your Membership Status</>, "/connect"],
   ["idxBriefcase", "Employment", "Assign your Employment Application Status", "/employment"],
   ["idxProduct", "Products", null, "/listings?type=Product"],
@@ -61,7 +61,7 @@ export default function Achieve() {
           <div>
             <p><b className="cw-red"><i>Win-Win-Win !</i></b></p>
             <p className="pe-bul"><Glyph name="moneyBag" size={20} /><span><b>Profit-Sharing</b> <i>(10%)</i><br />from advertising and sales fees with your network of introductions <i>(3 levels)</i></span></p>
-            <p className="pe-bul"><Glyph name="idxTarget" size={20} /><span><b>My Digests</b> <i>(Private)</i><br />Select filters to <b>curate</b> <i>(organize, submit, view)</i> your custom tables of <b className="cw-red">No-Cost</b> and <b>Premier</b> listings in the <a href="/">Find Section</a>:</span></p>
+            <p className="pe-bul"><Glyph name="idxTarget" size={20} /><span><b>My Digests</b> <i>(Private)</i><br />Select filters to <b>curate</b> <i>(organize, submit, view)</i> your custom tables of <b className="cw-red">No-Cost</b> and <b>Premier</b> listings in the <a href="/calendar">Find Section</a>:</span></p>
             <div className="pe-digests">
               {DIGESTS.map((d, i) => d === null ? <span key={i} className="pe-gap" /> : (
                 <a key={i} href={d[3]} className="pe-dig">

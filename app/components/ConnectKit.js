@@ -13,7 +13,7 @@ import { Glyph } from "./Icons";
 export function ConnectPage({ subtitle, children }) {
   return (
     <PageTemplate section="connections" activeAction="connect" icon="figConnect"
-      title={<i>Connect with Me !</i>} subtitle={subtitle}>
+      title={<>Welcome&nbsp;&nbsp;<i className="pb-sub">Connect with Me !</i></>} subtitle={subtitle}>
       <div className="cw-page">{children}</div>
     </PageTemplate>
   );

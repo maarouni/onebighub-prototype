@@ -32,9 +32,10 @@ const CAL_ROW = [
 // itself opens the profiles table.
 const CONN_ROW = [
   // Nov 19 (Cesar, "Connect Headers"): white Connect with Me !, line icons, "My Digest  Connections"
+  // Nov 20 (Cesar, mobile Figma): 2 x 2 — Connect with Me ! | My Digest / Introductions | EDIT My Profiles, larger text
   { key: "connect", label: "Connect with Me !", href: "/connect-with-me", icon: "figConnect", connect: true },
-  { key: "introductions", label: "Introductions", href: "/referrals", icon: "idxIntro" },
   { key: "digest", label: <>My Digest&nbsp;&nbsp;<i className="hsub-it">Connections</i></>, href: "/connect/digest", icon: "nodeGraph" },
+  { key: "introductions", label: "Introductions", href: "/referrals", icon: "idxIntro" },
   { key: "edit", label: "EDIT My Profiles", href: "/profile", icon: "figEditProfile" },
 ];
 
@@ -136,7 +137,7 @@ function PromoMenu({ on }) {
 
 // Find pages without a filter column (Event Details, RSVP, EDIT pages) get the
 // same two choices the filter column shows on One Big Table / My Custom Digest.
-const FIND_FILTER_PAGES = ["/", "/my-calendar", "/listings", "/listings/digest", "/employment", "/discounts", "/notifications"];
+const FIND_FILTER_PAGES = ["/calendar", "/my-calendar", "/listings", "/listings/digest", "/employment", "/discounts", "/notifications"];
 function FindMenu({ path, query }) {
   const typeId = path.startsWith("/employment") ? "Careers" : path.startsWith("/discounts") ? "Deals"
     : path.startsWith("/listings") ? query.type || null : "Calendar";
@@ -228,7 +229,7 @@ const PB_IMG = {
 
 // (<) and (>) step through the sections, wrapping around.
 const SECTION_ORDER = [
-  { key: "calendar", href: "/" },
+  { key: "calendar", href: "/calendar" },
   { key: "connections", href: "/connect" },
   { key: "introductions", href: "/referrals" },
   { key: "earn", href: "/advertising" },
@@ -303,7 +304,7 @@ function rowsFor(section, action, path, query) {
       break;
     case "connections": {
       const on = section === "introductions" ? "introductions" : action;
-      rows.push(<SubRow key="conn" items={CONN_ROW} on={on} />);
+      rows.push(<SubRow key="conn" items={CONN_ROW} on={on} cols={2} variant="hsub-conn2" />);
       if (section === "introductions") {
         // Nov 15 (Rev 261115): no A–E row — the steps list sits in the page.
         line = lineKey("introductions");

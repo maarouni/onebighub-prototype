@@ -70,7 +70,7 @@ Sent via onebigHUB.com. Scan the flyer QR code or click the link above to view f
     return (
       <div className="page">
         <div className="empty-state">
-          Couldn't find that event. <a href="/">Back to Find</a>
+          Couldn't find that event. <a href="/calendar">Back to Find</a>
         </div>
       </div>
     );

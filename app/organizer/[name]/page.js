@@ -25,7 +25,7 @@ export default function OrganizerPage() {
     return (
       <div className="page">
         <div className="empty-state">
-          No organizer found with that name. <a href="/">Back to Find</a>
+          No organizer found with that name. <a href="/calendar">Back to Find</a>
         </div>
       </div>
     );

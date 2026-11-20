@@ -346,7 +346,7 @@ export default function MyCalendar() {
 
             {mine.length === 0 && (
               <div className="empty-state">
-                Your digest is empty. <a href="/">Browse One Big Table - Calendar</a> and ADD Selection(s) to My Calendar Digest.
+                Your digest is empty. <a href="/calendar">Browse One Big Table - Calendar</a> and ADD Selection(s) to My Calendar Digest.
               </div>
             )}
             {mine.length > 0 && shown.length === 0 && (

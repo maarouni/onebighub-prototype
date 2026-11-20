@@ -11,7 +11,7 @@
 // headers are now Find (calendar + every listing type), Connect and Achieve
 // (was Promote & Earn).
 export const HUB_TILES = [
-  { key: "calendar", href: "/", img: "find", label: "Find", tip: "Calendar, careers / jobs, products, services, deals … — One Big Table and My Custom Digest" },
+  { key: "calendar", href: "/calendar", img: "find", label: "Find", tip: "Calendar, careers / jobs, products, services, deals … — One Big Table and My Custom Digest" },
   { key: "connections", href: "/connect", img: "connections", label: "Connect", tip: "Connect with me !, introductions, profiles" },
   { key: "promote", href: "/advertising", img: "achieve", label: "Achieve", tip: "Performance-based marketing, advertising cost, rates, events, private-labeled header" },
 ];

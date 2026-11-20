@@ -46,7 +46,7 @@ export function ResultsHead({ title, q, setQ, showFilters, onShowFilters, addHre
           <input type="text" placeholder="SEARCH" value={q} onChange={(e) => setQ(e.target.value)} aria-label={`Search ${title}`} />
         </label>
         <button type="button" className="obc-return" aria-label="Return to previous page" data-tip="Return"
-          onClick={() => { if (window.history.length > 1) window.history.back(); else window.location.href = "/"; }}>
+          onClick={() => { if (window.history.length > 1) window.history.back(); else window.location.href = "/calendar"; }}>
           <Glyph name="figBack" size={28} />
         </button>
       </div>

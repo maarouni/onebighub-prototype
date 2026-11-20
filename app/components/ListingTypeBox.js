@@ -9,7 +9,7 @@ import { LISTING_TYPE_MENU } from "../lib/listings";
 //   Listings — Select one — Calendar (Default) · Employment · Products · …
 // Calendar replaced its own main header; it is now the first listing type.
 export const FIND_TYPES = [
-  { id: "Calendar", label: "Calendar", img: "/icons/calendar.png", table: "/", digest: "/my-calendar", edit: "/submit" },
+  { id: "Calendar", label: "Calendar", img: "/icons/calendar.png", table: "/calendar", digest: "/my-calendar", edit: "/submit" },
   ...LISTING_TYPE_MENU.map((t) => ({
     ...t,
     table: t.href,

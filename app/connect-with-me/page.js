@@ -7,10 +7,12 @@ import { Glyph } from "../components/Icons";
 import { getProfile } from "../lib/profile";
 import { getUser } from "../lib/auth";
 import { FOLLOW_UP, MY_RELATIONSHIP, addToNetwork } from "../lib/connect";
+import NetworkSection from "./NetworkSection";
 
 // Connect with Me ! — Steps 1-3 (Cesar's Figma Rev 261115, /UserName/ConnectWithMe):
-// 1 SCAN My QR Code · 2 Assign My Relationship & Notes (private) · 3a NEW USER.
-// Steps 4-6 are on /connect-with-me/network.
+// 1 SCAN My QR Code · 2 Assign My Relationship & Notes (private) · 3 View My Network
+// (Nov 20 redesign). Steps 4-6 (Sign Up / Log In, Send a Message, Next Steps)
+// are on /connect-with-me/network.
 const nowLocal = () => { const d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 16); };
 const BLANK = { name: "", title: "", business: "", phone: "", email: "", city: "", state: "CA" };
 
@@ -43,7 +45,7 @@ export default function ConnectSteps13() {
     setAction(id);
     if (id === "copy") (navigator.clipboard?.writeText(link) || Promise.reject()).then(() => say("Link copied")).catch(() => say(link));
     else if (id === "scan") say("Open your phone camera and point it at their QR code.");
-    else if (id === "follow") document.getElementById("new-user")?.scrollIntoView({ behavior: "smooth" });
+    else if (id === "follow") window.location.href = "/connect-with-me/network#signup";
     else document.getElementById("relationship")?.scrollIntoView({ behavior: "smooth" });
   }
   const setRel = (k, v) => setR((x) => ({ ...x, [k]: v }));
@@ -58,8 +60,9 @@ export default function ConnectSteps13() {
   const set = (k) => (e) => setC((x) => ({ ...x, [k]: e.target.value }));
 
   function saveRelationship() {
-    if (!c.name.trim()) { setErr("Fill in their name in 3a (or have them sign in with Apple / Google)."); document.getElementById("new-user")?.scrollIntoView({ behavior: "smooth" }); return; }
-    submitAll();
+    try { localStorage.setItem("mc_pending_relationship_v1", JSON.stringify(r)); } catch {}
+    say("Relationship & notes saved — next, Sign Up / Log In (Step 4).");
+    setTimeout(() => { window.location.href = "/connect-with-me/network#signup"; }, 900);
   }
   function submitAll() {
     if (!c.name.trim()) return setErr("Name is required.");
@@ -126,29 +129,7 @@ export default function ConnectSteps13() {
         <div className="em-center"><button type="button" className="cw-submit" onClick={saveRelationship}>Submit</button></div>
       </SectionBar>
 
-      <span id="new-user" />
-      <SectionBar n="3a" icon="register" title="NEW USER" hint={<>Select one • Sign-Up to Save Relationship Notes <b>AND</b> Create Your Profile</>}>
-        <div className="cw-signup">
-          <button type="button" className="cw-social" disabled title="Needs Apple sign-in set up"><b></b> Sign in with Apple <i>Auto-fills info</i></button>
-          <div className="form-or"><span>OR</span></div>
-          <button type="button" className="cw-social" disabled title="Needs Google sign-in set up"><b className="cw-g">G</b> Sign in with Google <i>Auto-fills info</i></button>
-          <div className="form-or"><span>OR</span></div>
-          <PersonCard p={preview} placeholder />
-          <label className="cw-box"><b>Name, Title</b><input value={c.name} onChange={set("name")} placeholder="Submit Here" /></label>
-          <label className="cw-box"><b>Business / Organization / Group</b><input value={c.business} onChange={set("business")} placeholder="Submit Here" /></label>
-          <label className="cw-box"><span className="cw-label-row"><b>Mobile / Phone</b> <button type="button" className="cw-link" onClick={() => setHide((h) => ({ ...h, phone: !h.phone }))}>{hide.phone ? "Hide" : "Display"}</button></span>
-            <input type="tel" value={c.phone} onChange={set("phone")} placeholder="(xxx) xxx-xxxx" /></label>
-          <label className="cw-box"><span className="cw-label-row"><b>Email</b> <button type="button" className="cw-link" onClick={() => setHide((h) => ({ ...h, email: !h.email }))}>{hide.email ? "Hide" : "Display"}</button></span>
-            <input type="email" value={c.email} onChange={set("email")} placeholder="Submit Here" /></label>
-          <div className="cw-citystate2">
-            <label className="cw-box"><b>City</b><input value={c.city} onChange={set("city")} placeholder="Submit Here" /></label>
-            <label className="cw-box"><b>State</b><input value={c.state} onChange={set("state")} placeholder="CA" maxLength={2} /></label>
-          </div>
-          {err && <p className="ed-error">{err}</p>}
-          <div className="em-center"><button type="button" className="cw-submit" onClick={submitAll}>Submit</button></div>
-          {!loggedIn && <p className="nt-hint cw-center">Want your own profile too? <a href="/registration/signup">Sign Up</a></p>}
-        </div>
-      </SectionBar>
+      <NetworkSection step={3} />
 
       <div className="cw-devnotes">
         <b className="cw-red">Developer Notes:</b>
@@ -156,7 +137,7 @@ export default function ConnectSteps13() {
         <span><b>Connection Event / Location</b> <i>Auto-saves info for next contact at event</i></span>
         <span><b>City</b> <i>Auto-fills when geo-location is enabled</i></span>
       </div>
-      <p className="cw-next"><a href="/connect-with-me/network">Steps 4-6: View My Network · Send a Message · Next Steps →</a></p>
+      <p className="cw-next"><a href="/connect-with-me/network">Steps 4-6: Sign Up / Log In · Send a Message · Next Steps →</a></p>
     </ConnectPage>
   );
 }
