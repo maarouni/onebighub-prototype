@@ -111,3 +111,14 @@ export async function fetchJobs() {
   const ids = new Set(JOBS.map((j) => j.id));
   return [...localJobs().filter((j) => !ids.has(j.id)), ...JOBS];
 }
+
+
+export function compLabel(j) {
+  if (j.compType === "none") return "No Response";
+  if (j.compType === "volunteer") return "Volunteer";
+  const suffix = j.compType === "hourly" ? "/hr" : j.compType === "monthly" ? "/mo" : "/yr";
+  if (!j.compMax) return "—";
+  return j.compMin && j.compMin !== j.compMax
+    ? `$${j.compMin.toLocaleString()}–$${j.compMax.toLocaleString()}${suffix}`
+    : `$${j.compMax.toLocaleString()}${suffix}`;
+}

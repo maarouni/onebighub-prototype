@@ -55,7 +55,7 @@ export default function ListingTypeBox({ current = "Calendar", view = "table", o
   return (
     <>
       <FindViewBox current={current} view={view} />
-      <Box title="Listings" hint="Select one">
+      <Box title="Listings" hint="Select one" className="lt-box">
         {FIND_TYPES.map((t) => {
           const on = current === t.id;
           const inPage = onPick && !["Calendar", "Careers", "Deals", "Notifications"].includes(t.id);

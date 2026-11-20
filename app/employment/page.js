@@ -3,6 +3,7 @@
 import { Suspense, useEffect, useMemo, useState } from "react";
 import PageTemplate from "../components/PageTemplate";
 import { NextStep } from "../components/Steps";
+import { compLabel } from "../lib/jobs";
 import { ResultsHead, ListingTable, Pager, shortYmd, mmddyy } from "../components/ListingTable";
 import { cityCode } from "../lib/cityCodes";
 import EmploymentFilterPanel from "../components/EmploymentFilterPanel";
@@ -19,15 +20,6 @@ const PAGE_SIZE = 8;
 const SEL_KEY = "mc_job_selection_v1";
 const FEATURED_CAP = 1; // how many Premier listings show before "More Premier Listings" is needed
 
-function compLabel(j) {
-  if (j.compType === "none") return "No Response";
-  if (j.compType === "volunteer") return "Volunteer";
-  const suffix = j.compType === "hourly" ? "/hr" : j.compType === "monthly" ? "/mo" : "/yr";
-  if (!j.compMax) return "—";
-  return j.compMin && j.compMin !== j.compMax
-    ? `$${j.compMin.toLocaleString()}–$${j.compMax.toLocaleString()}${suffix}`
-    : `$${j.compMax.toLocaleString()}${suffix}`;
-}
 
 function EmploymentInner() {
   const [qRaw, setQRaw] = useState("");
@@ -107,7 +99,7 @@ function EmploymentInner() {
 
             <ListingTable rows={[...featuredShown, ...pageItems].map((j) => ({
               id: j.id,
-              href: `#job-${j.id}`,
+              href: `/employment/${j.id}`,
               left: null,
               title: <>Career / Job • {j.title}</>,
               lines: j.premier

@@ -297,7 +297,9 @@ function rowsFor(section, action, path, query) {
     case "calendar":
       // Find (Nov 18): the One Big Table / My Custom Digest / EDIT and Listings
       // choices live in the filter column; other Find pages show them here.
-      if (!FIND_FILTER_PAGES.includes(path)) rows.push(<FindMenu key="find" path={path} query={query} />);
+      // Nov 19: details pages (/listings/x, /employment/x, /discounts/x) carry their own Filters bar
+      const isDetail = /^\/(listings|employment|discounts)\/(?!submit|digest)[^/]+$/.test(path);
+      if (!FIND_FILTER_PAGES.includes(path) && !isDetail) rows.push(<FindMenu key="find" path={path} query={query} />);
       break;
     case "connections": {
       const on = section === "introductions" ? "introductions" : action;
