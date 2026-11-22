@@ -4,7 +4,7 @@
 //             Industry • Company · City, State · Discount $ · Expires · Posted
 //   filters:  Date Posted · Redeem Certificate · Discount ($ buckets) ·
 //             Industries · Regions (4 groups)
-import { REGION_GROUPS } from "./taxonomy";
+import { REGION_GROUPS, regionMatch } from "./taxonomy";
 import { INDUSTRIES } from "./employmentTaxonomy";
 
 // Nov 19 (Cesar's Find Figma): "Past 7 days" is the default, so sample posts stay recent.
@@ -136,7 +136,7 @@ const TESTS = {
     return o && d.value >= o.min && d.value <= o.max;
   }),
   industry: (d, f) => !f.industry.length || f.industry.includes(d.industry),
-  region: (d, f) => !f.region.length || f.region.includes(d.region),
+  region: (d, f) => regionMatch(f.region, d.region),
 };
 
 export function discountMatches(d, f, today = new Date(), q = "") {

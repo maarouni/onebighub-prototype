@@ -1,4 +1,5 @@
 "use client";
+import { REGION_GROUPS, regionPath } from "../../lib/taxonomy";
 
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "next/navigation";
@@ -73,7 +74,8 @@ export default function ViewProfile() {
   const go = (n) => { const t = all[(n + all.length) % all.length]; if (t) window.location.href = `/connect/${t.id}`; };
   const affiliations = all.filter((x) => x.id !== o.id && !isInd(x)).slice(0, 3);
   const cats = (o.categories || []).join(" • ");
-  const regionRows = [["Regions - CA Bay Area", o.region], ["Regions - California", o.state === "CA" ? "California" : ""], ["Regions - US National", ""], ["Regions - International", ""]];
+  const rp = regionPath(o.region);
+  const regionRows = REGION_GROUPS.map((g) => [g.group, rp[g.key] || ""]);
 
   return (
     <PageTemplate section="connections" legend={false} activeAction="view"

@@ -1,4 +1,5 @@
 "use client";
+import { RegionMap } from "./RegionMaps";
 
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { Glyph } from "./Icons";
@@ -90,6 +91,19 @@ export function Box({ title, title2, hint, icon, defaultOpen = true, disabled, n
           {children}
         </div>
       )}
+    </section>
+  );
+}
+
+// Nov 20 (Cesar's Figma): yellow "<Type> / Select all that apply" header
+// that groups the collapsed sub-section boxes below it.
+export function GroupHead({ title, open, onToggle }) {
+  return (
+    <section className="fp-box fp-grouphead">
+      <div className="fp-box-head">
+        <span className="fp-box-title"><b>{title}</b><em>Select all that apply</em></span>
+        <CollapseArrow open={open} onClick={onToggle} label={title} />
+      </div>
     </section>
   );
 }
@@ -217,22 +231,25 @@ export function DigestBox({ digest }) {
 // The four Regions boxes. The Bay Area and California maps live inside their
 // boxes (not at the top of the page); a picked county turns gold.
 export function RegionBoxes({ field, groups, filters, setFilters, count, disabled, note }) {
+  // Nov 21 (Cesar, "Regions Filters"): International → USA → California →
+  // CA Bay Area, each with its default and a color map.
   const cur = filters[field] || [];
-  const clear = (opts) => setFilters((f) => ({ ...f, [field]: f[field].filter((r) => !opts.includes(r)) }));
+  const clear = (opts) => setFilters((f) => ({ ...f, [field]: (f[field] || []).filter((r) => !opts.includes(r)) }));
   const noneOf = (opts) => !opts.some((o) => cur.includes(o));
-  const [bay, california, ...rest] = groups;
+  const byKey = Object.fromEntries(groups.map((g) => [g.key, g]));
+  const map = (g) => {
+    if (g.key === "intl") return <RegionMap kind="world" field={field} filters={filters} setFilters={setFilters} defaultRegion="North America" />;
+    if (g.key === "usa") return <RegionMap kind="usa" field={field} filters={filters} setFilters={setFilters} defaultRegion="Southwest" />;
+    if (g.key === "ca") return <CaliforniaMap compact field={field} filters={filters} setFilters={setFilters} />;
+    if (g.key === "bay") return <CountyMap compact field={field} filters={filters} setFilters={setFilters} />;
+    return null;
+  };
   return (
     <>
-      <Box title={bay.group} disabled={disabled} note={note}>
-        <Option type="radio" name={`${field}-bay-all`} checked={noneOf(bay.options)} onChange={() => clear(bay.options)} label={bay.allLabel || "All"} def />
-        <CountyMap compact field={field} filters={filters} setFilters={setFilters} />
-      </Box>
-      <Box title={california.group} defaultOpen={!noneOf(california.options)} disabled={disabled}>
-        <CaliforniaMap compact field={field} filters={filters} setFilters={setFilters} />
-        <CheckList field={field} options={california.options} filters={filters} setFilters={setFilters} count={count} all={false} />
-      </Box>
-      {rest.map((g) => (
-        <Box key={g.group} title={g.group} defaultOpen={!noneOf(g.options)} disabled={disabled}>
+      {["intl", "usa", "ca", "bay"].map((k) => byKey[k]).filter(Boolean).map((g, i) => (
+        <Box key={g.key} title={g.group} defaultOpen={!noneOf(g.options)} disabled={disabled} note={i === 0 ? note : undefined}>
+          <Option type="radio" name={`${field}-${g.key}-def`} checked={noneOf(g.options)} onChange={() => clear(g.options)} label={g.allLabel || "All"} def />
+          {map(g)}
           <CheckList field={field} options={g.options} filters={filters} setFilters={setFilters} count={count} all={false} />
         </Box>
       ))}

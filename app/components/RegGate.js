@@ -47,7 +47,7 @@ export default function RegGate() {
       <div className="rg-pop" role="dialog" aria-modal="true" aria-labelledby="rg-title" onClick={(e) => e.stopPropagation()}>
         <div className="rg-bar"><Glyph name="login" size={30} /><span id="rg-title">Sign Up / Log In</span>
           <button type="button" className="rg-x" aria-label="Close" onClick={() => setTo(null)}>×</button></div>
-        <p className="rg-tag"><b className="cw-red">Your Performance-Based</b> <b className="cw-blue">Marketing System</b></p>
+        <p className="rg-tag"><b className="hh-rk">Your One-Stop</b> <b className="cw-red">Performance-Based</b> <b className="cw-blue">Marketing System</b></p>
         <div className="rg-box">
           <div>
             <p>Please sign up or log in to manage your <i>private</i> custom features and applications</p>

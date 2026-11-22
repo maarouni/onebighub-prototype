@@ -168,6 +168,17 @@ export default function ConnectSteps46() {
         </div>
       </SectionBar>
 
+      {/* Nov 20 (Cesar 10:59 PM): 4c Current User — Already Logged In */}
+      <span id="logged-in" />
+      <SectionBar n="4c" icon="login" title="Current User" hint="Already Logged In">
+        <div className="cw-signup">
+          {loggedIn
+            ? <p className="big-q cw-center">Welcome, {user.name} !</p>
+            : <p className="cw-center cw-muted"><i>Not logged in yet &mdash; use 4a or 4b above.</i></p>}
+          {loggedIn && <p className="cw-center"><i>You&rsquo;re logged in &mdash; continue to Step 5 to send a message.</i></p>}
+        </div>
+      </SectionBar>
+
       <span id="message" />
       <SectionBar n={5} icon="idxMessages" title="Send a Message">
         <div className="cw-box">

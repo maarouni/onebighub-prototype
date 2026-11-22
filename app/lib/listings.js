@@ -7,7 +7,7 @@
 //             In-Person / Online · Cost ($ buckets) · Digest · Industries · Regions
 // His detail / EDIT templates are still copies of Employment (Position Title,
 // Compensation, Job ID), so those pages use product fields instead.
-import { REGION_GROUPS } from "./taxonomy";
+import { REGION_GROUPS, regionMatch } from "./taxonomy";
 import { INDUSTRIES } from "./employmentTaxonomy";
 
 // Nov 19 (Cesar's Find Figma): "Past 7 days" is the default, so sample posts stay recent.
@@ -33,31 +33,72 @@ export const LISTING_TYPE_MENU = [
   { id: "Survey", label: "Surveys", icon: "idxSurvey" },
 ].map((t) => ({ ...t, href: t.href || `/listings?type=${encodeURIComponent(t.id)}` }));
 
-// Type-specific filter boxes (Figma). Matched against a listing's `tags`.
+// Type-specific filter boxes (Cesar's Figma, Nov 20 "Classifieds" email):
+// a yellow "<Type> / Select all that apply" header, then one collapsed box per
+// sub-section, each with optional sub-headings. "Label|italic" renders the part
+// after | in italics. Values are stored as "<box key>:<label>" in filters.tags.
+const sec = (head, ...options) => ({ head, options });
 export const TYPE_BOXES = {
-  Classified: [
-    { title: "Announcements", options: ["Birthdays", "Business Opening, Launch", "Careers", "Missed Connect", "Obituaries", "Press Releases", "Public Notices", "Ride-Sharing", "Weddings", "Other"] },
-    { title: <>Classifieds <i>Items</i></>, options: ["Antiques", "Appliances, Household", "Arts, Crafts, Decorations", "Beauty", "Books, CDs, DVDs, VHS", "Clothing, Accessories", "Collectibles", "Computers", "Electronics", "Furniture", "Garden", "Health", "Jewelry", "Materials, Supplies", "Musical Instruments", "Recreation, Sports", "Tools", "Toys, Games", "Other"] },
-    { title: <>Classifieds <i>Real Estate</i></>, options: ["Apartments, Condos", "Commercial", "Homes", "Parking, Storage", "Rooms", "Vacation", "Other"] },
-    { title: <>Classifieds <i>Vehicles, Parts</i></>, options: ["Autos", "Aviation", "Bicycles", "Boats", "Construction", "Motorcycles", "Recreational", "Scooters", "Tractors", "Trailers", "Trucks", "Other"] },
-  ],
-  Hospitality: [
-    { title: <>Hospitality <i>Event Type</i></>, options: ["Business: Career Fair", "Business: Conference", "Business: Mixer, Networking", "Business: Expo, Trade Show", "Celebration: Anniversary", "Celebration: Birthday", "Celebration: Gala", "Celebration: Holiday", "Celebration: Wedding", "Entertainment: Concert", "Entertainment: Festival", "Entertainment: Sports", "Other"] },
-    { title: <>Hospitality <i>Services</i></>, options: ["Audio / Visual", "Bar", "Catering, Kitchen", "Décor, Furniture", "Event Staffing", "Entertainment: DJs", "Entertainment: Live Bands", "Lodging: Hotels, Inns", "Lodging: AirBNB", "Transportation: Buses, Limos", "Other"] },
-    { title: <>Hospitality <i>Venues</i></>, options: ["Ballroom", "Banquet Hall", "Brewery", "Business Center", "Conference Room", "Convention Center", "Estate, Mansion", "Hotel", "Park", "Restaurant", "Theater", "Winery", "Other"] },
-  ],
-  Investment: [
-    { title: <>Investment <i>Opportunities</i></>, options: ["Annuities", "Bonds", "CDs", "Collectibles", "Commodities", "Cryptocurrencies", "Exchange-Traded Funds", "Franchise", "Precious Metals", "Product / Service", "Real Estate", "Social Venture", "Other"] },
-    { title: <>Investment <i>Startups</i></>, options: ["Angel Investment", "Venture Capital", "Pre-Seed: Research / Concept / Idea", "Pre-Seed: Prototype / MVP", "Seed: Completed MVP", "Seed: Market Research / Testing", "Post-Seed: Developing Traction", "Post-Seed: Growth", "Post-Seed: Expansion", "Post-Seed: Maturity / Exit"] },
-  ],
-  "Pay-It-Forward": [
-    { title: "Format", options: ["Offering", "Seeking"] },
-    { title: <>Donation <i>Money</i></>, options: ["Animals", "Arts", "Children", "Community", "Senior", "Sports", "Youth", "Other"] },
-    { title: <>Donation <i>Products</i></>, options: ["Arts", "Music", "Books", "Clothing", "Computers", "Equipment", "Food", "Furniture", "Toys", "Other"] },
-    { title: <>Volunteer <i>Ideas &amp; Talent</i></>, options: ["Consulting", "Mentoring", "Public Speaking", "Board of Directors", "Other"] },
-    { title: <>Volunteer <i>Time</i></>, options: ["Animals", "Arts", "Children", "Community", "Senior", "Sports", "Youth", "Other"] },
-  ],
+  Classified: { group: "Classifieds", boxes: [
+    { key: "ann", title: "Announcements", sections: [sec(null, "Birthdays", "Business|Opening, Launch", "Careers", "Missed Connect", "Obituaries", "Press Releases", "Public Notices", "Ride-Sharing", "Weddings", "Other")] },
+    { key: "itm", title: "Items", sections: [sec(null, "Antiques", "Appliances|Household", "Arts, Crafts, Decorations", "Beauty", "Books, CDs, DVDs, VHS", "Clothing, Accessories", "Collectibles", "Computers", "Electronics", "Furniture", "Garden", "Health", "Jewelry", "Materials, Supplies", "Musical Instruments", "Recreation, Sports", "Tools", "Toys, Games", "Other")] },
+    { key: "re", title: "Real Estate", sections: [sec(null, "Apartments, Condos", "Commercial", "Homes", "Parking, Storage", "Rooms", "Vacation", "Other")] },
+    { key: "veh", title: "Vehicles, Parts", sections: [sec(null, "Autos", "Aviation", "Bicycles", "Boats", "Construction", "Motorcycles", "Recreational", "Scooters", "Tractors", "Trailers", "Trucks", "Other")] },
+  ] },
+  Hospitality: { group: "Hospitality", boxes: [
+    { key: "evt", title: "Event Type", sections: [
+      sec("Business", "Career Fair", "Conference", "Corporate", "Mixer|Networking", "Expo, Trade Show", "Forum", "Marketing", "Presentation, Workshop", "Other"),
+      sec("Celebration", "Anniversary", "Awards", "Birthday", "Dinner", "Gala", "Holiday", "Party|Adult", "Party|Children", "Religious", "Reunion", "Wedding", "Other"),
+      sec("Entertainment", "Concert", "Dance", "Festival", "Movie", "Performance", "Sports", "Theater", "Travel, Lodging", "Other"),
+    ] },
+    { key: "svc", title: "Services", sections: [
+      sec("Events, Foods & Beverage", "Audio / Visual", "Bar", "Catering, Kitchen", "Décor, Furniture", "Event Staffing", "Other"),
+      sec("Entertainment", "Animals", "Arts & Crafts", "Circus Arts|Clowns", "Comedians", "Dancers", "Magicians", "Music|DJs", "Music|Karaoke", "Music|Live Bands", "Music|Singers", "Spoken Word|Poets", "Sports|Athletes, Athletics", "Theater|Actors", "Other"),
+      sec("Lodging", "AirBNB", "Cruise Ships", "Hotels, Inns", "Resorts", "Other"),
+      sec("Transportation", "Air|Airplanes", "Air|Helicopters", "Air|Hot Air Balloons", "Animal|Exotic", "Animal|Horses", "Land|Buses, Limos", "Land|Carriages", "Land|Exotic Vehicles", "Land|Trains", "Water|Boats, Ferries", "Water|Ships, Subs, Yachts", "Other"),
+    ] },
+    { key: "ven", title: "Venues", sections: [
+      sec("Type", "Academic|School", "Airport", "Amusement Park", "Aquarium", "Arcade", "Arena|Pavilion", "Art Gallery", "Auto Dealership", "Ballroom", "Banquet Hall", "Bar", "Barn", "Brewery", "Business Center", "Club|Golf", "Club|Social", "Community Center", "Concert Hall|Opera House", "Conference Center", "Conference Room", "Convention Center", "Estate|Mansion", "Fairground", "Farm", "Festival Area", "Hotel", "Lounge", "Museum", "Nightclub", "Park", "Ranch", "Resort", "Restaurant", "Retreat Center", "Shopping Mall", "Sports|Center, Stadium", "Sports|Court, Field", "Sports|Golf Course", "Sports|Gym", "Store", "Theater", "Train", "Warehouse", "Water|Boats, Ferries", "Water|Ships, Subs, Yachts", "Winery", "Zoo", "Other"),
+    ] },
+  ] },
+  Investment: { group: "Investments", boxes: [
+    { key: "opp", title: "Opportunities", sections: [sec(null, "Annuities", "Bonds", "CDs", "Collectibles", "Commodities", "Cryptocurrencies", "Exchange-Traded Funds|ETF", "Franchise", "Multi-Level Marketing|MLM", "Non-Fungible Tokens|NFT", "Precious Metals", "Product / Service", "Real Estate", "Social Venture|Non-Profit", "Other")] },
+    { key: "st", title: "Startups", sections: [
+      sec(null, "Angel Investment", "Venture Capital|VC"),
+      sec("Pre-Seed Stage", "Research / Concept / Idea", "Considering Options", "Designing Prototype / MVP", "Non-Functional MVP", "Developing Prototype / MVP"),
+      sec("Seed Stage", "Completed MVP|Minimum Viable Product", "Market Research / Testing"),
+      sec("Post-Seed Stages", "Startup|Developing Traction Users / Revenues", "Growth", "Established", "Expansion", "Maturity / Exit"),
+    ] },
+  ] },
+  "Pay-It-Forward": { group: "Pay-It-Forward", boxes: [
+    { key: "dm", title: "Donation|Money", sections: [sec("Interests", "Animals", "Arts", "Children", "Community", "Senior", "Sports", "Youth", "Other")] },
+    { key: "damt", title: "Donation|$ Amount", cost: true },
+    { key: "dp", title: "Donation|Products", sections: [sec("Types", "Arts", "Music", "Books", "DVDs", "Clothing", "Computers", "Gadgets", "Equipment", "Tools", "Food", "Furniture", "Toys", "Other")] },
+    { key: "vit", title: "Volunteer|Ideas & Talent", sections: [
+      sec("Audience(s)", "Community", "Entrepreneur", "Student", "Senior", "Youth", "Other"),
+      sec("Audience Career Level(s)", "Early", "Mid-Career", "Experienced", "C-Level Executive", "Other"),
+      sec("Advice Level(s)", "Board of Directors", "Consulting", "Mentoring", "Public Speaking", "Other"),
+      sec("Advice Type(s)", "Professional", "Motivational", "Spiritual", "Senior", "Youth", "Other"),
+    ] },
+    { key: "vr", title: "Volunteer|Referrals", sections: [
+      sec("Audience(s)", "Community", "Entrepreneur", "Student", "Senior", "Youth", "Other"),
+      sec("Audience Career Level(s)", "Early", "Mid-Career", "Experienced", "C-Level Executive", "Other"),
+    ] },
+    { key: "vt", title: "Volunteer|Time", sections: [sec("Interests", "Animals", "Arts", "Children", "Community", "Senior", "Sports", "Youth", "Other")] },
+  ] },
 };
+export const tagValue = (key, label) => `${key}:${label.replace("|", " ")}`;
+// Investments: "Cost / Seeking" uses larger buckets.
+export const INVEST_COST_OPTIONS = [
+  { id: "i-free", label: "Free", min: 0, max: 0 },
+  { id: "i-0-10k", label: "$ 0 - $ 10K", min: 0.01, max: 9999.99 },
+  { id: "i-10k-50k", label: "$ 10K - $ 50K", min: 10000, max: 49999.99 },
+  { id: "i-50k-100k", label: "$ 50K - $ 100K", min: 50000, max: 99999.99 },
+  { id: "i-100k-250k", label: "$ 100K - $ 250K", min: 100000, max: 249999.99 },
+  { id: "i-250k-1m", label: "$ 250K - $ 1M", min: 250000, max: 999999.99 },
+  { id: "i-1m-10m", label: "$ 1M - $ 10M", min: 1000000, max: 9999999.99 },
+  { id: "i-10m", label: "$ 10M+", min: 10000000, max: Infinity },
+];
 export const DELIVERY_OPTIONS = ["In-Person", "Online"];
 export const REFERRAL_OPTIONS = [{ id: "no", label: "No" }, { id: "yes", label: "Yes" }];
 export const COST_UNITS = ["one-time", "per hour", "per month", "per year"];
@@ -156,19 +197,19 @@ const LISTINGS = [
   { id: "p7", type: "Classified", name: "Vintage oak desk — like new", description: "Solid oak, 5 drawers; pick up in Pleasanton",
     offeredBy: "Private seller", industry: "Retail", city: "Pleasanton", state: "CA", region: "Alameda", delivery: ["In-Person"],
     costMin: 180, costMax: 180, costUnit: "one-time", referrals: false, expires: "2026-12-15", posted: daysAgo(6), premier: false,
-    tags: ["Furniture"], details: "", contact: "", phone: "", email: "", url: "" },
+    tags: ["itm:Furniture"], details: "", contact: "", phone: "", email: "", url: "" },
   { id: "p8", type: "Hospitality", name: "Garden terrace for mixers (up to 80)", description: "Covered terrace with bar and A/V",
     offeredBy: "Livermore Valley Winery", industry: "Hospitality", city: "Livermore", state: "CA", region: "Alameda", delivery: ["In-Person"],
     costMin: 500, costMax: 1500, costUnit: "one-time", referrals: true, expires: "2027-03-31", posted: daysAgo(1), premier: true,
-    tags: ["Winery", "Business: Mixer, Networking", "Bar"], details: "", contact: "", phone: "", email: "", url: "" },
+    tags: ["ven:Winery", "evt:Mixer Networking", "svc:Bar"], details: "", contact: "", phone: "", email: "", url: "" },
   { id: "p9", type: "Investment", name: "Seed round — local food-delivery startup", description: "Raising $250K SAFE; MVP live in 3 cities",
     offeredBy: "Bay Bites Inc.", industry: "Food, Beverage", city: "Oakland", state: "CA", region: "Alameda", delivery: ["Online", "In-Person"],
     costMin: 10000, costMax: 50000, costUnit: "one-time", referrals: true, expires: "2027-01-31", posted: daysAgo(3), premier: false,
-    tags: ["Seed: Completed MVP", "Angel Investment"], details: "", contact: "", phone: "", email: "", url: "" },
+    tags: ["st:Completed MVP Minimum Viable Product", "st:Angel Investment"], details: "", contact: "", phone: "", email: "", url: "" },
   { id: "p10", type: "Pay-It-Forward", name: "Volunteers needed — holiday food drive", description: "Sort and pack boxes, Dec 12-14",
     offeredBy: "Tri-Valley Haven", industry: "Non-Profit", city: "Dublin", state: "CA", region: "Alameda", delivery: ["In-Person"],
     costMin: 0, costMax: 0, costUnit: "one-time", referrals: false, expires: "2026-12-14", posted: daysAgo(5), premier: true,
-    tags: ["Seeking", "Community"], details: "", contact: "", phone: "", email: "", url: "" },
+    tags: ["fmt:Seeking", "vt:Community"], details: "", contact: "", phone: "", email: "", url: "" },
   { id: "p11", type: "Subscription", name: "Bay Area Business Weekly — newsletter", description: "Local deals, openings and events every Monday",
     offeredBy: "BABW Media", industry: "Media, Advertising", city: "San Francisco", state: "CA", region: "San Francisco", delivery: ["Online"],
     costMin: 0, costMax: 0, costUnit: "per month", referrals: false, expires: "2027-06-30", posted: daysAgo(0), premier: false,
@@ -236,14 +277,22 @@ const TESTS = {
   delivery: (l, f) => !f.delivery.length || (l.delivery || []).some((d) => f.delivery.includes(d)),
   // A listing matches a cost bucket when its range overlaps the bucket.
   cost: (l, f) => !f.cost.length || f.cost.some((id) => {
-    const o = COST_OPTIONS.find((x) => x.id === id);
+    const o = COST_OPTIONS.find((x) => x.id === id) || INVEST_COST_OPTIONS.find((x) => x.id === id);
     const lo = Number(l.costMin) || 0;
     const hi = Number(l.costMax) || lo;
     return o && lo <= o.max && hi >= o.min;
   }),
   industry: (l, f) => !f.industry.length || f.industry.includes(l.industry),
-  region: (l, f) => !f.region.length || f.region.includes(l.region),
-  tags: (l, f) => !f.tags?.length || (l.tags || []).some((t) => f.tags.includes(t)),
+  region: (l, f) => regionMatch(f.region, l.region),
+  // Sub-section picks are OR'd ("Select all that apply"); the Pay-It-Forward
+  // Offering / Seeking format ("fmt:") must also match.
+  tags: (l, f) => {
+    const fmt = (f.tags || []).filter((t) => t.startsWith("fmt:"));
+    const rest = (f.tags || []).filter((t) => !t.startsWith("fmt:"));
+    const lt = l.tags || [];
+    if (fmt.length && !lt.some((t) => fmt.includes(t))) return false;
+    return !rest.length || lt.some((t) => rest.includes(t));
+  },
 };
 
 export function listingMatches(l, f, today = new Date(), q = "") {

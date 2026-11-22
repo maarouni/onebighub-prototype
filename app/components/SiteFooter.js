@@ -62,7 +62,7 @@ export default function SiteFooter() {
           <IconButton name="dashboards" size={24} href={loggedIn ? "/dashboards" : "/registration"} />
         </span>
         <span className="sf-copy">
-          <span>© onebig<b>HUB</b>.com</span>
+          <span>© 2027 onebig<b>HUB</b>.com</span>
           {iso && <em className="sf-ver" title="Page last revised">{formatRevised(iso)}</em>}
         </span>
       </div>

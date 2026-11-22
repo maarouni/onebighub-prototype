@@ -1,4 +1,5 @@
 "use client";
+import { REGION_GROUPS, regionPath } from "../../lib/taxonomy";
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
@@ -9,7 +10,7 @@ import { cityCode } from "../../lib/cityCodes";
 import { fetchJobs, compLabel } from "../../lib/jobs";
 
 // Nov 19 (Cesar's Figma "Find Listings"): Find Employment Details — shared FindDetail template.
-const regions = (x) => [["Regions - CA Bay Area", x.region], ["Regions - California", "California"], ["Regions - US National", ""], ["Regions - International", ""]];
+const regions = (x) => { const rp = regionPath(x.region); return REGION_GROUPS.map((g) => [g.group, rp[g.key] || ""]); };
 
 export default function JobDetail() {
   const { id } = useParams();

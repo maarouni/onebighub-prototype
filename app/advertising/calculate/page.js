@@ -120,7 +120,7 @@ export default function CalculatePage() {
         </Box>
 
         <Box n={5}>
-          <b>Total Advertising Cost per Week for this Premier Listing</b>
+          <b>Total Advertising Cost for this Premier Listing</b>
           <span>SUBMIT the corresponding payment (<b>D</b>):</span>
           <span className="pk-gold">{$(D[format])}</span>
         </Box>

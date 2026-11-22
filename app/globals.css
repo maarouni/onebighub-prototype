@@ -4452,3 +4452,29 @@ svg.glyph { color: #111 !important; }
   .home-card-title { font-size: 26px !important; }
   .home-card-head { font-size: 20px !important; }
 }
+
+/* Nov 21 (Cesar, Homepage 3:07 PM): tagline "Your One-Stop" black + bottom note box on HOME */
+.hh-rk { color: #000; }
+.home-note { max-width: 980px; margin: 22px auto 8px; padding: 14px 20px; border: 1px solid #9a9a9a; border-radius: 14px; background: #fff; text-align: center; font-size: 16px; line-height: 1.5; }
+.home-note p { margin: 4px 0; }
+/* Nov 20 (Cesar): event Attendance Status box */
+.evd-att-head { font-size: 17px; line-height: 1.35; margin-bottom: 10px; }
+.evd-att { margin: 0 0 14px; font-size: 16px; }
+.evd-att > div { display: grid; grid-template-columns: 22px 1fr auto; gap: 8px; align-items: baseline; padding: 3px 0; }
+.evd-att dt, .evd-att dd { margin: 0; }
+.evd-att-g { color: #9a9a9a; }
+.evd-att-tot { margin-top: 8px; font-size: 17px; }
+/* Nov 21 (Cesar): color region maps */
+.rm-map { display: block; width: 100%; height: auto; margin: 6px 0 8px; }
+.rm-map path { stroke: #fff; stroke-width: .6; cursor: pointer; transition: opacity .15s; }
+.rm-map path.rm-on { stroke: #222; stroke-width: 1; }
+.rm-map path:hover { opacity: .8; }
+.rm-label { font: 800 26px Georgia, serif; fill: #111; paint-order: stroke; stroke: rgba(255,255,255,.6); stroke-width: 2px; }
+/* Nov 20 (Cesar): yellow group header above collapsed sub-section boxes */
+.fp-box.fp-grouphead { background: var(--cg-yellow, #f6d24a) !important; border-color: #c9a400; }
+.fp-grouphead .fp-box-title { display: flex; flex-direction: column; }
+.fp-grouphead .fp-box-title em { font-weight: 400; }
+/* Pay-It-Forward table lines */
+.pif-lines { display: flex; flex-direction: column; gap: 6px; margin: 6px 0 10px; }
+.pif-lines p { margin: 0; padding: 4px 12px; border: 1px solid #9a9a9a; border-radius: 999px; text-align: center; }
+.fp-grouphead .fp-box-title { align-items: flex-start; }

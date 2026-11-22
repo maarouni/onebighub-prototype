@@ -1,5 +1,5 @@
 // Employment filter taxonomy — mirrors Cesar's "Employment / Display Filters" wireframe.
-import { REGION_GROUPS } from "./taxonomy";
+import { REGION_GROUPS, regionMatch } from "./taxonomy";
 
 export { REGION_GROUPS };
 
@@ -51,7 +51,20 @@ export const INDUSTRIES = [
   "Science", "Technology", "Trades", "Transportation", "Utilities", "Other",
 ];
 
+// Nov 20 (Cesar, "Classifieds" email — Employment): Format split out of Type.
+export const FORMAT_OPTIONS = ["Hybrid", "In-Person", "Remote"];
+export const TYPE_OPTIONS = [
+  "Contract", "Focus Study",
+  { id: "FT Full-Time", label: <>F/T <i>Full-Time</i></> }, { id: "PT Part-Time", label: <>P/T <i>Part-Time</i></> },
+  "Affiliate", "Consultant", "Contractor", "Employee", "Entrepreneur", { id: "Freelance", label: "Freelancer" }, "Intern", "Volunteer",
+];
+export const LEVEL_OPTIONS = [
+  { id: "Founder, Owner", label: "Founder / Owner" }, "C-Level Executive", "Executive", "Management", "Staff",
+];
+export const REFERRAL_OPTIONS = [{ id: "no", label: "No" }, { id: "yes", label: "Yes" }];
+
 export const EMPTY_JOB_FILTERS = {
+  referrals: [], format: [], categories: [],
   adtype: [],
   comp: [],
   level: [],
@@ -76,10 +89,13 @@ function postedDate(j) {
 
 const SECTION_TESTS = {
   adtype: (j, f) => !f.adtype?.length || f.adtype.includes(j.premier ? "premier" : "regular"),
+  referrals: (j, f) => !f.referrals?.length || f.referrals.includes(j.referral ? "yes" : "no"),
+  format: (j, f) => !f.format?.length || (j.types || []).some((t) => f.format.includes(t)),
+  categories: (j, f) => !f.categories?.length || (j.categories || []).some((c) => f.categories.includes(c)),
   comp: (j, f) => !f.comp.length || f.comp.includes(j.compType),
   level: (j, f) => !f.level.length || f.level.includes(j.level),
   type: (j, f) => !f.type.length || (j.types || []).some((t) => f.type.includes(t)),
-  region: (j, f) => !f.region.length || f.region.includes(j.region),
+  region: (j, f) => regionMatch(f.region, j.region),
   industry: (j, f) => !f.industry.length || f.industry.includes(j.industry),
   posted: (j, f, today) => {
     if (f.posted === "all") return true;

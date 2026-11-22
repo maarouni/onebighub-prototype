@@ -85,6 +85,13 @@ function ListingsInner({ digest = false }) {
               addHref={digest ? "/listings/submit" : undefined} editHref={digest ? "/listings/submit" : undefined}
               showFilters={showFilters} onShowFilters={() => setShowFilters(true)} />
 
+            {filters.type?.[0] === "Pay-It-Forward" && (
+              <div className="pif-lines">
+                <p className="pif-smile"><b><i>Be the reason someone smiles today !</i></b></p>
+                <p className="pif-nocost"><i><span className="cw-red">No-Cost</span> Premier Listings</i></p>
+              </div>
+            )}
+
             <FillInHere>
               These listings are placeholders. Click <strong>+ Post a Listing</strong> to enter real ones. They&rsquo;ll
               appear on your screen right away. When you&rsquo;re done, click <strong>Send my listings to Masoud</strong> so I can

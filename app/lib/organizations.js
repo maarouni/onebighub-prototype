@@ -8,7 +8,7 @@
 //               Industries · Regions (4 groups)
 //   edit page:  WHY · BENEFITS · # Members · $ Annual Dues ·
 //               Member List visibility · Contact · Leadership / Staff / Members
-import { REGION_GROUPS, CATEGORY_GROUPS } from "./taxonomy";
+import { REGION_GROUPS, CATEGORY_GROUPS, regionMatch } from "./taxonomy";
 import { INDUSTRIES } from "./employmentTaxonomy";
 
 export { REGION_GROUPS, CATEGORY_GROUPS, INDUSTRIES };
@@ -290,7 +290,7 @@ const TESTS = {
   status: (o, f, ctx) => !f.status.length || f.status.includes(ctx.membership[o.id] || "na"),
   categories: (o, f) => !f.categories.length || (o.categories || []).some((c) => f.categories.includes(c)),
   industry: (o, f) => !f.industry.length || f.industry.includes(o.industry),
-  region: (o, f) => !f.region.length || f.region.includes(o.region),
+  region: (o, f) => regionMatch(f.region, o.region),
 };
 
 // ctx = { today, membership, q }

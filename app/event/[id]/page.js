@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useParams } from "next/navigation";
 import QRCode from "qrcode";
 import { slugify } from "../../lib/slug";
-import { eventCategories, ATTENDANCE_STATUSES, REGION_GROUPS } from "../../lib/taxonomy";
+import { eventCategories, ATTENDANCE_STATUSES, REGION_GROUPS, regionPath } from "../../lib/taxonomy";
 import { fetchEvents } from "../../lib/events";
 import { fmtTime, fmtDateRange, isoOf } from "../../components/EventVisuals";
 import { cityCode } from "../../lib/cityCodes";
@@ -140,7 +140,8 @@ export default function EventDetail() {
 
   const status = (() => { try { return JSON.parse(localStorage.getItem(STATUS_KEY) || "{}")[id] || "none"; } catch { return "none"; } })();
   const statusMeta = ATTENDANCE_STATUSES.find((x) => x.id === status) || ATTENDANCE_STATUSES[0];
-  const regionOf = (g) => (online ? "—" : g.options.includes(event.region) ? event.region : "—");
+  const rPath = regionPath(event.region);
+  const regionOf = (g) => (online ? "—" : rPath[g.key] || "—");
   const hub = /onebighub/i.test(event.hostedBy || "");
   const host = hub ? <>onebig<span className="cw-red">HUB</span></> : event.hostedBy;
   const details = [
@@ -299,9 +300,15 @@ export default function EventDetail() {
 
         <aside className="evd-lower3-side">
           <section className="evd-box evd-rsvps3">
-            <div className="evd-rsvps-head"><b>RSVPs</b><b className="cw-red">{rsvps.length.toLocaleString()}</b></div>
+            {/* Nov 20 (Cesar 11:35 / 11:46 / 11:51 PM): "Attendance Status  Private" — counts by status, then RSVPs */}
+            <div className="evd-att-head"><b>Attendance Status</b>&nbsp;&nbsp;<i>Private</i><br /><i>List visible only to organizer</i></div>
+            {(() => { const t = rsvps.length; const lo = Math.round(t * 0.15), no = Math.round(t * 0.1), wl = Math.round(t * 0.1); const hi = t - lo - no - wl;
+              return (<dl className="evd-att">
+                {[[">", "High Probability", hi], ["~", "Low Probability", lo, "g"], ["N", "Will Not Attend", no, "g"], ["W", "Waitlist / Pending", wl]].map(([k, l, v, g]) => (
+                  <div key={k}><dt><b>{k}</b></dt><dd>{l}</dd><span className={g ? "evd-att-g" : "cw-red"}>{v.toLocaleString()}</span></div>))}
+                <div className="evd-att-tot"><dt><b>&radic;</b></dt><dd><b>RSVPs</b></dd><span className="cw-red">{t.toLocaleString()}</span></div>
+              </dl>); })()}
             <ul>{rsvps.slice(rAt * RPP, rAt * RPP + RPP).map((n) => <li key={n}><span className="dg-card-pic">{n.split(" ").map((w) => w[0]).join("").slice(0, 2)}</span>{n}</li>)}</ul>
-            <p className="evd-muted">Sample names until accounts are live.</p>
           </section>
           <div className="obc-pager evd-pager">
             <button type="button" className="obc-pg" disabled={rAt <= 0} onClick={() => setRp(rAt - 1)} aria-label="Previous"><Glyph name="pagePrev" size={20} /></button>

@@ -11,8 +11,7 @@ const CARDS = [
   },
   {
     href: "/connect-with-me", img: "/icons/connections.png", title: "Connect", head: <>Performance-Based Marketing <span className="cw-red">*</span></>,
-    lines: [<><b>Custom Profiles</b>&nbsp;-&nbsp;&nbsp;<i>Individual, Biz, Org, Group</i></>, <><b>Virtual Biz Card</b>&nbsp;-&nbsp;&nbsp;<i>Add Notes, View Node Graphs</i></>,
-      <><span className="cw-red">*</span> <i>Advertising based on <b className="cw-red">RESULTS</b>:&nbsp; # clicks or views</i></>],
+    lines: [<><b>Custom Profiles</b>&nbsp;-&nbsp;&nbsp;<i>Individual, Biz, Org, Group</i></>, <><b>Virtual Biz Card</b>&nbsp;-&nbsp;&nbsp;<i>Add Notes, View Node Graphs</i></>],
   },
   {
     href: "/advertising", img: "/icons/achieve.png", title: "Achieve", head: "Profit-Sharing System",
@@ -34,6 +33,11 @@ export default function Home() {
             </span>
           </a>
         ))}
+      </div>
+      {/* Nov 21 (Cesar, Homepage 3:07 PM): the RESULTS footnote moved out of the Connect card into a box at the bottom */}
+      <div className="home-note">
+        <p><span className="cw-red">*</span> <i>Advertising based on <b className="cw-red">RESULTS</b>:&nbsp; # clicks or views</i></p>
+        <p><i>This technology is designed for Small-to-Medium-Sized Businesses (SMBs), Chambers of Commerce, Communities, Entrepreneurs, Organizations, and Professionals</i>&nbsp;&nbsp;-&nbsp;&nbsp;<b>Let&rsquo;s collaborate and thrive !</b></p>
       </div>
     </PageTemplate>
   );

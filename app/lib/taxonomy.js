@@ -24,28 +24,51 @@ export const COST_OPTIONS = [
   { id: "100+", label: "$100+", min: 100, max: Infinity },
 ];
 
-// Cesar's Rev 261012 filter page splits regions into four groups, with
-// "All Bay Area" as the default for the first one.
-export const REGION_GROUPS = [
-  {
-    group: "Regions - CA Bay Area",
-    allLabel: "All Bay Area",
-    options: [
-      "Alameda", "Contra Costa", "Marin", "Napa", "San Francisco",
-      "San Mateo", "Santa Clara", "Solano", "Sonoma",
-    ],
-  },
-  {
-    group: "Regions - California",
-    options: [
-      "North Coast", "Shasta Cascades", "Sacramento Valley", "Gold Country",
-      "Sierra Nevada", "Central Coast", "San Joaquin Valley",
-      "Southern California", "Desert",
-    ],
-  },
-  { group: "Regions - US National", options: ["National"] },
-  { group: "Regions - International", options: ["International"] },
+// Nov 21 (Cesar, "Regions Filters"): four boxes, in this order, each with a
+// color map — International (North America default), USA (Southwest default),
+// California (Bay Area default), CA Bay Area (All default).
+export const WORLD_REGIONS = [
+  "Central America", "Caribbean", "South America",
+  "Northern Europe", "Western Europe", "Southern Europe", "Eastern Europe",
+  "Northern Africa", "Western Africa", "Middle Africa", "Eastern Africa", "Southern Africa",
+  "Western Asia", "Central Asia", "Southern Asia", "Eastern Asia", "South-Eastern Asia",
+  "Australia & New Zealand", "Oceania",
 ];
+export const USA_REGIONS = ["Northwest", "Midwest", "South", "Southeast", "Great Lakes", "New England"];
+export const BAY_AREA_COUNTIES = [
+  "Alameda", "Contra Costa", "Marin", "Napa", "San Francisco",
+  "San Mateo", "Santa Clara", "Solano", "Sonoma",
+];
+export const CA_REGIONS = [
+  "North Coast", "Shasta Cascades", "Sacramento Valley", "Gold Country",
+  "Sierra Nevada", "Central Coast", "San Joaquin Valley",
+  "Southern California", "Desert",
+];
+export const REGION_GROUPS = [
+  { key: "intl", group: "Regions - International", allLabel: "North America", options: WORLD_REGIONS },
+  { key: "usa", group: "Regions - USA", allLabel: "Southwest", options: USA_REGIONS },
+  { key: "ca", group: "Regions - California", allLabel: "Bay Area", options: CA_REGIONS },
+  { key: "bay", group: "Regions - CA Bay Area", allLabel: "All", options: BAY_AREA_COUNTIES },
+];
+
+// Region filter match. Older listings carry "International" / "National" as
+// their region — they match any world / USA region the visitor picks.
+export function regionMatch(picked, region) {
+  if (!picked || !picked.length) return true;
+  if (picked.includes(region)) return true;
+  if (region === "International") return picked.some((r) => WORLD_REGIONS.includes(r));
+  if (region === "National") return picked.some((r) => USA_REGIONS.includes(r));
+  return false;
+}
+
+// Where a listing sits in each of the four boxes (for the details pages).
+export function regionPath(region) {
+  if (!region) return {};
+  if (BAY_AREA_COUNTIES.includes(region)) return { intl: "North America", usa: "Southwest", ca: "Bay Area", bay: region };
+  if (CA_REGIONS.includes(region)) return { intl: "North America", usa: "Southwest", ca: region };
+  if (USA_REGIONS.includes(region) || region === "National") return { intl: "North America", usa: region === "National" ? "National" : region };
+  return { intl: region };
+}
 
 export const CATEGORY_GROUPS = [
   {
@@ -215,7 +238,7 @@ const SECTION_TESTS = {
     if (!f.regions.length) return true;
     // Online events aren't tied to a place — they pass any region filter.
     if (eventFormat(e) === "Online") return true;
-    return f.regions.includes(e.region);
+    return regionMatch(f.regions, e.region);
   },
   categories: (e, f) =>
     !f.categories.length || eventCategories(e).some((c) => f.categories.includes(c)),

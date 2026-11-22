@@ -366,7 +366,8 @@ export default function SiteHero({
 
       <p className="hh-box hh-intro hh-oneline">
         {/* Nov 9 (Cesar, flyer): new tagline. Old: One-Stop • Results-Based Marketing • Revenue-Sharing System */}
-        <b className="hh-rb">Your Performance-Based</b> <b className="hh-rs">Marketing System</b>
+        {/* Nov 21 (Cesar, Homepage 3:07 PM): "Your One-Stop" black · "Performance-Based" burgundy · "Marketing System" blue */}
+        <b className="hh-rk">Your One-Stop</b> <b className="hh-rb">Performance-Based</b> <b className="hh-rs">Marketing System</b>
       </p>
 
       {tiles && <IconNav active={section} mode={mode} />}
