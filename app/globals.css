@@ -4455,7 +4455,7 @@ svg.glyph { color: #111 !important; }
 
 /* Nov 21 (Cesar, Homepage 3:07 PM): tagline "Your One-Stop" black + bottom note box on HOME */
 .hh-rk { color: #000; }
-.home-note { max-width: 980px; margin: 22px auto 8px; padding: 14px 20px; border: 1px solid #9a9a9a; border-radius: 14px; background: #fff; text-align: center; font-size: 16px; line-height: 1.5; }
+.home-note { max-width: 980px; margin: 22px auto 8px; padding: 14px 20px; border: 1px solid #9a9a9a; border-radius: 14px; background: #fff; text-align: left; font-size: 16px; line-height: 1.5; }
 .home-note p { margin: 4px 0; }
 /* Nov 20 (Cesar): event Attendance Status box */
 .evd-att-head { font-size: 17px; line-height: 1.35; margin-bottom: 10px; }
@@ -4478,3 +4478,4 @@ svg.glyph { color: #111 !important; }
 .pif-lines { display: flex; flex-direction: column; gap: 6px; margin: 6px 0 10px; }
 .pif-lines p { margin: 0; padding: 4px 12px; border: 1px solid #9a9a9a; border-radius: 999px; text-align: center; }
 .fp-grouphead .fp-box-title { align-items: flex-start; }
+.pt-romantic { display: inline-block; margin-top: 6px; line-height: 1.25; }

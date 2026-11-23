@@ -6,7 +6,7 @@ import HubLogo from "../components/HubLogo";
 
 // Achieve — Marketing System landing page (Cesar's Figma Rev 261118, /Achieve):
 // Performance-Based Marketing System, Invite / Refer, Earn Money for
-// Introductions, Marketing & Profit-Sharing (Find-section digests).
+// Introductions, Marketplace & Profit-Sharing (Nov 22: was "Marketing") (Find-section digests).
 const DIGESTS = [
   ["calendar", "One Big Calendar", "Sell tickets, Assign your Attendance Status", "/calendar"],
   ["connections", "Connect", <>Individuals, Businesses, Organizations, Groups<br />Assign your Membership Status</>, "/connect"],
@@ -16,6 +16,7 @@ const DIGESTS = [
   null,
   ["idxClassified", "Classifieds", null, "/listings?type=Classified"],
   ["discount", <>Deals&nbsp;&nbsp;<i className="pe-hint">Premier Listings only</i></>, "Distribute certificates as discounts, gifts, incentives, raffle prizes, or rewards !", "/discounts"],
+  ["comments", "Forums", null, "/listings?type=Forum"],
   ["dinner", "Hospitality", null, "/listings?type=Hospitality"],
   ["idxDeal", "Investments", null, "/listings?type=Investment"],
   ["idxHeart", <>Pay-It-Forward&nbsp;&nbsp;<i className="pe-hint">No-Cost Premier Listings</i></>, "Donate, Volunteer - Be the reason someone smiles today !", "/listings?type=Pay-It-Forward"],
@@ -56,7 +57,7 @@ export default function Achieve() {
       </section>
 
       <section className="ad-box pe-box">
-        <h2><Glyph name="megaphone" size={34} /> Marketing &amp; Profit-Sharing</h2>
+        <h2><Glyph name="megaphone" size={34} /> Marketplace &amp; Profit-Sharing</h2>
         <div className="pe-share">
           <div>
             <p><b className="cw-red"><i>Win-Win-Win !</i></b></p>

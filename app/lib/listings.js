@@ -17,13 +17,15 @@ export { REGION_GROUPS, INDUSTRIES };
 
 // Nov 16 (Cesar, "Promote & Earn One Big Table" Rev 261116): one table, Listing Type
 // (select one). Careers / Jobs, Deals and Notifications keep their own pages.
-export const LISTING_TYPES = ["Product", "Service", "Classified", "Hospitality", "Investment", "Pay-It-Forward", "Membership", "Subscription", "Survey"];
+export const LISTING_TYPES = ["Product", "Service", "Classified", "Forum", "Hospitality", "Investment", "Pay-It-Forward", "Membership", "Subscription", "Survey"];
 export const LISTING_TYPE_MENU = [
   { id: "Careers", label: "Employment", icon: "idxBriefcase", href: "/employment" },
   { id: "Product", label: "Products", icon: "idxProduct" },
   { id: "Service", label: "Services", icon: "idxService" },
   { gap: true, id: "Classified", label: "Classifieds", icon: "idxClassified" },
   { id: "Deals", label: "Deals", icon: "discount", href: "/discounts" },
+  // Nov 23 (Cesar, Connect Profiles 10:07 AM): new listing item — Forums (14 items now)
+  { id: "Forum", label: "Forums", icon: "comments" },
   { id: "Hospitality", label: "Hospitality", icon: "dinner" },
   { id: "Investment", label: "Investments", icon: "idxDeal" },
   { gap: true, id: "Membership", label: "Memberships", icon: "idxMembership" },
@@ -198,6 +200,10 @@ const LISTINGS = [
     offeredBy: "Private seller", industry: "Retail", city: "Pleasanton", state: "CA", region: "Alameda", delivery: ["In-Person"],
     costMin: 180, costMax: 180, costUnit: "one-time", referrals: false, expires: "2026-12-15", posted: daysAgo(6), premier: false,
     tags: ["itm:Furniture"], details: "", contact: "", phone: "", email: "", url: "" },
+  { id: "p13", type: "Forum", name: "Bay Area small-business owners — monthly Q&A", description: "Open discussion: marketing, hiring, permits",
+    offeredBy: "onebigHUB", industry: "Professional Services", city: "San Jose", state: "CA", region: "Santa Clara", delivery: ["Online"],
+    costMin: 0, costMax: 0, costUnit: "one-time", referrals: false, expires: "2027-06-30", posted: daysAgo(2), premier: false,
+    tags: [], details: "", contact: "", phone: "", email: "", url: "" },
   { id: "p8", type: "Hospitality", name: "Garden terrace for mixers (up to 80)", description: "Covered terrace with bar and A/V",
     offeredBy: "Livermore Valley Winery", industry: "Hospitality", city: "Livermore", state: "CA", region: "Alameda", delivery: ["In-Person"],
     costMin: 500, costMax: 1500, costUnit: "one-time", referrals: true, expires: "2027-03-31", posted: daysAgo(1), premier: true,

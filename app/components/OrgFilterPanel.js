@@ -17,7 +17,9 @@ const DIGEST_FOLLOW = [["all", "All"], ["none", "None"], ["01", "01 Cold", "Doub
 const DIGEST_REL = [["all", "All"], ["none", "None"], ["referral", "Referral"], ["connection", "Connection"], ["colleague", "Colleague"], ["friend", "Friend"], ["family", "Family"]];
 const NETWORK_LEVELS = [["all", "All"], ["none", "None"], ["intro1", "My Introductions", "Level 1"], ["c1", "My Connect", "Level 1"], ["c2", "My Connect", "Level 2"], ["c3", "My Connect", "Level 3"]];
 const EMPLOYEE_RANGES = ["All", "0 - 5", "6 - 20", "21 - 50", "51 - 100", "101 - 250", "251 - 500", "501 +"];
-const PROFILE_TYPES = [["Individual", ["indPersonal", "indProfessional"]], ["Business", ["biz"]], ["Organization", ["org"]], ["Group", ["group"]]];
+// Nov 23 (Cesar): new profile type "Individual — Romantic Matchmaking" (still in Figma progress).
+const PROFILE_TYPES = [["Individual", ["indPersonal", "indProfessional"]], ["Business", ["biz"]], ["Organization", ["org"]], ["Group", ["group"]],
+  [<span key="rm" className="pt-romantic">Individual<br /><i>Romantic Matchmaking</i></span>, ["indRomantic"], "romantic"]];
 
 export default function OrgFilterPanel({ items, filters, setFilters, ctx, onHide, onDisplay, digest = false, setName = "none", onPickSet, onSaveSet, onClearSet, sets = {} }) {
   const count = (key, v) => countOrgsFor(items, filters, { [key]: key === "posted" ? v : [v] }, ctx);
@@ -56,8 +58,8 @@ export default function OrgFilterPanel({ items, filters, setFilters, ctx, onHide
       )}
       <Box title="Profile Types">
         <Option type="radio" name="org-ptype-all" checked={!filters.ctype.length} onChange={() => setFilters((f) => ({ ...f, ctype: [] }))} label="All" def />
-        {PROFILE_TYPES.map(([label, ids]) => (
-          <Option key={label} checked={ids.every((i) => filters.ctype.includes(i))}
+        {PROFILE_TYPES.map(([label, ids, k]) => (
+          <Option key={k || label} checked={ids.every((i) => filters.ctype.includes(i))}
             onChange={() => setFilters((f) => {
               const on = ids.every((i) => f.ctype.includes(i));
               return { ...f, ctype: on ? f.ctype.filter((x) => !ids.includes(x)) : [...new Set([...f.ctype, ...ids])] };
