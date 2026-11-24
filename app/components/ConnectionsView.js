@@ -43,7 +43,8 @@ export function profileRow(o, extra = {}) {
   const where = `${o.city || ""}${o.state ? `, ${o.state}` : ""}`;
   const t = o.premier ? <i key="t">{o.tagline}</i> : o.tagline;
   const lines = ind
-    ? [<>{t}{o.business ? <> &nbsp;/&nbsp; {o.business}</> : null}</>, where]
+    // Nov 24 (Cesar, Connect Profiles 10:18 AM): "Business / Organization / Group • Tagline" (tagline italic)
+    ? [<>{o.business}{o.business && o.tagline ? " • " : null}{o.tagline ? <i>{o.tagline}</i> : null}</>, where]
     : label === "Business"
       ? [t, o.premier && o.employees ? `${Number(o.employees).toLocaleString()} Employees` : null, where]
       : [t, o.premier ? `${fmtMembers(o.members)} • ${fmtDues(o.dues)}` : null, where];
