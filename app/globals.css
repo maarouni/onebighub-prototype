@@ -4587,3 +4587,5 @@ svg.glyph { color: #111 !important; }
 .cw-page input[type="checkbox"] { -webkit-appearance: none; appearance: none; width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--cg-blue); background: #fff; margin: 0 6px 0 0; flex-shrink: 0; }
 .cw-page input[type="checkbox"]:checked { background: var(--cg-red); border-color: var(--cg-red); }
 .cw-page input[type="checkbox"]::after { content: none; }
+/* Nov 25: every filter and option label on Connect with Me is 14px */
+.cw-page .fp-option, .cw-page .fp-option * { font-size: 14px; }
