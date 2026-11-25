@@ -93,7 +93,7 @@ export default function ConnectSteps13() {
             {[["exchange", "Exchange Contact Info", true], ["scan", "SCAN Other's QR Code"], ["follow", "Connect and Follow"], ["copy", "Copy Link"]].map(([id, label, def]) => (
               <label key={id} className="fp-option ct-opt">
                 <input type="radio" name="cw-action" checked={action === id} onChange={() => pickAction(id)} />
-                <span className={`fp-label${id === "exchange" ? " cw-red" : ""}`}>{label}{def && <i> Default</i>}</span>
+                <span className={`fp-label${id === "exchange" ? " cw-exchange-label" : ""}`}>{label}{def && <i> Default</i>}</span>
               </label>
             ))}
           </div>
