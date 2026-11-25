@@ -4608,3 +4608,5 @@ svg.glyph { color: #111 !important; }
 .cw-filters .fp-box-title { flex-wrap: nowrap; }
 /* Nov 25: filter column wide enough for the title and its hint on one line */
 .cw-net { grid-template-columns: 275px 1fr; }
+/* Nov 25: all filter boxes share one burgundy outline, like the Submit buttons */
+.cw-page .cw-filters .fp-box, .cw-filters .fp-box { border: 1.5px solid var(--cg-red) !important; }
