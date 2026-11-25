@@ -4582,3 +4582,8 @@ svg.glyph { color: #111 !important; }
 .cw-sec-stack .cw-bar b { font-size: 18px; }
 /* Nov 25: Connect with Me section titles 1-6 are 18px, like SCAN My QR Code */
 .cw-page .cw-bar b { font-size: 18px; }
+/* Nov 25: filter options at 14px; checkboxes on Connect with Me are round like radios, filled when checked, no tick */
+.cw-filters .fp-option, .cw-filters .fp-option span, .cw-filters .fp-option i, .cw-filters .fp-option b, .cw-filters .fp-option em { font-size: 14px; }
+.cw-page input[type="checkbox"] { -webkit-appearance: none; appearance: none; width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--cg-blue); background: #fff; margin: 0 6px 0 0; flex-shrink: 0; }
+.cw-page input[type="checkbox"]:checked { background: var(--cg-red); border-color: var(--cg-red); }
+.cw-page input[type="checkbox"]::after { content: none; }
