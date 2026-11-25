@@ -4566,3 +4566,5 @@ svg.glyph { color: #111 !important; }
 .cw-box > span, .cw-box > span b, .cw-box > span i, .cw-action-hint i { font-size: 14px; }
 /* Nov 25: mini-card and elevator pitch text on Connect with Me is 14px everywhere */
 .cw-card, .cw-card *, .cw-pitch p, .cw-pitch-head, .cw-pitch-head * { font-size: 14px; }
+/* Nov 25: the Filters header is a gold bar like the other section bars */
+.cw-mini-bar { background: var(--cg-yellow); border-color: var(--cg-yellow-line); }
