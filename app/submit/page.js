@@ -12,6 +12,7 @@ import { Glyph } from "../components/Icons";
 import { cityCode } from "../lib/cityCodes";
 import { RATES } from "../lib/adRates";
 import SiteHero from "../components/SiteHero";
+import { Pager } from "../components/ListingTable";
 import StateSelect from "../components/StateSelect";
 
 // Cesar's "EDIT My Events" (Figma Rev 261108): listing box on top; left
@@ -304,6 +305,8 @@ export default function SubmitEvent() {
           </button>
         ))}
       </section>
+      {/* Cesar (Nov 24, Find Events): "<< Page ### of ###>>" bar under the listing preview */}
+      <Pager page={1} totalPages={1} onGo={() => {}} />
 
       <div className="ed-grid em-grid">
         {/* Left: Filters — these decide who sees the event. */}

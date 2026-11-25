@@ -4530,3 +4530,6 @@ svg.glyph { color: #111 !important; }
 .fp-option:has(.pt-two) input { margin-top: 5px; }
 .pt-two { white-space: nowrap; }
 .pt-two i { font-style: italic; }
+
+/* Cesar (Nov 24, Find Events): tighter gap between the main header and EDIT My Events */
+.em-page > .ed-preview { margin-top: 12px; }
