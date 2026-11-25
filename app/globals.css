@@ -4578,3 +4578,5 @@ svg.glyph { color: #111 !important; }
 .cw-mini-bar { font-size: 14px; }
 .cw-mini-bar b { font-size: 20px; }
 .cw-dispf { font-size: 14px; }
+/* Nov 25: SCAN My QR Code title is 18px */
+.cw-sec-stack .cw-bar b { font-size: 18px; }
