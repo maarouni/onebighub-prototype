@@ -5,7 +5,6 @@ import PageTemplate from "./PageTemplate";
 import CollapseArrow from "./CollapseArrow";
 import { StepBadge } from "./Steps";
 import { Glyph } from "./Icons";
-import { getUser, userInitials } from "../lib/auth";
 
 // Shared parts of the five "Connect with Me !" pages (Cesar's Figma, Rev 261108):
 // title bar "Connect with Me ! <step>", the Connections tile + "Connect with me !"
@@ -41,12 +40,8 @@ export function SectionBar({ n, icon, title, hint, right, defaultOpen = true, cl
 }
 
 const initials = (n) => (n || "?").split(/\s+/).map((w) => w[0]).slice(0, 2).join("").toUpperCase();
-// Avatar letters: a one-word name (e.g. "Masoud") takes the logged-in user's two letters (MA / CP), as in the header.
-const avatarInitials = (name) => {
-  if ((name || "").trim().split(/\s+/).filter(Boolean).length > 1) return initials(name);
-  const u = getUser();
-  return u ? userInitials(u) : initials(name);
-};
+// Avatar letters come from the name typed in the profile: one letter per word (Masoud Arouni = MA, Cesar = C).
+const avatarInitials = (name) => initials(name);
 
 // Mini-card: Name, Title / Business · picture · phone, email, city.
 export function PersonCard({ p, picture, placeholder = false, label }) {
