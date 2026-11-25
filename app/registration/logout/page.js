@@ -35,9 +35,15 @@ export default function LogOut() {
           <>
             <p className="big-q">Sooo ... you want to leave us ?</p>
             <span className="ed-label">Select one</span>
-            <Radios name="lo" value={pick} onChange={setPick}
-              options={[{ id: "stay", label: "Oops, not now, keep me logged in" }, { id: "out", label: "Yes, Log Out" }]} />
-            <button type="button" className="btn-primary" style={{ marginTop: 14 }} onClick={submit}>SUBMIT</button>
+            {/* Cesar (Nov 25): selections stacked vertically; Submit centered, burgundy */}
+            <div className="logout-radios">
+              <Radios name="lo" value={pick} onChange={setPick}
+                options={[{ id: "stay", label: "Oops, not now, keep me logged in" }, { id: "out", label: "Yes, Log Out" }]} />
+            </div>
+            <div style={{ textAlign: "center", marginTop: 16 }}>
+              <button type="button" onClick={submit}
+                style={{ background: "#7a1c1c", color: "#fff", border: 0, borderRadius: 999, padding: "10px 28px", fontWeight: 700, cursor: "pointer" }}>SUBMIT</button>
+            </div>
           </>
         )}
       </div>

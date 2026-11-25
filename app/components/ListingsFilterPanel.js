@@ -57,7 +57,6 @@ export default function ListingsFilterPanel({ items, filters, setFilters, today,
       <DateBox title="Date Posted / Revised" field="posted" fromKey="postedFrom" toKey="postedTo" options={DATE_POSTED_OPTIONS} {...kit} />
       <BothBox title="Offering $ Referrals" icon={<RefIcon />} field="referrals" options={REFERRAL_OPTIONS} {...kit} />
 
-      {(type === "Hospitality" || type === "Investment") && <BothBox title="Format" field="delivery" options={DELIVERY_OPTIONS} {...kit} />}
       {type === "Pay-It-Forward" && (
         <Box title="Format" hint="Select one">
           {fmtVals.map((v) => (
@@ -74,7 +73,8 @@ export default function ListingsFilterPanel({ items, filters, setFilters, today,
         </>
       )}
 
-      {!tb && <BothBox title="Format" field="delivery" options={DELIVERY_OPTIONS} {...kit} />}
+      {/* Cesar (Nov 20, Find Hospitality): Format sits below the Event Type / Services / Venues boxes */}
+      {(!tb || type === "Hospitality" || type === "Investment") && <BothBox title="Format" field="delivery" options={DELIVERY_OPTIONS} {...kit} />}
       {type !== "Pay-It-Forward" && costBox(type === "Investment" ? "Cost / Seeking" : "Cost")}
       {type !== "Pay-It-Forward" && <AdTypesBox title="Ad Type" {...kit} />}
       <Box title={<>☆ Add Selections to My Digest</>} hint="Select one">

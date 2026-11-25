@@ -4533,3 +4533,7 @@ svg.glyph { color: #111 !important; }
 
 /* Cesar (Nov 24, Find Events): tighter gap between the main header and EDIT My Events */
 .em-page > .ed-preview { margin-top: 12px; }
+
+/* Cesar (Nov 25, Log Out): selections stacked vertically */
+.logout-radios { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+.logout-radios > * { flex-direction: column; align-items: flex-start; }
