@@ -68,8 +68,13 @@ export default function ListingsFilterPanel({ items, filters, setFilters, today,
 
       {tb && (
         <>
-          <GroupHead title={tb.group} open={groupOpen} onToggle={() => setGroupOpen((o) => !o)} />
-          {groupOpen && tb.boxes.map(subBox)}
+          {/* Cesar (Figma, Find Hospitality): Event Type / Services / Venues are their own collapsed boxes, no group header */}
+          {type === "Hospitality" ? tb.boxes.map(subBox) : (
+            <>
+              <GroupHead title={tb.group} open={groupOpen} onToggle={() => setGroupOpen((o) => !o)} />
+              {groupOpen && tb.boxes.map(subBox)}
+            </>
+          )}
         </>
       )}
 
