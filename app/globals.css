@@ -4540,3 +4540,6 @@ svg.glyph { color: #111 !important; }
 /* Cesar (Nov 25): every Submit button is burgundy */
 .btn-primary.btn-submit, .btn-submit { background: #7a1c1c !important; box-shadow: none !important; }
 .btn-primary.btn-submit:hover, .btn-submit:hover { background: #5e1414 !important; }
+
+/* Cesar (Nov 25): unregistered visitors see a grayed QR placeholder */
+.cw-qr-placeholder { width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 12px; box-sizing: border-box; background: #e6e6e6; color: #8a8a8a; border: 1px dashed #b5b5b5; border-radius: 8px; font-size: 14px; font-weight: 600; }
