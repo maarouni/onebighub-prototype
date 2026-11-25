@@ -4589,3 +4589,5 @@ svg.glyph { color: #111 !important; }
 .cw-page input[type="checkbox"]::after { content: none; }
 /* Nov 25: every filter and option label on Connect with Me is 14px */
 .cw-page .fp-option, .cw-page .fp-option * { font-size: 14px; }
+/* Nov 25: the word Default (and the other hints) on Connect with Me options: italic, black */
+.cw-page .fp-option em, .cw-page .fp-option i { font-style: italic; color: #000; font-weight: 400; }
