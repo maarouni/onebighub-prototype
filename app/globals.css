@@ -4550,6 +4550,6 @@ svg.glyph { color: #111 !important; }
 /* Nov 25 (Figma): Section 2 options are compact hollow "o" bullets; the selected one shows as bold burgundy text */
 .cw-s2 .ct-opt, .cw-s2 .cw-row-opt { padding: 0; font-size: 12px; line-height: 1.25; }
 .cw-s2 .cw-box { gap: 2px; }
-.cw-s2 .ct-opt input:checked { background: #fff; border-color: var(--cg-blue); box-shadow: none; }
 .cw-s2 .ct-opt input:checked + .fp-label { color: var(--cg-red); font-weight: 700; }
+.ct-opt .fp-label i, .ct-opt .fp-label em { font-weight: 400; }
 .cw-action-hint { text-align: left; }
