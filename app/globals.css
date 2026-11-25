@@ -4554,3 +4554,5 @@ svg.glyph { color: #111 !important; }
 .cw-s2 .ct-opt input:checked + .fp-label { color: var(--cg-red); font-weight: 700; }
 .ct-opt .fp-label i, .ct-opt .fp-label em { font-weight: 400; }
 .cw-action-hint { text-align: left; }
+/* Nov 25: two extra spaces between the radio and "ADD to My Referrals" */
+.cw-s2 .cw-row-opt .fp-label { padding-left: 8px; }
