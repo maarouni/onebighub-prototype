@@ -94,22 +94,46 @@ function ProfileForm() {
   const [ready, setReady] = useState(false);
   useEffect(() => { setData(load()); setReady(true); }, []);
   useEffect(() => { if (ready) save(data); }, [data, ready]);
+  const pick = (k, v) => setData((d) => ({ ...d, [k]: v }));
+  const radios = (name, key, opts) => opts.map((o) => (
+    <label key={o} className="rm2-opt"><input type="radio" name={name} checked={data[key] === o} onChange={() => pick(key, o)} /> {o}</label>
+  ));
+  const checks = (key, opts) => opts.map((o) => (
+    <label key={o} className="rm2-opt"><input type="checkbox" checked={(data[key] || []).includes(o)}
+      onChange={() => pick(key, (data[key] || []).includes(o) ? data[key].filter((x) => x !== o) : [...(data[key] || []), o])} /> {o}</label>
+  ));
+  const deal = (key) => (
+    <label className="rm2-opt"><input type="radio" name={`${key}-req`} checked={data[`${key}Req`] === "req"} onChange={() => pick(`${key}Req`, "req")} /> Required <i>Deal-Killer</i></label>
+  );
+  const na = (key) => (
+    <label className="rm2-opt"><input type="radio" name={`${key}-req`} checked={(data[`${key}Req`] || "na") === "na"} onChange={() => pick(`${key}Req`, "na")} /> Not Applicable / No Response <i>Default</i></label>
+  );
+  const GENDER = ["Female — Straight", "Male — Straight", "Female — LGBTQ+", "Male — LGBTQ+"];
   return (
     <>
-      <SectionBar n={1} title="Personal Relationships" hint="Romantic Matchmaking · If applicable" defaultOpen>
-        <div className="rm2-item">
-          <div className="rm2-label">Identify as <i>Select one</i></div>
-          {["Not Applicable / No Response", "Female — Straight", "Male — Straight", "Female — LGBTQ+", "Male — LGBTQ+"].map((o) => (
-            <label key={o} className="rm2-opt"><input type="radio" name="identify" checked={data.identify === o} onChange={() => setData((d) => ({ ...d, identify: o }))} /> {o}</label>
-          ))}
-          <div className="rm2-label">Seeking Relationship <i>Select one</i></div>
-          {["Not Applicable", "Dating — Casual", "Dating — Serious"].map((o) => (
-            <label key={o} className="rm2-opt"><input type="radio" name="seeking-rel" checked={data.seekRel === o} onChange={() => setData((d) => ({ ...d, seekRel: o }))} /> {o}</label>
-          ))}
-          <div className="rm2-label">Brief, Sincere, Warm Introduction <i>Private until a match</i></div>
-          <textarea rows={4} placeholder="What do you offer and seek in a relationship? What would others say about you at your funeral?" value={data.intro || ""} onChange={(e) => setData((d) => ({ ...d, intro: e.target.value }))} />
+      <div className="rm2-bar">Me <i>Select all that apply</i></div>
+      <div className="rm2-bar">Seeking in Others <i>Select all that apply</i></div>
+      <div className="rm2-grid">
+        <div className="rm2-box"><b>Identify as</b> <i>Select one</i>{radios("identify", "identify", ["Not Applicable / No Response", ...GENDER])}</div>
+        <div className="rm2-box"><b>Identify as</b> <i>Select all that apply</i>{deal("identify")}{na("identify")}{checks("identifySeek", GENDER)}</div>
+        <div className="rm2-box"><b>Seeking Relationship</b> <i>Select one</i>{radios("seekRel", "seekRel", ["Not Applicable", "Dating — Casual", "Dating — Serious"])}</div>
+        <div className="rm2-box"><b>Seeking Relationship</b> <i>Select all that apply</i>{deal("seekRel")}{na("seekRel")}{checks("seekRelSeek", GENDER)}</div>
+        <div className="rm2-box"><b>Address</b> <i>Private</i><input placeholder="Submit Here" value={data.address || ""} onChange={(e) => pick("address", e.target.value)} />
+          <div className="rm2-row3"><input placeholder="City" value={data.city || ""} onChange={(e) => pick("city", e.target.value)} /><input placeholder="ZIP" value={data.zip || ""} onChange={(e) => pick("zip", e.target.value)} /><input placeholder="State" value={data.state || "CA"} onChange={(e) => pick("state", e.target.value)} /></div>
         </div>
-      </SectionBar>
+        <div className="rm2-box"><b>Their location is within a Maximum Radius from my address</b> <i>Private</i>{deal("radius")}{na("radius")}
+          <label className="rm2-opt">Max radius <input type="range" min="5" max="15000" value={data.radius || 5} onChange={(e) => pick("radius", Number(e.target.value))} /> {data.radius || 5} mi</label></div>
+        <div className="rm2-box"><b>Offering Referral for an introduction that results in a serious relationship</b>
+          <label className="rm2-opt"><input type="radio" name="ref" checked={(data.ref || "na") === "na"} onChange={() => pick("ref", "na")} /> Not Applicable / No Response <i>Default</i></label>
+          <input placeholder="$ xx,xxx" value={data.refAmt || ""} onChange={(e) => pick("refAmt", e.target.value)} />
+          <input placeholder="Brief Description — Submit Here" value={data.refDesc || ""} onChange={(e) => pick("refDesc", e.target.value)} /></div>
+        <div className="rm2-box"><b>Offering Referral for an introduction that results in a serious relationship</b>{deal("refSeek")}{na("refSeek")}</div>
+      </div>
+      <div className="rm2-box rm2-wide"><b>Brief, Sincere, Warm Introduction</b>
+        <label className="rm2-opt"><input type="radio" name="intro-na" checked={(data.introNa || "na") === "na"} onChange={() => pick("introNa", "na")} /> Not Applicable / No Response <i>Default</i></label>
+        <i>What do you offer and seek in a relationship? What would others say about you at your funeral?</i>
+        <textarea rows={6} placeholder="Submit Here" value={data.intro || ""} onChange={(e) => pick("intro", e.target.value)} />
+      </div>
       {ROMANTIC_SECTIONS.map((sec, i) => (
         <SectionBar key={sec.id} n={i + 2} title={sec.title} defaultOpen={false}>
           {sec.items.map((it) => <ItemRow key={it.id} item={it} data={data} setData={setData} />)}
@@ -176,9 +200,11 @@ function RomanticInner() {
       title={<>Connect&nbsp;&nbsp;<i className="pb-sub">Romantic Matchmaking</i></>} icon="connections" typeIcon="connections"
       intro={<><strong>Individual • Romantic Matchmaking.</strong> {label}.</>}>
       <div className="page rm2-page">
-        <nav className="rm2-views" aria-label="Romantic Matchmaking views">
+        <div className="rm2-filters">
+          <div className="rm2-fhead"><b>1</b> Filters</div>
+          <div className="rm2-fsub">Select one</div>
           {VIEWS.map(([k, l]) => <a key={k} href={`/connect/romantic?view=${k}`} className={view === k ? "on" : ""}>{l}</a>)}
-        </nav>
+        </div>
         {view === "how" && <How />}
         {view === "profile" && <ProfileForm />}
         {view === "matches" && <MatchList />}

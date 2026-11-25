@@ -169,7 +169,7 @@ function Inner({ digest }) {
       <PageTemplate
         section="connections"
         title={digest ? <>Connect&nbsp;&nbsp;<i className="pb-sub">My Digest</i></> : <>Connect&nbsp;&nbsp;<i className="pb-sub">Profiles</i></>}
-        typeIcon={digest ? "nodeGraph" : undefined}
+        typeIcon={digest ? "connections" : undefined}
         legend={false}
         activeAction={digest ? "digest" : viewing ? "details" : null}
         spacer
