@@ -8,7 +8,7 @@ import { Glyph } from "../../components/Icons";
 import { PagerRow } from "../../components/PromoKit";
 import { getProfile } from "../../lib/profile";
 import { getNetwork, SAMPLE_NETWORK, relsOf, MESSAGE_TEMPLATES, fillTemplate, saveMessage, addToNetwork } from "../../lib/connect";
-import { getUser, setUser } from "../../lib/auth";
+import { getUser, setUser, keepKnownName } from "../../lib/auth";
 
 const BLANK = { name: "", title: "", business: "", phone: "", email: "", city: "", state: "CA" };
 
@@ -70,7 +70,7 @@ export default function ConnectSteps46() {
     if (!lpw) return setLerr("Enter your password.");
     setLerr("");
     const name = lid.includes("@") ? lid.split("@")[0] : lid;
-    setUser({ name, identifier: lid.trim(), method: lid.includes("@") ? "email" : "mobile", joined: new Date().toISOString() });
+    setUser(keepKnownName({ name, identifier: lid.trim(), method: lid.includes("@") ? "email" : "mobile", joined: new Date().toISOString() }));
     setUserState(getUser());
     say(`Welcome back, ${name}.`);
   }

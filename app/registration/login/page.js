@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import PageTemplate from "../../components/PageTemplate";
 import { Field, Input, PasswordInput, OrLine } from "../../components/Form";
-import { setUser } from "../../lib/auth";
+import { setUser, keepKnownName } from "../../lib/auth";
 
 // Cesar's "Registration — Log In" (Figma Rev 261025). Continue → Index;
 // Rev 261108: Sign in with Google under OR, no Next Step box.
@@ -24,7 +24,7 @@ export default function LogIn() {
     setErrors(er);
     if (Object.keys(er).length) return;
     const name = id.includes("@") ? id.split("@")[0] : id;
-    setUser({ name, identifier: id.trim(), method: id.includes("@") ? "email" : "mobile", joined: new Date().toISOString() });
+    setUser(keepKnownName({ name, identifier: id.trim(), method: id.includes("@") ? "email" : "mobile", joined: new Date().toISOString() }));
     router.push((() => { const n = new URLSearchParams(window.location.search).get("next"); return n && n.startsWith("/") && !n.startsWith("//") ? n : null; })() || dest);
   }
 

@@ -5,6 +5,7 @@ import HubLogo from "./HubLogo";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { IconButton } from "./Icons";
+import { userInitials } from "../lib/auth";
 
 const USER_KEY = "mc_user_v1";
 
@@ -15,15 +16,6 @@ function readUser() {
   } catch {
     return null;
   }
-}
-
-function initials(name) {
-  if (!name) return "?";
-  const parts = name.trim().split(/\s+/);
-  return parts
-    .slice(0, 2)
-    .map((p) => p[0]?.toUpperCase())
-    .join("");
 }
 
 export default function NavBar() {
@@ -79,7 +71,7 @@ export default function NavBar() {
                   data-tip={`Logged in — ${user.name}`}
                   onClick={() => setMenuOpen((v) => !v)}
                 >
-                  {initials(user.name)}
+                  {userInitials(user)}
                 </button>
                 {menuOpen && (
                   <div className="nav-user-dropdown">
