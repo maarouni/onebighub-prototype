@@ -141,7 +141,7 @@ export default function PremierCalculator({ onConfirm, defaultOpen = true }) {
           </p>
 
           <div className="calc2-actions">
-            <button type="button" className="btn-primary" onClick={submit} disabled={submitted}>
+            <button type="button" className="btn-primary btn-submit" onClick={submit} disabled={submitted}>
               {submitted ? "✓ Submitted as Premier Listing" : "Submit as Premier Listing"}
             </button>
             <span className="nt-hint">Prototype — no payment is taken.</span>

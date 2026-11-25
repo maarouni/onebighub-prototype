@@ -110,7 +110,7 @@ export default function Identify() {
       </div>
       <OrLine />
       {err && <p className="ed-error">{err}</p>}
-      <button type="button" className="btn-primary" onClick={submit}>Submit</button>
+      <button type="button" className="btn-primary btn-submit" onClick={submit}>Submit</button>
       <p className="proto-note">Prototype: referrals are saved in this browser until the shared database is set up. Referral fees and payouts aren&rsquo;t calculated yet.</p>
     </ReferralShell>
   );

@@ -249,7 +249,7 @@ export default function ProfilePage() {
       <div className="box" id="interesting">
         <h2><Glyph name="gem" size={18} /> Interesting Things About Me</h2>
         <Area rows={4} value={p.interesting} onChange={set("interesting")} placeholder="Submit Here — hobbies, fun facts, causes you support, places you've lived…" />
-        <button type="button" className="btn-primary" style={{ marginTop: 10 }} onClick={save}>Submit</button>
+        <button type="button" className="btn-primary btn-submit" style={{ marginTop: 10 }} onClick={save}>Submit</button>
       </div>
 
       </SectionBar>

@@ -103,7 +103,7 @@ export default function Status() {
           <span className="ed-label">Select one at a time</span>
           <select value={tStatus} onChange={(e) => setTStatus(e.target.value)} style={{ padding: 8 }}>{TRANSACTION_STATUSES.map((s) => <option key={s}>{s}</option>)}</select>
           <Field label="Comments / Notes" wide><Area rows={2} value={tNote} onChange={setTNote} /></Field>
-          <button type="button" className="btn-primary" onClick={addTransaction}>Submit status</button>
+          <button type="button" className="btn-primary btn-submit" onClick={addTransaction}>Submit status</button>
           <a className="tpl-action" href={`/referrals/final?id=${encodeURIComponent(current.id)}`}>5. Submit Final Evaluations →</a>
         </div>
       </div>

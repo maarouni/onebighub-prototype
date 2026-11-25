@@ -143,7 +143,7 @@ export default function PostListingPage() {
         </label>
         {f.premier && <PremierCalculator onConfirm={setPaid} />}
 
-        <button type="submit" className="btn-primary" style={{ marginTop: 10 }}>Post Listing</button>
+        <button type="submit" className="btn-primary btn-submit" style={{ marginTop: 10 }}>Post Listing</button>
         <p className="proto-note">Until the shared database is set up, listings you post show only on this computer. After posting, use <b>Send my listings to Masoud</b> on the Products, Services, Memberships page to make them permanent for everyone.</p>
       </form>
     </PageTemplate>
