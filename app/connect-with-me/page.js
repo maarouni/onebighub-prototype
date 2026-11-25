@@ -15,7 +15,7 @@ import SignUpSection from "./SignUpSection";
 // 1 SCAN My QR Code · 2 Assign My Relationship & Notes (private) · 3 Sign Up / Log In
 // · 4 View My Network · 5 Send a Message · 6 Next Steps.
 // Connection Date, Time shows xx-xx-xx until a date is picked (MM-DD-YY, then the time).
-const fmtWhen = (v) => { const [d, t] = v.split("T"); const [y, m, dd] = d.split("-"); return `${m}-${dd}-${y.slice(2)}${t ? " " + t : ""}`; };
+const fmtWhen = (v) => { const [d, t] = v.split("T"); const [y, m, dd] = d.split("-"); return `${m}-${dd}-${y.slice(2)}${t ? "\u00a0\u00a0" + t : ""}`; };
 const nowLocal = () => { const d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 16); };
 const BLANK = { name: "", title: "", business: "", phone: "", email: "", city: "", state: "CA" };
 
