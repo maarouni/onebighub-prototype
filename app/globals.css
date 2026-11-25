@@ -4596,3 +4596,6 @@ svg.glyph { color: #111 !important; }
 .cw-filters .fp-box-title em { display: inline; margin: 0; }
 /* Nov 25: every Default word in Connect with Me option lists is italic and black */
 .cw-page .fp-option em, .cw-page .fp-label em, .cw-filters em { color: #000 !important; font-style: italic !important; }
+/* Nov 25: filter radios burgundy; the word Private in the filter titles is regular weight with a little more space before it */
+.cw-filters input[type="radio"], .cw-filters .fp-option input { accent-color: var(--cg-red); }
+.cw-filters .fp-box-title b i { font-weight: 400; margin-left: .6em; }
