@@ -4564,3 +4564,5 @@ svg.glyph { color: #111 !important; }
 /* Nov 25: all option labels, box headings and hints on Connect with Me are 14px */
 .ct-opt, .ct-opt .fp-label, .ct-opt .fp-label i, .ct-opt .fp-label b,
 .cw-box > span, .cw-box > span b, .cw-box > span i, .cw-action-hint i { font-size: 14px; }
+/* Nov 25: mini-card and elevator pitch text on Connect with Me is 14px everywhere */
+.cw-card, .cw-card *, .cw-pitch p, .cw-pitch-head, .cw-pitch-head * { font-size: 14px; }
