@@ -4561,3 +4561,6 @@ svg.glyph { color: #111 !important; }
 .cw-when-text { font-size: 12.5px; }
 .cw-cal { margin-left: 8px; border: 0; background: transparent; padding: 0; color: var(--cg-blue); cursor: pointer; display: inline-flex; }
 .cw-when-hidden { position: absolute; left: 0; bottom: 0; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+/* Nov 25: all option labels, box headings and hints on Connect with Me are 14px */
+.ct-opt, .ct-opt .fp-label, .ct-opt .fp-label i, .ct-opt .fp-label b,
+.cw-box > span, .cw-box > span b, .cw-box > span i, .cw-action-hint i { font-size: 14px; }
