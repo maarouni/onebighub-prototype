@@ -67,7 +67,7 @@ export default function SignUpSection({ step = 3 }) {
             </>
           )}
         </div>
-        {!loggedIn && (
+        {!loggedIn && auth === "signup" && (
           <div className="cw-signup" id="new-user">
             <p><b>Sign Up</b> <i>New User • Select one</i></p>
             <PersonCard p={preview} placeholder />
@@ -85,25 +85,19 @@ export default function SignUpSection({ step = 3 }) {
             <div className="em-center"><button type="button" className="cw-submit" onClick={submitAll}>Submit</button></div>
           </div>
         )}
+        {!loggedIn && auth === "login" && (
+          <div className="cw-signup" id="current-user">
+            <p className="big-q cw-center">Welcome Back !</p>
+            <label className="cw-box"><span><b>Email or Mobile</b> <i>Required</i></span><input value={lid} onChange={(e) => setLid(e.target.value)} placeholder="Submit Here  or  (xxx) xxx-xxxx" autoComplete="username" /></label>
+            <label className="cw-box"><span><b>Password</b> <i>Required</i></span><input type="password" value={lpw} onChange={(e) => setLpw(e.target.value)} placeholder="Submit Here" autoComplete="current-password" /></label>
+            <button type="button" className="cw-link" onClick={() => say("Password reset needs the shared database — not wired up in the prototype yet.")}><i>Forgot Password ?</i></button>
+            {lerr && <p className="ed-error">{lerr}</p>}
+            <div className="em-center"><button type="button" className="cw-submit cw-continue" onClick={logIn}>Continue</button></div>
+          </div>
+        )}
         {flash && <div className="fp-flash fp-flash-block">{flash}</div>}
       </SectionBar>
 
-      {!loggedIn && (
-        <>
-          <span id="current-user" />
-          <SectionBar n={`${step}a`} icon="login" title="Current User" hint="Log In">
-            <div className="cw-signup">
-              <p className="big-q cw-center">Welcome Back !</p>
-              <label className="cw-box"><span><b>Email or Mobile</b> <i>Required</i></span><input value={lid} onChange={(e) => setLid(e.target.value)} placeholder="Submit Here  or  (xxx) xxx-xxxx" autoComplete="username" /></label>
-              <label className="cw-box"><span><b>Password</b> <i>Required</i></span><input type="password" value={lpw} onChange={(e) => setLpw(e.target.value)} placeholder="Submit Here" autoComplete="current-password" /></label>
-              <button type="button" className="cw-link" onClick={() => say("Password reset needs the shared database — not wired up in the prototype yet.")}><i>Forgot Password ?</i></button>
-              {lerr && <p className="ed-error">{lerr}</p>}
-              <div className="em-center"><button type="button" className="cw-submit cw-continue" onClick={logIn}>Continue</button></div>
-              {flash && <div className="fp-flash fp-flash-block">{flash}</div>}
-            </div>
-          </SectionBar>
-        </>
-      )}
     </>
   );
 }
