@@ -4613,3 +4613,5 @@ svg.glyph { color: #111 !important; }
 .cw-filters .fp-box-title b em { font-weight: 400; }
 /* Nov 25: the counts column is right justified, under the last x of xxx,xxx */
 .cw-counts-t td:first-child { text-align: right; }
+/* Nov 25: the labels in the counts table sit two spaces to the right of the numbers */
+.cw-counts-t td:nth-child(2) { padding-left: 10px; }
