@@ -89,7 +89,7 @@ export default function ConnectSteps13() {
           : <div className="cw-qr-placeholder" aria-label="Your Custom QR Code Here">Your Custom QR Code Here</div>}</div>
         <CardAndPitch p={me} placeholder />
         <div className="cw-box cw-actions">
-            <span><b>Action</b> <i>Select one at a time</i></span>
+            <span className="cw-action-hint"><i>Select one at a time</i></span>
             {[["exchange", "Exchange Contact Info", true], ["scan", "SCAN Other's QR Code"], ["follow", "Connect and Follow"], ["copy", "Copy Link"]].map(([id, label, def]) => (
               <label key={id} className="fp-option ct-opt">
                 <input type="radio" name="cw-action" checked={action === id} onChange={() => pickAction(id)} />

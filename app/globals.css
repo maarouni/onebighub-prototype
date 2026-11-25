@@ -4552,3 +4552,4 @@ svg.glyph { color: #111 !important; }
 .cw-s2 .cw-box { gap: 2px; }
 .cw-s2 .ct-opt input:checked { background: #fff; border-color: var(--cg-blue); box-shadow: none; }
 .cw-s2 .ct-opt input:checked + .fp-label { color: var(--cg-red); font-weight: 700; }
+.cw-action-hint { text-align: left; }
