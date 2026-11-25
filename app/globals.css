@@ -4610,3 +4610,4 @@ svg.glyph { color: #111 !important; }
 .cw-net { grid-template-columns: 275px 1fr; }
 /* Nov 25: all filter boxes share one burgundy outline, like the Submit buttons */
 .cw-page .cw-filters .fp-box, .cw-filters .fp-box { border: 1.5px solid var(--cg-red) !important; }
+/* Nov 25: Follow-Up Status title on two lines: My Follow-Up Status / Private, Select one */
