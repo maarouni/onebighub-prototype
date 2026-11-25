@@ -121,7 +121,7 @@ export default function ViewProfile() {
         <div className="vp-two">
           {ind ? <MiniCard p={{ name: o.name, title: o.title, business: o.business, phone: o.phone, email: o.email, city: `${o.city}, ${o.state}` }} />
             : <div className="cw-box"><b className="cw-red">Summary / Elevator Pitch</b><p>{o.pitch || o.tagline}</p></div>}
-          {ind && <div className="cw-box"><b className="cw-red">{o.pitchTitle || "Elevator Pitch Title"}</b><p>{o.pitch || "A brief, persuasive summary that takes about 30 to 60 seconds to deliver."}</p></div>}
+          {ind && <div className="cw-box"><b className="cw-red">{o.pitchTitle || "Elevator Pitch"}</b><p>{o.pitch || "A brief, persuasive summary that takes about 30 to 60 seconds to deliver."}</p></div>}
         </div>
 
         <div className="cw-box">
