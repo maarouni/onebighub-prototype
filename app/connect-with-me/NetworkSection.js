@@ -54,7 +54,7 @@ export default function NetworkSection({ step = 3 }) {
         <div className={`cw-net ${showFilters ? "" : "cw-net-full"}`}>
           {showFilters && (
             <div className="cw-filters">
-              <div className="cw-mini-bar"><b>Filters</b><button type="button" onClick={() => setShowFilters(false)}>Hide</button></div>
+              <div className="cw-mini-bar"><b>Filters</b></div>
               <Box title="View as" hint="Select one">
                 <Option type="radio" name="cw-view" checked={view === "graph"} onChange={() => setView("graph")} label="Graph" def />
                 <Option type="radio" name="cw-view" checked={view === "list"} onChange={() => setView("list")} label="List" />
