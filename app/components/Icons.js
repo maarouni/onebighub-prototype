@@ -56,6 +56,7 @@ const P = {
   dinner: <><path d="M7 3v8a2 2 0 0 0 2 2v8" /><path d="M5 3v6M9 3v6" /><path d="M17 21V3c-2 0-3 3-3 7h3" /></>,
   workshop: <><rect x="3" y="4" width="18" height="12" rx="1.5" /><path d="M12 16v4M8 20h8" /><path d="M7 12l3-3 2 2 4-4" /></>,
   logout: <><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><path d="M16 17l5-5-5-5" /><path d="M21 12H9" /></>,
+  power: <><path d="M18.36 6.64a9 9 0 1 1-12.73 0" /><path d="M12 2v10" /></>, // Cesar (Nov 25, Log Out): power icon
   email: <><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 7l9 6 9-6" /></>,
   verifyEmail: <><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 7l9 6 9-6" /><path d="M14.5 17.5l2 2 4-4" /></>,
   miniCard: <><rect x="2" y="5" width="20" height="14" rx="2" /><circle cx="8" cy="11" r="2.2" /><path d="M5 16c.6-1.6 1.7-2.4 3-2.4s2.4.8 3 2.4" /><path d="M14 10h5M14 13h4" /></>,

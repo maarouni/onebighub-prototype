@@ -22,7 +22,7 @@ export default function LogOut() {
   }
 
   return (
-    <PageTemplate section={null} title="Registration" subtitle="Log Out" icon="logout" narrow tiles={false}>
+    <PageTemplate section={null} title="Registration" subtitle="Log Out" icon="power" narrow tiles={false}>
       <div className="box auth-box">
         {done ? (
           <>
