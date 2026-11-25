@@ -4558,7 +4558,7 @@ svg.glyph { color: #111 !important; }
 .cw-s2 .cw-row-opt .fp-label { padding-left: 8px; }
 /* Nov 25: Connection Date, Time shows xx-xx-xx with the calendar button right after it */
 .cw-when { display: flex; align-items: center; gap: 6px; min-height: 22px; position: relative; }
-.cw-when-text { font-size: 12.5px; }
+.cw-when-text { font-size: 14px; }
 .cw-cal { margin-left: 8px; border: 0; background: transparent; padding: 0; color: var(--cg-blue); cursor: pointer; display: inline-flex; }
 .cw-when-hidden { position: absolute; left: 0; bottom: 0; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 /* Nov 25: all option labels, box headings and hints on Connect with Me are 14px */
