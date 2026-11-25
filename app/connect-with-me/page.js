@@ -14,6 +14,8 @@ import SignUpSection from "./SignUpSection";
 // Connect with Me ! — Cesar's Figma (Nov 25 email, /UserName/ConnectWithMe):
 // 1 SCAN My QR Code · 2 Assign My Relationship & Notes (private) · 3 Sign Up / Log In
 // · 4 View My Network · 5 Send a Message · 6 Next Steps.
+// Connection Date, Time shows xx-xx-xx until a date is picked (MM-DD-YY, then the time).
+const fmtWhen = (v) => { const [d, t] = v.split("T"); const [y, m, dd] = d.split("-"); return `${m}-${dd}-${y.slice(2)}${t ? " " + t : ""}`; };
 const BLANK = { name: "", title: "", business: "", phone: "", email: "", city: "", state: "CA" };
 
 export default function ConnectSteps13() {
@@ -121,7 +123,13 @@ export default function ConnectSteps13() {
           </div>
           <div className="cw-s2-right">
             <label className="cw-box"><span><b>Connection Date, Time</b> <i>EDIT if applicable</i></span>
-              <input type="datetime-local" value={r.when} onChange={(e) => setRel("when", e.target.value)} /></label>
+              <div className="cw-when">
+                <span className="cw-when-text">{r.when ? fmtWhen(r.when) : <span className="cw-muted">xx-xx-xx</span>}</span>
+                <button type="button" className="cw-cal" aria-label="Pick date and time" onClick={() => { const i = document.getElementById("cw-when-input"); i?.showPicker ? i.showPicker() : i?.focus(); }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M3 10h18M8 3v4M16 3v4" /></svg>
+                </button>
+                <input id="cw-when-input" type="datetime-local" tabIndex={-1} aria-hidden="true" className="cw-when-hidden" value={r.when} onChange={(e) => setRel("when", e.target.value)} />
+              </div></label>
             <label className="cw-box"><span><b>Connection Event / Location</b> <i>EDIT if applicable</i></span>
               <i className="cw-muted">Auto-saves info for next contact at event</i>
               <input value={r.event} onChange={(e) => setRel("event", e.target.value)} placeholder="Submit Here" /></label>
