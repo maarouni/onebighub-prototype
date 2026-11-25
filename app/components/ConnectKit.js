@@ -67,11 +67,13 @@ export function PersonCard({ p, picture, placeholder = false, label }) {
 }
 
 export function PitchCard({ p, placeholder = false }) {
-  const title = p?.pitchTitle || (placeholder ? "Title Elevator Pitch" : "");
+  const title = p?.pitchTitle || "";
   const text = p?.pitch || (placeholder ? "A brief, persuasive summary of yourself that takes about 30 to 60 seconds to deliver – roughly the length of a short elevator ride." : "");
   return (
     <div className="cw-card cw-pitch">
-      <b className="cw-red">{title || "Elevator Pitch"}</b>
+      {title
+        ? <b className="cw-red">{title}</b>
+        : <><b className="cw-red">Title</b> <i className="cw-pitch-label">Elevator Pitch</i></>}
       <p>{text || <span className="cw-muted">No elevator pitch yet. <a href="/profile">Add one</a></span>}</p>
       {/* Nov 20 (Masoud): no Resume / Cover Letter / LinkedIn buttons here */}
     </div>
