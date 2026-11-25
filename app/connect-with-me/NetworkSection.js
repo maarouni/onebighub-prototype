@@ -59,7 +59,7 @@ export default function NetworkSection({ step = 3 }) {
                 <Option type="radio" name="cw-view" checked={view === "graph"} onChange={() => setView("graph")} label="Graph" def />
                 <Option type="radio" name="cw-view" checked={view === "list"} onChange={() => setView("list")} label="List" />
               </Box>
-              <Box title={<>My Follow-Up Status <i>Private</i></>} hint="Select one">
+              <Box title={<>My Follow-Up Status <i>Private,</i></>} hint="Select one">
                 <Option type="radio" name="cw-fu" checked={follow === "all"} onChange={() => setFollow("all")} label="All" def />
                 <Option type="radio" name="cw-fu" checked={follow === "none"} onChange={() => setFollow("none")} label="None" />
                 {FOLLOW_UP.map((f) => (
