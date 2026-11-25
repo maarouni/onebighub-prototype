@@ -4611,3 +4611,5 @@ svg.glyph { color: #111 !important; }
 /* Nov 25: all filter boxes share one burgundy outline, like the Submit buttons */
 .cw-page .cw-filters .fp-box, .cw-filters .fp-box { border: 1.5px solid var(--cg-red) !important; }
 /* Nov 25: Follow-Up Status title on two lines: My Follow-Up Status / Private, Select one */
+/* Nov 25: "Select one" in the Follow-Up title is regular weight */
+.cw-filters .fp-box-title b em { font-weight: 400; }
