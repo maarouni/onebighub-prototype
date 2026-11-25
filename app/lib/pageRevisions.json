@@ -53,7 +53,7 @@
   "/notifications": "2026-11-18T16:54:41.000Z",
   "/organizer/[name]": "2026-11-20T17:19:56.000Z",
   "/pages": "2026-11-17T02:20:14.000Z",
-  "/profile": "2026-11-25T19:32:28.529Z",
+  "/profile": "2026-11-25T19:32:29.000Z",
   "/refer": "2026-10-26T18:58:51.000Z",
   "/referrals": "2026-11-16T03:56:11.000Z",
   "/referrals/evaluations": "2026-11-16T03:56:11.000Z",
@@ -61,9 +61,9 @@
   "/referrals/message": "2026-11-16T03:56:11.000Z",
   "/referrals/reminders": "2026-11-16T03:56:11.000Z",
   "/referrals/status": "2026-11-16T03:56:11.000Z",
-  "/registration": "2026-11-25T18:46:44.000Z",
+  "/registration": "2026-11-25T19:39:28.168Z",
   "/registration/login": "2026-11-25T18:23:47.000Z",
-  "/registration/logout": "2026-11-25T18:46:44.000Z",
+  "/registration/logout": "2026-11-25T19:39:28.168Z",
   "/registration/signup": "2026-11-17T02:24:16.000Z",
   "/submit": "2026-11-25T18:33:46.000Z"
 }

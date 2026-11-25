@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import PageTemplate from "../../components/PageTemplate";
-import { Radios } from "../../components/Form";
 import { clearUser } from "../../lib/auth";
 
 // Cesar's "Registration — Log Out" (Figma Rev 261025).
@@ -23,7 +22,7 @@ export default function LogOut() {
 
   return (
     <PageTemplate section={null} title="Registration" subtitle="Log Out" icon="power" narrow tiles={false}>
-      <div className="box auth-box">
+      <div className="box auth-box" style={{ maxWidth: 760, margin: "0 auto" }}>
         {done ? (
           <>
             <p className="sad-face" aria-hidden="true">☹</p>
@@ -36,9 +35,14 @@ export default function LogOut() {
             <p className="big-q">Sooo ... you want to leave us ?</p>
             <span className="ed-label">Select one</span>
             {/* Cesar (Nov 25): selections stacked vertically; Submit centered, burgundy */}
-            <div className="logout-radios">
-              <Radios name="lo" value={pick} onChange={setPick}
-                options={[{ id: "stay", label: "Oops, not now, keep me logged in" }, { id: "out", label: "Yes, Log Out" }]} />
+            {/* Cesar's Figma: plain "o" choices stacked vertically; blue = stay, burgundy = log out */}
+            <div className="logout-radios" role="radiogroup" aria-label="Select one">
+              {[{ id: "stay", label: "Oops, not now, keep me logged in", color: "#2a3fb5" }, { id: "out", label: "Yes, Log Out", color: "#7a1c1c" }].map((o) => (
+                <button key={o.id} type="button" role="radio" aria-checked={pick === o.id} onClick={() => setPick(o.id)}
+                  style={{ background: "none", border: 0, padding: "4px 0", cursor: "pointer", color: o.color, fontWeight: pick === o.id ? 700 : 400, fontSize: 16 }}>
+                  o&nbsp; {o.label}
+                </button>
+              ))}
             </div>
             <div style={{ textAlign: "center", marginTop: 16 }}>
               <button type="button" onClick={submit}
