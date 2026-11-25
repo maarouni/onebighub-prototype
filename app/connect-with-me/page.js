@@ -14,7 +14,6 @@ import SignUpSection from "./SignUpSection";
 // Connect with Me ! — Cesar's Figma (Nov 25 email, /UserName/ConnectWithMe):
 // 1 SCAN My QR Code · 2 Assign My Relationship & Notes (private) · 3 Sign Up / Log In
 // · 4 View My Network · 5 Send a Message · 6 Next Steps.
-const nowLocal = () => { const d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 16); };
 const BLANK = { name: "", title: "", business: "", phone: "", email: "", city: "", state: "CA" };
 
 export default function ConnectSteps13() {
@@ -43,7 +42,6 @@ export default function ConnectSteps13() {
       setLink(l);
       QRCode.toDataURL(l, { width: 240, margin: 1 }).then(setQr).catch(() => {});
     };
-    setR((x) => ({ ...x, when: nowLocal() }));
     build();
     window.addEventListener("mc-auth-changed", build);
     return () => window.removeEventListener("mc-auth-changed", build);
@@ -95,7 +93,7 @@ export default function ConnectSteps13() {
             {[["exchange", "Exchange Contact Info", true], ["scan", "SCAN Other's QR Code"], ["follow", "Connect and Follow"], ["copy", "Copy Link"]].map(([id, label, def]) => (
               <label key={id} className="fp-option ct-opt">
                 <input type="radio" name="cw-action" checked={action === id} onChange={() => pickAction(id)} />
-                <span className="fp-label">{label}{def && <i> Default</i>}</span>
+                <span className={`fp-label${id === "exchange" ? " cw-red" : ""}`}>{label}{def && <i> Default</i>}</span>
               </label>
             ))}
           </div>
