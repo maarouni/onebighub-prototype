@@ -106,7 +106,7 @@ export default function NetworkSection({ step = 3 }) {
             {["1", "2", "3"].map((l) => <tr key={l}><td>{n((p) => p.level === l)}</td><td>My Connect</td><td>Level {l}</td></tr>)}
             <tr className="cw-ct-gap"><td>xxx,xxx</td><td>Users Near Me</td><td>Geo-locations must be enabled</td></tr>
             <tr><td>{people.length}</td><td>My Network</td><td>Levels 1 - 3&nbsp;&nbsp;My Introductions + My Connect</td></tr>
-            <tr><td>xxx,xxx</td><td>onebig<span className="cw-red">HUB</span></td><td>All Levels</td></tr>
+            <tr><td>{n((p) => p.level === "intro") + ["1", "2", "3"].reduce((sum, l) => sum + n((p) => p.level === l), 0) + people.length}</td><td>onebig<span className="cw-red">HUB</span></td><td>All Levels</td></tr>
           </tbody>
         </table>
       </SectionBar>
