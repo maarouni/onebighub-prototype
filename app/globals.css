@@ -4580,3 +4580,5 @@ svg.glyph { color: #111 !important; }
 .cw-dispf { font-size: 14px; }
 /* Nov 25: SCAN My QR Code title is 18px */
 .cw-sec-stack .cw-bar b { font-size: 18px; }
+/* Nov 25: Connect with Me section titles 1-6 are 18px, like SCAN My QR Code */
+.cw-page .cw-bar b { font-size: 18px; }
