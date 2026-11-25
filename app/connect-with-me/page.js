@@ -59,7 +59,7 @@ export default function ConnectSteps13() {
   function toggleRel(id) {
     setR((x) => {
       if (x.rels.includes(id)) return { ...x, rels: x.rels.filter((y) => y !== id) };
-      if (x.rels.length >= 2) { say("Select 2 max — untick one first."); return x; }
+      if (x.rels.length >= 2) { say("Select 2 maximum — untick one first."); return x; }
       return { ...x, rels: [...x.rels, id] };
     });
   }
@@ -105,7 +105,7 @@ export default function ConnectSteps13() {
         <div className="cw-s2">
           <div className="cw-s2-left">
             <div className="cw-box">
-              <span><b>My Relationship</b> <i>Select 2 max</i></span>
+              <span><b>My Relationship</b> <i>Select 2 maximum</i></span>
               {MY_RELATIONSHIP.map((o) => (
                 <label key={o.id} className="fp-option ct-opt"><input type="checkbox" checked={r.rels.includes(o.id)} onChange={() => toggleRel(o.id)} /> <span className="fp-label">{o.label}{o.def && <i> Default</i>}</span></label>
               ))}
