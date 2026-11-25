@@ -8,11 +8,12 @@ import { getProfile } from "../lib/profile";
 import { getUser } from "../lib/auth";
 import { FOLLOW_UP, MY_RELATIONSHIP, addToNetwork } from "../lib/connect";
 import NetworkSection from "./NetworkSection";
+import { MessageSection, NextSection } from "./MessageSections";
+import SignUpSection from "./SignUpSection";
 
-// Connect with Me ! — Steps 1-3 (Cesar's Figma Rev 261115, /UserName/ConnectWithMe):
-// 1 SCAN My QR Code · 2 Assign My Relationship & Notes (private) · 3 View My Network
-// (Nov 20 redesign). Steps 4-6 (Sign Up / Log In, Send a Message, Next Steps)
-// are on /connect-with-me/network.
+// Connect with Me ! — Cesar's Figma (Nov 25 email, /UserName/ConnectWithMe):
+// 1 SCAN My QR Code · 2 Assign My Relationship & Notes (private) · 3 Sign Up / Log In
+// · 4 View My Network · 5 Send a Message · 6 Next Steps.
 const nowLocal = () => { const d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 16); };
 const BLANK = { name: "", title: "", business: "", phone: "", email: "", city: "", state: "CA" };
 
@@ -137,7 +138,13 @@ export default function ConnectSteps13() {
         {/* Cesar (Nov 25): Section 2 has no Submit button */}
       </SectionBar>
 
-      <NetworkSection step={3} />
+      <SignUpSection step={3} />
+
+      <NetworkSection step={4} />
+
+      <MessageSection step={5} />
+
+      <NextSection step={6} />
 
     </ConnectPage>
   );
