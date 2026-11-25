@@ -4423,7 +4423,7 @@ b + i, b + em, strong + i, strong + em,
 .cw-bar i, .pk-label > i, .pk-opt > i, .ct-opt .fp-label i { margin-left: .32em; }
 /* Nov 20 (Masoud): "HOT !" — bold italic burgundy everywhere */
 .cw-hot { color: var(--cg-red, #7a1010) !important; font-style: italic !important; font-weight: 700; }
-.cw-sample-title { display: block; text-align: center; font-size: 15px; margin: 4px 0 2px; }
+.cw-sample-title { display: block; text-align: center; font-size: 14px; margin: 4px 0 2px; }
 .cw-counts-t { width: 100%; border: 1px solid #bbb; border-radius: 12px; border-collapse: separate; border-spacing: 0; padding: 10px 14px; font-size: 13px; background: #fff; }
 .cw-counts-t td { padding: 2px 10px 2px 0; vertical-align: top; }
 .cw-counts-t td:first-child { color: var(--cg-red); font-weight: 700; width: 70px; white-space: nowrap; }
