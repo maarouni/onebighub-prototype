@@ -114,7 +114,7 @@ export default function ConnectSteps13() {
             <div className="cw-box">
               <span><b>Follow-Up Status</b> <i>Select one</i></span>
               {FOLLOW_UP.map((o) => (
-                <label key={o.id} className="fp-option ct-opt"><input type="radio" name="cw-fu" checked={r.followUp === o.id} onChange={() => setRel("followUp", o.id)} />
+                <label key={o.id} className="fp-option ct-opt"><input type="radio" name="cw-followup" checked={r.followUp === o.id} onChange={() => setRel("followUp", o.id)} />
                   <span className="fp-label">{o.hot ? <>05 <b className="cw-hot">HOT !</b></> : o.label} <i>{o.hint}</i></span></label>
               ))}
             </div>
