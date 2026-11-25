@@ -137,11 +137,10 @@ export default function ConnectSteps13() {
                 </button>
                 <input id="cw-when-input" type="datetime-local" tabIndex={-1} aria-hidden="true" className="cw-when-hidden" value={r.when} onChange={(e) => setRel("when", e.target.value)} />
               </div></label>
-            <label className="cw-box"><span><b>Connection Event / Location</b> <i>EDIT if applicable</i></span>
-              <i className="cw-muted">Auto-saves info for next contact at event</i>
+            <label className="cw-box"><span><b>Connection Event / Location</b> <i>EDIT if applicable</i>{"\u00a0\u00a0"}<i className="cw-muted">Auto-saves info for next contact at event</i></span>
               <input value={r.event} onChange={(e) => setRel("event", e.target.value)} placeholder="Submit Here" /></label>
             <div className="cw-citystate2">
-              <label className="cw-box"><span><b>City</b> <i>EDIT if applicable</i></span><input value={r.city} onChange={(e) => setRel("city", e.target.value)} placeholder="Submit Name" /></label>
+              <label className="cw-box"><span><b>City</b> <i>EDIT if applicable</i></span><input value={r.city} onChange={(e) => setRel("city", e.target.value)} placeholder="Submit Here" /></label>
               <label className="cw-box"><b>State</b><input value={r.state} onChange={(e) => setRel("state", e.target.value)} placeholder="CA" maxLength={2} /></label>
             </div>
             <label className="cw-box"><b>Introduced by</b><input value={r.introducedBy} onChange={(e) => setRel("introducedBy", e.target.value)} placeholder="Submit Name" /></label>
