@@ -71,9 +71,9 @@ export function PitchCard({ p, placeholder = false }) {
   const text = p?.pitch || (placeholder ? "A brief, persuasive summary of yourself that takes about 30 to 60 seconds to deliver – roughly the length of a short elevator ride." : "");
   return (
     <div className="cw-card cw-pitch">
-      {title
+      <div className="cw-pitch-head">{title
         ? <b className="cw-red">{title}</b>
-        : <><b className="cw-red">Title</b> <i className="cw-pitch-label">Elevator Pitch</i></>}
+        : <><b className="cw-red">Title</b> <i className="cw-pitch-label">Elevator Pitch</i></>}</div>
       <p>{text || <span className="cw-muted">No elevator pitch yet. <a href="/profile">Add one</a></span>}</p>
       {/* Nov 20 (Masoud): no Resume / Cover Letter / LinkedIn buttons here */}
     </div>

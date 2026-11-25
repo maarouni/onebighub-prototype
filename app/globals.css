@@ -3499,6 +3499,7 @@ body:has(.site-hero-edit) .navbar, body:has(.site-hero-edit) .site-footer-v2 { b
 .cw-blue { color: var(--cg-blue); }
 .cw-muted { color: #888; }
 .cw-pitch p { margin: 0; font-size: 12.5px; line-height: 1.35; font-style: italic; color: #8a8a8a; }
+.cw-pitch-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px; }
 .cw-pitch .cw-pitch-label { font-style: italic; color: #000; }
 .cw-pitch-btns { display: flex; gap: 6px; flex-wrap: wrap; }
 .cw-chip { border: 1px solid var(--cg-box-line); border-radius: 999px; padding: 1px 10px; font-size: 12px; color: var(--cg-blue); text-decoration: none; background: #f7f7f7; }
