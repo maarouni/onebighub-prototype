@@ -6,7 +6,7 @@ import { addToNetwork } from "../lib/connect";
 import { getUser, setUser, keepKnownName } from "../lib/auth";
 
 // Connect with Me ! — Section 3 (Cesar's Figma, Nov 25 email):
-// 3a Current User (already logged in) · 3b Sign Up / Log In (New User form) · Log In (Current User).
+// 3 Sign Up / Log In (New User form) · 3a Log In (Current User).
 const BLANK = { name: "", title: "", business: "", phone: "", email: "", city: "", state: "CA" };
 
 export default function SignUpSection({ step = 3 }) {
@@ -55,18 +55,8 @@ export default function SignUpSection({ step = 3 }) {
 
   return (
     <>
-      <span id="current-status" />
-      <SectionBar n={`${step}a`} icon="login" title="Current User" hint="Already Logged In">
-        <div className="cw-signup">
-          {loggedIn
-            ? <p className="big-q cw-center">Welcome, {user.name} !</p>
-            : <p className="cw-center cw-muted"><i>Not logged in yet &mdash; use 3b or 3c below.</i></p>}
-          {loggedIn && <p className="cw-center"><i>You&rsquo;re logged in &mdash; continue to Section 5 to send a message.</i></p>}
-        </div>
-      </SectionBar>
-
       <span id="signup" />
-      <SectionBar n={`${step}b`} icon="login" title="Sign Up / Log In" hint="Select one, if applicable">
+      <SectionBar n={step} icon="login" title="Sign Up / Log In" hint="Select one, if applicable">
         <div className="cw-box">
           {loggedIn ? <p>You&rsquo;re logged in as <b>{user?.name}</b>.</p> : (
             <>
@@ -101,7 +91,7 @@ export default function SignUpSection({ step = 3 }) {
       {!loggedIn && (
         <>
           <span id="current-user" />
-          <SectionBar n={`${step}c`} icon="login" title="Current User" hint="Log In">
+          <SectionBar n={`${step}a`} icon="login" title="Current User" hint="Log In">
             <div className="cw-signup">
               <p className="big-q cw-center">Welcome Back !</p>
               <label className="cw-box"><span><b>Email or Mobile</b> <i>Required</i></span><input value={lid} onChange={(e) => setLid(e.target.value)} placeholder="Submit Here  or  (xxx) xxx-xxxx" autoComplete="username" /></label>
