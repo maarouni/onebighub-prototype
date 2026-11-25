@@ -56,7 +56,7 @@ export default function SignUpSection({ step = 3 }) {
   return (
     <>
       <span id="signup" />
-      <SectionBar n={`${step}b`} icon="login" title="Sign Up / Log In" hint="Select one, if applicable">
+      <SectionBar n={step} icon="login" title="Sign Up / Log In" hint="Select one, if applicable">
         <div className="cw-box">
           {loggedIn ? <p>You&rsquo;re logged in as <b>{user?.name}</b>.</p> : (
             <>
@@ -91,7 +91,7 @@ export default function SignUpSection({ step = 3 }) {
       {!loggedIn && (
         <>
           <span id="current-user" />
-          <SectionBar n={`${step}c`} icon="login" title="Current User" hint="Log In">
+          <SectionBar n={`${step}a`} icon="login" title="Current User" hint="Log In">
             <div className="cw-signup">
               <p className="big-q cw-center">Welcome Back !</p>
               <label className="cw-box"><span><b>Email or Mobile</b> <i>Required</i></span><input value={lid} onChange={(e) => setLid(e.target.value)} placeholder="Submit Here  or  (xxx) xxx-xxxx" autoComplete="username" /></label>
