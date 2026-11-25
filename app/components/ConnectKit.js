@@ -67,7 +67,7 @@ export function PersonCard({ p, picture, placeholder = false, label }) {
 }
 
 export function PitchCard({ p, placeholder = false }) {
-  const title = p?.pitchTitle || (placeholder ? "Elevator Pitch Title" : "");
+  const title = p?.pitchTitle || (placeholder ? "Title Elevator Pitch" : "");
   const text = p?.pitch || (placeholder ? "A brief, persuasive summary of yourself that takes about 30 to 60 seconds to deliver – roughly the length of a short elevator ride." : "");
   return (
     <div className="cw-card cw-pitch">
