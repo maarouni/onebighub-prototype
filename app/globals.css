@@ -4574,3 +4574,7 @@ svg.glyph { color: #111 !important; }
 .cw-netmain { height: 100%; }
 .cw-netbox { flex: 1; display: flex; flex-direction: column; }
 .cw-sample-title { font-weight: 400; margin-bottom: 72px; }
+/* Nov 25: gold bars other than the section bars use the same sizes: title 20px, text 14px */
+.cw-mini-bar { font-size: 14px; }
+.cw-mini-bar b { font-size: 20px; }
+.cw-dispf { font-size: 14px; }
