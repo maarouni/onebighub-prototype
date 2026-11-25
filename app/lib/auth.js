@@ -14,7 +14,14 @@ export function setUser(u) {
 // Two-letter user mark for the header: first + last initials (CP for Cesar Plata).
 export function userInitials(u) {
   if (!u) return "?";
-  const words = u.first && u.last ? [u.first, u.last] : (u.name || "").trim().split(/\s+/).filter(Boolean);
+  let words = u.first && u.last ? [u.first, u.last] : (u.name || "").trim().split(/\s+/).filter(Boolean);
+  // Email/mobile logins only know a single word (the email prefix): use the full name from the saved profile.
+  if (words.length < 2) {
+    try {
+      const pn = (JSON.parse(localStorage.getItem("mc_profile_v1") || "{}").name || "").trim().split(/\s+/).filter(Boolean);
+      if (pn.length > 1) words = pn;
+    } catch {}
+  }
   if (!words.length) return "?";
   return words.length > 1
     ? (words[0][0] + words[words.length - 1][0]).toUpperCase()
