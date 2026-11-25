@@ -4599,3 +4599,12 @@ svg.glyph { color: #111 !important; }
 /* Nov 25: filter radios burgundy; the word Private in the filter titles is regular weight with a little more space before it */
 .cw-filters input[type="radio"], .cw-filters .fp-option input { accent-color: var(--cg-red); }
 .cw-filters .fp-box-title b i { font-weight: 400; margin-left: .6em; }
+/* Nov 25: filter box title and its hint on one line */
+.cw-filters .fp-box-title { white-space: nowrap; }
+.cw-filters .fp-box-title b { white-space: nowrap; }
+/* Nov 25: filter radios drawn as burgundy filled circles (not the browser's orange) */
+.cw-filters input[type="radio"] { -webkit-appearance: none; appearance: none; width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--cg-blue); background: #fff; margin: 0 6px 0 0; flex-shrink: 0; }
+.cw-filters input[type="radio"]:checked { background: var(--cg-red); border-color: var(--cg-red); box-shadow: inset 0 0 0 2px #fff; }
+.cw-filters .fp-box-title { flex-wrap: nowrap; }
+/* Nov 25: filter column wide enough for the title and its hint on one line */
+.cw-net { grid-template-columns: 275px 1fr; }
