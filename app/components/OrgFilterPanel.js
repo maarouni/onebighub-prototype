@@ -19,9 +19,9 @@ const NETWORK_LEVELS = [["all", "All"], ["none", "None"], ["intro1", "My Introdu
 const EMPLOYEE_RANGES = ["All", "0 - 5", "6 - 20", "21 - 50", "51 - 100", "101 - 250", "251 - 500", "501 +"];
 // Nov 23 (Cesar): new profile type "Individual — Romantic Matchmaking" (still in Figma progress).
 const PROFILE_TYPES = [["Individual", ["indPersonal", "indProfessional"]], ["Business", ["biz"]], ["Organization", ["org"]], ["Group", ["group"]],
-  // Nov 24 (Cesar, 9:43 PM Figma): Political Candidate, then Romantic Matchmaking; two-line labels.
-  [<span key="pc" className="pt-two">Individual<br /><i>Political Candidate</i></span>, ["indPolitical"], "political"],
-  [<span key="rm" className="pt-two">Individual<br /><i>Romantic Matchmaking</i></span>, ["indRomantic"], "romantic"]];
+  // Nov 24 (Cesar, 9:43 PM Figma): Political Candidate, then Romantic Matchmaking; one-line labels (10:10 PM).
+  [<span key="pc" className="pt-two">Individual&nbsp;&nbsp;<i>Political Candidate</i></span>, ["indPolitical"], "political"],
+  [<span key="rm" className="pt-two">Individual&nbsp;&nbsp;<i>Romantic Matchmaking</i></span>, ["indRomantic"], "romantic"]];
 
 export default function OrgFilterPanel({ items, filters, setFilters, ctx, onHide, onDisplay, digest = false, setName = "none", onPickSet, onSaveSet, onClearSet, sets = {} }) {
   const count = (key, v) => countOrgsFor(items, filters, { [key]: key === "posted" ? v : [v] }, ctx);

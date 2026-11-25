@@ -4524,3 +4524,9 @@ svg.glyph { color: #111 !important; }
 .rm2-row3 { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 6px; }
 .rm2-wide { margin-top: 2px; }
 .pt-two i { font-size: 13px; }
+
+/* Nov 24 10:10 PM (Cesar): one-line profile-type labels; radio aligned with the text, not centered */
+.fp-option:has(.pt-two) { align-items: flex-start; }
+.fp-option:has(.pt-two) input { margin-top: 5px; }
+.pt-two { white-space: nowrap; }
+.pt-two i { font-style: italic; }
