@@ -31,13 +31,21 @@ export default function ConnectSteps13() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    const p = getProfile();
-    setMe(p);
-    setLoggedIn(!!getUser());
+    // Cesar (Nov 25): the QR follows whoever is logged in; rebuild on login / logout.
+    const build = () => {
+      const p = getProfile();
+      const u = getUser();
+      setMe(p);
+      setLoggedIn(!!u);
+      const handle = u?.username || p.username || "guest";
+      const l = `${window.location.origin}/connect-with-me?u=${encodeURIComponent(handle)}`;
+      setLink(l);
+      QRCode.toDataURL(l, { width: 240, margin: 1 }).then(setQr).catch(() => {});
+    };
     setR((x) => ({ ...x, when: nowLocal() }));
-    const l = `${window.location.origin}/connect-with-me?u=${encodeURIComponent(p.username || "guest")}`;
-    setLink(l);
-    QRCode.toDataURL(l, { width: 240, margin: 1 }).then(setQr).catch(() => {});
+    build();
+    window.addEventListener("mc-auth-changed", build);
+    return () => window.removeEventListener("mc-auth-changed", build);
   }, []);
 
   const say = (m) => { setFlash(m); setTimeout(() => setFlash(""), 2600); };
