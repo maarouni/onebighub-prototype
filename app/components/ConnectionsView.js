@@ -34,6 +34,7 @@ const fmtOrg = (o) =>
 // with the type icon top-right and "Posted MM/DD/YY" bottom-right.
 const KIND = {
   indPersonal: ["Individual", "person"], indProfessional: ["Individual", "person"],
+  indPolitical: ["Individual", "person"], indRomantic: ["Individual", "person"],
   biz: ["Business", "typeBiz"], org: ["Organization", "typeOrg"], group: ["Group", "typeGroup"],
 };
 const mmddyy = (d) => { const [y, m, dd] = String(d || "").split("-"); return y ? `${m}/${dd}/${y.slice(2)}` : ""; };

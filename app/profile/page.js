@@ -10,12 +10,12 @@ import { SectionBar } from "../components/ConnectKit";
 import { getUser } from "../lib/auth";
 import { BIO_DOCS, getProfile, saveProfile, getGallery, saveGallery, shrinkImage, GALLERY_MAX } from "../lib/profile";
 import { listReferrals } from "../lib/referrals";
-import { FilterShell, Box, Option, CheckList, GroupedBox, RegionBoxes, AdTypesBox } from "../components/FilterKit";
+import { FilterShell, Box, Option, CheckList, GroupedBox, RegionBoxes } from "../components/FilterKit";
 import { CATEGORY_GROUPS, INDUSTRIES, REGION_GROUPS } from "../lib/organizations";
 
 // Nov 19 (Cesar, "Connect EDIT My Profiles"): gray EDIT page with a filters
 // column — how YOUR profile is listed (Profile Type, My Membership Status,
-// Ad Types, Categories, Industries, Regions). Saved with the profile.
+// Categories, Industries, Regions). Saved with the profile. Nov 24 (Cesar): Ad Types removed.
 const LIST_KEY = "mc_profile_listing_v1";
 const EMPTY_LISTING = { ptype: "individual", membership: "all", adtype: [], categories: [], industry: [], region: [] };
 const P_TYPES = [["individual", "Individual"], ["business", "Business"], ["organization", "Organization"], ["group", "Group"]];
@@ -33,7 +33,6 @@ function ProfileFilters({ onHide }) {
       <Box title="My Membership Status" hint="If applicable">
         {P_MEMBER.map(([id, label, def]) => <Option key={id} type="radio" name="pf-member" checked={f.membership === id} onChange={() => setFilters((x) => ({ ...x, membership: id }))} label={label} def={def} />)}
       </Box>
-      <AdTypesBox {...kit} />
       <GroupedBox title="Categories" field="categories" groups={CATEGORY_GROUPS} {...kit} />
       <Box title="Industries" defaultOpen={false}><CheckList field="industry" options={INDUSTRIES} {...kit} /></Box>
       <RegionBoxes field="region" groups={REGION_GROUPS} {...kit} />
@@ -114,7 +113,7 @@ export default function ProfilePage() {
   const cardLevel1 = levels.map((n) => n.card || { name: n.label });
 
   return (
-    <PageTemplate section="connections" activeAction="edit" mode="edit" title={<>Connect&nbsp;&nbsp;<i className="pb-sub">EDIT My Profile</i></>} icon="person" typeIcon="person"
+    <PageTemplate section="connections" activeAction="edit" mode="edit" title={<>Connect&nbsp;&nbsp;<i className="pb-sub">EDIT My Profile</i></>} icon="connections" typeIcon="connections"
       intro={<><strong className="cw-red">Get Connected !</strong> <i>Offer before you receive&nbsp;&nbsp;•&nbsp;&nbsp;A little courtesy goes a long way !</i></>}>
       <div className={`page browse-page ep-page ${showFilters ? "" : "filters-hidden"}`}>
         <div className="layout-with-sidebar">

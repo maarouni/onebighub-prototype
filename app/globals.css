@@ -4479,3 +4479,28 @@ svg.glyph { color: #111 !important; }
 .pif-lines p { margin: 0; padding: 4px 12px; border: 1px solid #9a9a9a; border-radius: 999px; text-align: center; }
 .fp-grouphead .fp-box-title { align-items: flex-start; }
 .pt-romantic { display: inline-block; margin-top: 6px; line-height: 1.25; }
+
+/* Nov 24 (Cesar): Connect > Individual > Romantic Matchmaking (first pass) */
+.rm2-page { display: grid; gap: 12px; }
+.rm2-views { display: flex; flex-wrap: wrap; gap: 8px; }
+.rm2-views a { border: 1px solid #c9c9c9; border-radius: 999px; padding: 6px 12px; color: #1f3a93; text-decoration: none; background: #fff; }
+.rm2-views a.on { background: #f5d248; color: #7a1a12; font-weight: 700; }
+.rm2-item { background: #fff; border: 1px solid #d7d7d7; border-radius: 10px; padding: 12px; display: grid; gap: 6px; }
+.rm2-label { font-weight: 700; }
+.rm2-label i { font-weight: 400; color: #666; margin-left: 6px; }
+.rm2-opt { display: block; color: #1f3a93; }
+.rm2-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 640px) { .rm2-pair { grid-template-columns: 1fr; } }
+.rm2-me span, .rm2-them > span { display: block; font-size: 12px; color: #7a1a12; font-weight: 700; }
+.rm2-seek { display: grid; gap: 4px; }
+.rm2-minmax { display: grid; gap: 4px; }
+.rm2-minmax span { display: flex; gap: 6px; align-items: center; }
+.rm2-req { font-size: 14px; }
+.rm2-item textarea, .rm2-item input[type="text"], .rm2-item input:not([type]) { width: 100%; background: #f2f2f2; border: 1px solid #bbb; border-radius: 6px; padding: 6px; }
+.rm2-note { color: #666; font-size: 13px; margin: 0; }
+.rm2-card { display: grid; grid-template-columns: 36px 1fr auto; gap: 10px; align-items: center; background: #fff; border: 1px solid #d7d7d7; border-radius: 10px; padding: 10px; }
+.rm2-key { background: #7a1a12; color: #fff; border-radius: 50%; width: 28px; height: 28px; display: grid; place-items: center; font-weight: 700; }
+.rm2-score { color: #7a1a12; font-weight: 700; }
+.rm2-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.rm2-table th, .rm2-table td { border-bottom: 1px solid #e3e3e3; padding: 6px; text-align: center; }
+.rm2-table td:first-child, .rm2-table th:first-child { text-align: left; }

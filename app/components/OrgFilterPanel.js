@@ -19,7 +19,8 @@ const NETWORK_LEVELS = [["all", "All"], ["none", "None"], ["intro1", "My Introdu
 const EMPLOYEE_RANGES = ["All", "0 - 5", "6 - 20", "21 - 50", "51 - 100", "101 - 250", "251 - 500", "501 +"];
 // Nov 23 (Cesar): new profile type "Individual — Romantic Matchmaking" (still in Figma progress).
 const PROFILE_TYPES = [["Individual", ["indPersonal", "indProfessional"]], ["Business", ["biz"]], ["Organization", ["org"]], ["Group", ["group"]],
-  [<span key="rm" className="pt-romantic">Individual<br /><i>Romantic Matchmaking</i></span>, ["indRomantic"], "romantic"]];
+  [<span key="rm" className="pt-romantic">Individual<br /><i>Romantic Matchmaking</i></span>, ["indRomantic"], "romantic"],
+  ["Individual - Political Candidates", ["indPolitical"], "political"]];
 
 export default function OrgFilterPanel({ items, filters, setFilters, ctx, onHide, onDisplay, digest = false, setName = "none", onPickSet, onSaveSet, onClearSet, sets = {} }) {
   const count = (key, v) => countOrgsFor(items, filters, { [key]: key === "posted" ? v : [v] }, ctx);

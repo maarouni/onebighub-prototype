@@ -9,7 +9,7 @@ import HubLogo from "../components/HubLogo";
 // Introductions, Marketplace & Profit-Sharing (Nov 22: was "Marketing") (Find-section digests).
 const DIGESTS = [
   ["calendar", "One Big Calendar", "Sell tickets, Assign your Attendance Status", "/calendar"],
-  ["connections", "Connect", <>Individuals, Businesses, Organizations, Groups<br />Assign your Membership Status</>, "/connect"],
+  ["connections", "Connect", <>Individuals, Businesses, Organizations, Groups<br />Individuals - Political Candidates<br />Individuals - Romantic Matchmaking<br />Organizations, Groups - Assign your Membership Status</>, "/connect"],
   ["idxBriefcase", "Employment", "Assign your Employment Application Status", "/employment"],
   ["idxProduct", "Products", null, "/listings?type=Product"],
   ["idxService", "Services", null, "/listings?type=Service"],
