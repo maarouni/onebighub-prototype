@@ -4568,3 +4568,8 @@ svg.glyph { color: #111 !important; }
 .cw-card, .cw-card *, .cw-pitch p, .cw-pitch-head, .cw-pitch-head * { font-size: 14px; }
 /* Nov 25: the Filters header is a gold bar like the other section bars */
 .cw-mini-bar { background: var(--cg-yellow); border-color: var(--cg-yellow-line); }
+/* Nov 25: Sample Node Graph title regular weight, four blank lines before the node, box runs to the bottom of Offering $ Referrals */
+.cw-net { align-items: stretch; }
+.cw-netmain { height: 100%; }
+.cw-netbox { flex: 1; display: flex; flex-direction: column; }
+.cw-sample-title { font-weight: 400; margin-bottom: 72px; }
