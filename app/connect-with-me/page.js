@@ -16,6 +16,7 @@ import SignUpSection from "./SignUpSection";
 // · 4 View My Network · 5 Send a Message · 6 Next Steps.
 // Connection Date, Time shows xx-xx-xx until a date is picked (MM-DD-YY, then the time).
 const fmtWhen = (v) => { const [d, t] = v.split("T"); const [y, m, dd] = d.split("-"); return `${m}-${dd}-${y.slice(2)}${t ? " " + t : ""}`; };
+const nowLocal = () => { const d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 16); };
 const BLANK = { name: "", title: "", business: "", phone: "", email: "", city: "", state: "CA" };
 
 export default function ConnectSteps13() {
@@ -44,6 +45,7 @@ export default function ConnectSteps13() {
       setLink(l);
       QRCode.toDataURL(l, { width: 240, margin: 1 }).then(setQr).catch(() => {});
     };
+    setR((x) => ({ ...x, when: nowLocal() }));
     build();
     window.addEventListener("mc-auth-changed", build);
     return () => window.removeEventListener("mc-auth-changed", build);
