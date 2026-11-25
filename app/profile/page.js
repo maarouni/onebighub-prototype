@@ -154,9 +154,19 @@ export default function ProfilePage() {
         <Field label="Title"><Input value={p.title} onChange={set("title")} /></Field>
         <Field label="Business / Organization / Group"><Input value={p.business} onChange={set("business")} /></Field>
         <Field label="Tagline, Product(s) or Service(s)"><Input value={p.tagline} onChange={set("tagline")} /></Field>
-        <Field label="Phone"><Input type="tel" value={p.phone} onChange={set("phone")} placeholder="(xxx) xxx-xxxx" /></Field>
-        <Field label="Email"><Input type="email" value={p.email} onChange={set("email")} /></Field>
+        <Field label="Mobile / Phone" hint="Display / Hide">
+          <Input type="tel" value={p.phone} onChange={set("phone")} placeholder="(xxx) xxx-xxxx" />
+          <Radios name="hide-phone" value={p.hidePhone ? "hide" : "show"} onChange={(v) => setP((x) => ({ ...x, hidePhone: v === "hide" }))}
+            options={[{ id: "show", label: "Display Default" }, { id: "hide", label: "Hide" }]} />
+        </Field>
+        <Field label="Email" hint="Display / Hide">
+          <Input type="email" value={p.email} onChange={set("email")} />
+          <Radios name="hide-email" value={p.hideEmail ? "hide" : "show"} onChange={(v) => setP((x) => ({ ...x, hideEmail: v === "hide" }))}
+            options={[{ id: "show", label: "Display Default" }, { id: "hide", label: "Hide" }]} />
+        </Field>
         <Field label="City, State"><Input value={p.city} onChange={set("city")} /></Field>
+        <Field label="ZIP Code"><Input value={p.zip} onChange={set("zip")} /></Field>
+        <Field label="Country"><Input value={p.country} onChange={set("country")} /></Field>
         <Field label="Elevator Pitch Title" wide><Input value={p.pitchTitle} onChange={set("pitchTitle")} maxLength={90} /></Field>
         <Field label="Elevator Pitch" hint="30 to 60 seconds to say — about 75 to 150 words" wide>
           <Area rows={4} value={p.pitch} onChange={set("pitch")} />

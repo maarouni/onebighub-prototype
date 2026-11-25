@@ -15,6 +15,8 @@ export function getProfile() {
     name: p.name || u?.name || "", title: p.title || "", business: p.business || "", tagline: p.tagline || "",
     phone: p.phone || u?.mobile || "", email: p.email || u?.email || (u?.identifier?.includes("@") ? u.identifier : ""),
     city: p.city || "", url: p.url || "",
+    // Cesar (Nov 25, EDIT My Profile): ZIP and Country; Display / Hide for phone and email.
+    zip: p.zip || "", country: p.country || "United States", hidePhone: !!p.hidePhone, hideEmail: !!p.hideEmail,
     pitchTitle: p.pitchTitle || "", pitch: p.pitch || "", interesting: p.interesting || "",
     linkedin: p.linkedin || "", linkedinShow: p.linkedinShow !== false,
     // Bio (Cesar Nov 16): tagline/title, text and five links — Business Card,
