@@ -4594,3 +4594,5 @@ svg.glyph { color: #111 !important; }
 /* Nov 25: the hint (Select all that apply / Select one) sits on the same line as the filter title */
 .cw-filters .fp-box-title { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; }
 .cw-filters .fp-box-title em { display: inline; margin: 0; }
+/* Nov 25: every Default word in Connect with Me option lists is italic and black */
+.cw-page .fp-option em, .cw-page .fp-label em, .cw-filters em { color: #000 !important; font-style: italic !important; }
