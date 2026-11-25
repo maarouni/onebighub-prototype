@@ -115,7 +115,7 @@ export default function ConnectSteps13() {
               <span><b>Follow-Up Status</b> <i>Select one</i></span>
               {FOLLOW_UP.map((o) => (
                 <label key={o.id} className="fp-option ct-opt"><input type="radio" name="cw-followup" checked={r.followUp === o.id} onChange={() => setRel("followUp", o.id)} />
-                  <span className="fp-label">{o.hot ? <>05 <b className="cw-hot">HOT !</b></> : o.label} <i>{o.hint}</i></span></label>
+                  <span className="fp-label">{o.hot ? <>05&nbsp;&nbsp;<b className="cw-hot">HOT !</b></> : o.label.replace(" ", "\u00a0\u00a0")} <i>{o.hint}</i></span></label>
               ))}
             </div>
           </div>
