@@ -132,7 +132,7 @@ export default function ConnectSteps13() {
           </div>
         </div>
         <label className="cw-box"><span><b>My Notes</b> <i>Private</i></span><textarea rows={4} value={r.notes} onChange={(e) => setRel("notes", e.target.value)} placeholder="Submit Here" /></label>
-        <div className="em-center"><button type="button" className="cw-submit" onClick={saveRelationship}>Submit</button></div>
+        {/* Cesar (Nov 25): Section 2 has no Submit button */}
       </SectionBar>
 
       <NetworkSection step={3} />
