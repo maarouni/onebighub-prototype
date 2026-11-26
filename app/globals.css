@@ -4629,3 +4629,7 @@ svg.glyph { color: #111 !important; }
 /* Nov 26 (Cesar): the type symbol at the left of sample list rows, text beside it (no box) */
 .obc-main:has(.cw-row-symbol) { padding-left: 58px; position: relative; }
 .cw-row-symbol { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); display: inline-flex; align-items: center; justify-content: center; }
+
+/* Nov 26 (Cesar): "Who introduced you to onebigHUB.com ?" bar text centred */
+.rg-introbar, .rg-introbar b { text-align: center; }
+.su-figma .rg-introbar b { display: block; width: 100%; }
