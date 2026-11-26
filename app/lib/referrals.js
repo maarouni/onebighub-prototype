@@ -28,7 +28,11 @@ export function newReferralId(username = "guest") {
 // Discount offerers — every internal "profile" the prototype has today.
 export async function fetchProfiles() {
   const [orgs, listings, discounts] = await Promise.all([fetchOrgs(), fetchListings(), fetchDiscounts()]);
-  const out = [];
+  // Nov 26 (Cesar, "Who introduced you to onebigHUB.com ?"): both co-founders are always searchable.
+  const out = [
+    { id: "cofounder-cesar", category: "individual", name: "Cesar Plata", title: "Founder", business: "onebigHUB.com", pitchTitle: "", phone: "(408) 239-9006", email: "cplata@onebigHUB.com", city: "San Jose, CA" },
+    { id: "cofounder-masoud", category: "individual", name: "Masoud Arouni", title: "Co-Founder", business: "onebigHUB.com", pitchTitle: "", phone: "(925) 353-5263", email: "support@onebigHUB.com", city: "Pleasanton, CA" },
+  ];
   const seen = new Set();
   const add = (p) => { const k = p.business.toLowerCase(); if (!seen.has(k)) { seen.add(k); out.push(p); } };
   orgs.forEach((o) => add({ id: `org-${o.id}`, category: "organization", name: o.contactName || o.name, title: o.contactName ? "Contact" : "", business: o.name, pitchTitle: o.tagline, phone: o.phone, email: o.email, city: `${o.city}, ${o.state || "CA"}` }));
