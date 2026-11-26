@@ -170,7 +170,7 @@ const ORGS = [
   // Nov 19 (Cesar, "Connect Profiles, Samples"): four fun sample profiles —
   // one per profile type — always displayed at the top of the table.
   {
-    id: "santa", kind: "indProfessional", sample: true, name: "Santa Claus", title: "Chief Gift Officer", business: "Santa's Workshop",
+    id: "santa", showAvatar: true, kind: "indProfessional", sample: true, name: "Santa Claus", title: "Chief Gift Officer", business: "Santa's Workshop",
     tagline: "Delivering joy worldwide, one chimney at a time", premier: true, referral: true,
     categories: ["Community"], industry: "Logistics", city: "North Pole", state: "AK", region: "International", posted: daysAgo(0),
     phone: "1-800-HO-HO-HO", email: "santa@northpole.example", pitchTitle: "Making spirits bright since forever",
@@ -179,7 +179,7 @@ const ORGS = [
     seeking: ["Volunteer"], level: "Founder / Owner",
   },
   {
-    id: "santas-workshop", kind: "biz", sample: true, name: "Santa's Workshop", tagline: "Handcrafted toys, made by elves since the dawn of time", premier: true, referral: true,
+    id: "santas-workshop", showAvatar: true, kind: "biz", sample: true, name: "Santa's Workshop", tagline: "Handcrafted toys, made by elves since the dawn of time", premier: true, referral: true,
     employees: 10000, founded: "Long, long ago", categories: ["Business, Financial"], industry: "Manufacturing", city: "North Pole", state: "AK", region: "International", posted: daysAgo(0),
     phone: "1-800-TOYS-4U", email: "workshop@northpole.example", contactName: "Head Elf",
     why: "Every child deserves a gift made with care.", benefits: "Quality toys, on-time delivery, naughty / nice screening.",
@@ -198,7 +198,7 @@ const ORGS = [
   },
   // Nov 26 (Cesar, "Revised Mini and Micro Cards"): fictional "Easter egg" profiles, one row per type.
   {
-    id: "holly-claus", kind: "indProfessional", sample: true, name: "Mrs Holly Claus", title: "Da Boss", business: "SugarMama.com",
+    id: "holly-claus", showAvatar: true, kind: "indProfessional", sample: true, name: "Mrs Holly Claus", title: "Da Boss", business: "SugarMama.com",
     tagline: "The Heart of the North Pole", premier: false, referral: false,
     categories: ["Community"], industry: "Retail", city: "North Pole", state: "AK", region: "International", posted: daysAgo(1),
     phone: "1-800-GET-BAKED", email: "MrsClaus@SugarMama.example", pitchTitle: "Keep your cookies closer",
