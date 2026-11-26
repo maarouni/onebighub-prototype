@@ -51,14 +51,15 @@ export default function NetworkSection({ step = 3 }) {
     <>
       <SectionBar n={step} icon="nodeGraph" title="View My Network" right={toggleBtn}>
         <CardAndPitch p={center} placeholder={loggedIn} />
+        {/* Cesar (Nov 25): View as sub-header runs the full width of the section, filters shown or hidden */}
+        <div className="cw-mini-bar cw-viewas"><b>View as</b>
+          <label><input type="radio" name="cw-view2" checked={view === "graph"} onChange={() => setView("graph")} /> Graph <i>Default</i></label>
+          <label><input type="radio" name="cw-view2" checked={view === "list"} onChange={() => setView("list")} /> List</label>
+        </div>
         <div className={`cw-net ${showFilters ? "" : "cw-net-full"}`}>
           {showFilters && (
             <div className="cw-filters">
               <div className="cw-mini-bar"><b>Filters</b></div>
-              <Box title="View as" hint="Select one">
-                <Option type="radio" name="cw-view" checked={view === "graph"} onChange={() => setView("graph")} label="Graph" def />
-                <Option type="radio" name="cw-view" checked={view === "list"} onChange={() => setView("list")} label="List" />
-              </Box>
               <Box title={<>My Follow-Up Status<br /><i>Private,</i> <em>Select one</em></>}>
                 <Option type="radio" name="cw-fu" checked={follow === "all"} onChange={() => setFollow("all")} label="All" def />
                 <Option type="radio" name="cw-fu" checked={follow === "none"} onChange={() => setFollow("none")} label="None" />
@@ -85,12 +86,6 @@ export default function NetworkSection({ step = 3 }) {
             </div>
           )}
           <div className="cw-netmain">
-            {!showFilters && (
-              <div className="cw-mini-bar"><b>View as</b>
-                <label><input type="radio" name="cw-view2" checked={view === "graph"} onChange={() => setView("graph")} /> Graph <i>Default</i></label>
-                <label><input type="radio" name="cw-view2" checked={view === "list"} onChange={() => setView("list")} /> List</label>
-              </div>
-            )}
             <div className="cw-netbox">
               {sample && view === "graph" && <b className="cw-sample-title">Sample Node Graph</b>}
               {view === "graph" ? <NetworkGraph me={center} people={shown} />
