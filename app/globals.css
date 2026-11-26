@@ -3947,6 +3947,9 @@ body:has(.ref-page) { background: #cfcfcf !important; }
 .cw-dispf { background: transparent; border: 0; color: var(--cg-blue); font: inherit; font-size: 12.5px; cursor: pointer; }
 .cw-nextlist { gap: 6px; }
 .cw-next-opt { align-items: flex-start !important; }
+.cw-nextlist .cw-next-opt > input { margin-top: 3px !important; }
+.cw-next-opt .fp-label { line-height: 1.25; }
+.cw-next-opt .fp-label > i:first-child { margin-left: 0; }
 .cw-next-sub { display: block; color: var(--ink); font-size: 12.5px; }
 @media (max-width: 760px) { .cw-s2 { grid-template-columns: 1fr; } }
 
