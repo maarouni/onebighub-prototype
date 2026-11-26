@@ -31,7 +31,7 @@ export async function fetchProfiles() {
   // Nov 26 (Cesar, "Who introduced you to onebigHUB.com ?"): both co-founders are always searchable.
   const out = [
     { id: "cofounder-cesar", category: "individual", name: "Cesar Plata", title: "Founder", business: "onebigHUB.com", pitchTitle: "", phone: "(408) 239-9006", email: "cplata@onebigHUB.com", city: "San Jose, CA" },
-    { id: "cofounder-masoud", category: "individual", name: "Masoud Arouni", title: "Co-Founder", business: "onebigHUB.com", pitchTitle: "", phone: "(925) 353-5263", email: "support@onebigHUB.com", city: "Pleasanton, CA" },
+    { id: "cofounder-masoud", category: "individual", name: "Masoud Arouni", title: "Co-Founder", business: "onebigHUB.com", image: "/cofounders/masoud.png", pitchTitle: "", phone: "(925) 353-5263", email: "support@onebigHUB.com", city: "Pleasanton, CA" },
   ];
   const seen = new Set();
   const add = (p) => { const k = p.business.toLowerCase(); if (!seen.has(k)) { seen.add(k); out.push(p); } };
