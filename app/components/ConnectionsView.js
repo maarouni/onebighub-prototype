@@ -53,7 +53,8 @@ export function profileRow(o, extra = {}) {
     id: o.id, href: `/connect/${o.id}`, left: null, premier: o.premier, alwaysImg: true,
     title: <>{label} • {o.name}{ind && o.title ? `, ${o.title}` : ""}</>,
     lines, posted: `Posted ${mmddyy(o.posted)}`,
-    imageNode: <Glyph name={icon} size={24} />,
+    // Nov 25 (Cesar): Individual mini-card icon made smaller
+    imageNode: <Glyph name={icon} size={ind ? 18 : 24} />,
     ...extra,
   };
 }
