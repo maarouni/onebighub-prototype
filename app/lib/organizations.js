@@ -196,6 +196,59 @@ const ORGS = [
     formats: ["In-Person", "Online / Virtual"], why: "Everyone deserves a second chance before December 24th.", benefits: "Weekly meetings, a sponsor elf, and cocoa.",
     memberList: "members", roster: [],
   },
+  // Nov 26 (Cesar, "Revised Mini and Micro Cards"): fictional "Easter egg" profiles, one row per type.
+  {
+    id: "holly-claus", kind: "indProfessional", sample: true, name: "Mrs Holly Claus", title: "Da Boss", business: "SugarMama.com",
+    tagline: "The Heart of the North Pole", premier: false, referral: false,
+    categories: ["Community"], industry: "Retail", city: "North Pole", state: "AK", region: "International", posted: daysAgo(1),
+    phone: "1-800-GET-BAKED", email: "MrsClaus@SugarMama.example", pitchTitle: "Keep your cookies closer",
+    pitch: "I run the bakery, the books and the reindeer schedule. Nobody leaves my kitchen hungry.",
+    interesting: "Favorite flavor: ginger. Has never burned a batch.", seeking: ["Volunteer"], level: "Founder / Owner",
+  },
+  {
+    id: "gerhard-grinch", kind: "indProfessional", sample: true, name: "Gerhard Grinch", title: "Dean of Philanthropy", business: "Whoville University",
+    tagline: "Who knew? Sharing the Nice Way", premier: false, referral: true,
+    categories: ["Education"], industry: "Education", city: "Whoville", state: "", region: "International", posted: daysAgo(2),
+    phone: "1-800-GRINCH-1", email: "gerhard@whoville.example", pitchTitle: "Giving back, a little at a time",
+    pitch: "I lead the university's giving program. Yes, I am the Grinch. No, I did not steal Christmas this year.",
+    interesting: "Keeps a very small heart. Still growing.", seeking: ["Volunteer", "Referral"], level: "Executive",
+  },
+  {
+    id: "grinchs-school-gifting", kind: "biz", sample: true, name: "Grinch's School of Gifting", tagline: "Teaching you to give in just four easy steps", premier: false, referral: true,
+    employees: 25, founded: "Ancient", categories: ["Education"], industry: "Education", city: "Mount Crumpit", state: "", region: "International", posted: daysAgo(2),
+    phone: "1-800-SCHOOL-1", email: "school@whoville.example", contactName: "Head Grinch",
+    why: "Anyone can learn to give.", benefits: "Four-step gifting course, certificate on request.",
+  },
+  {
+    id: "jack-frost-heating", kind: "biz", sample: true, name: "Jack Frost Heating & Cooling", tagline: "Keeping the North Pole chilled since the Ice Age", premier: false, referral: false,
+    employees: 12, founded: "Long ago", categories: ["Home Services"], industry: "Construction", city: "North Pole", state: "AK", region: "International", posted: daysAgo(3),
+    phone: "1-800-FR0ST-ME", email: "jack@frostheating.example", contactName: "Jack Frost",
+    why: "Your home should be cool, not cold.", benefits: "Same-day service, 24/7 cooling.",
+  },
+  {
+    id: "gangster-bakers", kind: "org", sample: true, name: "Gangster Bakers", tagline: "Keep your friends close, but your cookies closer", premier: false, referral: true,
+    members: 100, dues: 750, categories: ["Food"], industry: "Food & Beverage", city: "Xmasville", state: "", region: "International", posted: daysAgo(3),
+    formats: ["In-Person"], why: "Quality baking, no questions asked.", benefits: "Members-only cookie drops.",
+    contactName: "Big Frosty", memberList: "public", roster: [],
+  },
+  {
+    id: "whoville-university", kind: "org", sample: true, name: "Whoville University", tagline: "Who are you? Who, who, who?", premier: false, referral: false,
+    members: 2500, dues: 0, categories: ["Education"], industry: "Education", city: "Whoville", state: "", region: "International", posted: daysAgo(4),
+    formats: ["In-Person", "Online / Virtual"], why: "Learning for every Who.", benefits: "Courses, clubs and a very large auditorium.",
+    contactName: "Dean Who", memberList: "public", roster: [],
+  },
+  {
+    id: "cookieholics-anonymous", kind: "group", sample: true, name: "Cookieholics Anonymous", tagline: "When a dozen cookies isn't enough", premier: false, referral: false,
+    members: 103, dues: 0, categories: ["Community", "Health, Wellness"], industry: "Recreation", city: "North Pole", state: "AK", region: "International", posted: daysAgo(4),
+    formats: ["In-Person"], why: "One cookie at a time.", benefits: "Weekly support circle, milk and a sponsor.",
+    memberList: "members", roster: [],
+  },
+  {
+    id: "elf-singles-club", kind: "group", sample: true, name: "Elf Singles Club", tagline: "Short, single and ready to mingle", premier: false, referral: true,
+    members: 1200, dues: 0, categories: ["Community"], industry: "Recreation", city: "North Pole", state: "AK", region: "International", posted: daysAgo(5),
+    formats: ["Online / Virtual"], why: "Find your match at the workshop.", benefits: "Monthly mixers, online chat.",
+    memberList: "members", roster: [],
+  },
 ];
 
 const LOCAL_KEY = "mc_submitted_orgs_v1";
