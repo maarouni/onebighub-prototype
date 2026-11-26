@@ -55,7 +55,7 @@ export function profileRow(o, extra = {}) {
     lines, posted: `Posted ${mmddyy(o.posted)}`,
     // Nov 25 (Cesar): Individual mini-card icon made smaller
     // Nov 26 (Cesar, mini-card board): square avatar at the left of the row on a few sample rows
-    avatarNode: o.showAvatar ? <span className="cw-row-avatar" aria-hidden="true">{o.name.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase()}</span> : null,
+    avatarNode: o.showAvatar ? <span className="cw-row-symbol" aria-hidden="true"><Glyph name={icon} size={36} /></span> : null,
     imageNode: <Glyph name={icon} size={ind ? 18 : 24} />,
     ...extra,
   };

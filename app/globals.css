@@ -4626,6 +4626,6 @@ svg.glyph { color: #111 !important; }
 .cw-filters input[type="checkbox"] { -webkit-appearance: none; appearance: none; width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid #000; background: #fff; margin: 0 6px 0 0; flex-shrink: 0; }
 .cw-filters input[type="checkbox"]:checked { background: var(--cg-red); border-color: var(--cg-red); }
 
-/* Nov 26 (Cesar): square avatar at the left of sample list rows, text beside it */
-.obc-main:has(.cw-row-avatar) { padding-left: 66px; position: relative; }
-.cw-row-avatar { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); display: inline-flex; align-items: center; justify-content: center; width: 46px; height: 46px; border: 1px solid var(--cg-box-line); border-radius: 8px; background: #f4f4f4; font-size: 15px; font-weight: 700; color: var(--cg-red); }
+/* Nov 26 (Cesar): the type symbol at the left of sample list rows, text beside it (no box) */
+.obc-main:has(.cw-row-symbol) { padding-left: 58px; position: relative; }
+.cw-row-symbol { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); display: inline-flex; align-items: center; justify-content: center; }
