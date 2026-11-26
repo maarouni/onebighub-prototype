@@ -68,6 +68,7 @@ export function ListingTable({ rows }) {
             </a>
           )}
           <a href={r.href} className="obc-cell obc-main">
+            {r.avatarNode}
             <span className="obc-title">{r.title}</span>
             {r.lines.filter(Boolean).map((l, i) => <span key={i}>{l}</span>)}
             {r.barter && <span className="obc-barter" data-tip="Barter – no payment, not tracked"><Glyph name="barter" size={15} /></span>}

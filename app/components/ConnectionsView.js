@@ -54,8 +54,9 @@ export function profileRow(o, extra = {}) {
     title: <>{label} • {o.name}{ind && o.title ? `, ${o.title}` : ""}</>,
     lines, posted: `Posted ${mmddyy(o.posted)}`,
     // Nov 25 (Cesar): Individual mini-card icon made smaller
-    // Nov 26 (Cesar, mini-card board): square avatar on a few sample rows, beside the type icon
-    imageNode: <>{o.showAvatar && <span className="cw-row-avatar" aria-hidden="true">{o.name.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase()}</span>}<Glyph name={icon} size={ind ? 18 : 24} /></>,
+    // Nov 26 (Cesar, mini-card board): square avatar at the left of the row on a few sample rows
+    avatarNode: o.showAvatar ? <span className="cw-row-avatar" aria-hidden="true">{o.name.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase()}</span> : null,
+    imageNode: <Glyph name={icon} size={ind ? 18 : 24} />,
     ...extra,
   };
 }
