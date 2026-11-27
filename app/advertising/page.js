@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { AdPage } from "../components/AdPages";
 import { Glyph } from "../components/Icons";
 import HubLogo from "../components/HubLogo";
@@ -28,6 +29,7 @@ const DIGESTS = [
 ];
 
 export default function Achieve() {
+  const [taxOpen, setTaxOpen] = useState(false);
   return (
     <AdPage title={<>Achieve&nbsp;&nbsp;<i className="pb-sub">Marketing System</i></>}>
       <section className="ad-box pe-box">
@@ -63,12 +65,19 @@ export default function Achieve() {
 
       <section className="ad-box pe-box">
         <h2><img src="/icons/cesar/taxbulb.png" alt="" width="34" height="34" /> Do You Enjoy Paying Taxes?</h2>
-        <p><b className="cw-red"><i>Keep more of what you earn.</i></b> Running your own business can change how your income is taxed. Ask a CPA which expenses apply to your situation.</p>
-        <ul>
-          <li>Sign up and create your business profile</li>
-          <li>Track your business expenses as you go</li>
-          <li>Learn more with a CPA or tax professional before you file</li>
-        </ul>
+        <button type="button" className="pe-more" aria-expanded={taxOpen} onClick={() => setTaxOpen((v) => !v)}>
+          {taxOpen ? "Hide" : "Learn more"} {taxOpen ? "▲" : "▼"}
+        </button>
+        {taxOpen && (
+          <>
+            <p><b className="cw-red"><i>Keep more of what you earn.</i></b> Running your own business can change how your income is taxed. Ask a CPA which expenses apply to your situation.</p>
+            <ul>
+              <li>Sign up and create your business profile</li>
+              <li>Track your business expenses as you go</li>
+              <li>Learn more with a CPA or tax professional before you file</li>
+            </ul>
+          </>
+        )}
       </section>
 
       <section className="ad-box pe-box">

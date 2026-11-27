@@ -4652,3 +4652,4 @@ svg.glyph { color: #111 !important; }
 .pe-box h2 .cw-red { margin: 0; padding: 0; letter-spacing: 0; word-spacing: 0; }
 .pe-box h2 .cw-red { display: inline !important; }
 .pm-menu .pm-ink { color: #111; }
+.pe-more { background: none; border: 1px solid #8b1414; color: #8b1414; border-radius: 999px; padding: 4px 14px; font-size: 14px; cursor: pointer; margin: 4px 0 8px; }
