@@ -4716,3 +4716,11 @@ section.pe-box .pe-intro-line { margin-left: 58px !important; }
 /* Introduce: Sign Up and Dashboards lines start under the N of "No-Cost" too */
 section.pe-box .pe-intro-plain { margin-left: 58px !important; }
 @media (max-width: 600px) { section.pe-box .pe-intro-plain { margin-left: 44px !important; } }
+/* Achieve: one body-text rule for every box (18px body, 16px italic note; phones 16px / 14px) */
+section.pe-box p, section.pe-box li, section.pe-box .pe-intro-plain, section.pe-box .pe-intro-line { font-size: 18px; line-height: 1.55; }
+section.pe-box .pe-note { font-size: 16px; }
+section.pe-box .pe-chip, section.pe-box .pe-connect, section.pe-box .pe-dig-desc { font-size: 16px; }
+@media (max-width: 600px) {
+  section.pe-box p, section.pe-box li, section.pe-box .pe-intro-plain, section.pe-box .pe-intro-line { font-size: 16px; }
+  section.pe-box .pe-note { font-size: 14px; }
+}
