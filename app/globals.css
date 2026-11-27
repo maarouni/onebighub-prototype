@@ -4665,3 +4665,7 @@ svg.glyph { color: #111 !important; }
 .pe-chips { border: 0 !important; padding: 0 !important; gap: 8px !important; }
 .pe-chip-col { border: 1px solid #888; border-radius: 8px; padding: 8px 10px; }
 @media (max-width: 600px) { .pe-chips { grid-template-columns: minmax(0, 1fr) !important; } }
+/* Figma: Connect lines sit in two aligned columns */
+.pe-connect { grid-template-columns: 190px 1fr; column-gap: 8px; }
+.pe-connect > span { min-width: 0; }
+@media (max-width: 600px) { .pe-connect { grid-template-columns: 1fr; } }

@@ -79,10 +79,10 @@ export default function Achieve() {
 
         <div className="pe-connect">
           <a href="/connect" className="pe-dig-title"><b>Connect</b></a>
-          <i>Individuals, Businesses, Organizations, Groups</i>
-          <i>Individuals - Political Candidates</i>
-          <i>Individuals - Romantic Matchmaking</i>
-          <i>Organizations, Groups - Assign your Membership Status</i>
+          <span><i>Individuals, Businesses</i></span><span />
+          <span><i>Organizations, Groups</i></span><span><i>Assign your Membership Status</i></span>
+          <span><i>Individuals</i></span><span><i>Political Candidates</i></span>
+          <span><i>Individuals</i></span><span><i>Romantic Matchmaking</i></span>
         </div>
 
         <div className="pe-chips" aria-label="Digest filters">
@@ -99,7 +99,7 @@ export default function Achieve() {
         </div>
 
         <div className="pe-digests">
-          <a href="/calendar" className="pe-dig"><img src="/icons/calendar.png" alt="" width="20" height="20" /><span><b>One Big Calendar</b><span className="pe-dig-desc">Sell tickets, Assign your Attendance Status</span></span></a>
+          <a href="/calendar" className="pe-dig"><img src="/icons/calendar.png" alt="" width="20" height="20" /><span><b>One Big Calendar</b><span className="pe-dig-desc">Assign your Attendance Status, Sell tickets, ...</span></span></a>
           <a href="/employment" className="pe-dig"><Glyph name="idxBriefcase" size={18} /><span><b>Employment</b><span className="pe-dig-desc">Assign your Employment Application Status</span></span></a>
           <a href="/discounts" className="pe-dig"><Glyph name="discount" size={18} /><span><b>Deals</b> <i className="pe-hint">Premier Listings only</i><span className="pe-dig-desc">Distribute certificates as discounts, gifts, incentives, raffle prizes, or rewards !</span></span></a>
           <a href="/listings?type=Pay-It-Forward" className="pe-dig"><Glyph name="idxHeart" size={18} /><span><b>Pay-It-Forward</b> <i className="pe-hint">No-Cost Premier Listings</i><span className="pe-dig-desc">Donate, Volunteer - Be the reason someone smiles today !</span></span></a>
