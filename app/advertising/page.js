@@ -7,25 +7,14 @@ import HubLogo from "../components/HubLogo";
 
 // Achieve — Marketing System landing page (Cesar's Figma Rev 261118, /Achieve):
 // Performance-Based Marketing System, Invite / Refer, Earn Money for
-// Introductions, Marketplace & Profit-Sharing (Nov 22: was "Marketing") (Find-section digests).
-const DIGESTS = [
-  ["calendar", "One Big Calendar", "Sell tickets, Assign your Attendance Status", "/calendar"],
-  ["connections", "Connect", <>Individuals, Businesses, Organizations, Groups<br />Individuals - Political Candidates<br />Individuals - Romantic Matchmaking<br />Organizations, Groups - Assign your Membership Status</>, "/connect"],
-  ["idxBriefcase", "Employment", "Assign your Employment Application Status", "/employment"],
-  ["idxProduct", "Products", null, "/listings?type=Product"],
-  ["idxService", "Services", null, "/listings?type=Service"],
-  null,
-  ["idxClassified", "Classifieds", null, "/listings?type=Classified"],
-  ["discount", <>Deals&nbsp;&nbsp;<i className="pe-hint">Premier Listings only</i></>, "Distribute certificates as discounts, gifts, incentives, raffle prizes, or rewards !", "/discounts"],
-  ["comments", "Forums", null, "/listings?type=Forum"],
-  ["dinner", "Hospitality", null, "/listings?type=Hospitality"],
-  ["idxDeal", "Investments", null, "/listings?type=Investment"],
-  ["idxHeart", <>Pay-It-Forward&nbsp;&nbsp;<i className="pe-hint">No-Cost Premier Listings</i></>, "Donate, Volunteer - Be the reason someone smiles today !", "/listings?type=Pay-It-Forward"],
-  null,
-  ["idxMembership", "Memberships", null, "/listings?type=Membership"],
-  ["idxBell", "Custom Notifications", <>Avoid costly newsletter email blast services<br />Assign your Frequency to Post / Receive Notifications by email and/or text</>, "/notifications"],
-  ["idxSubscription", "Subscriptions", null, "/listings?type=Subscription"],
-  ["idxSurvey", "Surveys", null, "/listings?type=Survey"],
+// Introductions, Profit-Sharing, Taxes (Learn more), My Marketplace (Find-section digests).
+// My Marketplace follows Cesar's Nov 27 Figma: Connect block, then a three-column
+// filter grid (top-left first), then five digest descriptions.
+
+const FILTER_COLUMNS = [
+  [["Calendar (Default)", "/calendar"], ["Employment", "/employment"], ["Products", "/listings?type=Product"], ["Services", "/listings?type=Service"]],
+  [["Classifieds", "/listings?type=Classified"], ["Deals", "/discounts"], ["Forums", "/listings?type=Forum"], ["Hospitality", "/listings?type=Hospitality"], ["Investments", "/listings?type=Investment"]],
+  [["Memberships", "/listings?type=Membership"], ["Notifications", "/notifications"], ["Pay-It-Forward", "/listings?type=Pay-It-Forward"], ["Subscriptions", "/listings?type=Subscription"], ["Surveys", "/listings?type=Survey"]],
 ];
 
 export default function Achieve() {
@@ -82,28 +71,32 @@ export default function Achieve() {
 
       <section className="ad-box pe-box">
         <h2><Glyph name="megaphone" size={34} /> My Marketplace</h2>
-        <div className="pe-share">
-          <div>
-            <p className="pe-bul"><Glyph name="idxTarget" size={20} /><span><b>My Digests</b> <i>(Private)</i><br />Select filters to <b>curate</b> <i>(organize, submit, view)</i> your custom tables of <b className="cw-red">No-Cost</b> and <b>Premier</b> listings in the <a href="/calendar">Find Section</a>:</span></p>
-            <div className="pe-chips" aria-label="Digest filters">
-              {[
-                ["Calendar (Default)", "/calendar"], ["Employment", "/employment"], ["Products", "/listings?type=Product"], ["Services", "/listings?type=Service"],
-                ["Classifieds", "/listings?type=Classified"], ["Deals", "/discounts"], ["Forums", "/listings?type=Forum"], ["Hospitality", "/listings?type=Hospitality"],
-                ["Investments", "/listings?type=Investment"], ["Memberships", "/listings?type=Membership"], ["Notifications", "/notifications"], ["Pay-It-Forward", "/listings?type=Pay-It-Forward"],
-                ["Subscriptions", "/listings?type=Subscription"], ["Surveys", "/listings?type=Survey"],
-              ].map(([c, href]) => (
-                <a key={c} href={href} className="pe-chip"><span className="pe-chip-dot" aria-hidden="true" />{c}</a>
+        <p className="pe-bul"><Glyph name="idxTarget" size={20} /><span><b>My Digests</b> <i>(Private)</i><br />Select filters to <b>curate</b> <i>(organize, submit, view)</i> your custom tables of <b className="cw-red">No-Cost</b> and <b>Premier</b> listings in the <a href="/calendar">Find Section</a>:</span></p>
+
+        <div className="pe-connect">
+          <a href="/connect" className="pe-dig-title"><b>Connect</b></a>
+          <i>Individuals, Businesses, Organizations, Groups</i>
+          <i>Individuals - Political Candidates</i>
+          <i>Individuals - Romantic Matchmaking</i>
+          <i>Organizations, Groups - Assign your Membership Status</i>
+        </div>
+
+        <div className="pe-chips" aria-label="Digest filters">
+          {FILTER_COLUMNS.map((col, ci) => (
+            <div key={ci} className="pe-chip-col">
+              {col.map(([label, href]) => (
+                <a key={label} href={href} className="pe-chip"><span className="pe-chip-dot" aria-hidden="true" />{label}</a>
               ))}
             </div>
-            <div className="pe-digests">
-              {DIGESTS.map((d, i) => d === null ? <span key={i} className="pe-gap" /> : (
-                <a key={i} href={d[3]} className="pe-dig">
-                  {d[0] === "calendar" || d[0] === "connections" ? <img src={`/icons/${d[0]}.png`} alt="" width="20" height="20" /> : <Glyph name={d[0]} size={18} />}
-                  <span><b>{d[1]}</b>{d[2] && <span className="pe-dig-desc">{d[2]}</span>}</span>
-                </a>
-              ))}
-            </div>
-          </div>
+          ))}
+        </div>
+
+        <div className="pe-digests">
+          <a href="/calendar" className="pe-dig"><img src="/icons/calendar.png" alt="" width="20" height="20" /><span><b>One Big Calendar</b><span className="pe-dig-desc">Sell tickets, Assign your Attendance Status</span></span></a>
+          <a href="/employment" className="pe-dig"><Glyph name="idxBriefcase" size={18} /><span><b>Employment</b><span className="pe-dig-desc">Assign your Employment Application Status</span></span></a>
+          <a href="/discounts" className="pe-dig"><Glyph name="discount" size={18} /><span><b>Deals</b> <i className="pe-hint">Premier Listings only</i><span className="pe-dig-desc">Distribute certificates as discounts, gifts, incentives, raffle prizes, or rewards !</span></span></a>
+          <a href="/listings?type=Pay-It-Forward" className="pe-dig"><Glyph name="idxHeart" size={18} /><span><b>Pay-It-Forward</b> <i className="pe-hint">No-Cost Premier Listings</i><span className="pe-dig-desc">Donate, Volunteer - Be the reason someone smiles today !</span></span></a>
+          <a href="/notifications" className="pe-dig"><Glyph name="idxBell" size={18} /><span><b>Custom Notifications</b><span className="pe-dig-desc">Avoid costly newsletter email blast services<br />Assign your Frequency to Post / Receive Notifications by email and/or text</span></span></a>
         </div>
       </section>
     </AdPage>
