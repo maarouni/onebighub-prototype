@@ -12,9 +12,9 @@ import HubLogo from "../components/HubLogo";
 // filter grid (top-left first), then five digest descriptions.
 
 const FILTER_COLUMNS = [
-  [["Calendar (Default)", "/calendar"], ["Employment", "/employment"], ["Products", "/listings?type=Product"], ["Services", "/listings?type=Service"]],
-  [["Classifieds", "/listings?type=Classified"], ["Deals", "/discounts"], ["Forums", "/listings?type=Forum"], ["Hospitality", "/listings?type=Hospitality"], ["Investments", "/listings?type=Investment"]],
-  [["Memberships", "/listings?type=Membership"], ["Notifications", "/notifications"], ["Pay-It-Forward", "/listings?type=Pay-It-Forward"], ["Subscriptions", "/listings?type=Subscription"], ["Surveys", "/listings?type=Survey"]],
+  [["Calendar (Default)", "/calendar", "calendar"], ["Employment", "/employment", "idxBriefcase"], ["Products", "/listings?type=Product", "idxProduct"], ["Services", "/listings?type=Service", "idxService"]],
+  [["Classifieds", "/listings?type=Classified", "idxClassified"], ["Deals", "/discounts", "discount"], ["Forums", "/listings?type=Forum", "comments"], ["Hospitality", "/listings?type=Hospitality", "dinner"], ["Investments", "/listings?type=Investment", "idxDeal"]],
+  [["Memberships", "/listings?type=Membership", "idxMembership"], ["Notifications", "/notifications", "idxBell"], ["Pay-It-Forward", "/listings?type=Pay-It-Forward", "idxHeart"], ["Subscriptions", "/listings?type=Subscription", "idxSubscription"], ["Surveys", "/listings?type=Survey", "idxSurvey"]],
 ];
 
 export default function Achieve() {
@@ -88,8 +88,11 @@ export default function Achieve() {
         <div className="pe-chips" aria-label="Digest filters">
           {FILTER_COLUMNS.map((col, ci) => (
             <div key={ci} className="pe-chip-col">
-              {col.map(([label, href]) => (
-                <a key={label} href={href} className="pe-chip"><span className="pe-chip-dot" aria-hidden="true" />{label}</a>
+              {col.map(([label, href, icon]) => (
+                <a key={label} href={href} className="pe-chip">
+                  {icon === "calendar" ? <img src="/icons/calendar.png" alt="" width="18" height="18" /> : <Glyph name={icon} size={18} />}
+                  {label}
+                </a>
               ))}
             </div>
           ))}

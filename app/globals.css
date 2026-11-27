@@ -4660,3 +4660,4 @@ svg.glyph { color: #111 !important; }
 .pe-chip-col { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .pe-chip { font-size: 13px; }
 @media (max-width: 600px) { .pe-chips { grid-template-columns: minmax(0, 1fr); } }
+.pe-chip { gap: 6px; }
