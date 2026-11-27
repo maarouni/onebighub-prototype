@@ -45,12 +45,12 @@ export default function Achieve() {
       </section>
 
       <section className="ad-box pe-box">
-        <h2><Glyph name="idxIntro" size={34} /> Earn Money for Introductions</h2>
+        <h2><img src="/icons/cesar/network.png" alt="" width="34" height="34" /> Earn Money for Introductions</h2>
         <p><b className="cw-red"><i>Get Paid</i></b> <i>for 3-Way Introductions that convert to business and/or a beneficial connection</i></p>
       </section>
 
       <section className="ad-box pe-box">
-        <h2><Glyph name="moneyBag" size={34} /> Profit-Sharing <i className="pe-h2-sub">Win-Win-Win</i></h2>
+        <h2><img src="/icons/cesar/pie.png" alt="" width="34" height="34" /> Profit-Sharing <i className="pe-h2-sub">Win-Win-Win</i></h2>
         <p className="pe-bul"><span><b>(10%)</b> From advertising and sales fees with your Network of Connections <i>(3 levels)</i></span></p>
         <p className="pe-bul"><span>At end of year, revenue from introductions from unknown sources will be divided equally among all users.</span></p>
         <div className="pe-chain" aria-label="Profit share by level">
@@ -62,7 +62,7 @@ export default function Achieve() {
       </section>
 
       <section className="ad-box pe-box">
-        <h2><Glyph name="idxDeal" size={34} /> Do You Enjoy Paying Taxes?</h2>
+        <h2><img src="/icons/cesar/taxbulb.png" alt="" width="34" height="34" /> Do You Enjoy Paying Taxes?</h2>
         <p><b className="cw-red"><i>Keep more of what you earn.</i></b> Running your own business can change how your income is taxed. Ask a CPA which expenses apply to your situation.</p>
         <ul>
           <li>Sign up and create your business profile</li>

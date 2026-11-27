@@ -92,7 +92,7 @@ const PRODUCT_ROW3 = [
 const PROMO_MENU = [
   [
     { key: "system", label: "Performance-Based Marketing System", href: "/advertising", icon: "megaphone" },
-    { key: "calculate", label: "Calculate Advertising Cost", href: "/advertising/calculate", icon: "calculate" },
+    { key: "calculate", label: "Calculate Advertising Cost", href: "/advertising/calculate", icon: "/icons/cesar/calculator.png" },
   ],
   [
     { key: "rates", label: <><span className="pm-ink">Rates</span> <i className="pm-ink">Win-Win Opportunities</i></>, href: "/advertising/rates", icon: "dollarCircle" },
@@ -120,7 +120,7 @@ function PromoMenu({ on }) {
             <i className="pm-hint">{ci === 0 ? "Select one at a time" : "\u00a0"}</i>
             {col.map((it) => (
               <a key={it.key} href={it.href} className={`pm-item ${on === it.key ? "on" : ""}`} aria-current={on === it.key ? "page" : undefined}>
-                <span className="pm-o">{on === it.key ? "●" : "o"}</span><Glyph name={it.icon} size={24} /><span>{it.label}</span>
+                <span className="pm-o">{on === it.key ? "●" : "o"}</span>{it.icon.startsWith("/") ? <img src={it.icon} alt="" width="24" height="24" /> : <Glyph name={it.icon} size={24} />}<span>{it.label}</span>
               </a>
             ))}
           </div>
