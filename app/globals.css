@@ -4678,3 +4678,5 @@ svg.glyph { color: #111 !important; }
 .pe-chips { display: flex !important; flex-wrap: nowrap; gap: 10px !important; grid-template-columns: none !important; width: max-content; max-width: 100%; }
 .pe-chip-col { width: max-content; }
 @media (max-width: 600px) { .pe-chips { flex-direction: column; width: 100%; } }
+/* Figma: each filter item has a radio circle before its icon */
+.pe-chip input[type="radio"] { appearance: auto; margin: 0; width: 13px; height: 13px; accent-color: #000; flex: 0 0 auto; }

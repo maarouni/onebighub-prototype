@@ -89,10 +89,11 @@ export default function Achieve() {
           {FILTER_COLUMNS.map((col, ci) => (
             <div key={ci} className="pe-chip-col">
               {col.map(([label, href, icon]) => (
-                <a key={label} href={href} className="pe-chip">
+                <label key={label} className="pe-chip">
+                  <input type="radio" name="pe-digest" value={label} defaultChecked={label.startsWith("Calendar")} aria-label={label} />
                   {icon === "calendar" ? <img src="/icons/calendar.png" alt="" width="18" height="18" /> : <Glyph name={icon} size={18} />}
-                  {label}
-                </a>
+                  <a href={href}>{label}</a>
+                </label>
               ))}
             </div>
           ))}
