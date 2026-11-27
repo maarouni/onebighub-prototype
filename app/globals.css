@@ -4703,3 +4703,5 @@ section.pe-box:first-of-type .pe-note { font-size: 16px; }
 @media (max-width: 600px) { .pe-intro-row { grid-template-columns: 1fr; } .pe-intro-row > span:first-child:empty { display: none; } }
 /* Introduce section: Sign Up and Dashboards lines start under "No-Cost" (Figma) */
 .pe-intro-plain { margin: 0 0 6px; }
+/* Performance lines start under the F of "Full Transparency" (desktop) */
+section.pe-box:first-of-type .pe-indent { margin-left: 98px !important; }
