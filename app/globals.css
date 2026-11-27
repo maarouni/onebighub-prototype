@@ -4713,3 +4713,6 @@ section.pe-box:first-of-type .pe-note { font-size: 16px; }
 /* Introduce: first line under the I of "Introduce" (overrides the section paragraph margin) */
 section.pe-box .pe-intro-line { margin-left: 58px !important; }
 @media (max-width: 600px) { section.pe-box .pe-intro-line { margin-left: 44px !important; } }
+/* Introduce: Sign Up and Dashboards lines start under the N of "No-Cost" too */
+section.pe-box .pe-intro-plain { margin-left: 58px !important; }
+@media (max-width: 600px) { section.pe-box .pe-intro-plain { margin-left: 44px !important; } }
