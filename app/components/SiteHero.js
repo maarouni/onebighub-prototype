@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import IconNav, { MAIN_OF } from "./IconNav";
 import { FIND_TYPES } from "./ListingTypeBox";
 import HubLogo from "./HubLogo";
+import AchieveTop from "./AchieveTop";
 import { Glyph } from "./Icons";
 import { RATE_PAGES } from "../lib/adRates";
 
@@ -331,7 +332,8 @@ function rowsFor(section, action, path, query) {
       break;
     }
     case "promote":
-      rows.push(<PromoMenu key="pm" on={promoKey(section, action, path)} />);
+      // Nov 27 (Cesar, Figma): Achieve page top = views row, Filters grid, Profit-Sharing line
+      rows.push(path === "/advertising" ? <AchieveTop key="at" /> : <PromoMenu key="pm" on={promoKey(section, action, path)} />);
       line = null;
       break;
     default:
@@ -370,7 +372,8 @@ export default function SiteHero({
         <b className="hh-rk">Your One-Stop</b> <b className="hh-rb">Performance-Based</b> <b className="hh-rs">Marketing System</b>
       </p>
 
-      {tiles && <IconNav active={section} mode={mode} />}
+      {/* Nov 27 (Cesar, Figma): the Achieve page drops the Find / Connect / Achieve tiles */}
+      {tiles && path !== "/advertising" && <IconNav active={section} mode={mode} />}
 
       {tiles && rows}
 

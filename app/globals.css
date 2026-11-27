@@ -4727,3 +4727,10 @@ section.pe-box .pe-chip, section.pe-box .pe-connect, section.pe-box .pe-dig-desc
 /* Achieve: body lines in every box after the first start under the heading text (after the icon) */
 section.pe-box:not(:first-of-type) > :not(h2) { margin-left: 58px !important; }
 @media (max-width: 600px) { section.pe-box:not(:first-of-type) > :not(h2) { margin-left: 44px !important; } }
+
+/* Nov 27 (Cesar, Figma): Achieve top — views row above the Filters grid */
+.ach-views { display: flex; justify-content: space-between; gap: 8px; margin: 6px 0 8px; }
+.ach-view { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; color: var(--cg-blue); text-decoration: none; font-size: 15px; font-weight: 700; border: 1px solid var(--cg-box-line); border-radius: 12px; padding: 8px 10px; background: #fff; }
+.ach-view:hover span { text-decoration: underline; }
+.ach-view em { font-weight: 400; font-style: italic; }
+.ach-filters { margin-top: 4px; }

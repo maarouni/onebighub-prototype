@@ -11,11 +11,8 @@ import HubLogo from "../components/HubLogo";
 // My Marketplace follows Cesar's Nov 27 Figma: Connect block, then a three-column
 // filter grid (top-left first), then five digest descriptions.
 
-const FILTER_COLUMNS = [
-  [["Calendar (Default)", "/calendar", "calendar"], ["Employment", "/employment", "idxBriefcase"], ["Products", "/listings?type=Product", "idxProduct"], ["Services", "/listings?type=Service", "idxService"]],
-  [["Classifieds", "/listings?type=Classified", "idxClassified"], ["Deals", "/discounts", "discount"], ["Forums", "/listings?type=Forum", "comments"], ["Hospitality", "/listings?type=Hospitality", "dinner"], ["Investments", "/listings?type=Investment", "idxDeal"]],
-  [["Memberships", "/listings?type=Membership", "idxMembership"], ["Notifications", "/notifications", "idxBell"], ["Pay-It-Forward", "/listings?type=Pay-It-Forward", "idxHeart"], ["Subscriptions", "/listings?type=Subscription", "idxSubscription"], ["Surveys", "/listings?type=Survey", "idxSurvey"]],
-];
+// Filter grid lives in AchieveTop (also used at the top of this page).
+import { FILTER_COLUMNS } from "../components/AchieveTop";
 
 export default function Achieve() {
   const [taxOpen, setTaxOpen] = useState(false);
