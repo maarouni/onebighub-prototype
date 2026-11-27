@@ -42,7 +42,7 @@ export default function Achieve() {
 
       <section className="ad-box pe-box">
         <h2><img src="/icons/cesar/pie.png" alt="" width="34" height="34" /> Profit-Sharing <i className="pe-h2-sub">Win-Win-Win</i></h2>
-        <p className="pe-bul"><span><b>(10%)</b> From advertising and sales fees with your Network of Connections <i>(3 levels)</i></span></p>
+        <p className="pe-bul"><span><i>(10 %)</i> From advertising and sales fees with your Network of Connections <i>(3 levels)</i></span></p>
         <p className="pe-bul"><span>At end of year, revenue from introductions from unknown sources will be divided equally among all users.</span></p>
         <div className="pe-chain" aria-label="Profit share by level">
           <span className="pe-chain-node">Vendor</span><i />
