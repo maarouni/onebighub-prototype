@@ -4669,3 +4669,8 @@ svg.glyph { color: #111 !important; }
 .pe-connect { grid-template-columns: 190px 1fr; column-gap: 8px; }
 .pe-connect > span { min-width: 0; }
 @media (max-width: 600px) { .pe-connect { grid-template-columns: 1fr; } }
+/* Connect lines: one row each, label then descriptor, aligned */
+.pe-connect { display: block; }
+.pe-crow { display: flex; gap: 14px; }
+.pe-clabel { width: 200px; flex: 0 0 200px; }
+@media (max-width: 600px) { .pe-crow { flex-direction: column; gap: 0; } .pe-clabel { width: auto; flex: none; } }

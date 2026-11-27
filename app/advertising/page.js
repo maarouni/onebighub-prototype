@@ -79,10 +79,10 @@ export default function Achieve() {
 
         <div className="pe-connect">
           <a href="/connect" className="pe-dig-title"><b>Connect</b></a>
-          <span><i>Individuals, Businesses</i></span><span />
-          <span><i>Organizations, Groups</i></span><span><i>Assign your Membership Status</i></span>
-          <span><i>Individuals</i></span><span><i>Political Candidates</i></span>
-          <span><i>Individuals</i></span><span><i>Romantic Matchmaking</i></span>
+          <div className="pe-crow"><span className="pe-clabel"><i>Individuals, Businesses</i></span></div>
+          <div className="pe-crow"><span className="pe-clabel"><i>Organizations, Groups</i></span><span><i>Assign your Membership Status</i></span></div>
+          <div className="pe-crow"><span className="pe-clabel"><i>Individuals</i></span><span><i>Political Candidates</i></span></div>
+          <div className="pe-crow"><span className="pe-clabel"><i>Individuals</i></span><span><i>Romantic Matchmaking</i></span></div>
         </div>
 
         <div className="pe-chips" aria-label="Digest filters">
