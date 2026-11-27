@@ -4724,3 +4724,6 @@ section.pe-box .pe-chip, section.pe-box .pe-connect, section.pe-box .pe-dig-desc
   section.pe-box p, section.pe-box li, section.pe-box .pe-intro-plain, section.pe-box .pe-intro-line { font-size: 16px; }
   section.pe-box .pe-note { font-size: 14px; }
 }
+/* Achieve: body lines in every box after the first start under the heading text (after the icon) */
+section.pe-box:not(:first-of-type) > :not(h2) { margin-left: 58px !important; }
+@media (max-width: 600px) { section.pe-box:not(:first-of-type) > :not(h2) { margin-left: 44px !important; } }
