@@ -4661,3 +4661,7 @@ svg.glyph { color: #111 !important; }
 .pe-chip { font-size: 13px; }
 @media (max-width: 600px) { .pe-chips { grid-template-columns: minmax(0, 1fr); } }
 .pe-chip { gap: 6px; }
+/* Figma: three separate bordered boxes for the filter columns */
+.pe-chips { border: 0 !important; padding: 0 !important; gap: 8px !important; }
+.pe-chip-col { border: 1px solid #888; border-radius: 8px; padding: 8px 10px; }
+@media (max-width: 600px) { .pe-chips { grid-template-columns: minmax(0, 1fr) !important; } }
