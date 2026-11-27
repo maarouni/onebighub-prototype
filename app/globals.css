@@ -4691,3 +4691,7 @@ svg.glyph { color: #111 !important; }
 .pe-box > h2 { display: flex; align-items: center; gap: 14px; font-size: 30px; line-height: 1.2; }
 .pe-box > h2 > img, .pe-box > h2 > .glyph, .pe-box > h2 > svg { width: 44px !important; height: 44px !important; flex: 0 0 44px; }
 @media (max-width: 600px) { .pe-box > h2 { font-size: 24px; gap: 10px; } .pe-box > h2 > img, .pe-box > h2 > .glyph, .pe-box > h2 > svg { width: 34px !important; height: 34px !important; flex-basis: 34px; } }
+/* Performance-Based section body copy, as in Figma */
+section.pe-box:first-of-type p { font-size: 18px; line-height: 1.55; }
+section.pe-box:first-of-type .pe-note { font-size: 16px; }
+@media (max-width: 600px) { section.pe-box:first-of-type p { font-size: 16px; } section.pe-box:first-of-type .pe-note { font-size: 14px; } }
