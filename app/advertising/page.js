@@ -23,7 +23,7 @@ export default function Achieve() {
     <AdPage title={<>Achieve&nbsp;&nbsp;<i className="pb-sub">Marketing System</i></>}>
       <section className="ad-box pe-box">
         <h2><HubLogo size={34} /> Performance-Based Marketing System</h2>
-        <p><b className="cw-red"><i>SAVE $$$ !</i></b> <b>Full Transparency</b> <span className="cw-red">*</span> <a href="/advertising/calculate">Calculate and Manage your Advertising Cost</a> based on # times your listing may be displayed in users&rsquo; matching filters and pages:<br />
+        <p><b className="cw-red"><i>SAVE $$$ !</i></b> <b>Full Transparency</b> <span className="cw-red">*</span> Calculate and Manage your Advertising Cost based on # times your listing may be displayed in users&rsquo; matching filters and pages:<br />
           <b># views</b> or <b># clicks</b>, and <b># weeks</b></p>
         <p className="pe-note"><span className="cw-red">*</span> <i>This is <b>NOT</b> the typical, pay-and-pray shotgun, ineffective, push-marketing approaches</i></p>
       </section>
@@ -31,8 +31,8 @@ export default function Achieve() {
       <section className="ad-box pe-box">
         <h2><Glyph name="login" size={34} /> Introduce Others to onebig<span className="cw-red" style={{ display: "inline" }}>HUB</span></h2>
         <p><b className="cw-red"><i>No-Cost and Easy !</i></b> <b>With your QR Code and Custom Marketing Collateral</b></p>
-        <p><Glyph name="login" size={16} /> <a href="/registration/signup"><b>Sign Up Today</b></a> Create your profile(s), submit and edit your listings</p>
-        <p><Glyph name="dashboards" size={16} /> <a href="/dashboards">Manage Your Dashboards</a></p>
+        <p><span className="pe-ico"><Glyph name="login" size={16} /></span> <a href="/registration/signup"><b>Sign Up Today</b></a> Create your profile(s), submit and edit your listings</p>
+        <p><span className="pe-ico"><Glyph name="dashboards" size={16} /></span> <a href="/dashboards" className="pe-purple">Manage Your Dashboards</a></p>
       </section>
 
       <section className="ad-box pe-box">

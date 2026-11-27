@@ -4684,3 +4684,6 @@ svg.glyph { color: #111 !important; }
 .pe-chip { font-size: 16px !important; gap: 8px !important; }
 .pe-chip input[type="radio"] { width: 15px; height: 15px; }
 .pe-chip-col { padding: 12px 14px !important; min-width: 190px; gap: 9px !important; }
+/* Achieve Introduce section: purple dashboards link; icons share one column */
+.pe-purple { color: #6a2fb0; }
+.pe-ico { display: inline-block; width: 22px; text-align: left; vertical-align: middle; }
