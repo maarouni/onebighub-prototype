@@ -4649,3 +4649,5 @@ svg.glyph { color: #111 !important; }
 .pe-share { grid-template-columns: minmax(0, 1fr); }
 .pe-chips { display: flex; flex-direction: column; } .pe-chip { display: flex; width: 100%; }
 .pe-box h2 .cw-red { font-size: 1em !important; font-family: inherit !important; text-transform: none !important; }
+.pe-box h2 .cw-red { margin: 0; padding: 0; letter-spacing: 0; word-spacing: 0; }
+.pe-box h2 .cw-red { display: inline !important; }

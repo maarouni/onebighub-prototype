@@ -38,7 +38,7 @@ export default function Achieve() {
       </section>
 
       <section className="ad-box pe-box">
-        <h2><Glyph name="login" size={34} /> Introduce Others to onebig<span className="cw-red">HUB</span></h2>
+        <h2><Glyph name="login" size={34} /> Introduce Others to onebig<span className="cw-red" style={{ display: "inline" }}>HUB</span></h2>
         <p><b className="cw-red"><i>No-Cost and Easy !</i></b> <b>With your QR Code and Custom Marketing Collateral</b></p>
         <p><Glyph name="login" size={16} /> <a href="/registration/signup"><b>Sign Up Today</b></a> Create your profile(s), submit and edit your listings</p>
         <p><Glyph name="dashboards" size={16} /> <a href="/dashboards">Manage Your Dashboards</a></p>

@@ -120,7 +120,7 @@ function PromoMenu({ on }) {
             <i className="pm-hint">{ci === 0 ? "Select one at a time" : "\u00a0"}</i>
             {col.map((it) => (
               <a key={it.key} href={it.href} className={`pm-item ${on === it.key ? "on" : ""}`} aria-current={on === it.key ? "page" : undefined}>
-                <span className="pm-o">{on === it.key ? "●" : "o"}</span><Glyph name={it.icon} size={16} /><span>{it.label}</span>
+                <span className="pm-o">{on === it.key ? "●" : "o"}</span><Glyph name={it.icon} size={24} /><span>{it.label}</span>
               </a>
             ))}
           </div>
