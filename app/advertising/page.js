@@ -38,31 +38,49 @@ export default function Achieve() {
       </section>
 
       <section className="ad-box pe-box">
-        <h2><Glyph name="login" size={34} /> Invite / Refer Others to Sign Up</h2>
-        <p><b className="cw-red"><i>No-Cost and Easy !</i></b> <b>With your QR Code and Custom Marketing Collateral</b> — <a href="/connect-with-me">Connect with Me !</a></p>
-        <p><Glyph name="login" size={16} /> <a href="/registration/signup"><b>Sign Up Today</b></a> to create your account, submit and edit your listings</p>
+        <h2><Glyph name="login" size={34} /> Introduce Others to onebig<span className="cw-red">HUB</span></h2>
+        <p><b className="cw-red"><i>No-Cost and Easy !</i></b> <b>With your QR Code and Custom Marketing Collateral</b></p>
+        <p><Glyph name="login" size={16} /> <a href="/registration/signup"><b>Sign Up Today</b></a> Create your profile(s), submit and edit your listings</p>
         <p><Glyph name="dashboards" size={16} /> <a href="/dashboards">Manage Your Dashboards</a></p>
       </section>
 
       <section className="ad-box pe-box">
         <h2><Glyph name="idxIntro" size={34} /> Earn Money for Introductions</h2>
-        <p><b className="cw-red"><i>Get Paid</i></b> <i>for 3-Way Introductions that convert to business and/or a beneficial connection:</i></p>
-        <ul>
-          <li><b>Identify the Participants:</b> Connector (A - You), Participants - Vendor / Client (B, C)</li>
-          <li><b>Send Initial Message:</b> Connector (A) introduces Participants (B, C) to each other and submits notes and initial evaluation(s)</li>
-          <li>Participants (B, C) - <b>Submit their Referral Status</b></li>
-          <li>Participants (B, C) - <b>Complete the Transaction</b> and submit evaluation(s) of each other</li>
-        </ul>
-        <p><a href="/referrals">Start an Introduction →</a></p>
+        <p><b className="cw-red"><i>Get Paid</i></b> <i>for 3-Way Introductions that convert to business and/or a beneficial connection</i></p>
       </section>
 
       <section className="ad-box pe-box">
-        <h2><Glyph name="megaphone" size={34} /> Marketplace &amp; Profit-Sharing</h2>
+        <h2><Glyph name="moneyBag" size={34} /> Profit-Sharing <i className="pe-h2-sub">Win-Win-Win</i></h2>
+        <p className="pe-bul"><span><b>(10%)</b> From advertising and sales fees with your Network of Connections <i>(3 levels)</i></span></p>
+        <p className="pe-bul"><span>At end of year, revenue from introductions from unknown sources will be divided equally among all users.</span></p>
+        <div className="pe-chain" aria-label="Profit share by level">
+          <span className="pe-chain-node">Vendor</span><i />
+          <span className="pe-chain-node">5 % <small>Level 1</small></span><i />
+          <span className="pe-chain-node">3 % <small>Level 2</small></span><i />
+          <span className="pe-chain-node">2 % <small>Level 3</small></span>
+        </div>
+      </section>
+
+      <section className="ad-box pe-box">
+        <h2><Glyph name="idxDeal" size={34} /> Do You Enjoy Paying Taxes?</h2>
+        <p><b className="cw-red"><i>Keep more of what you earn.</i></b> Running your own business can change how your income is taxed. Ask a CPA which expenses apply to your situation.</p>
+        <ul>
+          <li>Sign up and create your business profile</li>
+          <li>Track your business expenses as you go</li>
+          <li>Learn more with a CPA or tax professional before you file</li>
+        </ul>
+      </section>
+
+      <section className="ad-box pe-box">
+        <h2><Glyph name="megaphone" size={34} /> My Marketplace</h2>
         <div className="pe-share">
           <div>
-            <p><b className="cw-red"><i>Win-Win-Win !</i></b></p>
-            <p className="pe-bul"><Glyph name="moneyBag" size={20} /><span><b>Profit-Sharing</b> <i>(10%)</i><br />from advertising and sales fees with your network of introductions <i>(3 levels)</i></span></p>
             <p className="pe-bul"><Glyph name="idxTarget" size={20} /><span><b>My Digests</b> <i>(Private)</i><br />Select filters to <b>curate</b> <i>(organize, submit, view)</i> your custom tables of <b className="cw-red">No-Cost</b> and <b>Premier</b> listings in the <a href="/calendar">Find Section</a>:</span></p>
+            <div className="pe-chips" aria-label="Digest filters">
+              {["Calendar (Default)", "Employment", "Products", "Services", "Classifieds", "Deals", "Forums", "Hospitality", "Investments", "Memberships", "Notifications", "Pay-It-Forward", "Subscriptions", "Surveys"].map((c) => (
+                <span key={c} className="pe-chip"><span className="pe-chip-dot" aria-hidden="true" />{c}</span>
+              ))}
+            </div>
             <div className="pe-digests">
               {DIGESTS.map((d, i) => d === null ? <span key={i} className="pe-gap" /> : (
                 <a key={i} href={d[3]} className="pe-dig">
@@ -71,12 +89,6 @@ export default function Achieve() {
                 </a>
               ))}
             </div>
-          </div>
-          <div className="pe-levels" aria-label="Profit share by level">
-            <span>2 %<br /><small>Level 3</small></span><i />
-            <span>3 %<br /><small>Level 2</small></span><i />
-            <span>5 %<br /><small>Level 1</small></span><i />
-            <b>Vendor</b>
           </div>
         </div>
       </section>
