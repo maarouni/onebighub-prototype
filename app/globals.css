@@ -4698,3 +4698,6 @@ section.pe-box:first-of-type .pe-note { font-size: 16px; }
 /* Performance-Based body: the two lines after SAVE stack in one indented block (Figma) */
 .pe-indent { display: block; padding-left: 120px; }
 @media (max-width: 600px) { .pe-indent { padding-left: 0; } }
+/* Introduce section: icons sit under the W of "With your QR Code..." (Figma) */
+.pe-intro-row { display: grid; grid-template-columns: 117px 1fr; margin: 0 0 6px; }
+@media (max-width: 600px) { .pe-intro-row { grid-template-columns: 1fr; } .pe-intro-row > span:first-child:empty { display: none; } }

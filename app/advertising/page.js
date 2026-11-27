@@ -31,9 +31,9 @@ export default function Achieve() {
 
       <section className="ad-box pe-box">
         <h2><Glyph name="login" size={34} /> Introduce Others to onebig<span className="cw-red" style={{ display: "inline" }}>HUB</span></h2>
-        <p><b className="cw-red"><i>No-Cost and Easy !</i></b> <b>With your QR Code and Custom Marketing Collateral</b></p>
-        <p><span className="pe-ico"><Glyph name="login" size={16} /></span> <a href="/registration/signup"><b>Sign Up Today</b></a> Create your profile(s), submit and edit your listings</p>
-        <p><span className="pe-ico"><Glyph name="dashboards" size={16} /></span> <a href="/dashboards" className="pe-purple">Manage Your Dashboards</a></p>
+        <div className="pe-intro-row"><span><b className="cw-red"><i>No-Cost and Easy !</i></b></span><span><b>With your QR Code and Custom Marketing Collateral</b></span></div>
+        <div className="pe-intro-row"><span /><span><Glyph name="login" size={16} /> <a href="/registration/signup"><b>Sign Up Today</b></a> Create your profile(s), submit and edit your listings</span></div>
+        <div className="pe-intro-row"><span /><span><Glyph name="dashboards" size={16} /> <a href="/dashboards" className="pe-purple">Manage Your Dashboards</a></span></div>
       </section>
 
       <section className="ad-box pe-box">
