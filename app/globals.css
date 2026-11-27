@@ -4703,5 +4703,10 @@ section.pe-box:first-of-type .pe-note { font-size: 16px; }
 @media (max-width: 600px) { .pe-intro-row { grid-template-columns: 1fr; } .pe-intro-row > span:first-child:empty { display: none; } }
 /* Introduce section: Sign Up and Dashboards lines start under "No-Cost" (Figma) */
 .pe-intro-plain { margin: 0 0 6px; }
-/* Performance lines start under the F of "Full Transparency" (desktop) */
-section.pe-box:first-of-type .pe-indent { margin-left: 98px !important; }
+/* Performance: SAVE in one column, the text column starts at "Full" and the two lines stack under it */
+.pe-perf { display: grid; grid-template-columns: max-content 1fr; column-gap: 0.3em; font-size: 18px; line-height: 1.55; }
+.pe-perf .pe-indent { display: block; margin-left: 0 !important; padding-left: 0 !important; }
+@media (max-width: 600px) { .pe-perf { font-size: 16px; } }
+/* Introduce: first line starts under the I of "Introduce" (after the icon) */
+.pe-intro-line { margin: 0 0 6px 58px; }
+@media (max-width: 600px) { .pe-intro-line { margin-left: 44px; } }
