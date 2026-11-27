@@ -4674,3 +4674,7 @@ svg.glyph { color: #111 !important; }
 .pe-crow { display: flex; gap: 14px; }
 .pe-clabel { width: 200px; flex: 0 0 200px; }
 @media (max-width: 600px) { .pe-crow { flex-direction: column; gap: 0; } .pe-clabel { width: auto; flex: none; } }
+/* Figma: the three filter boxes sit side by side at their content width */
+.pe-chips { display: flex !important; flex-wrap: nowrap; gap: 10px !important; grid-template-columns: none !important; width: max-content; max-width: 100%; }
+.pe-chip-col { width: max-content; }
+@media (max-width: 600px) { .pe-chips { flex-direction: column; width: 100%; } }
