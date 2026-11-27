@@ -54,18 +54,22 @@ export default function Achieve() {
 
       <section className="ad-box pe-box">
         <h2><img src="/icons/cesar/taxbulb.png" alt="" width="34" height="34" /> Do You Enjoy Paying Taxes?</h2>
-        <button type="button" className="pe-more" aria-expanded={taxOpen} onClick={() => setTaxOpen((v) => !v)}>
-          {taxOpen ? "Hide" : "Learn more"} {taxOpen ? "▲" : "▼"}
-        </button>
+        <p><b className="cw-red"><i>KEEP MORE of your Hard-Earned $$$ !</i></b> <b>Tax Benefits of Creating Your Business</b></p>
+        <ul>
+          <li><b>Check your paystub !</b> Business owners and employees are taxed differently. Ask a CPA how the rules apply to you.</li>
+        </ul>
+        <p><b>Quick and Simple !</b></p>
+        <ol>
+          <li><b>Sign Up</b> — Your profile is <b>YOUR NEW BUSINESS</b></li>
+          <li><b>Pay Fewer Taxes</b> — Track your expenses; many are tax deductions</li>
+          <li>
+            <button type="button" className="pe-more" aria-expanded={taxOpen} onClick={() => setTaxOpen((v) => !v)}>
+              <b>Learn more</b> {taxOpen ? "▲" : "▼"}
+            </button>
+          </li>
+        </ol>
         {taxOpen && (
-          <>
-            <p><b className="cw-red"><i>Keep more of what you earn.</i></b> Running your own business can change how your income is taxed. Ask a CPA which expenses apply to your situation.</p>
-            <ul>
-              <li>Sign up and create your business profile</li>
-              <li>Track your business expenses as you go</li>
-              <li>Learn more with a CPA or tax professional before you file</li>
-            </ul>
-          </>
+          <p><i>Confirm which expenses apply to your situation with a CPA or tax professional before you file.</i></p>
         )}
       </section>
 
