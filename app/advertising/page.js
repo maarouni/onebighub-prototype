@@ -77,8 +77,13 @@ export default function Achieve() {
           <div>
             <p className="pe-bul"><Glyph name="idxTarget" size={20} /><span><b>My Digests</b> <i>(Private)</i><br />Select filters to <b>curate</b> <i>(organize, submit, view)</i> your custom tables of <b className="cw-red">No-Cost</b> and <b>Premier</b> listings in the <a href="/calendar">Find Section</a>:</span></p>
             <div className="pe-chips" aria-label="Digest filters">
-              {["Calendar (Default)", "Employment", "Products", "Services", "Classifieds", "Deals", "Forums", "Hospitality", "Investments", "Memberships", "Notifications", "Pay-It-Forward", "Subscriptions", "Surveys"].map((c) => (
-                <span key={c} className="pe-chip"><span className="pe-chip-dot" aria-hidden="true" />{c}</span>
+              {[
+                ["Calendar (Default)", "/calendar"], ["Employment", "/employment"], ["Products", "/listings?type=Product"], ["Services", "/listings?type=Service"],
+                ["Classifieds", "/listings?type=Classified"], ["Deals", "/discounts"], ["Forums", "/listings?type=Forum"], ["Hospitality", "/listings?type=Hospitality"],
+                ["Investments", "/listings?type=Investment"], ["Memberships", "/listings?type=Membership"], ["Notifications", "/notifications"], ["Pay-It-Forward", "/listings?type=Pay-It-Forward"],
+                ["Subscriptions", "/listings?type=Subscription"], ["Surveys", "/listings?type=Survey"],
+              ].map(([c, href]) => (
+                <a key={c} href={href} className="pe-chip"><span className="pe-chip-dot" aria-hidden="true" />{c}</a>
               ))}
             </div>
             <div className="pe-digests">
