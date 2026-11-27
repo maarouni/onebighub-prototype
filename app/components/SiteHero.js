@@ -95,8 +95,8 @@ const PROMO_MENU = [
     { key: "calculate", label: "Calculate Advertising Cost", href: "/advertising/calculate", icon: "calculate" },
   ],
   [
-    { key: "rates", label: <>Rates <i>Win-Win Opportunities</i></>, href: "/advertising/rates", icon: "dollarCircle" },
-    { key: "events", label: <>Participate in onebig<span className="cw-red">HUB</span> Events</>, href: "/advertising/participation", icon: "idxSparkle" },
+    { key: "rates", label: <><span className="pm-ink">Rates</span> <i className="pm-ink">Win-Win Opportunities</i></>, href: "/advertising/rates", icon: "dollarCircle" },
+    { key: "events", label: <><span>Participate in</span> <span className="pm-ink">onebig<span className="cw-red">HUB</span> Events</span></>, href: "/advertising/participation", icon: "idxSparkle" },
     { key: "private", label: "Your Private-Labeled Main Header", href: "/advertising/private-label", icon: "editMode" },
   ],
 ];
