@@ -23,8 +23,9 @@ export default function Achieve() {
     <AdPage title={<>Achieve&nbsp;&nbsp;<i className="pb-sub">Marketing System</i></>}>
       <section className="ad-box pe-box">
         <h2><HubLogo size={34} /> Performance-Based Marketing System</h2>
-        <p><b className="cw-red"><i>SAVE $$$ !</i></b> <b>Full Transparency</b> <span className="cw-red">*</span> Calculate and Manage your Advertising Cost based on # times your listing may be displayed in users&rsquo; matching filters and pages:<br />
-          <b># views</b> or <b># clicks</b>, and <b># weeks</b></p>
+        <p><b className="cw-red"><i>SAVE $$$ !</i></b> <b>Full Transparency</b> <span className="cw-red">*</span> Calculate and Manage your Advertising Cost based on
+          <span className="pe-indent"># times your listing may be displayed in users&rsquo; matching filters and pages:<br />
+          <b># views</b> or <b># clicks</b>, and <b># weeks</b></span></p>
         <p className="pe-note"><span className="cw-red">*</span> <i>This is <b>NOT</b> the typical, pay-and-pray shotgun, ineffective, push-marketing approaches</i></p>
       </section>
 

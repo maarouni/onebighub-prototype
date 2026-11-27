@@ -4695,3 +4695,6 @@ svg.glyph { color: #111 !important; }
 section.pe-box:first-of-type p { font-size: 18px; line-height: 1.55; }
 section.pe-box:first-of-type .pe-note { font-size: 16px; }
 @media (max-width: 600px) { section.pe-box:first-of-type p { font-size: 16px; } section.pe-box:first-of-type .pe-note { font-size: 14px; } }
+/* Performance-Based body: the two lines after SAVE stack in one indented block (Figma) */
+.pe-indent { display: block; padding-left: 120px; }
+@media (max-width: 600px) { .pe-indent { padding-left: 0; } }
