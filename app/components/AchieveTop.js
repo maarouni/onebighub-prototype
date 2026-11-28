@@ -39,7 +39,7 @@ export function AchieveFilters() {
       {FILTER_COLUMNS.map((col, ci) => (
         <div key={ci} className="pe-chip-col">
           {col.map(([label, href, icon]) => (
-            <label key={label} className="pe-chip">
+            <label key={label} className={`pe-chip ${label === "Memberships" ? "ach-red" : ""}`}>
               <input type="radio" name="ach-filter" value={label} defaultChecked={label.startsWith("Calendar")} aria-label={label} />
               {icon === "calendar" ? <img src="/icons/calendar.png" alt="" width="18" height="18" /> : <Glyph name={icon} size={18} />}
               <a href={href}>{label}</a>

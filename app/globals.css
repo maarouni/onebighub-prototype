@@ -4745,3 +4745,5 @@ section.pe-box:not(:first-of-type) > :not(h2) { margin-left: 58px !important; }
 .ach-filter-box .pe-chip, .ach-filter-box .pe-chip a { font-size: 18px; line-height: 1.5; }
 .ach-filter-box .pe-chip-col { gap: 2px; }
 .pm-intro { font-size: 18px; line-height: 1.55; padding: 8px 12px; }
+/* Nov 27 (Cesar, Figma): Memberships shows in the dark red of the Figma Achieve top */
+.ach-filter-box .pe-chip.ach-red a { color: var(--cg-red); font-weight: 700; }
