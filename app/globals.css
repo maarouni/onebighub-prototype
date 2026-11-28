@@ -4734,3 +4734,14 @@ section.pe-box:not(:first-of-type) > :not(h2) { margin-left: 58px !important; }
 .ach-view:hover span { text-decoration: underline; }
 .ach-view em { font-weight: 400; font-style: italic; }
 .ach-filters { margin-top: 4px; }
+
+/* Nov 27 (Cesar, Figma): Filters header is a yellow bar, "Select one" in italics */
+.ach-filter-box { background: #fff; border: 1px solid var(--cg-box-line); border-radius: 12px; overflow: hidden; }
+.ach-filter-box .fp-box-head { background: var(--cg-yellow); border-bottom: 1px solid var(--cg-yellow-line); padding: 8px 14px; }
+.ach-filter-box .fp-box-title b { font-size: 22px; color: #3a3a3a; }
+.ach-filter-box .fp-box-title em { font-size: 18px; font-weight: 400; color: #3a3a3a; }
+.ach-filter-box .pe-chips { padding: 8px 12px 12px; background: #fff; }
+/* Nov 27 (Cesar, Figma): body text 18px in the Achieve top, like the boxes below */
+.ach-filter-box .pe-chip, .ach-filter-box .pe-chip a { font-size: 18px; line-height: 1.5; }
+.ach-filter-box .pe-chip-col { gap: 2px; }
+.pm-intro { font-size: 18px; line-height: 1.55; padding: 8px 12px; }

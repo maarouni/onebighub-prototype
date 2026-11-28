@@ -1,6 +1,7 @@
 "use client";
 
 import { Glyph } from "./Icons";
+import { Box } from "./FilterKit";
 
 // Achieve top (Cesar's Figma, Nov 27): the One Big Table / My Custom Digest /
 // EDIT My Listings row, then the Filters grid, then the Profit-Sharing line.
@@ -33,6 +34,7 @@ export function AchieveViews() {
 
 export function AchieveFilters() {
   return (
+    <Box title="Filters" hint="Select one" className="ach-filter-box">
     <div className="pe-chips ach-filters" aria-label="Filters">
       {FILTER_COLUMNS.map((col, ci) => (
         <div key={ci} className="pe-chip-col">
@@ -46,6 +48,7 @@ export function AchieveFilters() {
         </div>
       ))}
     </div>
+    </Box>
   );
 }
 
