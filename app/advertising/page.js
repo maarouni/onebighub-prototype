@@ -11,8 +11,6 @@ import HubLogo from "../components/HubLogo";
 // My Marketplace follows Cesar's Nov 27 Figma: Connect block, then a three-column
 // filter grid (top-left first), then five digest descriptions.
 
-// Filter grid lives in AchieveTop (also used at the top of this page).
-import { FILTER_COLUMNS } from "../components/AchieveTop";
 
 export default function Achieve() {
   const [taxOpen, setTaxOpen] = useState(false);
@@ -86,20 +84,6 @@ export default function Achieve() {
           <div className="pe-crow"><span className="pe-clabel"><i>Organizations, Groups</i></span><span><i>Assign your Membership Status</i></span></div>
           <div className="pe-crow"><span className="pe-clabel"><i>Individuals</i></span><span><i>Political Candidates</i></span></div>
           <div className="pe-crow"><span className="pe-clabel"><i>Individuals</i></span><span><i>Romantic Matchmaking</i></span></div>
-        </div>
-
-        <div className="pe-chips" aria-label="Digest filters">
-          {FILTER_COLUMNS.map((col, ci) => (
-            <div key={ci} className="pe-chip-col">
-              {col.map(([label, href, icon]) => (
-                <label key={label} className="pe-chip">
-                  <input type="radio" name="pe-digest" value={label} defaultChecked={label.startsWith("Calendar")} aria-label={label} />
-                  {icon === "calendar" ? <img src="/icons/calendar.png" alt="" width="18" height="18" /> : <Glyph name={icon} size={18} />}
-                  <a href={href}>{label}</a>
-                </label>
-              ))}
-            </div>
-          ))}
         </div>
 
         <div className="pe-digests">
